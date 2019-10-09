@@ -49,6 +49,7 @@ public class etapasDeProduccion extends javax.swing.JFrame {
         btnReporte = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         estado_lst = new javax.swing.JComboBox<>();
+        ultimo_cbx = new javax.swing.JCheckBox();
 
         jTextField1.setText("jTextField1");
 
@@ -85,23 +86,31 @@ public class etapasDeProduccion extends javax.swing.JFrame {
 
         grillaBanco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Código", "Nombre", "Estado"
+                "Código", "Nombre", "Estado", "Ultimo"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        grillaBanco.getTableHeader().setReorderingAllowed(false);
         grillaBanco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 grillaBancoMouseClicked(evt);
@@ -112,6 +121,7 @@ public class etapasDeProduccion extends javax.swing.JFrame {
             grillaBanco.getColumnModel().getColumn(0).setPreferredWidth(30);
             grillaBanco.getColumnModel().getColumn(1).setPreferredWidth(250);
             grillaBanco.getColumnModel().getColumn(2).setPreferredWidth(50);
+            grillaBanco.getColumnModel().getColumn(3).setPreferredWidth(30);
         }
 
         jLabel3.setText("Código");
@@ -169,6 +179,8 @@ public class etapasDeProduccion extends javax.swing.JFrame {
 
         estado_lst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVO", "BAJA" }));
 
+        ultimo_cbx.setText("Último");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,7 +213,10 @@ public class etapasDeProduccion extends javax.swing.JFrame {
                                             .addGap(38, 38, 38)))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(estado_lst, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(estado_lst, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(ultimo_cbx)))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAgregar)
@@ -234,8 +249,9 @@ public class etapasDeProduccion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(estado_lst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                    .addComponent(estado_lst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ultimo_cbx))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
@@ -354,6 +370,7 @@ public class etapasDeProduccion extends javax.swing.JFrame {
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         int respuesta = 5;
+        String update = "";
         duplicado = Metodos.evitarDuplicado("etapas_produccion", "eta_desc", txtNombre.getText().trim(), "cod_etapas", txtCodigo.getText());
         if (duplicado && (!operacion.equals("borrar"))) {
             JOptionPane.showMessageDialog(null, "Este registro ya esta en la base de datos");
@@ -364,15 +381,25 @@ public class etapasDeProduccion extends javax.swing.JFrame {
         if (respuesta == 0) {
             String sql = "";
             if (operacion.equals("agregar")) {
-                sql = "Insert into etapas_produccion (eta_desc, estado) "
-                        + "values ('" + txtNombre.getText().toUpperCase().trim() + "', 'ACTIVO')";
+                if(ultimo_cbx.isSelected()){
+                    update = "UPDATE etapas_produccion set orden_etapas = '' ";
+                    
+                }
+                sql = "Insert into etapas_produccion (eta_desc, estado, orden_etapas) "
+                        + "values ('" + txtNombre.getText().toUpperCase().trim() + "', 'ACTIVO', '"+
+                        ((ultimo_cbx.isSelected()) ?  "ULTIMO" : "")+"')";
             }
 
             if (operacion.equals("modificar")) {
+                if(ultimo_cbx.isSelected()){
+                    update = "UPDATE etapas_produccion set orden_etapas = '' ";
+                    
+                }
                 sql = "update etapas_produccion set"
                         + " eta_desc = '" + txtNombre.getText().toUpperCase().trim() + "', "
-                        + "estado = '" + estado_lst.getSelectedItem().toString() + "' "
-                        + " where cod_etapas = " + txtCodigo.getText() + ";";
+                        + "estado = '" + estado_lst.getSelectedItem().toString() + "', "
+                        + "orden_etapas= '"+((ultimo_cbx.isSelected()) ? "ULTIMO" : "")
+                        + "' where cod_etapas = " + txtCodigo.getText() + ";";
             }
 
             if (operacion.equals("borrar")) {
@@ -383,6 +410,9 @@ public class etapasDeProduccion extends javax.swing.JFrame {
             try {
                 cn.conectar();
                 System.out.println(sql);
+                if(ultimo_cbx.isSelected()){
+                    cn.actualizar(update);
+                }
                 cn.actualizar(sql);
                 JOptionPane.showMessageDialog(null, mensaje);
                 btnCancelar.doClick();
@@ -422,6 +452,7 @@ public class etapasDeProduccion extends javax.swing.JFrame {
         String cod = grillaBanco.getValueAt(fila, 0).toString();
         String nombre = grillaBanco.getValueAt(fila, 1).toString();
         String estado = grillaBanco.getValueAt(fila, 2).toString();
+        boolean ultimo = Boolean.parseBoolean(grillaBanco.getValueAt(fila, 3).toString());
 
 //      
 
@@ -429,6 +460,7 @@ public class etapasDeProduccion extends javax.swing.JFrame {
             txtCodigo.setText(cod);
             txtNombre.setText(nombre);
             estado_lst.setSelectedItem(estado);
+            ultimo_cbx.setSelected(ultimo);
 
         }
 
@@ -471,7 +503,9 @@ public class etapasDeProduccion extends javax.swing.JFrame {
             Metodos.limpiarTabla(grillaBanco);
             if (etapas.isBeforeFirst()) {
                 while (etapas.next()) {
-                    Metodos.cargarTabla(grillaBanco, new Object[]{etapas.getString("cod_etapas"), etapas.getString("eta_desc"), etapas.getString("estado")});
+                    Metodos.cargarTabla(grillaBanco, new Object[]{etapas.getString("cod_etapas"), etapas.getString("eta_desc"), etapas.getString("estado"),
+                        (etapas.getString("orden_etapas") == null) ? false :
+                                (etapas.getString("orden_etapas").contains("ULTIMO")?  true : false )});
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
@@ -533,5 +567,6 @@ public class etapasDeProduccion extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscador;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JCheckBox ultimo_cbx;
     // End of variables declaration//GEN-END:variables
 }

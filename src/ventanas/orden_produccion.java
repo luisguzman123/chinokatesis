@@ -5,6 +5,7 @@
 package ventanas;
 
 import Acceso.Menu;
+import clases.Conexion;
 import clases.Metodos;
 import com.toedter.calendar.JCalendar;
 import java.awt.event.KeyEvent;
@@ -32,6 +33,9 @@ import net.sf.jasperreports.view.JasperViewer;
 public class orden_produccion extends javax.swing.JFrame {
 
     public static int Bban;
+    public static String operacion;
+    public static String confirmar;
+    public static String mensaje;
 
 //conexion conexion =new conexion();
     javax.swing.table.DefaultTableModel matriz;
@@ -62,6 +66,8 @@ public class orden_produccion extends javax.swing.JFrame {
         Metodos.agregarClicDerechoATabla(grilla);
         Metodos.agregarClicDerechoATabla(grilla1);
         Metodos.agregarClicDerechoATabla(grilla2);
+        cargarListaEstado();
+        cargarListaDeposito();
     }
 
     /**
@@ -93,20 +99,22 @@ public class orden_produccion extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        nroorden = new javax.swing.JTextField();
+        nro_presupuesto_txt = new javax.swing.JTextField();
         fecha_dt = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
+        deposito_lst = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         grilla = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        nuevo_btn = new javax.swing.JButton();
         BAnular = new javax.swing.JButton();
         Bgrabar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        cancelar_btn = new javax.swing.JButton();
+        salir_btn = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
@@ -125,12 +133,10 @@ public class orden_produccion extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        etapa_txt = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         grilla2 = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
         cod_equipo_txt = new javax.swing.JTextField();
-        cod_etapa = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -139,6 +145,7 @@ public class orden_produccion extends javax.swing.JFrame {
         inicio_dt = new com.toedter.calendar.JDateChooser();
         final_dt = new com.toedter.calendar.JDateChooser();
         agregar_equipo_btn = new javax.swing.JButton();
+        etapa_lst = new javax.swing.JComboBox<>();
 
         eliminar.setText("Eliminar");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -289,24 +296,30 @@ public class orden_produccion extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setText("Nro. Presu");
 
-        nroorden.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        nroorden.setEnabled(false);
-        nroorden.addActionListener(new java.awt.event.ActionListener() {
+        nro_presupuesto_txt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        nro_presupuesto_txt.setEnabled(false);
+        nro_presupuesto_txt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nroordenActionPerformed(evt);
+                nro_presupuesto_txtActionPerformed(evt);
             }
         });
-        nroorden.addKeyListener(new java.awt.event.KeyAdapter() {
+        nro_presupuesto_txt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nroordenKeyPressed(evt);
+                nro_presupuesto_txtKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                nroordenKeyTyped(evt);
+                nro_presupuesto_txtKeyTyped(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         jLabel4.setText("Buscar (F2)");
+
+        deposito_lst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel5.setText("Deposito");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -320,7 +333,7 @@ public class orden_produccion extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nroorden))
+                                .addComponent(nro_presupuesto_txt))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -329,8 +342,15 @@ public class orden_produccion extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addGap(27, 27, 27)
                                 .addComponent(fecha_dt, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(98, 98, 98)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deposito_lst, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -344,11 +364,14 @@ public class orden_produccion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(fecha_dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fecha_dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(deposito_lst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nroorden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nro_presupuesto_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4))
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -397,16 +420,14 @@ public class orden_produccion extends javax.swing.JFrame {
         jLabel14.setText("Sucursal:");
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("nuevo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        nuevo_btn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        nuevo_btn.setText("nuevo");
+        nuevo_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                nuevo_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, -1, -1));
 
         BAnular.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         BAnular.setText("anular");
@@ -415,7 +436,6 @@ public class orden_produccion extends javax.swing.JFrame {
                 BAnularActionPerformed(evt);
             }
         });
-        jPanel1.add(BAnular, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, -1));
 
         Bgrabar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         Bgrabar.setText("grabar");
@@ -425,26 +445,48 @@ public class orden_produccion extends javax.swing.JFrame {
                 BgrabarActionPerformed(evt);
             }
         });
-        jPanel1.add(Bgrabar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, -1, -1));
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setText("cancelar");
-        jButton4.setEnabled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        cancelar_btn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cancelar_btn.setText("cancelar");
+        cancelar_btn.setEnabled(false);
+        cancelar_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                cancelar_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, -1, -1));
 
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton6.setText("salir");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        salir_btn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        salir_btn.setText("salir");
+        salir_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                salir_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 67, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(nuevo_btn)
+                .addGap(3, 3, 3)
+                .addComponent(BAnular)
+                .addGap(11, 11, 11)
+                .addComponent(Bgrabar)
+                .addGap(9, 9, 9)
+                .addComponent(cancelar_btn)
+                .addGap(9, 9, 9)
+                .addComponent(salir_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(nuevo_btn)
+            .addComponent(BAnular)
+            .addComponent(Bgrabar)
+            .addComponent(cancelar_btn)
+            .addComponent(salir_btn)
+        );
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 102, 102));
@@ -513,7 +555,7 @@ public class orden_produccion extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
                 .addComponent(jLabel15)
                 .addGap(18, 18, 18)
                 .addComponent(codprodu1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -521,8 +563,8 @@ public class orden_produccion extends javax.swing.JFrame {
                 .addComponent(jLabel16)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(desprod1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                    .addComponent(desprod1))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -581,6 +623,11 @@ public class orden_produccion extends javax.swing.JFrame {
 
         cod_personal_txt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         cod_personal_txt.setEnabled(false);
+        cod_personal_txt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cod_personal_txtKeyPressed(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel20.setText("Fecha de inicio");
@@ -590,9 +637,6 @@ public class orden_produccion extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("Etapa");
-
-        etapa_txt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        etapa_txt.setEnabled(false);
 
         grilla2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         grilla2.setModel(new javax.swing.table.DefaultTableModel(
@@ -624,9 +668,6 @@ public class orden_produccion extends javax.swing.JFrame {
         cod_equipo_txt.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         cod_equipo_txt.setEnabled(false);
 
-        cod_etapa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        cod_etapa.setEnabled(false);
-
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         usuario.setText("usuario");
@@ -638,146 +679,147 @@ public class orden_produccion extends javax.swing.JFrame {
         final_dt.setDateFormatString("dd/MM/yyyy");
 
         agregar_equipo_btn.setText("Agregar");
+        agregar_equipo_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregar_equipo_btnActionPerformed(evt);
+            }
+        });
+
+        etapa_lst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(344, 344, 344)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel8)
+                .addGap(69, 69, 69)
+                .addComponent(jLabel14)
+                .addGap(18, 18, 18)
+                .addComponent(sucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel23)
+                        .addGap(10, 10, 10)
+                        .addComponent(cod_equipo_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(4, 4, 4)
+                        .addComponent(inicio_dt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(final_dt, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel22))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel23)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cod_equipo_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cod_personal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel22)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cod_etapa, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(etapa_txt)
-                                    .addComponent(nombre_personal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(agregar_equipo_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(inicio_dt, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(final_dt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(344, 344, 344)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel13)
+                                .addComponent(etapa_lst, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(agregar_equipo_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(18, 18, 18)
-                                .addComponent(sucursal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(31, 31, 31)
-                    .addComponent(jLabel8)
-                    .addContainerGap(992, Short.MAX_VALUE)))
+                                .addComponent(cod_personal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(nombre_personal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addComponent(usuario))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(sucursal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel23)
-                                    .addComponent(cod_equipo_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel21)
-                                        .addComponent(jLabel20))
-                                    .addComponent(inicio_dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(final_dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(nombre_personal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19)
-                                    .addComponent(cod_personal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel22)
-                                    .addComponent(etapa_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cod_etapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(agregar_equipo_btn))
-                                .addGap(25, 25, 25)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(3, 3, 3)
+                        .addComponent(usuario)))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(sucursal)))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(6, 6, 6)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(11, 11, 11)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(32, 32, 32)
-                    .addComponent(jLabel8)
-                    .addContainerGap(628, Short.MAX_VALUE)))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 564, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel23))
+                            .addComponent(cod_equipo_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inicio_dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(final_dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel21))))
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel19))
+                            .addComponent(cod_personal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombre_personal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel22)
+                                    .addComponent(etapa_lst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(agregar_equipo_btn))
+                        .addGap(25, 25, 25)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.getAccessibleContext().setAccessibleName("Datos Materiales");
@@ -786,29 +828,32 @@ public class orden_produccion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAnularActionPerformed
-        ban = "anular";
-//         jButton6.setEnabled(false);
-        this.jButton4.setEnabled(true);
-        this.jButton1.setEnabled(false);
+        operacion = "anular";
+        this.cancelar_btn.setEnabled(true);
+        this.nuevo_btn.setEnabled(false);
         this.BAnular.setEnabled(false);
         this.Bgrabar.setEnabled(false);
         this.nro_ord.setEnabled(true);
-        this.nro_ord.requestFocus(); // TODO add your handling code here:
+        this.nro_ord.requestFocus();
     }//GEN-LAST:event_BAnularActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void nuevo_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevo_btnActionPerformed
         ban = "nuevo";
         codprodu.setEnabled(true);
-        nroorden.requestFocus();
-        this.jButton4.setEnabled(true);
-        this.jButton1.setEnabled(false);
+        nro_presupuesto_txt.requestFocus();
+        this.cancelar_btn.setEnabled(true);
+        this.nuevo_btn.setEnabled(false);
         this.BAnular.setEnabled(false);
         this.Bgrabar.setEnabled(false);
-        nroorden.setEnabled(true);
+        nro_presupuesto_txt.setEnabled(true);
+        operacion = "agregar";
+        Bgrabar.setEnabled(true);
+        confirmar = "¿Desea grabar el nuevo registro?";
+        mensaje = "Registro grabado con exito";
 //    jButton6.setEnabled(false);
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_nuevo_btnActionPerformed
 
     private void cantKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantKeyPressed
         if (evt.getKeyCode() == 10) {
@@ -862,24 +907,162 @@ public class orden_produccion extends javax.swing.JFrame {
     }//GEN-LAST:event_codproduKeyPressed
 
     private void BgrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BgrabarActionPerformed
+        guardarOrdenDeProduccion();
 
-        clear_text();
-        limpiargrilla();
-        des_text();
-        jButton4.doClick();// TODO add your handling code here:
     }//GEN-LAST:event_BgrabarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void guardarOrdenDeProduccion() {
+        //validaciones
+        //numero de presupuesto
+        if (nro_presupuesto_txt.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Busca un presupuesto con F2");
+            nro_presupuesto_txt.requestFocus();
+            return;
+        }
+        //deposito seleccionado
+        if (deposito_lst.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Selecciona un deposito");
+            return;
+        }
+        //tabla vacia en presupuesto
+        if (grilla.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "No cuenta con registros en la tabla de presupuesto");
+            return;
+        }
+        //tabla vacia en materia prima
+        if (grilla1.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "No cuenta con registros en la tabla de materia prima");
+            return;
+        }
+        //tabla vacia equipo de trabajo
+        if (grilla2.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "No cuenta con registros en la tabla de equipo de trabajo");
+            return;
+        }
+
+        int respuesta = 5;
+        String update = "";
+
+        respuesta = JOptionPane.showConfirmDialog(null, confirmar);
+        if (respuesta == 0) {
+            String orden_cabecera = "";
+
+            if (operacion.equals("agregar")) {
+
+                orden_cabecera = "INSERT INTO orden_produccion(\n"
+                        + "fecha, estado, usu_id, emp_id, sucur_id, pre_cod)\n"
+                        + "VALUES ('"
+                        + Metodos.dameFechaFormateadaSQL(fecha_dt.getDate()) + "', "
+                        + "'ACTIVO', "
+                        + Menu.idUsuario + ", "
+                        + Menu.idEmpleado + ", "
+                        + Menu.idSucursal + ", "
+                        + nro_presupuesto_txt.getText()
+                        + ");";
+            }
+
+            if (operacion.equals("borrar")) {
+                orden_cabecera = "";
+            }
+
+            Conexion cn = new Conexion();
+            try {
+                cn.conectar();
+                System.out.println(orden_cabecera);
+
+                cn.actualizar(orden_cabecera);
+                //guardamos el detalle
+                if (operacion.equals("agregar")) {
+                    int filas = grilla.getRowCount();
+                    String detalle = "";
+                    String cod_orden_produccion = Metodos.ultimoCodigo("cod_or_prod", "orden_produccion");
+                    //guardamos el detalle de la operacion
+                    for (int i = 0; i < filas; i++) {
+                        detalle = "INSERT INTO detalle_orden_produccion(\n"
+                                + "cod_or_prod, cod_depo, sucur_id, pro_cod, cantidad)\n"
+                                + "VALUES ("
+                                + cod_orden_produccion + ", "
+                                + deposito_lst.getSelectedItem().toString().split("-")[0] + ", "
+                                + Menu.idSucursal + ", "
+                                + grilla.getValueAt(i, 0).toString() + ", "
+                                + grilla.getValueAt(i, 2).toString() + ");";
+                        cn.actualizar(detalle);
+
+                    }
+                    String materiales_utilizar = "";
+                    filas = grilla1.getRowCount();
+                    //guardamos el detalle de la operacion
+                    for (int i = 0; i < filas; i++) {
+                        materiales_utilizar = "INSERT INTO materiales_a_utilizar(\n"
+                                + "cod_or_prod, cod_depo, sucur_id, cod_materia, cantidad)\n"
+                                + "    VALUES ("
+                                + cod_orden_produccion + ", "
+                                + deposito_lst.getSelectedItem().toString().split("-")[0] + ", "
+                                + Menu.idSucursal + ", "
+                                + grilla1.getValueAt(i, 0).toString() + ", "
+                                + grilla1.getValueAt(i, 2).toString() + ");";
+                        cn.actualizar(materiales_utilizar);
+
+                    }
+
+                    //guardamos la cabecera de equipo de trabajo
+                    String equipo_cabecera = "INSERT INTO equipo_de_trabajo(\n"
+                            + " cod_or_prod, fecha_inicio, fecha_final, estado)\n"
+                            + "VALUES ("
+                            + cod_orden_produccion + ", '"
+                            + Metodos.dameFechaFormateadaSQL(inicio_dt.getDate()) + "', '"
+                            + Metodos.dameFechaFormateadaSQL(final_dt.getDate()) + "', "
+                            + "'ACTIVO');";
+                    cn.actualizar(equipo_cabecera);
+                    filas = grilla2.getRowCount();
+                    String equipo_detalle = "";
+                    String cod_equipo_trabajo = Metodos.ultimoCodigo("cod_equipo_trabajo", "equipo_de_trabajo");
+                    for (int i = 0; i < filas; i++) {
+                        equipo_detalle = "INSERT INTO detalle_equipo_trabajo(\n"
+                                + "cod_equipo_trabajo, cod_or_prod, emp_id, observacion, cod_etapas)\n"
+                                + "VALUES ("
+                                + cod_equipo_trabajo + ", "
+                                + cod_orden_produccion + ", "
+                                + Menu.idEmpleado + ", "
+                                + "'NA', "
+                                + grilla2.getValueAt(i, 4).toString().split("-")[0] + ");";
+                        cn.actualizar(equipo_detalle);
+
+                    }
+
+                    JOptionPane.showMessageDialog(rootPane, "Guardado correctamente");
+                    limpiar();
+
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(etapasDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+
+            } catch (SQLException ex) {
+                Logger.getLogger(etapasDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+
+//                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        } else if (respuesta == 1 || respuesta == 2) {
+            JOptionPane.showMessageDialog(null, "Cancelado");
+
+        }
+    }
+    private void cancelar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelar_btnActionPerformed
         des_text();
         clear_text();
 //        jButton6.setEnabled(true);
-        this.jButton4.setEnabled(false);
+        this.cancelar_btn.setEnabled(false);
         this.BAnular.setEnabled(true);
-        this.jButton1.setEnabled(true);
+        this.nuevo_btn.setEnabled(true);
         this.Bgrabar.setEnabled(false);
 
         this.limpiargrilla();  // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_cancelar_btnActionPerformed
+
 
     private void cantKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantKeyTyped
         char caracter = evt.getKeyChar();
@@ -906,39 +1089,18 @@ public class orden_produccion extends javax.swing.JFrame {
 
     private void grillaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_grillaMouseClicked
 
     private void nro_ordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nro_ordKeyTyped
-        char caracter = evt.getKeyChar();
-        int k = (int) evt.getKeyChar();
-        if (((caracter < '0') || (caracter > '9')) && (k != 10) && (caracter != KeyEvent.VK_BACK_SPACE)) {
-//            JOptionPane.showMessageDialog(null,"No Puede Ingresar Letras");
-            evt.consume();
-        } else {
-            if (k == 10) {
-                if (nro_ord.getText().equals("") == false) {
 
-                    this.codprodu.setEnabled(true);
-                    this.codprodu.requestFocus();
-                    this.jButton4.setEnabled(true);
-                    this.jButton1.setEnabled(false);
-                    this.BAnular.setEnabled(false);
-                    this.Bgrabar.setEnabled(false);
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "No Puede Dejar El Campo Vacio");
-                    nro_ord.setText("");
-                    nro_ord.requestFocus();
-
-                }
-
-            }
-        }// TODO add your handling code here:
 }//GEN-LAST:event_nro_ordKeyTyped
 
     private void nro_ordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nro_ordKeyPressed
-
+        if(evt.getKeyCode() == KeyEvent.VK_F2){
+            busOrdenProduccion.busqueda =  "orden_produccion";
+            new busOrdenProduccion().setVisible(true);
+        }
 }//GEN-LAST:event_nro_ordKeyPressed
 
     private void nro_ordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nro_ordActionPerformed
@@ -961,23 +1123,23 @@ public class orden_produccion extends javax.swing.JFrame {
                 || (caracter > '9'))
                 && (caracter != evt.VK_BACK_SPACE)) {
             evt.consume();
-        JOptionPane.showMessageDialog(null,"No puede Ingresar letras");
+            JOptionPane.showMessageDialog(null, "No puede Ingresar letras");
             codprodu.requestFocus();
         }
     }//GEN-LAST:event_codproduKeyTyped
 
-    private void nroordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nroordenActionPerformed
+    private void nro_presupuesto_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nro_presupuesto_txtActionPerformed
 
-    }//GEN-LAST:event_nroordenActionPerformed
+    }//GEN-LAST:event_nro_presupuesto_txtActionPerformed
 
-    private void nroordenKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nroordenKeyPressed
+    private void nro_presupuesto_txtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nro_presupuesto_txtKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_F2) { // presiona F2
-            
+
             busPresupuestoProduccion.busqueda = "orden_produccion";
             new busPresupuestoProduccion().setVisible(true);
         }
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            if(!nroorden.getText().trim().isEmpty()){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (!nro_presupuesto_txt.getText().trim().isEmpty()) {
                 codprodu.setEnabled(true);
                 desprod.setEnabled(true);
                 cant.setEnabled(true);
@@ -986,16 +1148,16 @@ public class orden_produccion extends javax.swing.JFrame {
                 desprod1.setEnabled(true);
                 cant1.setEnabled(true);
                 habilitarEquipoTrabajo();
-                cod_equipo_txt.setText(String.valueOf(Integer.parseInt(Metodos.ultimoCodigo("cod_equipo_trabajo", "equipo_de_trabajo"))+1));
-            }else{
+                cod_equipo_txt.setText(String.valueOf(Integer.parseInt(Metodos.ultimoCodigo("cod_equipo_trabajo", "equipo_de_trabajo")) + 1));
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "Debes buscar un presupuesto de venta");
             }
         }
-    }//GEN-LAST:event_nroordenKeyPressed
+    }//GEN-LAST:event_nro_presupuesto_txtKeyPressed
 
-    private void nroordenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nroordenKeyTyped
-        
-    }//GEN-LAST:event_nroordenKeyTyped
+    private void nro_presupuesto_txtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nro_presupuesto_txtKeyTyped
+
+    }//GEN-LAST:event_nro_presupuesto_txtKeyTyped
 
     private void codprodu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codprodu1ActionPerformed
         // TODO add your handling code here:
@@ -1015,7 +1177,7 @@ public class orden_produccion extends javax.swing.JFrame {
 
     private void cant1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cant1KeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode() == 10) { 
+        if (evt.getKeyCode() == 10) {
             reemplazar();
             // presiona ENTER
             if (Integer.parseInt(cant1.getText()) < 1) {
@@ -1030,16 +1192,16 @@ public class orden_produccion extends javax.swing.JFrame {
                 Object registro[] = new Object[]{codprodu1.getText(), desprod1.getText(), cant1.getText()};
                 int fila = -1;
                 for (int i = 0; i < grilla1.getRowCount(); i++) {
-                   if(grilla1.getValueAt(i, 0).toString().equals(codprodu1.getText())){
-                       fila = i;
-                       break;
-                   } 
+                    if (grilla1.getValueAt(i, 0).toString().equals(codprodu1.getText())) {
+                        fila = i;
+                        break;
+                    }
                 }
-                
-                if(fila == -1){
+
+                if (fila == -1) {
                     DefaultTableModel modelo = (DefaultTableModel) grilla1.getModel();
                     modelo.addRow(registro);
-                }else{
+                } else {
                     int cantidad = Integer.parseInt(
                             grilla1.getValueAt(fila, 2).toString()) + Integer.parseInt(cant1.getText());
                     grilla1.setValueAt(cantidad, fila, 2);
@@ -1056,14 +1218,14 @@ public class orden_produccion extends javax.swing.JFrame {
 
     private void grilla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grilla1MouseClicked
         // TODO add your handling code here:
-        if(evt.isPopupTrigger()){
+        if (evt.isPopupTrigger()) {
             menu_materia_prima.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_grilla1MouseClicked
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salir_btnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_salir_btnActionPerformed
 
     private void grilla2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grilla2MouseClicked
         // TODO add your handling code here:
@@ -1071,12 +1233,12 @@ public class orden_produccion extends javax.swing.JFrame {
 
     private void desprodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_desprodKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_desprodKeyTyped
 
     private void desprodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_desprodKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_F2){
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
             producto.operacion = "orden_produccion";
             new producto().setVisible(true);
             producto.operacion = "orden_produccion";
@@ -1090,14 +1252,14 @@ public class orden_produccion extends javax.swing.JFrame {
 
     private void grillaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaMouseReleased
         // TODO add your handling code here:
-        if(evt.isPopupTrigger()){
+        if (evt.isPopupTrigger()) {
             menu_productos.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }//GEN-LAST:event_grillaMouseReleased
 
     private void desprod1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_desprod1KeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_F2){
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
             materiaPrima.busqueda = "orden_produccion";
             new materiaPrima().setVisible(true);
         }
@@ -1107,6 +1269,49 @@ public class orden_produccion extends javax.swing.JFrame {
         // TODO add your handling code here:
         Metodos.eliminarFila(grilla1, grilla1.getSelectedRow());
     }//GEN-LAST:event_eliminar_materiaActionPerformed
+
+    private void cod_personal_txtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cod_personal_txtKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            empleado.busqueda = "orden_produccion";
+            new empleado().setVisible(true);
+        }
+    }//GEN-LAST:event_cod_personal_txtKeyPressed
+
+    private void agregar_equipo_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_equipo_btnActionPerformed
+        // TODO add your handling code here:
+
+        //validaciones
+        if (inicio_dt.getDate().after(final_dt.getDate())) {
+            JOptionPane.showMessageDialog(rootPane, "Verifica las fechas de inicio y fin");
+            return;
+        }
+        if (etapa_lst.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Selecciona una etapa");
+            return;
+        }
+
+        Object[] fila = new Object[]{
+            cod_equipo_txt.getText(),
+            Metodos.dameFechaFormateada(inicio_dt.getDate()),
+            Metodos.dameFechaFormateada(final_dt.getDate()),
+            cod_personal_txt.getText() + "-" + nombre_personal_txt.getText(),
+            etapa_lst.getSelectedItem()
+        };
+
+        for (int i = 0; i < grilla2.getRowCount(); i++) {
+            if (grilla2.getValueAt(i, 0).equals(fila[0])
+                    && grilla2.getValueAt(i, 1).equals(fila[1])
+                    && grilla2.getValueAt(i, 2).equals(fila[2])
+                    && grilla2.getValueAt(i, 3).equals(fila[3])
+                    && grilla2.getValueAt(i, 4).equals(fila[4])) {
+                JOptionPane.showMessageDialog(rootPane, "Item repetido en la fila " + (i + 1));
+                return;
+            }
+        }
+
+        Metodos.cargarTabla(grilla2, fila);
+    }//GEN-LAST:event_agregar_equipo_btnActionPerformed
 
     /**
      * @param args the command line arguments orden_produccion ord_cod
@@ -1118,6 +1323,7 @@ public class orden_produccion extends javax.swing.JFrame {
 
         //un.setText("");
     }
+
     private void limpiartext1() {
         codprodu1.setText("");
         cant1.setText("");
@@ -1125,16 +1331,15 @@ public class orden_produccion extends javax.swing.JFrame {
 
         //un.setText("");
     }
-    
-    private void habilitarEquipoTrabajo(){
+
+    private void habilitarEquipoTrabajo() {
         cod_equipo_txt.setEnabled(true);
         cod_personal_txt.setEnabled(true);
         nombre_personal_txt.setEnabled(true);
-        cod_etapa.setEnabled(true);
-        etapa_txt.setEnabled(true);
+
         inicio_dt.setDate(new JCalendar().getDate());
         final_dt.setDate(new JCalendar().getDate());
-        
+
     }
 
     private void clear_text() {
@@ -1142,12 +1347,27 @@ public class orden_produccion extends javax.swing.JFrame {
         nro_ord.setText("");
         codprodu.setText("");
 
-//    lcod.setText("");
-//    lcod1.setText("");
-//    Lnombre.setText("");
-//    Lnombre.setText("");
-//    fechainicio.setDate(null);
-//    fechafinal.setDate(null);
+    }
+
+    private void limpiar() {
+        nro_ord.setText(Metodos.siguienteCodigo("cod_or_prod", "orden_produccion"));
+        fecha_dt.setDate(new JCalendar().getDate());
+        deposito_lst.setSelectedIndex(0);
+        nro_presupuesto_txt.setText("");
+        cod_equipo_txt.setText("");
+        codprodu.setText("");
+        desprod.setText("");
+        cant.setText("");
+        codprodu1.setText("");
+        desprod1.setText("");
+        cant1.setText("");
+        inicio_dt.setDate(new JCalendar().getDate());
+        final_dt.setDate(new JCalendar().getDate());
+        cod_personal_txt.setText("");
+        nombre_personal_txt.setText("");
+        etapa_lst.setSelectedIndex(0);
+        nro_presupuesto_txt.requestFocus();
+
     }
 
     private void des_text() {
@@ -1183,6 +1403,53 @@ public class orden_produccion extends javax.swing.JFrame {
         }
     }
 
+    private void cargarListaEstado() {
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet etapas = cn.consultar("SELECT * FROM etapas_produccion WHERE estado ILIKE '%ACTIVO%'  "); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+
+            etapa_lst.removeAllItems();
+            etapa_lst.addItem("Seleccionar etapa");
+            if (etapas.isBeforeFirst()) {
+                while (etapas.next()) {
+                    etapa_lst.addItem(etapas.getInt("cod_etapas"
+                            + "") + "-" + etapas.getString("eta_desc").trim());
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void cargarListaDeposito() {
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet deposito = cn.consultar("SELECT * FROM deposito WHERE sucur_id = " + Menu.idSucursal); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+
+            deposito_lst.removeAllItems();
+            deposito_lst.addItem("Selecciona un deposito");
+            if (deposito.isBeforeFirst()) {
+                while (deposito.next()) {
+                    deposito_lst.addItem(deposito.getInt("cod_depo") + "-"
+                            + deposito.getString("depo_desc").trim());
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private String ban;
     public String iva = "";
     public ResultSet resu;
@@ -1194,27 +1461,25 @@ public class orden_produccion extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JButton cancelar_btn;
     public static javax.swing.JTextField cant;
     public static javax.swing.JTextField cant1;
     private javax.swing.JTextField cod_equipo_txt;
-    private javax.swing.JTextField cod_etapa;
-    private javax.swing.JTextField cod_personal_txt;
+    public static javax.swing.JTextField cod_personal_txt;
     public static javax.swing.JTextField codprodu;
     public static javax.swing.JTextField codprodu1;
+    private javax.swing.JComboBox<String> deposito_lst;
     public static javax.swing.JTextField desprod;
     public static javax.swing.JTextField desprod1;
     private javax.swing.JMenuItem eliminar;
     private javax.swing.JMenuItem eliminar_materia;
-    private javax.swing.JTextField etapa_txt;
+    private javax.swing.JComboBox<String> etapa_lst;
     private com.toedter.calendar.JDateChooser fecha_dt;
     private com.toedter.calendar.JDateChooser final_dt;
     public static javax.swing.JTable grilla;
     private javax.swing.JTable grilla1;
     private javax.swing.JTable grilla2;
     private com.toedter.calendar.JDateChooser inicio_dt;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1233,6 +1498,7 @@ public class orden_produccion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1249,9 +1515,11 @@ public class orden_produccion extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPopupMenu menu_materia_prima;
     private javax.swing.JPopupMenu menu_productos;
-    private javax.swing.JTextField nombre_personal_txt;
+    public static javax.swing.JTextField nombre_personal_txt;
     private javax.swing.JTextField nro_ord;
-    public static javax.swing.JTextField nroorden;
+    public static javax.swing.JTextField nro_presupuesto_txt;
+    private javax.swing.JButton nuevo_btn;
+    private javax.swing.JButton salir_btn;
     private javax.swing.JLabel sucursal;
     private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
@@ -1265,6 +1533,7 @@ public class orden_produccion extends javax.swing.JFrame {
             }
         }
     }
+
     public String fecha_inicio = "";
     public String fechafin = "";
 

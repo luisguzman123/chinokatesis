@@ -194,7 +194,7 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
-        orden_produccion.nroorden.setText(cod);
+        orden_produccion.nro_presupuesto_txt.setText(cod);
         dispose();
     }
 

@@ -604,6 +604,15 @@ public class empleado extends javax.swing.JFrame {
        if(operacion.equals("borrar")){
            btnGrabar.doClick();
        }
+       //busquedas de ventanas
+       if(busqueda.equals("orden_produccion")){
+           orden_produccion.cod_personal_txt.setText(cod);
+           orden_produccion.nombre_personal_txt.setText(nombre+" "+apellido);
+           
+           dispose();
+           
+           
+       }
     }//GEN-LAST:event_grillaEmpleadosMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

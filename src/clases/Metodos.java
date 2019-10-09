@@ -25,6 +25,11 @@ import ventanas.compras;
  */
 public class Metodos {
     
+    public static String dameFechaFormateada(java.util.Date fecha){
+        SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+        return formateador.format(fecha);
+    }
+    
     /**
      * Agregar marcar con clic derecho
      * @param datos_tb 
@@ -101,7 +106,7 @@ public class Metodos {
         }
         return cod;
     }
-
+    
     public static boolean evitarDuplicado(String tabla, String campoBD, String dato, String pk, String codigo) {
 
         Conexion cn = new Conexion();
@@ -182,10 +187,7 @@ public class Metodos {
         }
     }
 
-    public String dameFechaFormateada(Date fecha) {
-        SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-        return formateador.format(fecha);
-    }
+    
 
     public static boolean evitarDuplicadoId(String tabla, String pk, String codigo) {
 

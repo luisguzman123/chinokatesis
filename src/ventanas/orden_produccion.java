@@ -835,6 +835,9 @@ public class orden_produccion extends javax.swing.JFrame {
         this.Bgrabar.setEnabled(false);
         this.nro_ord.setEnabled(true);
         this.nro_ord.requestFocus();
+        confirmar = "¿Desea anular el  registro?";
+        mensaje = "Registro anulado con exito";
+        nro_ord.setText("");
     }//GEN-LAST:event_BAnularActionPerformed
 
     private void nuevo_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevo_btnActionPerformed
@@ -907,50 +910,50 @@ public class orden_produccion extends javax.swing.JFrame {
     }//GEN-LAST:event_codproduKeyPressed
 
     private void BgrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BgrabarActionPerformed
-        guardarOrdenDeProduccion();
+        grabarAnularOrden();
 
     }//GEN-LAST:event_BgrabarActionPerformed
 
-    private void guardarOrdenDeProduccion() {
-        //validaciones
-        //numero de presupuesto
-        if (nro_presupuesto_txt.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Busca un presupuesto con F2");
-            nro_presupuesto_txt.requestFocus();
-            return;
-        }
-        //deposito seleccionado
-        if (deposito_lst.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(rootPane, "Selecciona un deposito");
-            return;
-        }
-        //tabla vacia en presupuesto
-        if (grilla.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "No cuenta con registros en la tabla de presupuesto");
-            return;
-        }
-        //tabla vacia en materia prima
-        if (grilla1.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "No cuenta con registros en la tabla de materia prima");
-            return;
-        }
-        //tabla vacia equipo de trabajo
-        if (grilla2.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "No cuenta con registros en la tabla de equipo de trabajo");
-            return;
-        }
+    private void grabarAnularOrden() {
 
         int respuesta = 5;
         String update = "";
 
-        respuesta = JOptionPane.showConfirmDialog(null, confirmar);
+        respuesta = JOptionPane.showConfirmDialog(null, confirmar,"ATENCION", JOptionPane.YES_NO_OPTION);
         if (respuesta == 0) {
             String orden_cabecera = "";
 
             if (operacion.equals("agregar")) {
+                //validaciones
+                //numero de presupuesto
+                if (nro_presupuesto_txt.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Busca un presupuesto con F2");
+                    nro_presupuesto_txt.requestFocus();
+                    return;
+                }
+                //deposito seleccionado
+                if (deposito_lst.getSelectedIndex() == 0) {
+                    JOptionPane.showMessageDialog(rootPane, "Selecciona un deposito");
+                    return;
+                }
+                //tabla vacia en presupuesto
+                if (grilla.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(rootPane,
+                            "No cuenta con registros en la tabla de presupuesto");
+                    return;
+                }
+                //tabla vacia en materia prima
+                if (grilla1.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(rootPane,
+                            "No cuenta con registros en la tabla de materia prima");
+                    return;
+                }
+                //tabla vacia equipo de trabajo
+                if (grilla2.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(rootPane,
+                            "No cuenta con registros en la tabla de equipo de trabajo");
+                    return;
+                }
 
                 orden_cabecera = "INSERT INTO orden_produccion(\n"
                         + "fecha, estado, usu_id, emp_id, sucur_id, pre_cod)\n"
@@ -964,8 +967,10 @@ public class orden_produccion extends javax.swing.JFrame {
                         + ");";
             }
 
-            if (operacion.equals("borrar")) {
-                orden_cabecera = "";
+            String anular = "";
+            if (operacion.equals("anular")) {
+                 anular = "UPDATE orden_produccion SET estado = 'ANULADO' "
+                        + "WHERE cod_or_prod = "+nro_ord.getText();
             }
 
             Conexion cn = new Conexion();
@@ -974,6 +979,12 @@ public class orden_produccion extends javax.swing.JFrame {
                 System.out.println(orden_cabecera);
 
                 cn.actualizar(orden_cabecera);
+                //operacion anular
+                if(operacion.equals("anular")){
+                    cn.actualizar(anular);
+                    JOptionPane.showMessageDialog(rootPane, mensaje);
+                    cancelar_btn.doClick();
+                }
                 //guardamos el detalle
                 if (operacion.equals("agregar")) {
                     int filas = grilla.getRowCount();
@@ -1026,7 +1037,7 @@ public class orden_produccion extends javax.swing.JFrame {
                                 + "VALUES ("
                                 + cod_equipo_trabajo + ", "
                                 + cod_orden_produccion + ", "
-                                + Menu.idEmpleado + ", "
+                                + grilla2.getValueAt(i, 3).toString().split("-")[0]+ ", "
                                 + "'NA', "
                                 + grilla2.getValueAt(i, 4).toString().split("-")[0] + ");";
                         cn.actualizar(equipo_detalle);
@@ -1097,14 +1108,20 @@ public class orden_produccion extends javax.swing.JFrame {
 }//GEN-LAST:event_nro_ordKeyTyped
 
     private void nro_ordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nro_ordKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_F2){
-            busOrdenProduccion.busqueda =  "orden_produccion";
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            busOrdenProduccion.busqueda = "orden_produccion";
             new busOrdenProduccion().setVisible(true);
         }
 }//GEN-LAST:event_nro_ordKeyPressed
 
     private void nro_ordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nro_ordActionPerformed
-
+        if(nro_ord.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Buscar orden");
+            return;
+            
+        }
+        Bgrabar.setEnabled(true);
+        Bgrabar.requestFocus();
         // TODO add your handling code here:
 }//GEN-LAST:event_nro_ordActionPerformed
 
@@ -1516,7 +1533,7 @@ public class orden_produccion extends javax.swing.JFrame {
     private javax.swing.JPopupMenu menu_materia_prima;
     private javax.swing.JPopupMenu menu_productos;
     public static javax.swing.JTextField nombre_personal_txt;
-    private javax.swing.JTextField nro_ord;
+    public static javax.swing.JTextField nro_ord;
     public static javax.swing.JTextField nro_presupuesto_txt;
     private javax.swing.JButton nuevo_btn;
     private javax.swing.JButton salir_btn;

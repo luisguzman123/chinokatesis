@@ -138,6 +138,7 @@ public class Menu extends javax.swing.JFrame {
         menuProduccion = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         orden_de_produccion = new javax.swing.JMenuItem();
+        produccion_item = new javax.swing.JMenuItem();
         menuVentas = new javax.swing.JMenu();
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
@@ -366,6 +367,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuProduccion.add(orden_de_produccion);
 
+        produccion_item.setText("Producción");
+        produccion_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                produccion_itemActionPerformed(evt);
+            }
+        });
+        menuProduccion.add(produccion_item);
+
         jMenuBar1.add(menuProduccion);
 
         menuVentas.setText("Gestión de ventas");
@@ -586,6 +595,11 @@ public class Menu extends javax.swing.JFrame {
         new ventanas.orden_produccion().setVisible(true);
     }//GEN-LAST:event_orden_de_produccionActionPerformed
 
+    private void produccion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produccion_itemActionPerformed
+        // TODO add your handling code here:
+        new ventanas.produccion().setVisible(true);
+    }//GEN-LAST:event_produccion_itemActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -661,6 +675,7 @@ public class Menu extends javax.swing.JFrame {
     public static javax.swing.JMenu menuReferenciales;
     private javax.swing.JMenu menuVentas;
     private javax.swing.JMenuItem orden_de_produccion;
+    private javax.swing.JMenuItem produccion_item;
     private javax.swing.JMenu refeCompras;
     private javax.swing.JMenu refe_Produccion;
     private javax.swing.JMenu refe_ventas;

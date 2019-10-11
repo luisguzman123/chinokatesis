@@ -122,60 +122,33 @@ public class busOrdenProduccion extends javax.swing.JFrame {
     private void grillaBuscadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaBuscadorMouseClicked
         switch (busqueda) {
             case "orden_produccion":
-                seleccionarCompra();
+                seleccionarOrdenProduccion();
+                break;
+            case "produccion":
+                seleccionarProduccion();
                 break;
 
         }
 
     }//GEN-LAST:event_grillaBuscadorMouseClicked
 
-    private void seleccionarPedidoDetalle() {
+    private void seleccionarOrdenProduccion() {
         int fila = grillaBuscador.getSelectedRow();
 
         String cod = grillaBuscador.getValueAt(fila, 0).toString();
-        String fecha = grillaBuscador.getValueAt(fila, 1).toString();
-        String descri = grillaBuscador.getValueAt(fila, 2).toString();
-        String estado = grillaBuscador.getValueAt(fila, 3).toString();
-        String codSucu = grillaBuscador.getValueAt(fila, 4).toString();
-        String codUsu = grillaBuscador.getValueAt(fila, 5).toString();
+        orden_produccion.nro_ord.setText(cod);
+        dispose();
+        
 
-        if (busqueda.equals("pedido_desdePresupuesto")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-            presupuesto_de_compra.txtPedido_compra.setText(cod);
+    }
+    private void seleccionarProduccion() {
+        int fila = grillaBuscador.getSelectedRow();
 
-            busqueda = "";
+        String cod = grillaBuscador.getValueAt(fila, 0).toString();
+        produccion.nroorden.setText(cod);
+        dispose();
+        
 
-            Conexion cn = new Conexion();
-
-            try {
-                cn.conectar();
-                ResultSet detalles = cn.consultar("select * from v_detalle_pedido_compra where ped_id = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
-                Metodos.limpiarTabla(presupuesto_de_compra.grilla);
-                if (detalles.isBeforeFirst()) {
-                    while (detalles.next()) {
-                        Metodos.cargarTabla(presupuesto_de_compra.grilla, new Object[]{
-                            detalles.getString("cod_materia"),
-                            detalles.getString("mat_desc"),
-                            detalles.getString("cantidad"),
-                            detalles.getString("precio"),
-                            detalles.getString("precio"),
-                            (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
-                        });
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(busOrdenProduccion.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
-            } catch (SQLException ex) {
-                Logger.getLogger(busOrdenProduccion.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-
-            presupuesto_de_compra.txtTotal.setText(String.valueOf(Metodos.sumarColumna(presupuesto_de_compra.grilla, 4)));
-            presupuesto_de_compra.txtPedido_compra.requestFocus();
-            dispose();
-        }
     }
 
     private void seleccionarCompra() {
@@ -250,6 +223,9 @@ public class busOrdenProduccion extends javax.swing.JFrame {
 
         switch (busqueda) {
             case "orden_produccion":
+                buscarOrdenProduccion();
+                break;
+            case "produccion":
                 buscarOrdenProduccion();
                 break;
 

@@ -585,24 +585,26 @@ public class produccion extends javax.swing.JFrame {
 }//GEN-LAST:event_grillaKeyPressed
 
     private void BgrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BgrabarActionPerformed
-
+        grabar();
 }//GEN-LAST:event_BgrabarActionPerformed
 
     private void grabar() {
-
+        System.out.println(ban);
         if (ban.equals("nuevo")) {
+            System.out.println("hola");
             try {
                 String produccion = "INSERT INTO produccion(\n"
                         + " cod_or_prod, fecha_pro, observacion, estado, \n"
                         + "usu_id, emp_id, sucur_id)\n"
                         + "VALUES ("
-                        + nroorden.getText() + ", "
-                        + Metodos.dameFechaFormateadaSQL(fecha_dt.getDate()) + ", "
-                        + observacion_txt.getText() + ", "
+                        + nroorden.getText() + ", '"
+                        + Metodos.dameFechaFormateadaSQL(fecha_dt.getDate()) + "', '"
+                        + observacion_txt.getText() + "', "
                         + "'ACTIVO', "
                         + Menu.idUsuario + ", "
-                        + Menu.idEmpleado + "?, "
+                        + Menu.idEmpleado + ", "
                         + Menu.idSucursal + ");";
+                System.out.println(produccion);
                 Conexion cn = new Conexion();
                 cn.conectar();
                 cn.actualizar(produccion);
@@ -612,20 +614,23 @@ public class produccion extends javax.swing.JFrame {
                 for (int i = 0; i < filas; i++) {
                     
                     String detalle_pro = "INSERT INTO \"detalle_producción\"(\n"
-                            + " cod_or_prod, cod_depo, sucur_id, pro_cod, cantidad_realizada, \n"
+                            + "\"cod_producción\", cod_or_prod, cod_depo, sucur_id, pro_cod, cantidad_realizada, \n"
                             + "cantidad_faltante)\n"
                             + "VALUES ("
+                            + Metodos.ultimoCodigo("\"cod_producción\"", "produccion")+", "
                             + nroorden.getText()+", "
                             + id_deposito_txt.getText()+", "
                             + Menu.idSucursal+", "
                             + grilla.getValueAt(i, 0).toString()+", "
-                            + grilla.getValueAt(i, 1).toString()+", "
+                            + grilla.getValueAt(i, 2).toString()+", "
                             + "0);";
                     cn.actualizar(detalle_pro);
                 }
 
+                JOptionPane.showMessageDialog(null, "Guardado Correctamente");
             } catch (SQLException ex) {
-
+                Logger.getLogger(produccion.class.getName()).log(Level.SEVERE, null, ex);
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(produccion.class.getName()).log(Level.SEVERE, null, ex);
             }

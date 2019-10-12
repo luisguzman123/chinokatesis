@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Nestors
  */
-public class empleado extends javax.swing.JFrame {
+public class empleados extends javax.swing.JFrame {
 
     
     String operacion="";
@@ -23,7 +23,7 @@ public class empleado extends javax.swing.JFrame {
     
     public static String busqueda = "";
 
-    public empleado() {
+    public empleados() {
         initComponents();
         btnCancelar.doClick();
     }
@@ -527,11 +527,11 @@ public class empleado extends javax.swing.JFrame {
 
                 
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(empleado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(empleados.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
                 
             } catch (SQLException ex) {
-                Logger.getLogger(empleado.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(empleados.class.getName()).log(Level.SEVERE, null, ex);
                 if(operacion.equals("borrar") && txtCodigo.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Primero debe seleccionar una empleado");
                 }
@@ -586,6 +586,15 @@ public class empleado extends javax.swing.JFrame {
 //           dispose();
 //       }
        
+
+         if(busqueda.equals("notaRemision") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           notaRemision.cod_conductor.setText(cod);
+           notaRemision.txtConductor.setText(nombre+" "+apellido);
+           notaRemision.cod_conductor.requestFocus();
+           busqueda = "";
+           dispose();
+       }
+
        if(operacion.equals("modificar") || operacion.equals("borrar")){
            txtCodigo.setText(cod);
            txtNombre.setText(nombre);
@@ -686,10 +695,10 @@ public class empleado extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(empleados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra "+ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(empleados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }
     }
@@ -710,18 +719,18 @@ public class empleado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(empleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new empleado().setVisible(true);
+                new empleados().setVisible(true);
             }
         });
     }

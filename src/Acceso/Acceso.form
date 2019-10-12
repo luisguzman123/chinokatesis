@@ -78,7 +78,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="DejaVu Sans" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="nestor"/>
+            <Property name="text" type="java.lang.String" value="luis"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUsuarioActionPerformed"/>
@@ -275,7 +275,7 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPass">
           <Properties>
-            <Property name="text" type="java.lang.String" value="admin"/>
+            <Property name="text" type="java.lang.String" value="123"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

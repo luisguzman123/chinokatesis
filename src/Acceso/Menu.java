@@ -7,18 +7,21 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import ventanas.ajuste_stock;
 import ventanas.bancos;
 import ventanas.cajas;
 import ventanas.ciudad;
 import ventanas.clientes;
 import ventanas.compras;
 import ventanas.deposito;
-import ventanas.empleado;
+import ventanas.empleados;
 import ventanas.etapasDeProduccion;
 import ventanas.formaDePago;
 import ventanas.materiaPrima;
 import ventanas.motivo_mermas;
 import ventanas.motivos;
+import ventanas.notaCreditoCompra;
+import ventanas.notaRemision;
 import ventanas.orden_compra;
 import ventanas.pedido_de_compra;
 import ventanas.presupuesto_de_compra;
@@ -135,6 +138,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem21 = new javax.swing.JMenuItem();
+        jMenuItem22 = new javax.swing.JMenuItem();
+        jMenuItem23 = new javax.swing.JMenuItem();
         menuProduccion = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         orden_de_produccion = new javax.swing.JMenuItem();
@@ -352,6 +358,30 @@ public class Menu extends javax.swing.JFrame {
         });
         menuCompras.add(jMenuItem16);
 
+        jMenuItem21.setText("Notas de compras");
+        jMenuItem21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem21ActionPerformed(evt);
+            }
+        });
+        menuCompras.add(jMenuItem21);
+
+        jMenuItem22.setText("Ajuste de Stock");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
+        menuCompras.add(jMenuItem22);
+
+        jMenuItem23.setText("Nota de remisión");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
+        menuCompras.add(jMenuItem23);
+
         jMenuBar1.add(menuCompras);
 
         menuProduccion.setText("Gestión de producción");
@@ -521,7 +551,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        new empleado().setVisible(true);
+        new empleados().setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem31ActionPerformed
@@ -600,6 +630,36 @@ public class Menu extends javax.swing.JFrame {
         new ventanas.produccion().setVisible(true);
     }//GEN-LAST:event_produccion_itemActionPerformed
 
+    private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
+         new notaCreditoCompra().setVisible(true);
+        notaCreditoCompra.txtUsuarioCod.setText(idUsuario);
+        notaCreditoCompra.txtUsuario.setText(usuario);
+        notaCreditoCompra.txtSucursal.setText(Sucursal);
+        notaCreditoCompra.idSucursal= idSucursal;
+        notaCreditoCompra.idUsuario= idUsuario;
+        notaCreditoCompra.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem21ActionPerformed
+
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        new ajuste_stock().setVisible(true);
+        ajuste_stock.txtCodUsuario.setText(idUsuario);
+        ajuste_stock.txtUsuario.setText(usuario);
+        ajuste_stock.txtSucu.setText(Sucursal);
+        ajuste_stock.idSucursal= idSucursal;
+        ajuste_stock.idUsuario= idUsuario;
+        ajuste_stock.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+         new notaRemision().setVisible(true);
+        notaRemision.txtCodUsuario.setText(idUsuario);
+        notaRemision.txtUsuario.setText(usuario);
+        notaRemision.txtSucu.setText(Sucursal);
+        notaRemision.idSucursal= idSucursal;
+        notaRemision.idUsuario= idUsuario;
+        notaRemision.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -654,6 +714,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;

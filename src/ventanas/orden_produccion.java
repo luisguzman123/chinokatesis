@@ -1290,8 +1290,8 @@ public class orden_produccion extends javax.swing.JFrame {
     private void cod_personal_txtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cod_personal_txtKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_F2) {
-            empleado.busqueda = "orden_produccion";
-            new empleado().setVisible(true);
+            empleados.busqueda = "orden_produccion";
+            new empleados().setVisible(true);
         }
     }//GEN-LAST:event_cod_personal_txtKeyPressed
 

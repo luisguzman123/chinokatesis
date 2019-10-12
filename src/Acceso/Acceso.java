@@ -65,7 +65,7 @@ public class Acceso extends javax.swing.JDialog {
         jLabel2.setBounds(130, 10, 120, 32);
 
         txtUsuario.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
-        txtUsuario.setText("nestor");
+        txtUsuario.setText("luis");
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
@@ -103,7 +103,7 @@ public class Acceso extends javax.swing.JDialog {
             }
         });
         jDesktopPane1.add(btnSalir);
-        btnSalir.setBounds(690, 360, 90, 29);
+        btnSalir.setBounds(690, 360, 90, 31);
 
         btnCancelar.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
@@ -113,7 +113,7 @@ public class Acceso extends javax.swing.JDialog {
             }
         });
         jDesktopPane1.add(btnCancelar);
-        btnCancelar.setBounds(680, 270, 100, 29);
+        btnCancelar.setBounds(680, 270, 100, 31);
 
         jButton2.setText("Configuracion");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +122,7 @@ public class Acceso extends javax.swing.JDialog {
             }
         });
         jDesktopPane1.add(jButton2);
-        jButton2.setBounds(40, 70, 99, 23);
+        jButton2.setBounds(40, 70, 113, 26);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("HOST --->");
@@ -174,7 +174,7 @@ public class Acceso extends javax.swing.JDialog {
         jDesktopPane1.add(jLabel11);
         jLabel11.setBounds(20, 260, 62, 15);
 
-        txtPass.setText("admin");
+        txtPass.setText("123");
         txtPass.setEnabled(false);
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,7 +191,7 @@ public class Acceso extends javax.swing.JDialog {
             }
         });
         jDesktopPane1.add(btnConectar);
-        btnConectar.setBounds(50, 300, 87, 23);
+        btnConectar.setBounds(50, 300, 97, 26);
 
         jLabel6.setFont(new java.awt.Font("DejaVu Sans", 3, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(249, 249, 249));
@@ -216,7 +216,7 @@ public class Acceso extends javax.swing.JDialog {
             }
         });
         jDesktopPane1.add(btnIngresar);
-        btnIngresar.setBounds(580, 360, 100, 29);
+        btnIngresar.setBounds(580, 360, 100, 31);
 
         jLabel9.setFont(new java.awt.Font("DejaVu Sans", 3, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(249, 249, 249));

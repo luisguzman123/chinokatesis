@@ -511,10 +511,10 @@ public class etapasDeProduccion extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(empleados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(empleados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }

@@ -471,8 +471,8 @@ public class sucursal extends javax.swing.JFrame {
            dispose();
        }
       if(busqueda.equals("empleado") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-           empleado.txtSucursal.setText(cod+"-"+nombre);
-           empleado.txtSucursal.requestFocus();
+           empleados.txtSucursal.setText(cod+"-"+nombre);
+           empleados.txtSucursal.requestFocus();
            busqueda = "";
            dispose();
        }
@@ -551,10 +551,10 @@ public class sucursal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(empleados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra "+ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(empleado.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(empleados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }
     }   

@@ -486,7 +486,13 @@ public class materiaPrima extends javax.swing.JFrame {
            busqueda = "";
            dispose();
        }
-       
+        if(busqueda.equals("notaRemision") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           notaRemision.txtcodigo.setText(cod);
+           notaRemision.txt_nombre_arti.setText(descripcion);
+           notaRemision.txt_nombre_arti.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        
       
        

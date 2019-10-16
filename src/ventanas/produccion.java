@@ -77,11 +77,11 @@ public class produccion extends javax.swing.JFrame {
         Materia2 = new javax.swing.JLabel();
         txtcant = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        nuevo_btn = new javax.swing.JButton();
+        anular_btn = new javax.swing.JButton();
         Bgrabar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        cancelar_btn = new javax.swing.JButton();
+        salir_btn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         observacion_txt = new javax.swing.JTextField();
         Materia3 = new javax.swing.JLabel();
@@ -123,12 +123,12 @@ public class produccion extends javax.swing.JFrame {
         grilla.setPreferredSize(new java.awt.Dimension(50, 224));
         grilla.getTableHeader().setReorderingAllowed(false);
         grilla.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 grillaAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         grilla.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -255,23 +255,23 @@ public class produccion extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setForeground(new java.awt.Color(0, 102, 102));
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton1.setText("nuevo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        nuevo_btn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        nuevo_btn.setText("nuevo");
+        nuevo_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                nuevo_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
+        jPanel1.add(nuevo_btn);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton3.setText("anular");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        anular_btn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        anular_btn.setText("anular");
+        anular_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                anular_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3);
+        jPanel1.add(anular_btn);
 
         Bgrabar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         Bgrabar.setText("grabar");
@@ -283,24 +283,24 @@ public class produccion extends javax.swing.JFrame {
         });
         jPanel1.add(Bgrabar);
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton4.setText("cancelar");
-        jButton4.setEnabled(false);
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        cancelar_btn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cancelar_btn.setText("cancelar");
+        cancelar_btn.setEnabled(false);
+        cancelar_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                cancelar_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4);
+        jPanel1.add(cancelar_btn);
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton5.setText("salir");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        salir_btn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        salir_btn.setText("salir");
+        salir_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                salir_btnActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5);
+        jPanel1.add(salir_btn);
 
         jLabel4.setBackground(new java.awt.Color(0, 102, 102));
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -438,7 +438,7 @@ public class produccion extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(0, 102, 102));
         jLabel8.setText("Deposito");
 
-        deposito_nombre_lbl.setText("nombre");
+        deposito_nombre_lbl.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -589,9 +589,8 @@ public class produccion extends javax.swing.JFrame {
 }//GEN-LAST:event_BgrabarActionPerformed
 
     private void grabar() {
-        System.out.println(ban);
+        
         if (ban.equals("nuevo")) {
-            System.out.println("hola");
             try {
                 String produccion = "INSERT INTO produccion(\n"
                         + " cod_or_prod, fecha_pro, observacion, estado, \n"
@@ -609,53 +608,70 @@ public class produccion extends javax.swing.JFrame {
                 cn.conectar();
                 cn.actualizar(produccion);
                 //guardamos el detalle
-                
+
                 int filas = grilla.getRowCount();
+                String cod_produccion = Metodos.ultimoCodigo("\"cod_producción\"", "produccion");
                 for (int i = 0; i < filas; i++) {
-                    
+
                     String detalle_pro = "INSERT INTO \"detalle_producción\"(\n"
                             + "\"cod_producción\", cod_or_prod, cod_depo, sucur_id, pro_cod, cantidad_realizada, \n"
                             + "cantidad_faltante)\n"
                             + "VALUES ("
-                            + Metodos.ultimoCodigo("\"cod_producción\"", "produccion")+", "
-                            + nroorden.getText()+", "
-                            + id_deposito_txt.getText()+", "
-                            + Menu.idSucursal+", "
-                            + grilla.getValueAt(i, 0).toString()+", "
-                            + grilla.getValueAt(i, 2).toString()+", "
+                            +  cod_produccion+ ", "
+                            + nroorden.getText() + ", "
+                            + id_deposito_txt.getText() + ", "
+                            + Menu.idSucursal + ", "
+                            + grilla.getValueAt(i, 0).toString() + ", "
+                            + grilla.getValueAt(i, 2).toString() + ", "
                             + "0);";
                     cn.actualizar(detalle_pro);
                 }
 
+                //guardamos la merma
+                String merma = "INSERT INTO control_mermas(\n"
+                        + " fecha, estado, usu_id, emp_id, cod_or_prod, \"cod_producción\", \n"
+                        + "sucur_id)\n"
+                        + "VALUES ('"
+                        + Metodos.dameFechaFormateadaSQL(fecha_dt.getDate())+"', "
+                        + "'ACTIVO', "
+                        + Menu.idUsuario+", "
+                        + Menu.idEmpleado+", "
+                        + nroorden.getText()+", "
+                        + cod_produccion+", "
+                        + Menu.idSucursal+");";
+                cn.actualizar(merma);
+                
                 JOptionPane.showMessageDialog(null, "Guardado Correctamente");
             } catch (SQLException ex) {
                 Logger.getLogger(produccion.class.getName()).log(Level.SEVERE, null, ex);
-                
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(produccion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        limpiar();
     }
     private void codproduccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codproduccActionPerformed
 
 }//GEN-LAST:event_codproduccActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void nuevo_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevo_btnActionPerformed
         ban = "nuevo";
 
 //        BORR.setEnabled(true);
-        this.jButton4.setEnabled(true);
-        this.jButton1.setEnabled(false);
-        this.jButton3.setEnabled(false);
+        this.cancelar_btn.setEnabled(true);
+        this.nuevo_btn.setEnabled(false);
+        this.anular_btn.setEnabled(false);
         this.Bgrabar.setEnabled(true);
         nroorden.setEnabled(true);
         nroorden.requestFocus();
         codproducc.setText(Metodos.siguienteCodigo("cod_or_prod", "produccion"));
         fecha_dt.setDate(new JCalendar().getDate());
+        anular_btn.setEnabled(true);
 
 //        this.nroorden.setEnabled(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_nuevo_btnActionPerformed
 
     private void nroordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nroordenActionPerformed
         if (nroorden.getText().trim().isEmpty()) {
@@ -826,27 +842,42 @@ public class produccion extends javax.swing.JFrame {
         } // TODO add your handling code here:
     }//GEN-LAST:event_nroordenKeyTyped
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void cancelar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelar_btnActionPerformed
+        limpiar();
+        cancelar_btn.setEnabled(false);
+        Bgrabar.setEnabled(false);
+        nuevo_btn.setEnabled(true);
+        anular_btn.setEnabled(true);
+    }//GEN-LAST:event_cancelar_btnActionPerformed
 
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void limpiar(){
+        codproducc.setText("");
+        nroorden.setText("");
+        fecha_dt.setDate(new JCalendar().getDate());
+        observacion_txt.setText("");
+        id_deposito_txt.setText("0");
+        deposito_nombre_lbl.setText("");
+        Metodos.limpiarTabla(grilla);
+        Metodos.limpiarTabla(grilla2);
+        Metodos.limpiarTabla(grilla3);
+    }
+    private void salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salir_btnActionPerformed
+        dispose();
+    }//GEN-LAST:event_salir_btnActionPerformed
 
     private void codproduccKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codproduccKeyTyped
 
     }//GEN-LAST:event_codproduccKeyTyped
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void anular_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anular_btnActionPerformed
         ban = "anular";
-        this.jButton4.setEnabled(true);
-        this.jButton1.setEnabled(false);
-        this.jButton3.setEnabled(false);
+        this.cancelar_btn.setEnabled(true);
+        this.nuevo_btn.setEnabled(false);
+        this.anular_btn.setEnabled(false);
         this.Bgrabar.setEnabled(false);
         this.codproducc.setEnabled(true);
         this.codproducc.requestFocus();// TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_anular_btnActionPerformed
 
     private void grillaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaMouseClicked
 //        this.BORR.setEnabled(true);        // TODO add your handling code here:
@@ -972,6 +1003,8 @@ public class produccion extends javax.swing.JFrame {
     private javax.swing.JButton Bgrabar;
     private javax.swing.JLabel Materia2;
     private javax.swing.JLabel Materia3;
+    private javax.swing.JButton anular_btn;
+    private javax.swing.JButton cancelar_btn;
     private javax.swing.JTextField codproducc;
     public static javax.swing.JLabel deposito_nombre_lbl;
     private javax.swing.JTextField descrip;
@@ -980,10 +1013,6 @@ public class produccion extends javax.swing.JFrame {
     private javax.swing.JTable grilla2;
     private javax.swing.JTable grilla3;
     public static javax.swing.JLabel id_deposito_txt;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1003,7 +1032,9 @@ public class produccion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     public static javax.swing.JTextField nroorden;
+    private javax.swing.JButton nuevo_btn;
     private javax.swing.JTextField observacion_txt;
+    private javax.swing.JButton salir_btn;
     private javax.swing.JLabel sucursal_lbl;
     private javax.swing.JTextField txtcant;
     private javax.swing.JTextField txtcant1;
@@ -1014,3 +1045,4 @@ public class produccion extends javax.swing.JFrame {
     public int pe, pee;
 
 }
+

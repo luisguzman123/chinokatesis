@@ -97,7 +97,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="311" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="365" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
@@ -666,7 +666,11 @@
           <Font name="Arial" size="12" style="1"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="3">
+            <StringItem index="0" value="Ventas"/>
+            <StringItem index="1" value="Traslados"/>
+            <StringItem index="2" value="Compras"/>
+          </StringArray>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
@@ -1024,7 +1028,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnAnular">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ANULAR"/>
+            <Property name="text" type="java.lang.String" value="Anular"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnularActionPerformed"/>
@@ -1033,7 +1037,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnModificar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="MODIFICAR"/>
+            <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificarActionPerformed"/>
@@ -1041,7 +1045,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnEnviar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ENVIAR"/>
+            <Property name="text" type="java.lang.String" value="Enviar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnviarActionPerformed"/>
@@ -1049,7 +1053,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnRecibir">
           <Properties>
-            <Property name="text" type="java.lang.String" value="RECIBIR"/>
+            <Property name="text" type="java.lang.String" value="Recibir"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRecibirActionPerformed"/>
@@ -1057,7 +1061,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CANCELAR"/>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
@@ -1065,7 +1069,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnGrabar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="GRABAR"/>
+            <Property name="text" type="java.lang.String" value="Grabar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGrabarActionPerformed"/>
@@ -1073,7 +1077,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSalir">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SALIR"/>
+            <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
@@ -1081,7 +1085,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnNuevo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="NUEVO"/>
+            <Property name="text" type="java.lang.String" value="Traslados"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoActionPerformed"/>

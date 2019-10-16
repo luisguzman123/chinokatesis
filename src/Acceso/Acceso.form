@@ -275,7 +275,7 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtPass">
           <Properties>
-            <Property name="text" type="java.lang.String" value="123"/>
+            <Property name="text" type="java.lang.String" value="admin"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
@@ -289,6 +289,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnConectar">
           <Properties>
+            <Property name="mnemonic" type="int" value="99"/>
             <Property name="text" type="java.lang.String" value="CONECTAR"/>
           </Properties>
           <Events>

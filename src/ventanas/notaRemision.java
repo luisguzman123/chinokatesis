@@ -413,6 +413,7 @@ public class notaRemision extends javax.swing.JFrame
         jLabel14.setText("Motivo:");
 
         combo_motivo_nota.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        combo_motivo_nota.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ventas", "Traslados", "Compras" }));
         combo_motivo_nota.setEnabled(false);
         combo_motivo_nota.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -591,7 +592,7 @@ public class notaRemision extends javax.swing.JFrame
 
         jPanel6.setBackground(new java.awt.Color(0, 102, 102));
 
-        btnAnular.setText("ANULAR");
+        btnAnular.setText("Anular");
         btnAnular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnularActionPerformed(evt);
@@ -603,49 +604,49 @@ public class notaRemision extends javax.swing.JFrame
             }
         });
 
-        btnModificar.setText("MODIFICAR");
+        btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
 
-        btnEnviar.setText("ENVIAR");
+        btnEnviar.setText("Enviar");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnviarActionPerformed(evt);
             }
         });
 
-        btnRecibir.setText("RECIBIR");
+        btnRecibir.setText("Recibir");
         btnRecibir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecibirActionPerformed(evt);
             }
         });
 
-        btnCancelar.setText("CANCELAR");
+        btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
 
-        btnGrabar.setText("GRABAR");
+        btnGrabar.setText("Grabar");
         btnGrabar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGrabarActionPerformed(evt);
             }
         });
 
-        btnSalir.setText("SALIR");
+        btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
 
-        btnNuevo.setText("NUEVO");
+        btnNuevo.setText("Traslados");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
@@ -782,7 +783,7 @@ public class notaRemision extends javax.swing.JFrame
                         .addGap(53, 53, 53))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 311, Short.MAX_VALUE))
+                        .addGap(0, 365, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2)
                         .addContainerGap())))
@@ -911,6 +912,9 @@ public class notaRemision extends javax.swing.JFrame
         }else if (combo_motivo_nota.getSelectedItem().toString().equals("Traslados")) {
             txt_nombre_arti.setEnabled(true);
             txt_nombre_arti.requestFocus();
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
+            combo_sucursal_salida.setEnabled(true);
+            combo_sucursal_salida.requestFocus();
         }
     }//GEN-LAST:event_fecha_finKeyPressed
 
@@ -922,6 +926,10 @@ public class notaRemision extends javax.swing.JFrame
         }else if (combo_motivo_nota.getSelectedItem().toString().equals("Traslados")) {
             cod_vehiculo.setEnabled(true);
             cod_vehiculo.requestFocus();
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
+            dameDeposito();
+            combo_deposito_llegada.setEnabled(true);
+            combo_deposito_llegada.requestFocus();
         }
         
        
@@ -992,10 +1000,17 @@ public class notaRemision extends javax.swing.JFrame
                 System.out.println(sql);
                 cn.actualizar(sql);
 //                int cantidadFilas=grilla.getRowCount();
-                if (operacion.equals("agregar")) {
+                if (operacion.equals("agregar")&&combo_motivo_nota.getSelectedItem().toString().equals("Compras")) {
                             sqldetalle="insert into remision_compra (remi_id, compra_id, estado) values("
                             +Metodos.ultimoCodigo("remi_id", "nota_remision")+", "
                              +dameIdCompra()
+                             +",'ACTIVO')";
+                           
+                            cn.actualizar(sqldetalle);
+                }else if (operacion.equals("agregar")&&combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
+                            sqldetalle="insert into remision_venta (remi_id, ventas_id, estado) values("
+                            +Metodos.ultimoCodigo("remi_id", "nota_remision")+", "
+                             +dameIdVenta()
                              +",'ACTIVO')";
                            
                             cn.actualizar(sqldetalle);
@@ -1016,12 +1031,51 @@ public class notaRemision extends javax.swing.JFrame
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnRecibirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecibirActionPerformed
-
+        btnNuevo.setEnabled(false);
+        btnAnular.setEnabled(false);
+        btnSalir.setEnabled(false);
+        btnModificar.setEnabled(false);
+        btnEnviar.setEnabled(false);
+        btnRecibir.setEnabled(false);
+        
+        btnGrabar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        
+        txtCod.setText(Metodos.siguienteCodigo("remi_id", "nota_remision"));
+//        combomotivo();
+        
+        
+        operacion = "agregar";
+        confirmar = "¿Desea grabar el nuevo registro?";
+        mensaje = "Registro grabado con exito"; 
+        
+        
+        combo_motivo_nota.setSelectedItem("Compras");
+        factura_n.setEnabled(true);
+        factura_n.requestFocus();
     }//GEN-LAST:event_btnRecibirActionPerformed
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        fecha_inicio.setEnabled(true);
-        fecha_inicio.requestFocus();
+        btnNuevo.setEnabled(false);
+        btnAnular.setEnabled(false);
+        btnSalir.setEnabled(false);
+        btnModificar.setEnabled(false);
+        btnEnviar.setEnabled(false);
+        btnRecibir.setEnabled(false);
+        
+        btnGrabar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        
+        txtCod.setText(Metodos.siguienteCodigo("remi_id", "nota_remision"));
+        
+        operacion = "agregar";
+        confirmar = "¿Desea grabar el nuevo registro?";
+        mensaje = "Registro grabado con exito"; 
+        
+        
+        factura_n.setEnabled(true);
+        factura_n.requestFocus();
+        combo_motivo_nota.setSelectedItem("Ventas");
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -1043,14 +1097,18 @@ public class notaRemision extends javax.swing.JFrame
         btnGrabar.setEnabled(true);
         btnCancelar.setEnabled(true);
         
-        combo_motivo_nota.setEnabled(true);
+        combo_motivo_nota.setEnabled(false);
         combo_motivo_nota.requestFocus();
         
         
         txtCod.setText(Metodos.siguienteCodigo("remi_id", "nota_remision"));
-        combomotivo();
+//        combomotivo();
+        dameDepositoParaTranslado();
+        combo_deposito_llegada.setEnabled(true);
+        combo_deposito_llegada.requestFocus();
+        dameSucursal();
         
-        
+        combo_motivo_nota.setSelectedItem("Compras");
         operacion = "agregar";
         confirmar = "¿Desea grabar el nuevo registro?";
         mensaje = "Registro grabado con exito";
@@ -1097,6 +1155,9 @@ public class notaRemision extends javax.swing.JFrame
             combo_deposito_llegada.setEnabled(true);
             combo_deposito_llegada.requestFocus();
             dameSucursal();
+        }else if (combo_motivo_nota.getSelectedItem().equals("Ventas")) {
+           factura_n.setEnabled(true);
+           factura_n.requestFocus();
         }
     }//GEN-LAST:event_combo_motivo_notaItemStateChanged
 
@@ -1105,11 +1166,19 @@ public class notaRemision extends javax.swing.JFrame
     }//GEN-LAST:event_ci_cliActionPerformed
 
     private void factura_nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_factura_nActionPerformed
-        dameProveedor();
-        dameDetallesCompra();
-        cod_vehiculo.setEnabled(true);
-        cod_vehiculo.requestFocus();
-        factura_n.setEnabled(false);
+        if (combo_motivo_nota.getSelectedItem().toString().equals("Compras")) {
+            dameProveedor();
+            dameDetallesCompra();
+            cod_vehiculo.setEnabled(true);
+            cod_vehiculo.requestFocus();
+            factura_n.setEnabled(false);
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
+            dameCliente();
+            dameDetallesVentas();
+            cod_vehiculo.setEnabled(true);
+            cod_vehiculo.requestFocus();
+            factura_n.setEnabled(false);
+        }
         
     }//GEN-LAST:event_factura_nActionPerformed
 
@@ -1144,7 +1213,6 @@ public class notaRemision extends javax.swing.JFrame
         fecha_inicio.requestFocus();
         Metodos.cargarCombo(combo_sucursal_salida, "sucur_nom", "sucursal");
         Metodos.cargarCombo(sucursal_receptora, "sucur_nom", "sucursal");
-        
     }//GEN-LAST:event_cod_conductorActionPerformed
 
     private void txt_nombre_artiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombre_artiKeyPressed
@@ -1219,10 +1287,29 @@ public class notaRemision extends javax.swing.JFrame
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
-         
+        }   
     }
+       
+       
+       private void dameCliente(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_cliente_por_factura where nro_factura =  '"+factura_n.getText().trim()+"'");
+             if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {   
+                    ci_cli.setText(detalles.getString("cli_cod"));
+                    cli_nom.setText(detalles.getString("cli_nomb"));
+                    
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+       
        private void dameDetallesCompra(){
         try {
             Conexion cn = new Conexion();
@@ -1234,6 +1321,28 @@ public class notaRemision extends javax.swing.JFrame
                 detalles.getString("cod_materia"),
                 detalles.getString("mat_desc"),
                 detalles.getString("cantidad")
+                });
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+         
+    }
+       private void dameDetallesVentas(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_detalle_ventas where nro_factura =  '"+factura_n.getText().trim()+"'");
+             if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {   
+                    Metodos.cargarTabla(grilla, new Object[]{
+                detalles.getString("pro_cod"),
+                detalles.getString("pro_desc"),
+                detalles.getString("det_cantidad")
                 });
                 }
              }
@@ -1334,6 +1443,26 @@ public class notaRemision extends javax.swing.JFrame
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {   
                     id = detalles.getString("compra_id");
+                    return id;
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return "";
+         
+    }
+       private String dameIdVenta(){
+           String id="";
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from ventas where nro_factura =  '"+factura_n.getText().trim()+"'");
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {   
+                    id = detalles.getString("ventas_id");
                     return id;
                 }
              }

@@ -23,6 +23,7 @@ import ventanas.motivos;
 import ventanas.notaCreditoCompra;
 import ventanas.notaRemision;
 import ventanas.orden_compra;
+import ventanas.pedidoDeVenta;
 import ventanas.pedido_de_compra;
 import ventanas.presupuesto_de_compra;
 import ventanas.presupuesto_produccion;
@@ -147,6 +148,7 @@ public class Menu extends javax.swing.JFrame {
         produccion_item = new javax.swing.JMenuItem();
         menuVentas = new javax.swing.JMenu();
         jMenuItem30 = new javax.swing.JMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
@@ -417,6 +419,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuVentas.add(jMenuItem30);
 
+        jMenuItem24.setText("Pedido de Venta");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
+        menuVentas.add(jMenuItem24);
+
         jMenuItem18.setText("Presupuesto");
         jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -660,6 +670,16 @@ public class Menu extends javax.swing.JFrame {
         notaRemision.idPersonal=idEmpleado;
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+        new pedidoDeVenta().setVisible(true);
+        pedidoDeVenta.txtUsuarioCod.setText(idUsuario);
+        pedidoDeVenta.txtUsuario.setText(usuario);
+        pedidoDeVenta.txtSucursal.setText(Sucursal);
+        pedidoDeVenta.idSucursal= idSucursal;
+        pedidoDeVenta.idUsuario= idUsuario;
+        pedidoDeVenta.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -717,6 +737,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;

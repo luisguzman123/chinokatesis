@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import ventanas.compras;
+import ventanas.orden_produccion;
 
 /**
  *
@@ -312,4 +313,24 @@ public class Metodos {
         }
         return "";
     }
+     
+     public static ResultSet getResulSet(String sql){
+         ResultSet resultados = null;
+         Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            resultados = cn.consultar(sql); 
+            return resultados;
+
+           
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultados;
+         
+     }
 }

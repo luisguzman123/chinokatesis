@@ -1,7 +1,4 @@
-
 package Acceso;
-
-
 
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -37,27 +34,26 @@ import ventanas.vehiculos;
 //import referenciales.Ciudades;
 //import referenciales.Clientes;
 //import referenciales.Sucursales;
-
 public class Menu extends javax.swing.JFrame {
-    
-    public static String usuario; 
+
+    public static String usuario;
     public static String empleado;
     public static String nivel;
     public static String idUsuario;
     public static String idEmpleado;
     public static String idSucursal;
     public static String Sucursal;
-    
+
     public Menu() {
         initComponents();
         this.setExtendedState(Menu.MAXIMIZED_BOTH);
-        JOptionPane.showMessageDialog(null, "Bienvenido al sistema "+empleado);
+        JOptionPane.showMessageDialog(null, "Bienvenido al sistema " + empleado);
         menus();
         niveles();
-        
+
     }
 
-    public void menus(){
+    public void menus() {
         menuReferenciales.setEnabled(false);
         refeCompras.setEnabled(false);
         refe_Produccion.setEnabled(false);
@@ -69,25 +65,24 @@ public class Menu extends javax.swing.JFrame {
         infoProduccion.setEnabled(false);
         infoVentas.setEnabled(false);
     }
-    
-    
-    public void niveles(){
+
+    public void niveles() {
         if (nivel.equals("1")) {
             menuReferenciales.setEnabled(true);
             menuCompras.setEnabled(true);
             infoCompras.setEnabled(true);
             refeCompras.setEnabled(true);
-        }else if (nivel.equals("2")) {
+        } else if (nivel.equals("2")) {
             menuReferenciales.setEnabled(true);
             menuProduccion.setEnabled(true);
             infoProduccion.setEnabled(true);
-           refe_Produccion.setEnabled(true);
-        }else if (nivel.equals("3")) {
+            refe_Produccion.setEnabled(true);
+        } else if (nivel.equals("3")) {
             menuReferenciales.setEnabled(true);
             menuVentas.setEnabled(true);
             infoVentas.setEnabled(true);
             refe_ventas.setEnabled(true);
-        }else if (nivel.equals("4")) {
+        } else if (nivel.equals("4")) {
             menuReferenciales.setEnabled(true);
             refe_ventas.setEnabled(true);
             refe_Produccion.setEnabled(true);
@@ -99,10 +94,9 @@ public class Menu extends javax.swing.JFrame {
             infoProduccion.setEnabled(true);
             infoCompras.setEnabled(true);
         }
-        
+
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,6 +139,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         orden_de_produccion = new javax.swing.JMenuItem();
         produccion_item = new javax.swing.JMenuItem();
+        control_calidad = new javax.swing.JMenuItem();
         menuVentas = new javax.swing.JMenu();
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
@@ -405,6 +400,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuProduccion.add(produccion_item);
 
+        control_calidad.setText(" Control de Calidad");
+        control_calidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                control_calidadActionPerformed(evt);
+            }
+        });
+        menuProduccion.add(control_calidad);
+
         jMenuBar1.add(menuProduccion);
 
         menuVentas.setText("Gestión de ventas");
@@ -474,8 +477,8 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-         new proveedor().setVisible(true);
-         
+        new proveedor().setVisible(true);
+
 //        Actividad acti=new Actividad();
 //        contenedor.add(acti);
 //        acti.setVisible(true);
@@ -487,7 +490,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       new vehiculos().setVisible(true);
+        new vehiculos().setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -525,9 +528,9 @@ public class Menu extends javax.swing.JFrame {
         pedido_de_compra.txtUsuarioCod.setText(idUsuario);
         pedido_de_compra.txtUsuario.setText(usuario);
         pedido_de_compra.txtSucursal.setText(Sucursal);
-        pedido_de_compra.idSucursal= idSucursal;
-        pedido_de_compra.idUsuario= idUsuario;
-        pedido_de_compra.idPersonal=idEmpleado;
+        pedido_de_compra.idSucursal = idSucursal;
+        pedido_de_compra.idUsuario = idUsuario;
+        pedido_de_compra.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void infoReferencialesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoReferencialesActionPerformed
@@ -547,7 +550,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -583,9 +586,9 @@ public class Menu extends javax.swing.JFrame {
         presupuesto_de_compra.txtUsuarioCod.setText(idUsuario);
         presupuesto_de_compra.txtUsuario.setText(usuario);
         presupuesto_de_compra.txtSucursal.setText(Sucursal);
-        presupuesto_de_compra.idSucursal= idSucursal;
-        presupuesto_de_compra.idUsuario= idUsuario;
-        presupuesto_de_compra.idPersonal=idEmpleado;
+        presupuesto_de_compra.idSucursal = idSucursal;
+        presupuesto_de_compra.idUsuario = idUsuario;
+        presupuesto_de_compra.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
@@ -593,9 +596,9 @@ public class Menu extends javax.swing.JFrame {
         orden_compra.txtUsuarioCod.setText(idUsuario);
         orden_compra.txtUsuario.setText(usuario);
         orden_compra.txtSucursal.setText(Sucursal);
-        orden_compra.idSucursal= idSucursal;
-        orden_compra.idUsuario= idUsuario;
-        orden_compra.idPersonal=idEmpleado;
+        orden_compra.idSucursal = idSucursal;
+        orden_compra.idUsuario = idUsuario;
+        orden_compra.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
@@ -603,16 +606,16 @@ public class Menu extends javax.swing.JFrame {
         compras.txtCodUsuario.setText(idUsuario);
         compras.txtUsuario.setText(usuario);
         compras.txtSucursal.setText(Sucursal);
-        compras.idSucursal= idSucursal;
-        compras.idUsuario= idUsuario;
-        compras.idPersonal=idEmpleado;
+        compras.idSucursal = idSucursal;
+        compras.idUsuario = idUsuario;
+        compras.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem16ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         // TODO add your handling code here:
         new etapasDeProduccion().setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
@@ -631,13 +634,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_produccion_itemActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
-         new notaCreditoCompra().setVisible(true);
+        new notaCreditoCompra().setVisible(true);
         notaCreditoCompra.txtUsuarioCod.setText(idUsuario);
         notaCreditoCompra.txtUsuario.setText(usuario);
         notaCreditoCompra.txtSucursal.setText(Sucursal);
-        notaCreditoCompra.idSucursal= idSucursal;
-        notaCreditoCompra.idUsuario= idUsuario;
-        notaCreditoCompra.idPersonal=idEmpleado;
+        notaCreditoCompra.idSucursal = idSucursal;
+        notaCreditoCompra.idUsuario = idUsuario;
+        notaCreditoCompra.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
@@ -645,20 +648,25 @@ public class Menu extends javax.swing.JFrame {
         ajuste_stock.txtCodUsuario.setText(idUsuario);
         ajuste_stock.txtUsuario.setText(usuario);
         ajuste_stock.txtSucu.setText(Sucursal);
-        ajuste_stock.idSucursal= idSucursal;
-        ajuste_stock.idUsuario= idUsuario;
-        ajuste_stock.idPersonal=idEmpleado;
+        ajuste_stock.idSucursal = idSucursal;
+        ajuste_stock.idUsuario = idUsuario;
+        ajuste_stock.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
     private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
-         new notaRemision().setVisible(true);
+        new notaRemision().setVisible(true);
         notaRemision.txtCodUsuario.setText(idUsuario);
         notaRemision.txtUsuario.setText(usuario);
         notaRemision.txtSucu.setText(Sucursal);
-        notaRemision.idSucursal= idSucursal;
-        notaRemision.idUsuario= idUsuario;
-        notaRemision.idPersonal=idEmpleado;
+        notaRemision.idSucursal = idSucursal;
+        notaRemision.idUsuario = idUsuario;
+        notaRemision.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem23ActionPerformed
+
+    private void control_calidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_calidadActionPerformed
+        // TODO add your handling code here:
+        new ventanas.control_de_calidad().setVisible(true);
+    }//GEN-LAST:event_control_calidadActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -696,6 +704,7 @@ public class Menu extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JDesktopPane contenedor;
+    private javax.swing.JMenuItem control_calidad;
     private javax.swing.JMenuItem infoCompras;
     private javax.swing.JMenuItem infoProduccion;
     private javax.swing.JMenuItem infoReferenciales;

@@ -4,7 +4,6 @@ import Acceso.Menu;
 import clases.Conexion;
 import clases.Metodos;
 import static clases.Metodos.limpiarTabla;
-import com.sun.jndi.cosnaming.CNCtx;
 import com.toedter.calendar.JCalendar;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
-public class costosDeProduccion extends javax.swing.JFrame {
+public class pedido_de_materia_prima extends javax.swing.JFrame {
 
     String operacion="";
     String confirmar="";
@@ -24,9 +23,6 @@ public class costosDeProduccion extends javax.swing.JFrame {
     boolean duplicado;
     
     public static String busqueda = "";
-    
-    public static String depoProdu = "";
-    public static String sucuProdu = "";
 
     
     public static String usuario; 
@@ -36,7 +32,7 @@ public class costosDeProduccion extends javax.swing.JFrame {
     public static String idSucursal;
     public static String idPersonal;
     
-    public costosDeProduccion() {
+    public pedido_de_materia_prima() {
         initComponents();
         btnCancelar.doClick();
         txtFecha.setDate(new JCalendar().getDate());
@@ -63,6 +59,7 @@ public class costosDeProduccion extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        btnBuscarArti = new javax.swing.JButton();
         txtCodArti = new javax.swing.JTextField();
         txtArti = new javax.swing.JTextField();
         txtPrecio = new javax.swing.JTextField();
@@ -71,22 +68,19 @@ public class costosDeProduccion extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        txtProduccion = new javax.swing.JTextField();
+        txtDeposito = new javax.swing.JTextField();
         txtUsuarioCod = new javax.swing.JTextField();
         txtSucursal = new javax.swing.JTextField();
         txtTotal = new javax.swing.JTextField();
         txtFecha = new com.toedter.calendar.JDateChooser();
         txtCod = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        txtOrdenProdu = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        txtObs = new javax.swing.JTextField();
+        txt_cod_depo = new javax.swing.JTextField();
 
         jLabel5.setText("jLabel5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("COSTOS DE PRODUCCIÓN");
+        setTitle("PEDIDO DE MATERIA PRIMA");
 
         grilla.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         grilla.setModel(new javax.swing.table.DefaultTableModel(
@@ -94,11 +88,11 @@ public class costosDeProduccion extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CODIGO", "DESCRIPCION", "CANTIDAD", "PRECIO", "COSTO UNITARIO", "SUBTOTAL"
+                "CODIGO", "DESCRIPCION", "CANTIDAD", "PRECIO UNT.", "SUBTOTAL"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -200,11 +194,18 @@ public class costosDeProduccion extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("COSTO");
+        jLabel10.setText("PRECIO");
 
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("CANT.");
+
+        btnBuscarArti.setText("...");
+        btnBuscarArti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarArtiActionPerformed(evt);
+            }
+        });
 
         txtCodArti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,7 +248,9 @@ public class costosDeProduccion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtArti, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtArti, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscarArti)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -267,6 +270,7 @@ public class costosDeProduccion extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(txtCodArti)
                     .addComponent(txtArti)
+                    .addComponent(btnBuscarArti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel10)
                     .addComponent(txtPrecio)
                     .addComponent(jLabel11)
@@ -282,22 +286,22 @@ public class costosDeProduccion extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel2.setText("Costos de Producción");
+        jLabel2.setText("Pedido de Materia Prima");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setText("Producción");
+        jLabel14.setText("Depósito");
 
-        txtProduccion.addActionListener(new java.awt.event.ActionListener() {
+        txtDeposito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProduccionActionPerformed(evt);
+                txtDepositoActionPerformed(evt);
             }
         });
-        txtProduccion.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDeposito.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtProduccionKeyPressed(evt);
+                txtDepositoKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtProduccionKeyReleased(evt);
+                txtDepositoKeyReleased(evt);
             }
         });
 
@@ -337,29 +341,9 @@ public class costosDeProduccion extends javax.swing.JFrame {
             }
         });
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel15.setText("Orden de Producción");
-
-        txtOrdenProdu.addActionListener(new java.awt.event.ActionListener() {
+        txt_cod_depo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrdenProduActionPerformed(evt);
-            }
-        });
-        txtOrdenProdu.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtOrdenProduKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtOrdenProduKeyReleased(evt);
-            }
-        });
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setText("Observaciones");
-
-        txtObs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtObsActionPerformed(evt);
+                txt_cod_depoActionPerformed(evt);
             }
         });
 
@@ -368,14 +352,14 @@ public class costosDeProduccion extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
@@ -385,23 +369,15 @@ public class costosDeProduccion extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtSucursal)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtUsuarioCod, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                                        .addComponent(txtUsuarioCod, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtProduccion, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtOrdenProdu)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel16)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(txt_cod_depo, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -412,42 +388,36 @@ public class costosDeProduccion extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane2)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(28, 28, 28))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                            .addComponent(txtCod))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCod, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
                             .addComponent(txtUsuarioCod, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProduccion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOrdenProdu, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE))
+                        .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtObs, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDeposito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_cod_depo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -458,7 +428,7 @@ public class costosDeProduccion extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(949, 549));
+        setSize(new java.awt.Dimension(949, 515));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -472,24 +442,13 @@ public class costosDeProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_grillaKeyPressed
 
     private void grillaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaMouseClicked
-        int fila = grilla.getSelectedRow();
-        Integer opcion = JOptionPane.showConfirmDialog(null, "¿Desea cargar costo de este producto?");
-        System.out.println(opcion);
-        if (opcion==0) {
-            txtCodArti.setText(grilla.getValueAt(fila, 0).toString());
-            txtArti.setText(grilla.getValueAt(fila, 1).toString());
-            txtCantidad.setText(grilla.getValueAt(fila, 2).toString());
-            txtPrecio.setEditable(true);
-            txtPrecio.requestFocus();
-        }else{
-            JOptionPane.showMessageDialog(null, "Puede elegir otra opción");
-        }
+     
     }//GEN-LAST:event_grillaMouseClicked
 
-    private void txtProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProduccionActionPerformed
-        txtOrdenProdu.setEditable(true);
-        txtOrdenProdu.requestFocus();
-    }//GEN-LAST:event_txtProduccionActionPerformed
+    private void btnBuscarArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArtiActionPerformed
+        materiaPrima.busqueda="pediCompra";
+        new materiaPrima().setVisible(true);
+    }//GEN-LAST:event_btnBuscarArtiActionPerformed
 
     public void traerFechaActual(){
         Calendar cal = Calendar.getInstance();
@@ -503,24 +462,21 @@ public class costosDeProduccion extends javax.swing.JFrame {
         txtSucursal.setEditable(false);
         txtFecha.setEnabled(false);
         txtUsuarioCod.setEditable(false);
-        txtProduccion.setEditable(false);
+        txtDeposito.setEditable(false);
         txtCodArti.setEditable(false);
         txtArti.setEditable(false);
         txtPrecio.setEditable(false);
         txtCantidad.setEditable(false);
         txtTotal.setEditable(false);
         txtUsuario.setEditable(false);
-        txtOrdenProdu.setEditable(false);
         
         
         
         txtCod.setText("");
-        txtObs.setText("");
         txtUsuarioCod.setText("");
-        txtOrdenProdu.setText("");
         txtUsuario.setText("");
         txtSucursal.setText("");
-        txtProduccion.setText("");
+        txtDeposito.setText("");
         txtCodArti.setText("");
         txtArti.setText("");
         txtPrecio.setText("");
@@ -534,11 +490,14 @@ public class costosDeProduccion extends javax.swing.JFrame {
         btnSalir.setEnabled(true);
         btnGrabar.setEnabled(false);
         btnCancelar.setEnabled(false);
+        btnBuscarArti.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        txtProduccion.setEditable(true);
-        txtProduccion.requestFocus();
+        txtDeposito.setEnabled(true);
+        txtDeposito.setEditable(true);
+        txtDeposito.requestFocus();
+        
         txtFecha.setEnabled(true);
         
         btnAgregar.setEnabled(false);
@@ -548,7 +507,7 @@ public class costosDeProduccion extends javax.swing.JFrame {
         btnCancelar.setEnabled(true);
         
         
-        txtCod.setText(Metodos.siguienteCodigo("cod_costo", "costo_produccion"));
+        txtCod.setText(Metodos.siguienteCodigo("cod_ped_mat", "pedido_materia_prima"));
         
         operacion="agregar";
         confirmar="¿Desea grabar el nuevo registro?";
@@ -568,7 +527,7 @@ public class costosDeProduccion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTotalActionPerformed
 
     private void txtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodActionPerformed
-        btnGrabar.doClick();
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtCodActionPerformed
 
     private void txtCodArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodArtiActionPerformed
@@ -577,25 +536,13 @@ public class costosDeProduccion extends javax.swing.JFrame {
 
     private void txtArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtArtiActionPerformed
         traerPrecio();
-        txtPrecio.setEditable(true);
-        txtPrecio.requestFocus();
+        txtCantidad.setEditable(true);
+        txtCantidad.requestFocus();
     }//GEN-LAST:event_txtArtiActionPerformed
 
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
-        int fila = grilla.getSelectedRow();
-        if (Integer.parseInt(txtPrecio.getText())>=Integer.parseInt(grilla.getValueAt(fila, 3).toString())) {
-            JOptionPane.showMessageDialog(null, "El valor del costo no debe superar o igualar el precio final del producto");
-        }else if (Integer.parseInt(txtPrecio.getText())<Integer.parseInt(grilla.getValueAt(fila, 3).toString())) {
-            grilla.setValueAt(txtPrecio.getText(), fila, 4);
-            grilla.setValueAt(Integer.parseInt(txtPrecio.getText())*Integer.parseInt(txtCantidad.getText()), fila, 5);
-            
-            txtCodArti.setText("");
-            txtArti.setText("");
-            txtPrecio.setText("");
-            txtCantidad.setText("");
-            grilla.requestFocus();
-        }
-//        txtTotal.setText(String.valueOf(Metodos.sumarColumna(grilla, 5)));
+        txtCantidad.setEditable(true);
+        txtCantidad.requestFocus();
     }//GEN-LAST:event_txtPrecioActionPerformed
 
     
@@ -619,7 +566,6 @@ public class costosDeProduccion extends javax.swing.JFrame {
          String codigoEnRenglon = (String)grilla.getValueAt(fila, 0);
          if (txtCodArti.getText().equals(codigoEnRenglon)) {
              grilla.setValueAt(Integer.parseInt(txtCantidad.getText())+(Integer.parseInt(grilla.getValueAt(fila, 2).toString())), fila, 2);
-             grilla.setValueAt(Integer.parseInt(txtPrecio.getText()), fila, 3);
              grilla.setValueAt(Integer.parseInt(grilla.getValueAt(fila, 2).toString())*Integer.parseInt(txtPrecio.getText()), fila, 4);
              txtCodArti.setText("");
              txtArti.setText("");
@@ -682,7 +628,7 @@ public class costosDeProduccion extends javax.swing.JFrame {
 
     private void txtArtiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtArtiKeyPressed
         if (txtArti.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            materiaPrima.busqueda="presuProvee";
+            materiaPrima.busqueda="pediMateria";
             new materiaPrima().setVisible(true);
           
         }
@@ -704,21 +650,32 @@ public class costosDeProduccion extends javax.swing.JFrame {
         int respuesta=5;
         
         respuesta=JOptionPane.showConfirmDialog(null, confirmar);
-      
+        
+        
+        
         if(respuesta==0){
             String sql="";
             String sqldetalle="";
-            if(operacion.equals("agregar")&&verGrillaVacia().equals("listo")){
-                sql="Insert into costo_produccion (estado, fecha, observaciones, \"cod_producción\", cod_or_prod)"
-                        + " values ('ACTIVO', '"+
-                        Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"', '"+
-                        txtObs.getText().trim()+"', "+
-                        txtProduccion.getText().trim()+", "+
-                        txtOrdenProdu.getText().trim()+")";
-              
+            if(operacion.equals("agregar")){
+                sql="Insert into pedido_materia_prima (cod_ped_mat, fecha, estado, sucur_id, usu_id, emp_id)"
+                        + " values ("+
+                        Metodos.siguienteCodigo("cod_ped_mat", "pedido_materia_prima")+",'"+
+                        Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"','ACTIVO', "+
+                        idSucursal+","+
+                        idUsuario+","+
+                        idPersonal+")";
+                        
+            }
+            
+            if(operacion.equals("anular")){
+                sql="update pedido_materia_prima set"
+                        + " estado = 'ANULADO' "
+                        + " where cod_ped_mat = "+txtCod.getText();
                 
-                
-                        Conexion cn=new Conexion();
+            }
+            
+            
+            Conexion cn=new Conexion();
             try {
                 cn.conectar();
                 System.out.println(sql);
@@ -726,70 +683,36 @@ public class costosDeProduccion extends javax.swing.JFrame {
                 int cantidadFilas=grilla.getRowCount();
                 if (operacion.equals("agregar")) {
                         for (int i = 0; i < cantidadFilas; i++) {
-                            sqldetalle="insert into detalle_costo_produccion (cod_costo, cod_depo, sucur_id, pro_cod, cantidad, costo_unitario) values("
-                            +Metodos.ultimoCodigo("cod_costo", "costo_produccion")+","
-                            +depoProdu+","
-                            +sucuProdu+","
+                            sqldetalle="insert into det_pedido_materia_prima(cod_ped_mat, cod_depo, sucur_id, cod_materia, cantidad) values("
+                            +Metodos.ultimoCodigo("cod_ped_mat", "pedido_materia_prima")+","
+                            +txt_cod_depo.getText().trim()+","
+                            +idSucursal+","
                             +grilla.getValueAt(i, 0)+","
-                            +grilla.getValueAt(i, 2)+","
-                            +grilla.getValueAt(i, 4)+")";
-                            System.out.println(sqldetalle);
+                            +grilla.getValueAt(i, 2)+")";
+                           
                             cn.actualizar(sqldetalle);
                             
                 }   
                 }
-//                cn.actualizar("update pedido_compra set estado = 'UTILIZADO' where ped_id = "+txtOrdenProdu.getText());
                 JOptionPane.showMessageDialog(null, mensaje);
                 btnCancelar.doClick();
 
                 
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(costosDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(pedido_de_materia_prima.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             } catch (SQLException ex) {
-                Logger.getLogger(costosDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(pedido_de_materia_prima.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
-            }    
-                
-            }else if (verGrillaVacia().equals("Debe cargar todos los costos de producción")) {
-                JOptionPane.showMessageDialog(null, verGrillaVacia());
-                return;
-            }else if (operacion.equals("anular")) {
-                sql="update costo_produccion set"
-                        + " estado = 'ANULADO' "
-                        + " where cod_costo = "+txtCod.getText();
-                Conexion cn=new Conexion();
-                try {
-                    System.out.println(sql);
-                    cn.conectar();
-                    cn.actualizar(sql);
-                    JOptionPane.showMessageDialog(null, mensaje);
-                    btnCancelar.doClick();
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(costosDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(costosDeProduccion.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
             }
-            
-//            if(operacion.equals("anular")){
-//                sql="update costo_produccion set"
-//                        + " estado = 'ANULADO' "
-//                        + " where cod_costo = "+txtCod.getText();
-//                
-//            }
-        
-        }else if (respuesta==1 || respuesta==2) {
-            JOptionPane.showMessageDialog(null, "Cancelado");
-            btnCancelar.doClick();
         }
-         
+         btnCancelar.doClick();
+        
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-        txtCod.setEditable(true);
-        txtCod.requestFocus();
+        txtDeposito.setEditable(true);
+        txtDeposito.requestFocus();
         txtFecha.setEnabled(true);
         
         btnAgregar.setEnabled(false);
@@ -798,53 +721,46 @@ public class costosDeProduccion extends javax.swing.JFrame {
         btnGrabar.setEnabled(true);
         btnCancelar.setEnabled(true);
      
-        
+        txtCod.setEditable(true);
+        txtCod.requestFocus();
         operacion="anular";
         confirmar="¿Desea anular este registro?";
         mensaje="Registro anulado con exito";
     }//GEN-LAST:event_btnAnularActionPerformed
 
-    private void txtProduccionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProduccionKeyPressed
-        if (txtProduccion.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busProduccion.busqueda="costoProduccion";
-            new busProduccion().setVisible(true);
-          
-        }
-    }//GEN-LAST:event_txtProduccionKeyPressed
-
-    private void txtProduccionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProduccionKeyReleased
+    private void txtDepositoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDepositoKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtProduccionKeyReleased
+    }//GEN-LAST:event_txtDepositoKeyReleased
 
-    private void txtOrdenProduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrdenProduActionPerformed
+    private void txtDepositoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDepositoKeyPressed
+        if (txtDeposito.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
+            deposito.busqueda="pedido_materia_prima";
+            deposito.bandera = 2;
+            deposito.sucu = dameIdSucursal(txtSucursal.getText().trim());
+            new deposito().setVisible(true);
+
+        }
+    }//GEN-LAST:event_txtDepositoKeyPressed
+
+    
+    
+    private void txtDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDepositoActionPerformed
         txtArti.setEditable(true);
         txtArti.requestFocus();
-    }//GEN-LAST:event_txtOrdenProduActionPerformed
+        btnBuscarArti.setEnabled(true);
+    }//GEN-LAST:event_txtDepositoActionPerformed
 
-    private void txtOrdenProduKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOrdenProduKeyPressed
-        if (txtOrdenProdu.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busPedidoCompra.busqueda="pedido_desdePresupuesto";
-            new busPedidoCompra().setVisible(true);
-          
-        }
-    }//GEN-LAST:event_txtOrdenProduKeyPressed
-
-    private void txtOrdenProduKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOrdenProduKeyReleased
+    private void txt_cod_depoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cod_depoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrdenProduKeyReleased
+    }//GEN-LAST:event_txt_cod_depoActionPerformed
 
     private void txtCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyPressed
         if (txtCod.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busCostosProduccion.busqueda="costo_produccion";
-            new busCostosProduccion().setVisible(true);
+            busPedidoMateriasProduccion.busqueda="pedido_de_materia";
+            new busPedidoMateriasProduccion().setVisible(true);
           
         }
     }//GEN-LAST:event_txtCodKeyPressed
-
-    private void txtObsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtObsActionPerformed
-        JOptionPane.showMessageDialog(null, "Puede cargar los costos de producción");
-        grilla.requestFocus();
-    }//GEN-LAST:event_txtObsActionPerformed
 
     
     
@@ -878,34 +794,19 @@ public class costosDeProduccion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }
     }
- 
-    
-    public String verGrillaVacia(){
-        String estado="";
-        for (int fila = 0; fila < grilla.getRowCount(); fila++) {
-            if (grilla.getValueAt(fila, 4).toString().equals("0")) {
-                estado = "Debe cargar todos los costos de producción";
-                return estado;
-            }
-        }
-        estado = "listo";
-        return estado;
-    }
 
-    
-    private String dameDeposito(){
-           String nn ="";
-           String cod="";
+
+
+       private String dameIdSucursal(String sucu){
+           String id="";
         try {
             Conexion cn = new Conexion();
             cn.conectar();
-            nn="select * from \"detalle_producción\" where \"cod_producción\" =  "+txtProduccion.getText().trim()+" and cod_or_prod ="+txtOrdenProdu.getText()+" and sucur_id = ";
-            System.out.println("este es "+nn);
-            ResultSet detalles = cn.consultar(nn);
+            ResultSet detalles = cn.consultar("select * from sucursal where sucur_nom =  '"+sucu+"'");
             if (detalles.isBeforeFirst()) {
-                while (detalles.next()) { 
-                    cod=detalles.getString("cod_depo");
-                    return cod;
+                while (detalles.next()) {   
+                    id = detalles.getString("sucur_id");
+                    return id;
                 }
              }
         } catch (SQLException ex) {
@@ -916,16 +817,43 @@ public class costosDeProduccion extends javax.swing.JFrame {
        return "";
          
     }
+
+    
+    
+//    public String idCombo(){
+//        Conexion cn = new Conexion();
+//        String cod="";
+//        try {
+//            cn.conectar();
+//            ResultSet resultado=cn.consultar("select cod_depo from deposito where depo_desc = '"+cmbDepo.getSelectedItem().toString()+"'"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+//            System.out.println("select cod_depo from deposito where depo_desc = '"+cmbDepo.getSelectedItem().toString()+"'");
+//            if (resultado.isBeforeFirst()){
+//                while(resultado.next()){
+//                  return cod = resultado.getString("cod_depo");
+//                }
+//            }
+//            
+//           
+//            
+//            
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(pedido_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(pedido_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return cod;
+//    }
     
     
     
-    
-    
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new costosDeProduccion().setVisible(true);
+                new pedido_de_materia_prima().setVisible(true);
             }
         });
     }
@@ -933,6 +861,7 @@ public class costosDeProduccion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAnular;
+    private javax.swing.JButton btnBuscarArti;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnSalir;
@@ -942,8 +871,6 @@ public class costosDeProduccion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
@@ -955,15 +882,14 @@ public class costosDeProduccion extends javax.swing.JFrame {
     private javax.swing.JTextField txtCantidad;
     public static javax.swing.JTextField txtCod;
     public static javax.swing.JTextField txtCodArti;
+    public static javax.swing.JTextField txtDeposito;
     public static com.toedter.calendar.JDateChooser txtFecha;
-    public static javax.swing.JTextField txtObs;
-    public static javax.swing.JTextField txtOrdenProdu;
     private javax.swing.JTextField txtPrecio;
-    public static javax.swing.JTextField txtProduccion;
     public static javax.swing.JTextField txtSucursal;
     public static javax.swing.JTextField txtTotal;
     public static javax.swing.JTextField txtUsuario;
     public static javax.swing.JTextField txtUsuarioCod;
+    public static javax.swing.JTextField txt_cod_depo;
     // End of variables declaration//GEN-END:variables
  
 }

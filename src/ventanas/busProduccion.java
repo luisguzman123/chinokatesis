@@ -172,6 +172,9 @@ public class busProduccion extends javax.swing.JFrame {
                         pedi.getInt("cantidad_realizada")});
                     codigo_deposito =  pedi.getInt("cod_depo");
                 }
+                control_de_calidad.codigo_deposito_txt.setText(String.valueOf(codigo_deposito));
+                control_de_calidad.deposito_txt.setText(dameDescripcionDeposito(
+                String.valueOf(codigo_deposito)));
             } else {
 
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");

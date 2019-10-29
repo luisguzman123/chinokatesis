@@ -25,31 +25,31 @@ import ventanas.orden_produccion;
  * @author Carreño
  */
 public class Metodos {
-    
-    public static String dameFechaFormateada(java.util.Date fecha){
+
+    public static String dameFechaFormateada(java.util.Date fecha) {
         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
         return formateador.format(fecha);
     }
-    
+
     /**
      * Agregar marcar con clic derecho
-     * @param datos_tb 
+     *
+     * @param datos_tb
      */
-    public static void agregarClicDerechoATabla(JTable datos_tb){
+    public static void agregarClicDerechoATabla(JTable datos_tb) {
         datos_tb.addMouseListener(new MouseAdapter() {
-                                   public void mousePressed(MouseEvent e) {
-                                       if (!SwingUtilities.isLeftMouseButton(e)) {
-                                            if ( SwingUtilities.isRightMouseButton(e)) {
-                                               Point p = e.getPoint();
-                                               int rowNumber =datos_tb.rowAtPoint( p );
-                                               ListSelectionModel modelo = datos_tb.getSelectionModel();
-                                               modelo.setSelectionInterval( rowNumber, rowNumber );
-                                               
-                                               
-                                           }
-                                       }
-                                   }
-                               }
+            public void mousePressed(MouseEvent e) {
+                if (!SwingUtilities.isLeftMouseButton(e)) {
+                    if (SwingUtilities.isRightMouseButton(e)) {
+                        Point p = e.getPoint();
+                        int rowNumber = datos_tb.rowAtPoint(p);
+                        ListSelectionModel modelo = datos_tb.getSelectionModel();
+                        modelo.setSelectionInterval(rowNumber, rowNumber);
+
+                    }
+                }
+            }
+        }
         );
     }
 
@@ -107,7 +107,7 @@ public class Metodos {
         }
         return cod;
     }
-    
+
     public static boolean evitarDuplicado(String tabla, String campoBD, String dato, String pk, String codigo) {
 
         Conexion cn = new Conexion();
@@ -188,8 +188,6 @@ public class Metodos {
         }
     }
 
-    
-
     public static boolean evitarDuplicadoId(String tabla, String pk, String codigo) {
 
         Conexion cn = new Conexion();
@@ -241,9 +239,8 @@ public class Metodos {
         }
         return null;
     }
-    
-    
-    public static String dameFechaFormateadaSql(java.util.Date fecha){
+
+    public static String dameFechaFormateadaSql(java.util.Date fecha) {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         return f.format(fecha);
     }
@@ -291,8 +288,8 @@ public class Metodos {
         }
         return false;
     }
-    
-     public static String traerIvaProducto(String cod) {
+
+    public static String traerIvaProducto(String cod) {
         try {
             Conexion cn = new Conexion();
             cn.conectar();
@@ -313,24 +310,47 @@ public class Metodos {
         }
         return "";
     }
-     
-     public static ResultSet getResulSet(String sql){
-         ResultSet resultados = null;
-         Conexion cn = new Conexion();
+
+    public static ResultSet getResulSet(String sql) {
+        ResultSet resultados = null;
+        Conexion cn = new Conexion();
 
         try {
             cn.conectar();
-            resultados = cn.consultar(sql); 
+            resultados = cn.consultar(sql);
             return resultados;
 
-           
         } catch (ClassNotFoundException ex) {
 
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
-         return resultados;
-         
-     }
+        return resultados;
+
+    }
+
+    public static String dameDepositoDeProduccionDetalle(String cod_produccion, String cod_orden, String cod_producto) {
+        ResultSet resultados = null;
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            resultados = cn.consultar("SELECT cod_depo\n"
+                    + "  FROM \"detalle_producción\" \n"
+                    + "  where \"cod_producción\" = "+cod_produccion+" and cod_or_prod =  "+cod_orden+"\n"
+                    + "   and pro_cod = "+cod_producto+";");
+            
+            if(resultados.first()){
+                return String.valueOf(resultados.getInt("cod_depo"));
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "0";
+
+    }
 }

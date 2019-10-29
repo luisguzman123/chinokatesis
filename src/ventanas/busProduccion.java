@@ -20,6 +20,7 @@ public class busProduccion extends javax.swing.JFrame {
     private void iniciarComponentes() {
         desde_dt.setDate(new JCalendar().getDate());
         hasta_dt.setDate(new JCalendar().getDate());
+        
 
         getDatos();
 
@@ -147,12 +148,14 @@ public class busProduccion extends javax.swing.JFrame {
         control_de_calidad.cod_orden_produccion_txt.setText(cod_orden);
         Conexion cn = new Conexion();
         Metodos.limpiarTabla(control_de_calidad.grilla1);
+        int codigo_deposito = 0;
         try {
             cn.conectar();
             ResultSet pedi = cn.consultar("SELECT  d.pro_cod, \n"
                     + "d.cantidad_realizada,\n"
                     + "d.cantidad_faltante,\n"
-                    + "p.pro_desc\n"
+                    + "p.pro_desc,"
+                    + "d.cod_depo\n"
                     + "  FROM \"detalle_producción\" d\n"
                     + "  JOIN producto p\n"
                     + "  ON p.pro_cod =  d.pro_cod\n"
@@ -164,7 +167,12 @@ public class busProduccion extends javax.swing.JFrame {
                         pedi.getInt("pro_cod"),
                         pedi.getString("pro_desc"),
                         pedi.getInt("cantidad_realizada")});
+                    codigo_deposito =  pedi.getInt("cod_depo");
                 }
+                
+                control_de_calidad.codigo_deposito_txt.setText(String.valueOf(codigo_deposito));
+                control_de_calidad.deposito_txt.setText(dameDescripcionDeposito(String.valueOf(
+                codigo_deposito)));
             } else {
 
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
@@ -346,6 +354,25 @@ public class busProduccion extends javax.swing.JFrame {
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
                     return detalles.getString("iva");
+
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(busProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busProduccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+
+    }
+    private String dameDescripcionDeposito(String codigo) {
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select depo_desc from deposito where cod_depo =  " + codigo);
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {
+                    return detalles.getString("depo_desc");
 
                 }
             }

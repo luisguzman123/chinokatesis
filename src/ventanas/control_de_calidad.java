@@ -56,6 +56,11 @@ public class control_de_calidad extends javax.swing.JFrame {
         etapa_lst.setEnabled(false);
         agregar_btn.setEnabled(false);
         cancelar_btn.setEnabled(false);
+        codigo_deposito_txt.setEnabled(false);
+        deposito_txt.setEnabled(false);
+        cargarListaMotivoMerma();
+        motivo_merma_lst.setVisible(false);
+        motivo_merma_lbl.setVisible(false);
 
     }
 
@@ -106,6 +111,11 @@ public class control_de_calidad extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         cancelar_btn = new javax.swing.JButton();
         agregar_btn = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        codigo_deposito_txt = new javax.swing.JTextField();
+        deposito_txt = new javax.swing.JTextField();
+        motivo_merma_lbl = new javax.swing.JLabel();
+        motivo_merma_lst = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -158,12 +168,12 @@ public class control_de_calidad extends javax.swing.JFrame {
         grilla1.setPreferredSize(new java.awt.Dimension(50, 224));
         grilla1.getTableHeader().setReorderingAllowed(false);
         grilla1.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 grilla1AncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         grilla1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -274,11 +284,11 @@ public class control_de_calidad extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Producto", "Etapa", "Aprovado", "Rechazado"
+                "Código", "Producto", "Etapa", "Aprovado", "Rechazado", "Motivo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -288,12 +298,12 @@ public class control_de_calidad extends javax.swing.JFrame {
         grilla2.setPreferredSize(new java.awt.Dimension(50, 224));
         grilla2.getTableHeader().setReorderingAllowed(false);
         grilla2.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 grilla2AncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         grilla2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -382,11 +392,33 @@ public class control_de_calidad extends javax.swing.JFrame {
         );
 
         cancelar_btn.setText("Cancelar");
+        cancelar_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelar_btnActionPerformed(evt);
+            }
+        });
 
         agregar_btn.setText("Agregar");
         agregar_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregar_btnActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Deposito");
+
+        motivo_merma_lbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        motivo_merma_lbl.setText("Motivo Merma");
+
+        motivo_merma_lst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        motivo_merma_lst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                motivo_merma_lstActionPerformed(evt);
+            }
+        });
+        motivo_merma_lst.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                motivo_merma_lstKeyPressed(evt);
             }
         });
 
@@ -410,7 +442,8 @@ public class control_de_calidad extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(usuario_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(sucursal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(sucursal_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
@@ -433,15 +466,20 @@ public class control_de_calidad extends javax.swing.JFrame {
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(cod_orden_produccion_txt)))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE))
+                                                .addComponent(cod_orden_produccion_txt)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(codigo_deposito_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(deposito_txt))))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 19, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,16 +487,19 @@ public class control_de_calidad extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(etapa_lst, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(29, 29, 29)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(motivo_merma_lbl)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(motivo_merma_lst, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(agregar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cancelar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(cancelar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(observacion_txt))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane3))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
@@ -489,11 +530,16 @@ public class control_de_calidad extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addComponent(fecha_dt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cod_produccion_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(cod_orden_produccion_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(cod_produccion_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(cod_orden_produccion_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(codigo_deposito_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deposito_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -503,7 +549,10 @@ public class control_de_calidad extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(etapa_lst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(agregar_btn)
-                    .addComponent(cancelar_btn))
+                    .addComponent(cancelar_btn)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(motivo_merma_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(motivo_merma_lst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -592,7 +641,98 @@ public class control_de_calidad extends javax.swing.JFrame {
             String sql = "";
             String sqldetalle = "";
             if (operacion.equals("agregar")) {
+                try {
+                    if (grilla2.getRowCount() == 0) {
+                        JOptionPane.showMessageDialog(rootPane, "No hay registros que guardar");
+                        return;
+                    }
 
+                    //guardamos la cabecera
+                    String cabecera = "INSERT INTO control_calidad(\n"
+                            + " \"cod_producción\", cod_or_prod, fecha, estado, \n"
+                            + "usu_id, emp_id, sucur_id)\n"
+                            + "VALUES ("
+                            + cod_produccion_txt.getText() + ", "
+                            + cod_orden_produccion_txt.getText() + ", '"
+                            + Metodos.dameFechaFormateadaSQL(fecha_dt.getDate()) + "', "
+                            + "'ACTIVO', "
+                            + Menu.idUsuario + ", "
+                            + Menu.idEmpleado + ", "
+                            + Menu.idSucursal + ");";
+
+                    Conexion cn = new Conexion();
+                    cn.conectar();
+
+                    cn.actualizar(cabecera);
+                    String codigo_control_calidad = Metodos.ultimoCodigo("cod_control_cali", "control_calidad");
+                    String codigo_merma = "";
+                    //recorremos la tabla para guardar los datos los detalles de la cabecera
+                    boolean cabecera_merma = false;
+                    String detalle_control = "";
+                    int filas = grilla2.getRowCount();
+                    for (int i = 0; i < filas; i++) {
+                        //creamos le sentencia del detalle
+                        detalle_control = "INSERT INTO detalle_control_calidad(\n"
+                                + "cod_depo, sucur_id, pro_cod, cod_etapas, cod_control_cali, \"cod_producción\", \n"
+                                + "cod_or_prod, cantidad_aceptada, cantidad_rechazada, obs)\n"
+                                + "VALUES ("
+                                + Metodos.dameDepositoDeProduccionDetalle(
+                                        cod_produccion_txt.getText(),
+                                        cod_orden_produccion_txt.getText(),
+                                        grilla1.getValueAt(i, 0).toString()) + ", "
+                                + Menu.idSucursal + ", "
+                                + grilla2.getValueAt(i, 0).toString() + ", "
+                                + grilla2.getValueAt(i, 2).toString().split("-")[0] + ", "
+                                + codigo_control_calidad + ", "
+                                + cod_produccion_txt.getText() + ", "
+                                + cod_orden_produccion_txt.getText() + ", "
+                                + grilla2.getValueAt(i, 3).toString() + ", "
+                                + grilla2.getValueAt(i, 4).toString() + ", '"
+                                + observacion_txt.getText() + "');";
+                        cn.actualizar(detalle_control);
+
+                        //si hay rechazados guardamos en merma
+                        int rechazado = Integer.parseInt(grilla2.getValueAt(i, 4).toString());
+                        if (rechazado > 0) {
+                            if (!cabecera_merma) {
+                                String merma_cabecera = "INSERT INTO control_mermas(\n"
+                                        + " fecha, estado, usu_id, emp_id, cod_or_prod, \"cod_producción\", \n"
+                                        + "sucur_id)\n"
+                                        + "VALUES ( '"
+                                        + Metodos.dameFechaFormateadaSQL(fecha_dt.getDate()) + "', "
+                                        + "'ACTIVO', "
+                                        + Menu.idUsuario + ", "
+                                        + Menu.idEmpleado + ", "
+                                        + cod_orden_produccion_txt.getText() + ", "
+                                        + cod_produccion_txt.getText() + ", "
+                                        + Menu.idSucursal + ");";
+                                cn.actualizar(merma_cabecera);
+                                cabecera_merma = true;
+                            }
+                            codigo_merma = Metodos.ultimoCodigo("cod_mermas", "control_mermas");
+                            String merma_detalle = "INSERT INTO control_mermas_detalle(\n"
+                                    + "cod_mermas, cod_depo, sucur_id, pro_cod, cantidad, cod_motivo, \n"
+                                    + "cod_etapas)\n"
+                                    + "VALUES ("
+                                    + codigo_merma+", "
+                                    + Metodos.dameDepositoDeProduccionDetalle(
+                                        cod_produccion_txt.getText(),
+                                        cod_orden_produccion_txt.getText(),
+                                        grilla1.getValueAt(i, 0).toString()) +", "
+                                    + Menu.idSucursal+", "
+                                    + grilla1.getValueAt(i, 0).toString()+", "
+                                    + rechazado+", "
+                                    + motivo_merma_lst.getSelectedItem().toString().split("-")[0]+", "
+                                    + grilla1.getValueAt(i, 2).toString().split("-")[0]+");";
+                            cn.actualizar(merma_detalle);
+                        }
+
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(control_de_calidad.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(control_de_calidad.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             if (operacion.equals("anular")) {
@@ -663,6 +803,11 @@ public class control_de_calidad extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Cantidad no valida");
             return;
         }
+        
+        if(rechazado > 0){
+            motivo_merma_lbl.setVisible(true);
+            motivo_merma_lst.setVisible(true);
+        }
         int actual_acep = aceptado - rechazado;
         aprobado_txt.setText(String.valueOf(actual_acep));
 
@@ -689,6 +834,23 @@ public class control_de_calidad extends javax.swing.JFrame {
             agregar_btn.requestFocus();
         }
     }//GEN-LAST:event_etapa_lstKeyPressed
+
+    private void motivo_merma_lstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_motivo_merma_lstActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_motivo_merma_lstActionPerformed
+
+    private void motivo_merma_lstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_motivo_merma_lstKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_motivo_merma_lstKeyPressed
+
+    private void cancelar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelar_btnActionPerformed
+        // TODO add your handling code here:
+        motivo_merma_lbl.setVisible(false);
+        motivo_merma_lst.setVisible(false);
+        rechazado_txt.setEnabled(true);
+        rechazado_txt.requestFocus();
+        rechazado_txt.selectAll();
+    }//GEN-LAST:event_cancelar_btnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -735,6 +897,15 @@ public class control_de_calidad extends javax.swing.JFrame {
             int cantidad_etapas = 0;
             int cantidad_etapas_en_tablas = 0;
 
+            int filas = grilla2.getRowCount();
+            for (int i = 0; i < filas; i++) {
+
+                if (grilla2.getValueAt(i, 0).toString().equals(cod_producto.getText())
+                        && grilla2.getValueAt(i, 2).toString().equals(etapa_lst.getSelectedItem().toString())) {
+                    JOptionPane.showMessageDialog(rootPane, "No puedes insertar el mismo registro.");
+                    return;
+                }
+            }
             //controlamos las etapas realizadas
             ResultSet etapas_realizadas = Metodos.getResulSet("SELECT\n"
                     + "d.cod_etapas\n"
@@ -743,95 +914,105 @@ public class control_de_calidad extends javax.swing.JFrame {
                     + "ON cc.cod_control_cali = d.cod_control_cali "
                     + "WHERE cc.estado ILIKE '%ACTIVO%' and d.pro_cod =  " + codigo_producto + " and cc.\"cod_producción\" = " + codigo_produccion);
             //en el caso que exista etapas para este producto 
-            if (etapas_realizadas.first()) {
+            if (etapas_realizadas.isBeforeFirst()) {
                 while (etapas_realizadas.next()) {
                     cantidad_etapas++;
 
                 }
 
-                //cuantas etapas hay en la tabla etapas de produccion
-                ResultSet etapas_en_tabla = Metodos.getResulSet("SELECT\n"
-                        + "count(cod_etapas) as cantidad\n"
-                        + "FROM etapas_produccion");
+            }
+            System.out.println(cantidad_etapas);
+            //cuantas etapas hay en la tabla etapas de produccion
+            ResultSet etapas_en_tabla = Metodos.getResulSet("SELECT\n"
+                    + "count(cod_etapas) as cantidad\n"
+                    + "FROM etapas_produccion");
 
-                if (etapas_en_tabla.first()) {
+            if (etapas_en_tabla.isBeforeFirst()) {
+                while (etapas_en_tabla.next()) {                    
+                    
                     cantidad_etapas_en_tablas = etapas_en_tabla.getInt("cantidad");
-                } else {
-                    cantidad_etapas_en_tablas = 0;
                 }
-                //repetido en la tabla
-                int filas = grilla2.getRowCount();
-                System.out.println(filas);
-                for (int i = 0; i < filas; i++) {
-                    System.out.println(grilla2.getValueAt(i, 1).toString());
-                    System.out.println(grilla2.getValueAt(i, 2).toString());
-                    if(grilla2.getValueAt(i, 1).toString().equals(cod_producto.getText()) && 
-                            grilla2.getValueAt(i, 2).toString().equals(etapa_lst.getSelectedItem().toString())){
-                        JOptionPane.showMessageDialog(rootPane, "No puedes insertar el mismo registro.");
-                        return;
-                    }
-                }
-
-                //consultamos si hay repetidos
-                ResultSet etapa_repetida = Metodos.getResulSet("SELECT\n"
-                        + "d.cod_etapas,"
-                        + "cc.fecha\n"
-                        + "FROM detalle_control_calidad d \n "
-                        + "JOIN control_calidad cc \n"
-                        + "ON cc.cod_control_cali = d.cod_control_cali "
-                        + "WHERE d.estado ILIKE '%ACTIVO%' and d.pro_cod =  " + codigo_producto + " and "
-                        + "cc.\"cod_producción\" = " + codigo_produccion + " "
-                        + "and cc.cod_etapas = " + etapa_lst.getSelectedItem().toString().split("-")[0] + " "
-                        + "LIMIT 1");
-
-                if (etapa_repetida.first()) {
-                    while (etapa_repetida.next()) {
-                        JOptionPane.showMessageDialog(rootPane, "El producto ya paso por la etapa de produccion, en la fecha "
-                                + Metodos.dameFechaFormateada(etapa_repetida.getDate("fecha")));
-                        return;
-                    }
-                }
-                
-                
-                //verificamos si la etapa corresponde a la ultima
-                if (cantidad_etapas_en_tablas <= (cantidad_etapas + 1)) {
-
-                    ResultSet ultima_etapa = Metodos.getResulSet("SELECT \n"
-                            + "e.cod_etapas\n"
-                            + "FROM etapas_produccion e\n"
-                            + "WHERE e.orden_etapas ILIKE '%ULTIMO%' AND e.cod_etapas = "
-                            + etapa_lst.getSelectedItem().toString().split("-")[0]);
-                    if (ultima_etapa.first()) {
-                        if (cantidad_etapas_en_tablas == (cantidad_etapas + 1)) {
-                            agregarEnTabla();
-                        } else {
-                            JOptionPane.showMessageDialog(rootPane, "Aun debe pasar por otras etapas.");
-                            return;
-                        }
-                    } else {
-                        agregarEnTabla();
-                    }
-                }
-
             } else {
-                agregarEnTabla();
+                cantidad_etapas_en_tablas = 0;
+            }
+            //repetido en la tabla
+
+            //consultamos si hay repetidos
+            String sql = "SELECT\n"
+                    + "d.cod_etapas,"
+                    + "cc.fecha\n"
+                    + "FROM detalle_control_calidad d \n "
+                    + "JOIN control_calidad cc \n"
+                    + "ON cc.cod_control_cali = d.cod_control_cali "
+                    + "WHERE cc.estado ILIKE '%ACTIVO%' and d.pro_cod =  " + cod_producto.getText() + " and "
+                    + " cc.cod_producción = " + cod_produccion_txt.getText() + " "
+                    + "and d.cod_etapas = " + etapa_lst.getSelectedItem().toString().split("-")[0] + " "
+                    + " and  d.cod_or_prod = "+cod_orden_produccion_txt.getText()+" LIMIT 1";
+            System.out.println(sql);
+            ResultSet etapa_repetida = Metodos.getResulSet(sql);
+            
+            if (etapa_repetida.isBeforeFirst()) {
+                while (etapa_repetida.next()) {
+                    JOptionPane.showMessageDialog(rootPane, "El producto ya paso por la etapa de produccion, en la fecha "
+                            + Metodos.dameFechaFormateada(etapa_repetida.getDate("fecha")));
+                    cancelar_btn.doClick();
+                    return;
+                }
+            }
+
+            //verificamos si la etapa corresponde a la ultima
+            if (cantidad_etapas_en_tablas >= (cantidad_etapas + 1)) {
+
+                ResultSet ultima_etapa = Metodos.getResulSet("SELECT \n"
+                        + "e.cod_etapas\n"
+                        + "FROM etapas_produccion e\n"
+                        + "WHERE e.orden_etapas ILIKE '%ULTIMO%' AND e.cod_etapas = "
+                        + etapa_lst.getSelectedItem().toString().split("-")[0]);
+                if (ultima_etapa.first()) {
+                    if (cantidad_etapas_en_tablas == (cantidad_etapas + 1)) {
+                        agregarEnTabla();
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Aun debe pasar por otras etapas.");
+                        return;
+                    }
+                } else {
+                    agregarEnTabla();
+                }
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(control_de_calidad.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
     }
 
     private void agregarEnTabla() {
+        
         DefaultTableModel modelo = (DefaultTableModel) grilla2.getModel();
-        Object[] fila = new Object[5];
+        Object[] fila = new Object[6];
         fila[0] = cod_producto.getText();
         fila[1] = descripcion_txt.getText();
         fila[2] = etapa_lst.getSelectedItem();
         fila[3] = aprobado_txt.getText();
         fila[4] = rechazado_txt.getText();
+        if(rechazado_txt.getText().equals("0")){
+            
+            fila[5] = "-";
+        }else{
+            if(motivo_merma_lst.getSelectedIndex() == 0){
+                JOptionPane.showMessageDialog(rootPane,"Selecciona un motivo de merma");
+                motivo_merma_lst.requestFocus();
+                motivo_merma_lst.setPopupVisible(true);
+                return;
+            }
+            
+            fila[5] = motivo_merma_lst.getSelectedItem();
+        }
         modelo.addRow(fila);
         grilla2.setModel(modelo);
+        motivo_merma_lbl.setVisible(false);
+        motivo_merma_lst.setVisible(false);
 
     }
 
@@ -858,6 +1039,29 @@ public class control_de_calidad extends javax.swing.JFrame {
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    private void cargarListaMotivoMerma() {
+        motivo_merma_lst.removeAllItems();
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet deposito = cn.consultar("SELECT * FROM motivo_merma "
+                    + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+
+            motivo_merma_lst.addItem("Selecciona un motivo");
+            if (deposito.isBeforeFirst()) {
+                while (deposito.next()) {
+                    motivo_merma_lst.addItem(deposito.getInt("cod_motivo") + "-"
+                            + deposito.getString("moti_desc").trim());
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar_btn;
     private javax.swing.JTextField aprobado_txt;
@@ -871,6 +1075,8 @@ public class control_de_calidad extends javax.swing.JFrame {
     public static javax.swing.JTextField cod_produccion_txt;
     private javax.swing.JTextField cod_producto;
     private javax.swing.JTextField codigo_control_calidad_txt;
+    public static javax.swing.JTextField codigo_deposito_txt;
+    public static javax.swing.JTextField deposito_txt;
     private javax.swing.JTextField descripcion_txt;
     private javax.swing.JComboBox<String> etapa_lst;
     private com.toedter.calendar.JDateChooser fecha_dt;
@@ -878,6 +1084,7 @@ public class control_de_calidad extends javax.swing.JFrame {
     private javax.swing.JTable grilla2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
@@ -893,6 +1100,8 @@ public class control_de_calidad extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel motivo_merma_lbl;
+    private javax.swing.JComboBox<String> motivo_merma_lst;
     private javax.swing.JTextField observacion_txt;
     private javax.swing.JTextField rechazado_txt;
     private javax.swing.JLabel sucursal_txt;

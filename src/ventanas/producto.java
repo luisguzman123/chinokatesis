@@ -476,20 +476,16 @@ public class producto extends javax.swing.JFrame {
        String iva= grillaBanco.getValueAt(fila, 3).toString();
        String tipo= grillaBanco.getValueAt(fila, 4).toString();
        
-//       if(busqueda.equals("alumno") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-//           Alumnos.txtCiudad.setText(cod+"-"+descri);
-//           Alumnos.txtCiudad.requestFocus();
-//           busqueda = "";
-//           dispose();
-//       }
+       if(busqueda.equals("pediVenta") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           pedidoDeVenta.txtCodArti.setText(cod);
+           pedidoDeVenta.txtArti.setText(nombre);
+           pedidoDeVenta.txtArti.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        
        
-//      if(busqueda.equals("deposito") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-//           deposito.txtSucursal.setText(cod+"-"+nombre);
-//           deposito.txtSucursal.requestFocus();
-//           busqueda = "";
-//           dispose();
-//       }
+
        
        if(operacion.equals("modificar") || operacion.equals("borrar")){
            txtCodigo.setText(cod);

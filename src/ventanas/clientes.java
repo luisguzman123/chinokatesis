@@ -513,7 +513,16 @@ public class clientes extends javax.swing.JFrame {
 //           busqueda = "";
 //           dispose();
 //       }
-       
+          if(busqueda.equals("pediVenta") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           pedidoDeVenta.txt_cod_cliente.setText(cod);
+           pedidoDeVenta.txt_cliente.setText(nombre+" "+apellido);
+           pedidoDeVenta.txt_cliente.requestFocus();
+           busqueda = "";
+           dispose();
+       }
+
+
+
        if(operacion.equals("modificar") || operacion.equals("borrar")){
            txtCodigo.setText(cod);
            txtNombre.setText(nombre);

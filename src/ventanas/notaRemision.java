@@ -97,6 +97,8 @@ public class notaRemision extends javax.swing.JFrame
         combo_deposito_llegada = new javax.swing.JComboBox();
         jLabel21 = new javax.swing.JLabel();
         sucursal_receptora = new javax.swing.JComboBox();
+        jLabel28 = new javax.swing.JLabel();
+        combo_deposito_emisor = new javax.swing.JComboBox();
         jToolBar5 = new javax.swing.JToolBar();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
@@ -118,6 +120,7 @@ public class notaRemision extends javax.swing.JFrame
         jLabel27 = new javax.swing.JLabel();
         txtCodUsuario = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jLabel5.setText("jLabel5");
 
@@ -224,12 +227,12 @@ public class notaRemision extends javax.swing.JFrame
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_nombre_arti)
+                .addComponent(txt_nombre_arti, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -308,7 +311,7 @@ public class notaRemision extends javax.swing.JFrame
                     .addComponent(jLabel22))
                 .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fecha_inicio, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                    .addComponent(fecha_inicio, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                     .addComponent(fecha_fin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -465,10 +468,10 @@ public class notaRemision extends javax.swing.JFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(cli1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ci_cli)
+                .addComponent(ci_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cli)
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cli_nom, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -536,6 +539,18 @@ public class notaRemision extends javax.swing.JFrame
             }
         });
 
+        jLabel28.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("Deposito Emisor");
+
+        combo_deposito_emisor.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        combo_deposito_emisor.setEnabled(false);
+        combo_deposito_emisor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                combo_deposito_emisorKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -543,30 +558,46 @@ public class notaRemision extends javax.swing.JFrame
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_sucursal_salida, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sucursal_receptora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(combo_deposito_llegada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(combo_sucursal_salida, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addComponent(sucursal_receptora, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 1, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_deposito_emisor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_deposito_llegada, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel17)
-                .addGap(1, 1, 1)
-                .addComponent(combo_sucursal_salida, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel24)
-                .addGap(1, 1, 1)
-                .addComponent(combo_deposito_llegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sucursal_receptora, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combo_sucursal_salida, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sucursal_receptora, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel21))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(combo_deposito_llegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_deposito_emisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel28))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jToolBar5.setBackground(new java.awt.Color(0, 0, 0));
@@ -728,6 +759,13 @@ public class notaRemision extends javax.swing.JFrame
             }
         });
 
+        jButton1.setText("Borrar Item");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -738,15 +776,6 @@ public class notaRemision extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -766,7 +795,6 @@ public class notaRemision extends javax.swing.JFrame
                                         .addComponent(txtCodUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 892, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(8, 8, 8)
@@ -774,19 +802,27 @@ public class notaRemision extends javax.swing.JFrame
                                         .addGap(10, 10, 10)
                                         .addComponent(jLabel19)
                                         .addGap(12, 12, 12)
-                                        .addComponent(factura_n, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                                        .addComponent(factura_n, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(53, 53, 53))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 365, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel2)))
+                        .addGap(53, 53, 53))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -820,26 +856,29 @@ public class notaRemision extends javax.swing.JFrame
                         .addComponent(jLabel19))
                     .addComponent(factura_n, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102)
                 .addComponent(jToolBar5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(989, 649));
+        setSize(new java.awt.Dimension(1132, 640));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -910,8 +949,12 @@ public class notaRemision extends javax.swing.JFrame
             combo_sucursal_salida.setEnabled(true);
             combo_sucursal_salida.requestFocus();
         }else if (combo_motivo_nota.getSelectedItem().toString().equals("Traslados")) {
-            txt_nombre_arti.setEnabled(true);
-            txt_nombre_arti.requestFocus();
+            buscadorStockProductos.busqueda="notaRemision";
+            buscadorStockProductos.depo = dameIdDeposito();
+            buscadorStockProductos.sucu = dameIdSucursal(combo_sucursal_salida.getSelectedItem().toString());
+            new buscadorStockProductos().setVisible(true);
+          
+        
         }else if (combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
             combo_sucursal_salida.setEnabled(true);
             combo_sucursal_salida.requestFocus();
@@ -921,15 +964,16 @@ public class notaRemision extends javax.swing.JFrame
     private void sucursal_receptoraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sucursal_receptoraKeyPressed
        if (combo_motivo_nota.getSelectedItem().toString().equals("Compras")) {
             dameDeposito();
+            combo_deposito_emisor.setEnabled(true);
+            combo_deposito_emisor.requestFocus();
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Traslados")) {
             combo_deposito_llegada.setEnabled(true);
             combo_deposito_llegada.requestFocus();
-        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Traslados")) {
-            cod_vehiculo.setEnabled(true);
-            cod_vehiculo.requestFocus();
+            dameDepositoTraslados();
         }else if (combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
             dameDeposito();
-            combo_deposito_llegada.setEnabled(true);
-            combo_deposito_llegada.requestFocus();
+            combo_deposito_emisor.setEnabled(true);
+            combo_deposito_emisor.requestFocus();
         }
         
        
@@ -937,12 +981,12 @@ public class notaRemision extends javax.swing.JFrame
 
     private void combo_deposito_llegadaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combo_deposito_llegadaKeyPressed
         if (combo_motivo_nota.getSelectedItem().toString().equals("Compras")) {
-            txt_nombre_arti.setEnabled(true);
-            txt_nombre_arti.requestFocus();
+            btnGrabar.doClick();
         }else if (combo_motivo_nota.getSelectedItem().toString().equals("Traslados")) {
-              sucursal_receptora.setEnabled(true);
-              sucursal_receptora.requestFocus();
-              Metodos.cargarCombo(sucursal_receptora, "sucur_nom", "sucursal");
+              cod_vehiculo.setEnabled(true);
+              cod_vehiculo.requestFocus();
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
+            btnGrabar.doClick();
         }
 }//GEN-LAST:event_combo_deposito_llegadaKeyPressed
 
@@ -958,6 +1002,7 @@ public class notaRemision extends javax.swing.JFrame
           limpiar_text();
           Metodos.cargarCombo(combo_sucursal_salida, "sucur_nom", "sucursal");
           Metodos.cargarCombo(sucursal_receptora, "sucur_nom", "sucursal");
+          Metodos.limpiarTabla(grilla);
           
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -971,7 +1016,9 @@ public class notaRemision extends javax.swing.JFrame
         if(respuesta==0){
             String sql="";
             String sqldetalle="";
-            if(operacion.equals("agregar")){
+            String sqlstocklocal="";
+            String sqlstockfinal="";
+            if(operacion.equals("Traslados")||operacion.equals("Ventas")||operacion.equals("Compras")){
                 sql="Insert into nota_remision (remi_estado, remi_fecha_partida, remi_motivo, emp_id, sucur_id, veh_id, usu_id, sucu_id_llegada, remi_fecha_llegada, id_chofer)"
                         + " values ('ACTIVO', '"+
                         Metodos.dameFechaFormateadaSQL(fecha_inicio.getDate())+"', '"+
@@ -1000,36 +1047,81 @@ public class notaRemision extends javax.swing.JFrame
                 System.out.println(sql);
                 cn.actualizar(sql);
 //                int cantidadFilas=grilla.getRowCount();
-                if (operacion.equals("agregar")&&combo_motivo_nota.getSelectedItem().toString().equals("Compras")) {
+                if (operacion.equals("Compras")) {
                             sqldetalle="insert into remision_compra (remi_id, compra_id, estado) values("
                             +Metodos.ultimoCodigo("remi_id", "nota_remision")+", "
                              +dameIdCompra()
                              +",'ACTIVO')";
                            
                             cn.actualizar(sqldetalle);
-                }else if (operacion.equals("agregar")&&combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
+                            actualizarProStockMaterias();
+                }else if (combo_motivo_nota.getSelectedItem().toString().trim().equals("Ventas")) {
                             sqldetalle="insert into remision_venta (remi_id, ventas_id, estado) values("
                             +Metodos.ultimoCodigo("remi_id", "nota_remision")+", "
                              +dameIdVenta()
                              +",'ACTIVO')";
                            
                             cn.actualizar(sqldetalle);
-                }
-                JOptionPane.showMessageDialog(null, mensaje);
-                btnCancelar.doClick();
+                            
+                            actualizarProStock();
+                }else if (operacion.equals("Traslados")) {
+//                    Conexion cn=new Conexion();
+                        try {
+                            cn.conectar();
+                            int cantidadFilas=grilla.getRowCount();
+                            if (operacion.equals("Traslados")) {
+                                    for (int i = 0; i < cantidadFilas; i++) {
+                                        sqldetalle="insert into remision_traslado (remi_id, cod_depo, sucur_id, cantidad, pro_cod) values("
+                                        +txtCod.getText().trim()+","
+                                        +dameIdDeposito()+","
+                                        +idSucursal+","
+                                        +grilla.getValueAt(i, 2)+","
+                                        +grilla.getValueAt(i, 0)+")";
+                                        System.out.println(sqldetalle);
+                                        cn.actualizar(sqldetalle);
+                                        
+                                        sqlstocklocal = "update stock_productos set cantidad = cantidad-"+grilla.getValueAt(i, 2)+" where cod_depo = "+dameIdDeposito()+" and sucur_id = "+idSucursal+" and pro_cod = "+grilla.getValueAt(i, 0);
+                                        System.out.println(sqlstocklocal);
+                                        cn.actualizar(sqlstocklocal);
+                                        
+                                        sqlstockfinal = "update stock_productos set cantidad = cantidad+"+grilla.getValueAt(i, 2)+" where cod_depo = "+dameDepositoLlegada()+" and sucur_id = "+dameIdSucursal(sucursal_receptora.getSelectedItem().toString())+" and pro_cod = "+grilla.getValueAt(i, 0);
+                                        System.out.println(sqlstockfinal);
+                                        cn.actualizar(sqlstockfinal);
+                            }   
+                            }
+                            
 
-                
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            } catch (SQLException ex) {
-                Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
+
+
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, ex.getMessage());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, ex.getMessage());
+                        }
+                }
+                            JOptionPane.showMessageDialog(null, mensaje);
+                            btnCancelar.doClick();
+
+
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, ex.getMessage());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, ex.getMessage());
+                        }
         }
          btnCancelar.doClick();
     }//GEN-LAST:event_btnGrabarActionPerformed
 
+    
+    
+
+    
+    
+    
     private void btnRecibirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecibirActionPerformed
         btnNuevo.setEnabled(false);
         btnAnular.setEnabled(false);
@@ -1045,7 +1137,7 @@ public class notaRemision extends javax.swing.JFrame
 //        combomotivo();
         
         
-        operacion = "agregar";
+        operacion = "Compras";
         confirmar = "¿Desea grabar el nuevo registro?";
         mensaje = "Registro grabado con exito"; 
         
@@ -1067,8 +1159,8 @@ public class notaRemision extends javax.swing.JFrame
         btnCancelar.setEnabled(true);
         
         txtCod.setText(Metodos.siguienteCodigo("remi_id", "nota_remision"));
-        
-        operacion = "agregar";
+        combo_motivo_nota.setSelectedItem("Ventas");
+        operacion = "Ventas";
         confirmar = "¿Desea grabar el nuevo registro?";
         mensaje = "Registro grabado con exito"; 
         
@@ -1099,17 +1191,16 @@ public class notaRemision extends javax.swing.JFrame
         
         combo_motivo_nota.setEnabled(false);
         combo_motivo_nota.requestFocus();
-        
-        
+      
         txtCod.setText(Metodos.siguienteCodigo("remi_id", "nota_remision"));
 //        combomotivo();
         dameDepositoParaTranslado();
-        combo_deposito_llegada.setEnabled(true);
-        combo_deposito_llegada.requestFocus();
+        combo_deposito_emisor.setEnabled(true);
+        combo_deposito_emisor.requestFocus();
         dameSucursal();
         
-        combo_motivo_nota.setSelectedItem("Compras");
-        operacion = "agregar";
+        combo_motivo_nota.setSelectedItem("Traslados");
+        operacion = "Traslados";
         confirmar = "¿Desea grabar el nuevo registro?";
         mensaje = "Registro grabado con exito";
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -1209,16 +1300,30 @@ public class notaRemision extends javax.swing.JFrame
     }//GEN-LAST:event_cod_conductorKeyPressed
 
     private void cod_conductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_conductorActionPerformed
-        fecha_inicio.setEnabled(true);
-        fecha_inicio.requestFocus();
-        Metodos.cargarCombo(combo_sucursal_salida, "sucur_nom", "sucursal");
-        Metodos.cargarCombo(sucursal_receptora, "sucur_nom", "sucursal");
+        if (combo_motivo_nota.getSelectedItem().toString().equals("Traslados")) {
+            fecha_inicio.setEnabled(true);
+            fecha_inicio.requestFocus();
+            
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
+            fecha_inicio.setEnabled(true);
+            fecha_inicio.requestFocus();
+            Metodos.cargarCombo(combo_sucursal_salida, "sucur_nom", "sucursal");
+            Metodos.cargarCombo(sucursal_receptora, "sucur_nom", "sucursal");
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Compras")) {
+            fecha_inicio.setEnabled(true);
+            fecha_inicio.requestFocus();
+            Metodos.cargarCombo(combo_sucursal_salida, "sucur_nom", "sucursal");
+            Metodos.cargarCombo(sucursal_receptora, "sucur_nom", "sucursal");
+        }
     }//GEN-LAST:event_cod_conductorActionPerformed
 
     private void txt_nombre_artiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nombre_artiKeyPressed
         if (txt_nombre_arti.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            materiaPrima.busqueda="notaRemision";
-            new materiaPrima().setVisible(true);
+            buscadorStockProductos.busqueda="notaRemision";
+            buscadorStockProductos.depo = dameIdDeposito();
+            buscadorStockProductos.sucu = dameIdSucursal(combo_sucursal_salida.getSelectedItem().toString());
+            new buscadorStockProductos().setVisible(true);
+            
           
         }
     }//GEN-LAST:event_txt_nombre_artiKeyPressed
@@ -1259,6 +1364,26 @@ public class notaRemision extends javax.swing.JFrame
         fecha_fin.requestFocus();
     }//GEN-LAST:event_fecha_finPropertyChange
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Metodos.eliminarFila(grilla, grilla.getSelectedRow());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void combo_deposito_emisorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_combo_deposito_emisorKeyPressed
+        if (combo_motivo_nota.getSelectedItem().toString().equals("Traslados")) {
+            Metodos.cargarCombo(sucursal_receptora, "sucur_nom", "sucursal");
+            sucursal_receptora.setEnabled(true);
+            sucursal_receptora.requestFocus();
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Ventas")) {
+            combo_deposito_llegada.setEnabled(true);
+            combo_deposito_llegada.requestFocus();
+            dameDepositoFin();
+        }else if (combo_motivo_nota.getSelectedItem().toString().equals("Compras")) {
+            combo_deposito_llegada.setEnabled(true);
+            combo_deposito_llegada.requestFocus();
+            dameDepositoFin();
+        }
+    }//GEN-LAST:event_combo_deposito_emisorKeyPressed
+
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1288,6 +1413,58 @@ public class notaRemision extends javax.swing.JFrame
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         }   
+    }
+       private void actualizarProStock(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            String sql1 = "";
+            for (int fila = 0; fila < grilla.getRowCount(); fila++) {
+                try {
+                    sql1 = "update stock_productos set cantidad = cantidad-"+ grilla.getValueAt(fila, 2)+" where sucur_id ="+dameIdSucursal(combo_sucursal_salida.getSelectedItem().toString())+" and cod_depo = "+dameIdDeposito()+" and pro_cod = "+grilla.getValueAt(fila, 0);
+                    System.out.println(sql1);
+                    cn.actualizar(sql1);
+                    
+                    sql1 = "update stock_productos set cantidad = cantidad+"+ grilla.getValueAt(fila, 2)+" where sucur_id ="+dameIdSucursal(sucursal_receptora.getSelectedItem().toString())+" and cod_depo = "+dameIdDeposito2()+" and pro_cod = "+grilla.getValueAt(fila, 0);
+                    System.out.println(sql1);
+                    cn.actualizar(sql1);
+                    
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(notaRemision.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(notaRemision.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(notaRemision.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+       private void actualizarProStockMaterias(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            String sql1 = "";
+            for (int fila = 0; fila < grilla.getRowCount(); fila++) {
+                try {
+                    sql1 = "update stock_materia_prima set cantidad = cantidad-"+ grilla.getValueAt(fila, 2)+" where sucur_id ="+dameIdSucursal(combo_sucursal_salida.getSelectedItem().toString())+" and cod_depo = "+dameIdDeposito()+" and cod_materia = "+grilla.getValueAt(fila, 0);
+                    System.out.println(sql1);
+                    cn.actualizar(sql1);
+                    
+                    sql1 = "update stock_materia_prima set cantidad = cantidad+"+ grilla.getValueAt(fila, 2)+" where sucur_id ="+dameIdSucursal(sucursal_receptora.getSelectedItem().toString())+" and cod_depo = "+dameIdDeposito2()+" and cod_materia = "+grilla.getValueAt(fila, 0);
+                    System.out.println(sql1);
+                    cn.actualizar(sql1);
+                    
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(notaRemision.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(notaRemision.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(notaRemision.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
        
        
@@ -1358,6 +1535,27 @@ public class notaRemision extends javax.swing.JFrame
         try {
             Conexion cn = new Conexion();
             cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_deposito where sucur_nom =  '"+combo_sucursal_salida.getSelectedItem().toString()+"'");
+             
+            combo_deposito_llegada.removeAllItems();
+            if (detalles.isBeforeFirst()) {
+                
+                while (detalles.next()) {   
+                    combo_deposito_emisor.addItem(detalles.getString("depo_desc"));
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+         
+    }
+       private void dameDepositoTraslados(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
             ResultSet detalles = cn.consultar("select * from v_deposito where sucur_nom =  '"+sucursal_receptora.getSelectedItem().toString()+"'");
              
             combo_deposito_llegada.removeAllItems();
@@ -1375,7 +1573,70 @@ public class notaRemision extends javax.swing.JFrame
        
          
     }
+       private void dameDepositoFin(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_deposito where sucur_nom =  '"+sucursal_receptora.getSelectedItem().toString()+"'");
+             
+            combo_deposito_llegada.removeAllItems();
+            if (detalles.isBeforeFirst()) {
+                
+                while (detalles.next()) {   
+                    combo_deposito_llegada.addItem(detalles.getString("depo_desc"));
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+         
+    }
+       private String dameDepositoLlegada(){
+           String nn ="";
+           String cod="";
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            nn="select * from deposito where depo_desc =  '"+combo_deposito_llegada.getSelectedItem().toString()+"'";
+            System.out.println("este es "+nn);
+            ResultSet detalles = cn.consultar(nn);
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) { 
+                    cod=detalles.getString("cod_depo");
+                    return cod;
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return "";
+         
+    }
        private void dameDepositoParaTranslado(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_deposito where sucur_id =  "+idSucursal+"");
+             
+            combo_deposito_emisor.removeAllItems();
+            if (detalles.isBeforeFirst()) {
+                
+                while (detalles.next()) {   
+                    combo_deposito_emisor.addItem(detalles.getString("depo_desc"));
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+       private void dameDepositoEmisor(){
         try {
             Conexion cn = new Conexion();
             cn.conectar();
@@ -1393,6 +1654,46 @@ public class notaRemision extends javax.swing.JFrame
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         }  
+    }
+       private String dameIdDeposito(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_deposito where sucur_id =  "+idSucursal+"");
+             String cod;
+            if (detalles.isBeforeFirst()) {
+                
+                while (detalles.next()) {   
+                    cod = detalles.getString("cod_depo");
+                    return cod;
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return "";
+    }
+       private String dameIdDeposito2(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_deposito where depo_desc =  '"+combo_deposito_llegada.getSelectedItem().toString()+"'");
+             String cod;
+            if (detalles.isBeforeFirst()) {
+                
+                while (detalles.next()) {   
+                    cod = detalles.getString("cod_depo");
+                    return cod;
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return "";
     }
        private void dameSucursal(){
         try {
@@ -1499,13 +1800,14 @@ public class notaRemision extends javax.swing.JFrame
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRecibir;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JTextField can;
+    public static javax.swing.JTextField can;
     private javax.swing.JTextField ci_cli;
     private javax.swing.JLabel cli;
     private javax.swing.JLabel cli1;
     private javax.swing.JTextField cli_nom;
     public static javax.swing.JTextField cod_conductor;
     public static javax.swing.JTextField cod_vehiculo;
+    private javax.swing.JComboBox combo_deposito_emisor;
     private javax.swing.JComboBox combo_deposito_llegada;
     private javax.swing.JComboBox combo_motivo_nota;
     private javax.swing.JComboBox combo_sucursal_salida;
@@ -1513,6 +1815,7 @@ public class notaRemision extends javax.swing.JFrame
     private com.toedter.calendar.JDateChooser fecha_fin;
     private com.toedter.calendar.JDateChooser fecha_inicio;
     private javax.swing.JTable grilla;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1529,6 +1832,7 @@ public class notaRemision extends javax.swing.JFrame
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel5;
@@ -1584,6 +1888,7 @@ public class notaRemision extends javax.swing.JFrame
            txt_nombre_arti.setText("");
            txt_nombre_arti.setEnabled(false);
            can.setText("");
+           txtCod.setText("");
            can.setEnabled(false);
            fecha_inicio.setEnabled(false);
            fecha_fin.setEnabled(false);
@@ -1595,5 +1900,9 @@ public class notaRemision extends javax.swing.JFrame
            btnCancelar.setEnabled(false);
            btnGrabar.setEnabled(false);
            btnSalir.setEnabled(true);
+           combo_deposito_emisor.removeAllItems();
+           combo_deposito_llegada.removeAllItems();
+           sucursal_receptora.removeAllItems();
+           combo_sucursal_salida.removeAllItems();
  }
 }

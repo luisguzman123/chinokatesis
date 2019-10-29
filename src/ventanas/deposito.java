@@ -22,6 +22,8 @@ public class deposito extends javax.swing.JFrame {
     boolean duplicado;
     
     public static String busqueda = "";
+    public static int bandera = 1;
+    public static String sucu = "";
 
     public deposito() {
         initComponents();
@@ -361,7 +363,11 @@ public class deposito extends javax.swing.JFrame {
         confirmar="";
         mensaje="";
         
-        getDatos();
+        if (bandera==1) {
+            getDatos();
+        }else if (bandera==2) {
+            getDatosPedido();
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
@@ -438,12 +444,13 @@ public class deposito extends javax.swing.JFrame {
        String nombre= grillaBanco.getValueAt(fila, 1).toString();
        String sucursal= grillaBanco.getValueAt(fila, 2).toString();
        
-//       if(busqueda.equals("alumno") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-//           Alumnos.txtCiudad.setText(cod+"-"+descri);
-//           Alumnos.txtCiudad.requestFocus();
-//           busqueda = "";
-//           dispose();
-//       }
+       if(busqueda.equals("pedido_materia_prima") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           pedido_de_materia_prima.txt_cod_depo.setText(cod);
+           pedido_de_materia_prima.txtDeposito.setText(nombre);
+           pedido_de_materia_prima.txtDeposito.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        
        
       
@@ -464,7 +471,11 @@ public class deposito extends javax.swing.JFrame {
     }//GEN-LAST:event_grillaBancoMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        getDatos();
+        if (bandera==1) {
+            getDatos();
+        }else if (bandera==2) {
+            getDatosPedido();
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
@@ -496,6 +507,28 @@ public class deposito extends javax.swing.JFrame {
         try {
             cn.conectar();
             ResultSet deposito=cn.consultar("select * from v_deposito where depo_desc ilike '%"+txtBuscador.getText()+"%' order by cod_depo"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            Metodos.limpiarTabla(grillaBanco);
+            if(deposito.isBeforeFirst()){
+                while(deposito.next()){
+                    Metodos.cargarTabla(grillaBanco, new Object[]{deposito.getString("cod_depo"), deposito.getString("depo_desc"), deposito.getString("sucursal")});
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(deposito.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se encuentra "+ex.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(deposito.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
+    }
+    public void getDatosPedido(){
+        Conexion cn=new Conexion();
+        
+        try {
+            cn.conectar();
+            ResultSet deposito=cn.consultar("select * from v_deposito where depo_desc ilike '%"+txtBuscador.getText()+"%' and sucur_id = "+sucu+" order by cod_depo"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
             Metodos.limpiarTabla(grillaBanco);
             if(deposito.isBeforeFirst()){
                 while(deposito.next()){

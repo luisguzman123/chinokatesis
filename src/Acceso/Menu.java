@@ -10,6 +10,7 @@ import ventanas.cajas;
 import ventanas.ciudad;
 import ventanas.clientes;
 import ventanas.compras;
+import ventanas.costosDeProduccion;
 import ventanas.deposito;
 import ventanas.empleados;
 import ventanas.etapasDeProduccion;
@@ -20,7 +21,9 @@ import ventanas.motivos;
 import ventanas.notaCreditoCompra;
 import ventanas.notaRemision;
 import ventanas.orden_compra;
+import ventanas.pedidoDeVenta;
 import ventanas.pedido_de_compra;
+import ventanas.pedido_de_materia_prima;
 import ventanas.presupuesto_de_compra;
 import ventanas.presupuesto_produccion;
 import ventanas.producto;
@@ -140,8 +143,11 @@ public class Menu extends javax.swing.JFrame {
         orden_de_produccion = new javax.swing.JMenuItem();
         produccion_item = new javax.swing.JMenuItem();
         control_calidad = new javax.swing.JMenuItem();
+        jMenuItem25 = new javax.swing.JMenuItem();
+        jMenuItem26 = new javax.swing.JMenuItem();
         menuVentas = new javax.swing.JMenu();
         jMenuItem30 = new javax.swing.JMenuItem();
+        jMenuItem24 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
@@ -400,13 +406,29 @@ public class Menu extends javax.swing.JFrame {
         });
         menuProduccion.add(produccion_item);
 
-        control_calidad.setText(" Control de Calidad");
+        control_calidad.setText("Control de Calidad");
         control_calidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 control_calidadActionPerformed(evt);
             }
         });
         menuProduccion.add(control_calidad);
+
+        jMenuItem25.setText("Costos de producción");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem25ActionPerformed(evt);
+            }
+        });
+        menuProduccion.add(jMenuItem25);
+
+        jMenuItem26.setText("Pedido de materia prima");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        menuProduccion.add(jMenuItem26);
 
         jMenuBar1.add(menuProduccion);
 
@@ -419,6 +441,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         menuVentas.add(jMenuItem30);
+
+        jMenuItem24.setText("Pedido de Venta");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
+        menuVentas.add(jMenuItem24);
 
         jMenuItem18.setText("Presupuesto");
         jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
@@ -668,6 +698,36 @@ public class Menu extends javax.swing.JFrame {
         new ventanas.control_de_calidad().setVisible(true);
     }//GEN-LAST:event_control_calidadActionPerformed
 
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+        new pedidoDeVenta().setVisible(true);
+        pedidoDeVenta.txtUsuarioCod.setText(idUsuario);
+        pedidoDeVenta.txtUsuario.setText(usuario);
+        pedidoDeVenta.txtSucursal.setText(Sucursal);
+        pedidoDeVenta.idSucursal= idSucursal;
+        pedidoDeVenta.idUsuario= idUsuario;
+        pedidoDeVenta.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
+
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        new costosDeProduccion().setVisible(true);
+        costosDeProduccion.txtUsuarioCod.setText(idUsuario);
+        costosDeProduccion.txtUsuario.setText(usuario);
+        costosDeProduccion.txtSucursal.setText(Sucursal);
+        costosDeProduccion.idSucursal= idSucursal;
+        costosDeProduccion.idUsuario= idUsuario;
+        costosDeProduccion.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
+
+    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+        new pedido_de_materia_prima().setVisible(true);
+        pedido_de_materia_prima.txtUsuarioCod.setText(idUsuario);
+        pedido_de_materia_prima.txtUsuario.setText(usuario);
+        pedido_de_materia_prima.txtSucursal.setText(Sucursal);
+        pedido_de_materia_prima.idSucursal= idSucursal;
+        pedido_de_materia_prima.idUsuario= idUsuario;
+        pedido_de_materia_prima.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem26ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -726,6 +786,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
+    private javax.swing.JMenuItem jMenuItem24;
+    private javax.swing.JMenuItem jMenuItem25;
+    private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;

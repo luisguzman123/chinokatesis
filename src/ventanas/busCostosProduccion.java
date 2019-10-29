@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class busPedidoVenta extends javax.swing.JFrame {
+public class busCostosProduccion extends javax.swing.JFrame {
 
-    public busPedidoVenta() {
+    public busCostosProduccion() {
         initComponents();
         DESDE.setDate(new JCalendar().getDate());
         HASTA.setDate(new JCalendar().getDate());
@@ -38,17 +38,17 @@ public class busPedidoVenta extends javax.swing.JFrame {
 
         grillaBuscador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Código", "Fecha", "Estado", "Cliente", "Código Sucursal", "Código Usuario", "Código Empleado"
+                "Código", "Fecha", "Estado", "Obs.", "Código Producción", "Cod. Orden Producción"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -109,12 +109,10 @@ public class busPedidoVenta extends javax.swing.JFrame {
 
     private void grillaBuscadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaBuscadorMouseClicked
         switch (busqueda) {
-            case "pediVenta":
-                seleccionarPedido();
+            case "costo_produccion":
+                seleccionarDetalles();
                 break;
-            case "pedido_desdePresupuesto":
-                seleccionarPedidoDetalle();
-                break;
+
         }
       
     }//GEN-LAST:event_grillaBuscadorMouseClicked
@@ -159,10 +157,10 @@ public class busPedidoVenta extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPedidoVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busCostosProduccion.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra "+ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(busPedidoVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busCostosProduccion.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null,ex.getMessage());
         }  
         
@@ -174,55 +172,57 @@ public class busPedidoVenta extends javax.swing.JFrame {
     }
     
     
-    private void seleccionarPedido() {
+    private void seleccionarDetalles() {
 
         int fila = grillaBuscador.getSelectedRow();
 
         String cod = grillaBuscador.getValueAt(fila, 0).toString();
         String fecha = grillaBuscador.getValueAt(fila, 1).toString();
         String estado = grillaBuscador.getValueAt(fila, 2).toString();
-        String cliente = grillaBuscador.getValueAt(fila, 3).toString();
-        String codSucu = grillaBuscador.getValueAt(fila, 4).toString();
-        String codUsu = grillaBuscador.getValueAt(fila, 5).toString();
-        String codEmpleado = grillaBuscador.getValueAt(fila, 6).toString();
+        String obs = grillaBuscador.getValueAt(fila, 3).toString();
+        String codProdu = grillaBuscador.getValueAt(fila, 4).toString();
+        String codOrdenProdu = grillaBuscador.getValueAt(fila, 5).toString();
+       
 
-        if (busqueda.equals("pediVenta")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-            pedidoDeVenta.txtCod.setText(cod);
-            pedidoDeVenta.txt_cod_cliente.setText(cliente);
+        if (busqueda.equals("costo_produccion")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+            costosDeProduccion.txtCod.setText(cod);
+            costosDeProduccion.txtProduccion.setText(codProdu);
+            costosDeProduccion.txtOrdenProdu.setText(codOrdenProdu);
+            costosDeProduccion.txtObs.setText(obs);
 //           pedido_de_compra.txtFecha.setDate(fecha);
-            pedidoDeVenta.txtCod.requestFocus();
+            costosDeProduccion.txtCod.requestFocus();
             busqueda = "";
 
         }
 
-        Conexion cn = new Conexion();
-
-        try {
-            cn.conectar();
-            ResultSet detalles = cn.consultar("select * from v_detalle_pedido_venta where cod_pedi_ven = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
-            Metodos.limpiarTabla(pedidoDeVenta.grilla);
-            if (detalles.isBeforeFirst()) {
-                while (detalles.next()) {
-                    Metodos.cargarTabla(pedidoDeVenta.grilla, new Object[]{
-                        detalles.getString("pro_cod"),
-                        detalles.getString("pro_desc"),
-                        detalles.getString("cantidad"),
-                        detalles.getString("ped_precio"),
-                        (Integer.parseInt(detalles.getString("ped_precio")) * Integer.parseInt(detalles.getString("cantidad")))
-                    });
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPedidoVenta.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
-        } catch (SQLException ex) {
-            Logger.getLogger(busPedidoVenta.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-
-        pedidoDeVenta.txtTotal.setText(String.valueOf(Metodos.sumarColumna(pedidoDeVenta.grilla, 4)));
+//        Conexion cn = new Conexion();
+//
+//        try {
+//            cn.conectar();
+//            ResultSet detalles = cn.consultar("select * from v_detalle_pedido_venta where cod_pedi_ven = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+//            Metodos.limpiarTabla(pedidoDeVenta.grilla);
+//            if (detalles.isBeforeFirst()) {
+//                while (detalles.next()) {
+//                    Metodos.cargarTabla(pedidoDeVenta.grilla, new Object[]{
+//                        detalles.getString("pro_cod"),
+//                        detalles.getString("pro_desc"),
+//                        detalles.getString("cantidad"),
+//                        detalles.getString("ped_precio"),
+//                        (Integer.parseInt(detalles.getString("ped_precio")) * Integer.parseInt(detalles.getString("cantidad")))
+//                    });
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(busCostosProduccion.class.getName()).log(Level.SEVERE, null, ex);
+//            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+//        } catch (SQLException ex) {
+//            Logger.getLogger(busCostosProduccion.class.getName()).log(Level.SEVERE, null, ex);
+//            JOptionPane.showMessageDialog(null, ex.getMessage());
+//        }
+//
+//        pedidoDeVenta.txtTotal.setText(String.valueOf(Metodos.sumarColumna(pedidoDeVenta.grilla, 4)));
         dispose();
     }
     
@@ -235,7 +235,7 @@ public class busPedidoVenta extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new busPedidoVenta().setVisible(true);
+                new busCostosProduccion().setVisible(true);
             }
         });
     }
@@ -243,8 +243,8 @@ public class busPedidoVenta extends javax.swing.JFrame {
    public void getDatos() {
 
         switch (busqueda) {
-            case "pediVenta":
-                buscarPedido();
+            case "costo_produccion":
+                buscarCostos();
                 break;
 
 
@@ -254,16 +254,16 @@ public class busPedidoVenta extends javax.swing.JFrame {
     /**
      * busca la tabla con pedidos
      */
-    private void buscarPedido() {
+    private void buscarCostos() {
         Conexion cn = new Conexion();
         try {
             cn.conectar();
-            ResultSet pedi = cn.consultar("select * from pedido_venta where fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(DESDE.getDate()) + "' and '"+Metodos.dameFechaFormateadaSQL(HASTA.getDate())+"' and estado !='ANULADO' order by cod_pedi_ven"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            ResultSet pedi = cn.consultar("select * from costo_produccion where fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(DESDE.getDate()) + "' and '"+Metodos.dameFechaFormateadaSQL(HASTA.getDate())+"' and estado !='ANULADO' order by cod_costo"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
             Metodos.limpiarTabla(grillaBuscador);
             if (pedi.isBeforeFirst()) {
                 while (pedi.next()) {
                     
-                    Metodos.cargarTabla(grillaBuscador, new Object[]{pedi.getString("cod_pedi_ven"), pedi.getString("fecha"),pedi.getString("estado"), pedi.getString("cli_cod"), pedi.getString("sucur_id"), pedi.getString("usu_id"), pedi.getString("emp_id")});
+                    Metodos.cargarTabla(grillaBuscador, new Object[]{pedi.getString("cod_costo"), pedi.getString("fecha"),pedi.getString("estado"), pedi.getString("observaciones"), pedi.getString("cod_producción"), pedi.getString("cod_or_prod")});
                 }
             } else {
 
@@ -296,9 +296,9 @@ public class busPedidoVenta extends javax.swing.JFrame {
                 }
              }
         } catch (SQLException ex) {
-            Logger.getLogger(busPedidoVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busCostosProduccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPedidoVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busCostosProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
          return "";
          
@@ -315,9 +315,9 @@ public class busPedidoVenta extends javax.swing.JFrame {
                 }
              }
         } catch (SQLException ex) {
-            Logger.getLogger(busPedidoVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busCostosProduccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPedidoVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busCostosProduccion.class.getName()).log(Level.SEVERE, null, ex);
         }
          return "";
          

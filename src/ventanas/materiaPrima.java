@@ -472,6 +472,13 @@ public class materiaPrima extends javax.swing.JFrame {
            busqueda = "";
            dispose();
        }
+       if(busqueda.equals("pediMateria") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           pedido_de_materia_prima.txtCodArti.setText(cod);
+           pedido_de_materia_prima.txtArti.setText(descripcion);
+           pedido_de_materia_prima.txtArti.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        if(busqueda.equals("compra") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
            compras.txt_cod_arti.setText(cod);
            compras.txt_arti.setText(descripcion);

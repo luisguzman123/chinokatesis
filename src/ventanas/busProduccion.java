@@ -128,6 +128,9 @@ public class busProduccion extends javax.swing.JFrame {
             case "produccion":
                 seleccionarProduccion();
                 break;
+            case "costoProduccion":
+                seleccionarProduccionParaCostos();
+                break;
 
         }
 
@@ -169,10 +172,59 @@ public class busProduccion extends javax.swing.JFrame {
                         pedi.getInt("cantidad_realizada")});
                     codigo_deposito =  pedi.getInt("cod_depo");
                 }
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+        
+        dispose();
+    }
+    private void seleccionarProduccionParaCostos() {
+        int fila = grillaBuscador.getSelectedRow();
+
+        String cod = grillaBuscador.getValueAt(fila, 0).toString();
+        String cod_orden = grillaBuscador.getValueAt(fila, 1).toString();
+
+        costosDeProduccion.txtProduccion.setText(cod);
+        costosDeProduccion.txtOrdenProdu.setText(cod_orden);
+        Conexion cn = new Conexion();
+        Metodos.limpiarTabla(costosDeProduccion.grilla);
+        try {
+            cn.conectar();
+            ResultSet pedi = cn.consultar("SELECT  d.pro_cod, \n"
+                    + "d.cantidad_realizada,\n"
+                    + "d.cantidad_faltante,\n"
+                    + "p.pro_desc\n,"
+                    + "d.sucur_id, "
+                    + "d.cod_depo, "
+                    + "p.precio "
+                    + "  FROM \"detalle_producción\" d\n"
+                    + "  JOIN producto p\n"
+                    + "  ON p.pro_cod =  d.pro_cod\n"
+                    + "  WHERE \"cod_producción\" = " + cod); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+
+            if (pedi.isBeforeFirst()) {
+                while (pedi.next()) {
+                    Metodos.cargarTabla(costosDeProduccion.grilla, new Object[]{
+                        pedi.getInt("pro_cod"),
+                        pedi.getString("pro_desc"),
+                        pedi.getString("cantidad_realizada"),
+                        pedi.getInt("precio"),
+                        0
+                    });
+                costosDeProduccion.sucuProdu=pedi.getString("sucur_id");
+                costosDeProduccion.depoProdu=pedi.getString("cod_depo");
+                }
+                costosDeProduccion.txtObs.requestFocus();
                 
-                control_de_calidad.codigo_deposito_txt.setText(String.valueOf(codigo_deposito));
-                control_de_calidad.deposito_txt.setText(dameDescripcionDeposito(String.valueOf(
-                codigo_deposito)));
             } else {
 
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
@@ -246,6 +298,9 @@ public class busProduccion extends javax.swing.JFrame {
 
         switch (busqueda) {
             case "produccion":
+                buscarProduccion();
+                break;
+            case "costoProduccion":
                 buscarProduccion();
                 break;
 

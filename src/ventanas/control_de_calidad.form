@@ -178,11 +178,17 @@
               <Component id="jScrollPane2" min="-2" pref="111" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="motivo_merma_lbl" alignment="3" max="32767" attributes="0"/>
                       <Component id="motivo_merma_lst" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel9" alignment="3" max="32767" attributes="0"/>
+                      <Component id="etapa_lst" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="agregar_btn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancelar_btn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel9" alignment="3" max="32767" attributes="0"/>

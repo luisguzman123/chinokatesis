@@ -1,5 +1,6 @@
 package clases;
 
+import Acceso.Menu;
 import com.toedter.calendar.JCalendar;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -270,7 +271,7 @@ public class Metodos {
 
         try {
             cn.conectar();
-            ResultSet stock = cn.consultar("select cantidad from stock_materia_prima where cod_depo = " + depo + " and sucur_id = " + sucu + " and cod_materia = " + materia); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            ResultSet stock = cn.consultar("select cantidad from stock_productos where cod_depo = " + depo + " and sucur_id = " + sucu + " and pro_cod = " + materia); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
 
             if (stock.isBeforeFirst()) {
                 while (stock.next()) {
@@ -353,4 +354,77 @@ public class Metodos {
         return "0";
 
     }
+    
+    
+    
+    
+    
+    public static int cajaAbierta() {
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet caja = cn.consultar("SELECT\n"
+                    + "*\n"
+                    + "FROM aper_cierre ac\n"
+                    + "WHERE ac.cierre_fecha is null OR ac.cierre fecha::CHARACTER = '' \n"
+                    + "AND ac.usu_id = " + Menu.idUsuario + "\n"
+                    + "and ac.sucur_id = " + Menu.idSucursal + "\n"
+                    + "and ac.tipo = 'ABIERTO'\n"
+                    + "AND ac.estado = 'ACTIVO'\n"
+                    + "LIMIT 1");
+
+            //en el caso que exista una caja abierta
+            if (caja.isBeforeFirst()) {
+                while (caja.next()) {
+                    return caja.getInt("cod_aper_cierre");
+
+                }
+            } else {
+                //en el caso que no esta abierta
+                return  0;
+
+            }
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return  0 ;
+  }
+    public static int dameCodcaja() {
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet caja = cn.consultar("SELECT\n"
+                    + "*\n"
+                    + "FROM aper_cierre ac\n"
+                    + "WHERE ac.cierre_fecha is null OR ac.cierre fecha::CHARACTER = '' \n"
+                    + "AND ac.usu_id = " + Menu.idUsuario + "\n"
+                    + "and ac.sucur_id = " + Menu.idSucursal + "\n"
+                    + "and ac.tipo = 'ABIERTO'\n"
+                    + "AND ac.estado = 'ACTIVO'\n"
+                    + "LIMIT 1");
+
+            //en el caso que exista una caja abierta
+            if (caja.isBeforeFirst()) {
+                while (caja.next()) {
+                    return caja.getInt("cod_caja");
+
+                }
+            } else {
+                //en el caso que no esta abierta
+                return  0;
+
+            }
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return  0 ;
+  }
 }

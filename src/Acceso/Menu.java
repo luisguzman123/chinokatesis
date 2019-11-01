@@ -33,6 +33,7 @@ import ventanas.sucursal;
 import ventanas.tarjeta;
 import ventanas.tipoDeProducto;
 import ventanas.vehiculos;
+import ventanas.ventas;
 
 //import referenciales.Cargos;
 //import referenciales.Ciudades;
@@ -151,6 +152,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem24 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
         caja_item = new javax.swing.JMenuItem();
+        jMenuItem28 = new javax.swing.JMenuItem();
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
         infoCompras = new javax.swing.JMenuItem();
@@ -468,6 +470,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuVentas.add(caja_item);
 
+        jMenuItem28.setText("Ventas");
+        jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem28ActionPerformed(evt);
+            }
+        });
+        menuVentas.add(jMenuItem28);
+
         jMenuBar1.add(menuVentas);
 
         menuInformes.setText("Informes");
@@ -743,6 +753,17 @@ public class Menu extends javax.swing.JFrame {
         new aper_cie_arqueo().setVisible(true);
     }//GEN-LAST:event_caja_itemActionPerformed
 
+    private void jMenuItem28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem28ActionPerformed
+        // TODO add your handling code here:
+        new ventas().setVisible(true);
+        ventas.txtCodUsuario.setText(idUsuario);
+        ventas.txtUsuario.setText(usuario);
+        ventas.txtSucursal.setText(Sucursal);
+        ventas.idSucursal= idSucursal;
+        ventas.idUsuario= idUsuario;
+        ventas.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem28ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -805,6 +826,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;

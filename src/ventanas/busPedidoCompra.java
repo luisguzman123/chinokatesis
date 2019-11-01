@@ -26,6 +26,13 @@ public class busPedidoCompra extends javax.swing.JFrame {
             modelo.addColumn("Código Proveedor");
             grillaBuscador.setModel(modelo);
         }
+        if(busqueda.equals("presupuesto_desdeOrden") ){
+            
+            DefaultTableModel modelo = (DefaultTableModel) grillaBuscador.getModel();
+
+            modelo.addColumn("Código Proveedor");
+            grillaBuscador.setModel(modelo);
+        }
         if(busqueda.equals("presupuesto_proveedor")){
             
             DefaultTableModel modelo = (DefaultTableModel) grillaBuscador.getModel();
@@ -560,7 +567,7 @@ public class busPedidoCompra extends javax.swing.JFrame {
         String estado = grillaBuscador.getValueAt(fila, 3).toString();
         String codSucu = grillaBuscador.getValueAt(fila, 4).toString();
         String codUsu = grillaBuscador.getValueAt(fila, 5).toString();
-        String codPro = grillaBuscador.getValueAt(fila, 6).toString();
+        String codPro = grillaBuscador.getValueAt(fila, 7).toString();
 
         //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
         orden_compra.txtPresupuesto.setText(cod);

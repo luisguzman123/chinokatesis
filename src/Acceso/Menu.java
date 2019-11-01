@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import ventanas.ajuste_stock;
+import ventanas.aper_cie_arqueo;
 import ventanas.bancos;
 import ventanas.cajas;
 import ventanas.ciudad;
@@ -149,6 +150,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
+        caja_item = new javax.swing.JMenuItem();
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
         infoCompras = new javax.swing.JMenuItem();
@@ -458,6 +460,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuVentas.add(jMenuItem18);
 
+        caja_item.setText("Caja");
+        caja_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caja_itemActionPerformed(evt);
+            }
+        });
+        menuVentas.add(caja_item);
+
         jMenuBar1.add(menuVentas);
 
         menuInformes.setText("Informes");
@@ -728,6 +738,11 @@ public class Menu extends javax.swing.JFrame {
         pedido_de_materia_prima.idPersonal=idEmpleado;
     }//GEN-LAST:event_jMenuItem26ActionPerformed
 
+    private void caja_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caja_itemActionPerformed
+        // TODO add your handling code here:
+        new aper_cie_arqueo().setVisible(true);
+    }//GEN-LAST:event_caja_itemActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -763,6 +778,7 @@ public class Menu extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem caja_item;
     public static javax.swing.JDesktopPane contenedor;
     private javax.swing.JMenuItem control_calidad;
     private javax.swing.JMenuItem infoCompras;

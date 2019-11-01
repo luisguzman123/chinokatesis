@@ -174,7 +174,7 @@ public class Acceso extends javax.swing.JDialog {
         jDesktopPane1.add(jLabel11);
         jLabel11.setBounds(20, 260, 62, 15);
 
-        txtPass.setText("123");
+        txtPass.setText("admin");
         txtPass.setEnabled(false);
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

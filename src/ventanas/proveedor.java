@@ -504,6 +504,13 @@ public class proveedor extends javax.swing.JFrame {
            busqueda = "";
            dispose();
        }
+       if(busqueda.equals("compra") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           compras.txtCodProvee.setText(cod);
+           compras.txtProvee.setText(nombre);
+           compras.txtProvee.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        
        
       

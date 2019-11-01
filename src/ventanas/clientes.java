@@ -520,6 +520,13 @@ public class clientes extends javax.swing.JFrame {
            busqueda = "";
            dispose();
        }
+          if(busqueda.equals("ventas") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           ventas.txtCodCliente.setText(cod);
+           ventas.txtCliente.setText(nombre+" "+apellido);
+           ventas.txtCliente.requestFocus();
+           busqueda = "";
+           dispose();
+       }
 
 
 

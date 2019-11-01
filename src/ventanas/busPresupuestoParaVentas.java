@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class busPresupuestoProduccion extends javax.swing.JFrame {
+public class busPresupuestoParaVentas extends javax.swing.JFrame {
 
-    public busPresupuestoProduccion() {
+    public busPresupuestoParaVentas() {
         initComponents();
         iniciarComponentes();
     }
@@ -44,17 +44,17 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
 
         grillaBuscador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Fecha", "Cliente", "Código Sucursal"
+                "Código", "Código Cliente", "Cliente", "Fecha", "Sucursal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -132,6 +132,9 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
             case "orden_produccion":
                 seleccionarOrdenProduccion();
                 break;
+            case "ventas":
+                seleccionarPresupuestoDetalles();
+                break;
 
 
         }
@@ -159,9 +162,10 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
         int fila = grillaBuscador.getSelectedRow();
 
         String cod = grillaBuscador.getValueAt(fila, 0).toString();
-        String fecha = grillaBuscador.getValueAt(fila, 1).toString();
-        String cliente = grillaBuscador.getValueAt(fila, 2).toString();
-        String sucursal = grillaBuscador.getValueAt(fila, 3).toString();
+        String cliCod = grillaBuscador.getValueAt(fila, 1).toString();
+        String fecha = grillaBuscador.getValueAt(fila, 2).toString();
+        String cliente = grillaBuscador.getValueAt(fila, 3).toString();
+        String sucursal = grillaBuscador.getValueAt(fila, 4).toString();
 
         Conexion cn = new Conexion();
         Metodos.limpiarTabla(orden_produccion.grilla);
@@ -206,7 +210,7 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new busPresupuestoProduccion().setVisible(true);
+                new busPresupuestoParaVentas().setVisible(true);
             }
         });
     }
@@ -238,6 +242,7 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
                     + "p.pre_cod,\n"
                     + "c.cli_nomb ||' '||c.cli_apelli as cliente,\n"
                     + "p.pre_fecha,\n"
+                    + "c.cli_cod,\n"
                     + "s.sucur_nom\n"
                     + "FROM presupuesto p \n"
                     + "NATURAL JOIN cliente c\n"
@@ -250,6 +255,7 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
                 while (pedi.next()) {
                     Metodos.cargarTabla(grillaBuscador, new Object[]{
                         pedi.getInt("pre_cod"),
+                        pedi.getInt("cli_cod"),
                         pedi.getString("cliente"),
                         Metodos.dameFechaFormateadaSQL(pedi.getDate("pre_fecha")),
                         pedi.getString("sucur_nom")});
@@ -275,6 +281,7 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
                     + "p.pre_cod,\n"
                     + "c.cli_nomb ||' '||c.cli_apelli as cliente,\n"
                     + "p.pre_fecha,\n"
+                    + "c.cli_cod,\n"
                     + "s.sucur_nom\n"
                     + "FROM presupuesto p \n"
                     + "NATURAL JOIN cliente c\n"
@@ -286,6 +293,7 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
                 while (pedi.next()) {
                     Metodos.cargarTabla(grillaBuscador, new Object[]{
                         pedi.getInt("pre_cod"),
+                        pedi.getInt("cli_cod"),
                         pedi.getString("cliente"),
                         Metodos.dameFechaFormateadaSQL(pedi.getDate("pre_fecha")),
                         pedi.getString("sucur_nom")});
@@ -315,9 +323,9 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(busPresupuestoProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoParaVentas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPresupuestoProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoParaVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
 
@@ -327,23 +335,113 @@ public class busPresupuestoProduccion extends javax.swing.JFrame {
         try {
             Conexion cn = new Conexion();
             cn.conectar();
-            ResultSet detalles = cn.consultar("select iva from materia_prima where cod_materia =  " + codigo);
+            ResultSet detalles = cn.consultar("select pro_iva from producto where pro_cod =  " + codigo);
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
-                    return detalles.getString("iva");
+                    return detalles.getString("pro_iva");
 
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(busPresupuestoProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoParaVentas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPresupuestoProduccion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoParaVentas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
 
     }
 
 
+    
+    private void seleccionarPresupuestoDetalles() {
+
+        int fila = grillaBuscador.getSelectedRow();
+
+        String cod = grillaBuscador.getValueAt(fila, 0).toString();
+        String cliCod = grillaBuscador.getValueAt(fila, 1).toString();
+        String cliente = grillaBuscador.getValueAt(fila, 2).toString();
+        String fecha = grillaBuscador.getValueAt(fila, 3).toString();
+        String sucursal = grillaBuscador.getValueAt(fila, 4).toString();
+        
+        
+        if (retornarUtilizadoVentas()) {
+            JOptionPane.showMessageDialog(null, "Este presupuesto ya se utilizó, por favor elija otro presupuesto");
+        }else if (!retornarUtilizadoVentas()) {
+                       
+                ventas.txtPresu.setText(cod);
+                System.out.println(cod);
+                ventas.txtCodCliente.setText(cliCod);
+                ventas.txtCliente.setText(cliente);
+
+                busqueda = "";
+
+                dispose();
+                Conexion cn = new Conexion();
+
+                try {
+                    cn.conectar();
+                    ResultSet detalles = cn.consultar("select * from v_detalle_presu_venta where pre_cod = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                    Metodos.limpiarTabla(ventas.grilla);
+                    if (detalles.isBeforeFirst()) {
+                        while (detalles.next()) {
+                            Metodos.cargarTabla(ventas.grilla, new Object[]{
+                                detalles.getString("pro_cod"),
+                                detalles.getString("pro_desc"),
+                                detalles.getString("cantidad"),
+                                detalles.getString("precio"),
+                                (int)((dameIva(detalles.getString("pro_cod")).equals("0")) ? (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))*(0) : 0), 
+                                (int)((dameIva(detalles.getString("pro_cod")).equals("5")) ? (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))*(0.21) : 0), 
+                                (int)((dameIva(detalles.getString("pro_cod")).equals("10")) ? (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))*(0.11) : 0), 
+                                (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
+
+                            });
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(busPresupuestoParaVentas.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+                } catch (SQLException ex) {
+                    Logger.getLogger(busPresupuestoParaVentas.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+
+
+
+                ventas.txt_iva5.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5)));
+                ventas.txt_iva10.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 6)));
+                ventas.txt_to_iva.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5)+Metodos.sumarColumna(ventas.grilla, 6)));
+                ventas.txtTotal.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5)+Metodos.sumarColumna(ventas.grilla, 6)+Metodos.sumarColumna(ventas.grilla, 7)));
+
+
+        }
+
+    
+    }
+    
+      private boolean retornarUtilizadoVentas() {
+        int fila = grillaBuscador.getSelectedRow();
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from ventas where pre_cod =  " + grillaBuscador.getValueAt(fila, 0).toString());
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {
+                    return true;
+
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPresupuestoParaVentas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPresupuestoParaVentas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }  
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_buscar;
     private javax.swing.JTextField clientetxt;

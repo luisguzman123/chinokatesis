@@ -483,6 +483,13 @@ public class producto extends javax.swing.JFrame {
            busqueda = "";
            dispose();
        }
+       if(busqueda.equals("venta") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           ventas.txt_cod_arti.setText(cod);
+           ventas.txt_arti.setText(nombre);
+           ventas.txt_arti.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        
        
 

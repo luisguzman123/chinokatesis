@@ -32,6 +32,7 @@ import ventanas.sucursal;
 import ventanas.tarjeta;
 import ventanas.tipoDeProducto;
 import ventanas.vehiculos;
+import ventanas.ventas;
 
 //import referenciales.Cargos;
 //import referenciales.Ciudades;
@@ -149,6 +150,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
         jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem27 = new javax.swing.JMenuItem();
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
         infoCompras = new javax.swing.JMenuItem();
@@ -458,6 +460,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuVentas.add(jMenuItem18);
 
+        jMenuItem27.setText("Ventas");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        menuVentas.add(jMenuItem27);
+
         jMenuBar1.add(menuVentas);
 
         menuInformes.setText("Informes");
@@ -728,6 +738,16 @@ public class Menu extends javax.swing.JFrame {
         pedido_de_materia_prima.idPersonal=idEmpleado;
     }//GEN-LAST:event_jMenuItem26ActionPerformed
 
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        new ventas().setVisible(true);
+        ventas.txtCodUsuario.setText(idUsuario);
+        ventas.txtUsuario.setText(usuario);
+        ventas.txtSucursal.setText(Sucursal);
+        ventas.idSucursal= idSucursal;
+        ventas.idUsuario= idUsuario;
+        ventas.idPersonal=idEmpleado;
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -789,6 +809,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;

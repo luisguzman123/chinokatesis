@@ -1,5 +1,8 @@
 package Acceso;
 
+import clases.Conexion;
+import clases.Metodos;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,6 +13,7 @@ import ventanas.bancos;
 import ventanas.cajas;
 import ventanas.ciudad;
 import ventanas.clientes;
+import ventanas.cobros;
 import ventanas.compras;
 import ventanas.costosDeProduccion;
 import ventanas.deposito;
@@ -153,6 +157,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem18 = new javax.swing.JMenuItem();
         caja_item = new javax.swing.JMenuItem();
         jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem27 = new javax.swing.JMenuItem();
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
         infoCompras = new javax.swing.JMenuItem();
@@ -478,6 +483,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuVentas.add(jMenuItem28);
 
+        jMenuItem27.setText("Cobranzas");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        menuVentas.add(jMenuItem27);
+
         jMenuBar1.add(menuVentas);
 
         menuInformes.setText("Informes");
@@ -764,6 +777,25 @@ public class Menu extends javax.swing.JFrame {
         ventas.idPersonal=idEmpleado;
     }//GEN-LAST:event_jMenuItem28ActionPerformed
 
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        if (!(Metodos.dameCodcaja()==0)) {
+            new cobros().setVisible(true);
+            cobros.txtCodUsuario.setText(idUsuario);
+            cobros.txtUsuario.setText(usuario);
+            cobros.txtSucursal.setText(Sucursal);
+            cobros.idSucursal= idSucursal;
+            cobros.idUsuario= idUsuario;
+            cobros.idPersonal=idEmpleado;
+            cobros.txtCaja.setText(String.valueOf(Metodos.dameCodcaja()));
+            cobros.txtCajaDesc.setText(traerCajaDescripcion(String.valueOf(Metodos.dameCodcaja())));
+        }else{
+            JOptionPane.showMessageDialog(null, "Primero debe abrir una caja");
+            new aper_cie_arqueo().setVisible(true);
+            dispose();
+        }
+  
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -798,6 +830,32 @@ public class Menu extends javax.swing.JFrame {
             }
         });
     }
+    
+        public String traerCajaDescripcion(String cod) {
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet caja = cn.consultar("select caja_desc from caja where cod_caja = " + cod);
+            if (caja.isBeforeFirst()) {
+                while (caja.next()) {
+                    String descri = caja.getString("caja_desc");
+                    return descri;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem caja_item;
     public static javax.swing.JDesktopPane contenedor;
@@ -826,6 +884,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
@@ -854,3 +913,5 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu refe_ventas;
     // End of variables declaration//GEN-END:variables
 }
+
+

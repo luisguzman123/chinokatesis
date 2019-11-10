@@ -479,12 +479,13 @@ public class bancos extends javax.swing.JFrame {
        String chasis= grillaBanco.getValueAt(fila, 3).toString();
        String año= grillaBanco.getValueAt(fila, 4).toString();
        
-//       if(busqueda.equals("alumno") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-//           Alumnos.txtCiudad.setText(cod+"-"+descri);
-//           Alumnos.txtCiudad.requestFocus();
-//           busqueda = "";
-//           dispose();
-//       }
+       if(busqueda.equals("cobros") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           cobros.txt_che_banco.setText(cod);
+           cobros.txt_che_banco_desc.setText(marca);
+           cobros.txt_che_banco_desc.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        
        
       

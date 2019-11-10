@@ -21,6 +21,7 @@ import ventanas.motivo_mermas;
 import ventanas.motivos;
 import ventanas.notaCreditoCompra;
 import ventanas.notaRemision;
+import ventanas.nota_ventas;
 import ventanas.orden_compra;
 import ventanas.pedidoDeVenta;
 import ventanas.pedido_de_compra;
@@ -153,6 +154,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem18 = new javax.swing.JMenuItem();
         caja_item = new javax.swing.JMenuItem();
         jMenuItem28 = new javax.swing.JMenuItem();
+        jMenuItem27 = new javax.swing.JMenuItem();
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
         infoCompras = new javax.swing.JMenuItem();
@@ -478,6 +480,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuVentas.add(jMenuItem28);
 
+        jMenuItem27.setText("Nota de Ventas");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
+        menuVentas.add(jMenuItem27);
+
         jMenuBar1.add(menuVentas);
 
         menuInformes.setText("Informes");
@@ -764,6 +774,13 @@ public class Menu extends javax.swing.JFrame {
         ventas.idPersonal=idEmpleado;
     }//GEN-LAST:event_jMenuItem28ActionPerformed
 
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        // TODO add your handling code here:
+        new nota_ventas().setVisible(true);
+        nota_ventas.codper.setText(Menu.idUsuario);
+        nota_ventas.pernom.setText(Menu.usuario);
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -826,6 +843,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
+    private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;

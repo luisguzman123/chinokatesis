@@ -367,10 +367,10 @@ public class Metodos {
             ResultSet caja = cn.consultar("SELECT\n"
                     + "*\n"
                     + "FROM aper_cierre ac\n"
-                    + "WHERE ac.cierre_fecha is null OR ac.cierre fecha::CHARACTER = '' \n"
+                    + "WHERE ac.cierre_fecha is null OR ac.cierre_fecha::CHARACTER = '' \n"
                     + "AND ac.usu_id = " + Menu.idUsuario + "\n"
                     + "and ac.sucur_id = " + Menu.idSucursal + "\n"
-                    + "and ac.tipo = 'ABIERTO'\n"
+                    + "and ac.tipo = 'APERTURA'\n"
                     + "AND ac.estado = 'ACTIVO'\n"
                     + "LIMIT 1");
 
@@ -401,10 +401,10 @@ public class Metodos {
             ResultSet caja = cn.consultar("SELECT\n"
                     + "*\n"
                     + "FROM aper_cierre ac\n"
-                    + "WHERE ac.cierre_fecha is null OR ac.cierre fecha::CHARACTER = '' \n"
+                    + "WHERE ac.cierre_fecha is null OR ac.cierre_fecha::CHARACTER = '' \n"
                     + "AND ac.usu_id = " + Menu.idUsuario + "\n"
                     + "and ac.sucur_id = " + Menu.idSucursal + "\n"
-                    + "and ac.tipo = 'ABIERTO'\n"
+                    + "and ac.tipo = 'APERTURA'\n"
                     + "AND ac.estado = 'ACTIVO'\n"
                     + "LIMIT 1");
 

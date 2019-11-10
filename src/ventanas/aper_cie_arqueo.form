@@ -667,7 +667,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="generar_arquero_btn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="GENERAR ARQUEO"/>
+            <Property name="text" type="java.lang.String" value="MODIFICAR ARQUEO"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

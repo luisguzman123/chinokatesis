@@ -730,7 +730,8 @@ public class presupuesto_produccion extends javax.swing.JFrame {
                     }
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
-
+                limpiar();
+               
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(pedido_de_compra.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -742,8 +743,11 @@ public class presupuesto_produccion extends javax.swing.JFrame {
 
 }//GEN-LAST:event_grabarActionPerformed
 
+    
+    
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         //        salir();
+        dispose();
 }//GEN-LAST:event_salirActionPerformed
 
     private void cod_artActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cod_artActionPerformed
@@ -1020,4 +1024,16 @@ public class presupuesto_produccion extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser txtfecha;
     // End of variables declaration//GEN-END:variables
 
+    private void limpiar(){
+        iniciarComponentes();
+        cod_pedido.setText("");
+        cliente.setText("");
+        cli_cod.setText("");
+        Metodos.limpiarTabla(grilla);
+        nuevo.setEnabled(true);
+        anular.setEnabled(true);
+        grabar.setEnabled(false);
+        cancelar.setEnabled(false);
+        salir.setEnabled(true);
+    }
 }

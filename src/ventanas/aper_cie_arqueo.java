@@ -35,6 +35,7 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
     String operacion = "";
     String mensaje = "";
     String confirmacion = "";
+    ventanas.arqueo_caja ventana_arquero = new arqueo_caja(null, rootPaneCheckingEnabled);
 
     public aper_cie_arqueo() {
         initComponents();
@@ -48,6 +49,7 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
         codper.setText(Menu.idUsuario);
         su1.setText(Menu.idSucursal);
         su2.setText(Menu.Sucursal);
+
         cargarListaCajasActivas();
         fecha_lbl.setText(Metodos.dameFechaFormateada(new JCalendar().getDate()));
         hora_lbl.setText(fecha.getDate().getHours() + ":" + fecha.getDate().getMinutes());
@@ -414,7 +416,7 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
             }
         });
 
-        generar_arquero_btn.setText("GENERAR ARQUEO");
+        generar_arquero_btn.setText("MODIFICAR ARQUEO");
         generar_arquero_btn.setEnabled(false);
         generar_arquero_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -551,46 +553,136 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
                         combocaja.setPopupVisible(true);
                         return;
                     }
-                    
+
                     if (aper_monto.getText().trim().isEmpty()) {
                         JOptionPane.showMessageDialog(rootPane, "Debes ingresar un monto de apertura");
                         aper_monto.requestFocus();
                         return;
                     }
-                    
+
                     Date fecha = new JCalendar().getDate();
                     String insersion = "INSERT INTO aper_cierre(\n"
                             + " cod_caja, sucur_id, tipo, aper_fecha, aper_hora, \n"
                             + "aper_monto, cie_efec, cie_tarj, cie_cheque, \n"
                             + "estado, usu_id, emp_id)\n"
                             + "VALUES ( "
-                            + combocaja.getSelectedItem().toString().split("-")[0]+", "
-                            + su1.getText()+", "
+                            + combocaja.getSelectedItem().toString().split("-")[0] + ", "
+                            + su1.getText() + ", "
                             + "'APERTURA', '"
-                            + Metodos.dameFechaFormateadaSQL(fecha)+"', '"
-                            + fecha.getHours()+":"+fecha.getMinutes()+":00"+"', \n"
-                            + aper_monto.getText()+", "
+                            + Metodos.dameFechaFormateadaSQL(fecha) + "', '"
+                            + fecha.getHours() + ":" + fecha.getMinutes() + ":00" + "', \n"
+                            + aper_monto.getText() + ", "
                             + "0, "
                             + "0, "
                             + "0, \n"
                             + "'ACTIVO', "
-                            + codper.getText()+", "
-                            + Menu.idEmpleado+");";
-                    
+                            + codper.getText() + ", "
+                            + Menu.idEmpleado + ");";
+
                     Conexion cn = new Conexion();
-                    
+
                     cn.conectar();
                     cn.actualizar(insersion);
+
+                    String caja_utilizada = "UPDATE caja set caja_estado = 'OCUPADO'  WHERE cod_caja = "
+                            + combocaja.getSelectedItem().toString().split("-")[0];
+                    cn.actualizar(caja_utilizada);
                     JOptionPane.showMessageDialog(rootPane, "Caja abierta correctamente");
                     cajaAbierta();
-                    
+
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(aper_cie_arqueo.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(aper_cie_arqueo.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                
+            }
+
+            if (operacion.equals("cierre")) {
+                if (!ventana_arquero.getArqueo_lbl().getText().equals(ventana_arquero.getTotal_efectivo_lbl().getText())) {
+                    JOptionPane.showMessageDialog(rootPane, "El arqueo no coincide.");
+                    return;
+                }
+                try {
+                    Date fecha = new Date();
+                    //guardamos el arqueo cabecera
+                    String arqueo = "INSERT INTO arqueo( cod_aper_cierre, cod_caja, sucur_id, fecha, hora, \n"
+                            + "monto_efectivo, monto_tarjeta, monto_cheque, usu_id, emp_id)\n"
+                            + "VALUES ("
+                            + Metodos.cajaAbierta() + ", "
+                            + Metodos.dameCodcaja() + ", "
+                            + Menu.idSucursal + ", '"
+                            + Metodos.dameFechaFormateadaSQL(fecha) + "', '"
+                            + fecha.getHours() + ":" + fecha.getMinutes() + ":00" + "', "
+                            + arq_efectivo.getText() + ", "
+                            + arq_tarjeta.getText() + ", "
+                            + arq_cheque.getText() + ", "
+                            + Menu.idUsuario + ", "
+                            + Menu.idEmpleado + ");";
+
+                    Conexion cn = new Conexion();
+
+                    cn.conectar();
+                    cn.actualizar(arqueo);
+                    String nro_arqueo = Metodos.ultimoCodigo("nro_arqueo", "arqueo");
+                    int cod_aper_cierre = Metodos.cajaAbierta();
+                    int cod_caja = Metodos.dameCodcaja();
+                    JTable tabla_arque = ventana_arquero.getGrilla();
+                    String detalle_arqueo = "";
+                    for (int i = 0; i < tabla_arque.getRowCount(); i++) {
+                        detalle_arqueo = "INSERT INTO arqueo_detalle(\n"
+                                + "nro_arqueo, cod_aper_cierre, cod_caja, sucur_id, cod_deno, cantidad)\n"
+                                + "VALUES ("
+                                + nro_arqueo + ", "
+                                + cod_aper_cierre + ", "
+                                + cod_caja + ", "
+                                + Menu.idSucursal + ", "
+                                + tabla_arque.getValueAt(i, 0).toString().split("-")[0] + ", "
+                                + tabla_arque.getValueAt(i, 1).toString() + ");";
+                        cn.actualizar(detalle_arqueo);
+                    }
+                    //liberamos la caja
+                    String caja_actualizar = "UPDATE caja \n"
+                            + "SET caja_estado = 'ACTIVO' \n"
+                            + "WHERE cod_caja = " + cod_caja;
+
+                    cn.actualizar(caja_actualizar);
+                    //recaudaciones
+                    String recaudaciones = "INSERT INTO recaudaciones(\n"
+                            + " monto_efectivo, monto_cheque, fecha, estado, cod_aper_cierre, \n"
+                            + "cod_caja, sucur_id, usu_id, emp_id)\n"
+                            + " VALUES ("
+                            + arq_efectivo.getText()+", "
+                            + arq_cheque.getText()+", '"
+                            + Metodos.dameFechaFormateadaSQL(fecha)+"', "
+                            + "'ACTIVO', "
+                            + cod_aper_cierre+", "
+                            + cod_caja+", "
+                            + Menu.idSucursal+", "
+                            + Menu.idUsuario+", "
+                            + Menu.idEmpleado+");";
+                    cn.actualizar(recaudaciones);
+
+                    //cerramos la caja
+                    String apertura_actualizar = "UPDATE aper_cierre \n"
+                            + "SET \n"
+                            + "cierre_fecha = '" + Metodos.dameFechaFormateadaSQL(fecha) + "',\n"
+                            + "cierre_hora = '" + fecha.getHours() + ":" + fecha.getMinutes() + ":00" + "',\n"
+                            + "cie_efec = " + arq_efectivo.getText() + ",\n"
+                            + "cie_tarj = " + arq_tarjeta.getText() + ",\n"
+                            + "cie_cheque = " + arq_cheque.getText() + ",\n"
+                            + "tipo = 'CERRADO'\n"
+                            + "WHERE cod_aper_cierre = " + cod_aper_cierre;
+                    cn.actualizar(apertura_actualizar);
+                    JOptionPane.showMessageDialog(rootPane, "Caja cerrada correctamente");
+                    cajaAbierta();
+                    dispose();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(aper_cie_arqueo.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(aper_cie_arqueo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         }
 
@@ -607,10 +699,13 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
 
     private void generar_arquero_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generar_arquero_btnActionPerformed
 
+        ventana_arquero.getTotal_efectivo_lbl().setText(cie_efectivo.getText());
+        ventana_arquero.setVisible(true);
 
 }//GEN-LAST:event_generar_arquero_btnActionPerformed
 
     private void salir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salir1ActionPerformed
+
         grabar.setEnabled(true);
         arq_cheque.setText(cie_cheque.getText());
         arq_efectivo.setText(cie_efectivo.getText());
@@ -619,7 +714,18 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
         arq_cheque.setEnabled(true);
         arq_efectivo.setEnabled(true);
         arq_tarjeta.setEnabled(true);
-        
+        salir1.setEnabled(false);
+        operacion = "cierre";
+        mensaje = "Estas seguro de cerrar la caja?";
+
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseas realizar el arqueo de caja?", "ATENCION",
+                JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+            ventana_arquero.getTotal_efectivo_lbl().setText(cie_efectivo.getText());
+            ventana_arquero.setVisible(true);
+        }
+
+
 }//GEN-LAST:event_salir1ActionPerformed
 
     private void cie_efectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cie_efectivoActionPerformed
@@ -804,6 +910,9 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
                 nuevo.setEnabled(false);
                 grabar.setEnabled(false);
                 salir1.setEnabled(true);
+                dameEfectivo();
+                dameTarjeta();
+                dameCheque();
                 sumarTotales();
             } else {
                 //en el caso que no esta abierta
@@ -818,13 +927,103 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void sumarTotales(){
+
+    public void dameEfectivo() {
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet caja = cn.consultar("SELECT \n"
+                    + "sum(dc.saldo) as efectivo\n"
+                    + "FROM cobranzas c \n"
+                    + "JOIN detalle_cobranzas dc \n"
+                    + "ON dc.cobro_id = c.cobro_id\n"
+                    + "WHERE c.cod_aper_cierre = " + Metodos.cajaAbierta() + " \n"
+                    + "and c.co_estado = 'ACTIVO'");
+
+            //en el caso que exista una caja abierta
+            if (caja.isBeforeFirst()) {
+                while (caja.next()) {
+                    cie_efectivo.setText(String.valueOf(caja.getInt("efectivo")));
+
+                }
+
+                sumarTotales();
+            }
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void dameTarjeta() {
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet caja = cn.consultar("SELECT \n"
+                    + "sum(dc.co_monto) as tarjeta\n"
+                    + "FROM cobranzas c \n"
+                    + "JOIN cobro_tarjeta dc \n"
+                    + "ON dc.cobro_id = c.cobro_id\n"
+                    + "WHERE c.cod_aper_cierre = " + Metodos.cajaAbierta() + " \n"
+                    + "and c.co_estado = 'ACTIVO'");
+
+            //en el caso que exista una caja abierta
+            if (caja.isBeforeFirst()) {
+                while (caja.next()) {
+                    cie_tarjeta.setText(String.valueOf(caja.getInt("tarjeta")));
+
+                }
+
+                sumarTotales();
+            }
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void dameCheque() {
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet caja = cn.consultar("SELECT \n"
+                    + "sum(dc.co_monto) as cheque\n"
+                    + "FROM cobranzas c \n"
+                    + "JOIN cobro_cheque dc \n"
+                    + "ON dc.cobro_id = c.cobro_id\n"
+                    + "WHERE c.cod_aper_cierre = " + Metodos.cajaAbierta() + " \n"
+                    + "and c.co_estado = 'ACTIVO'");
+
+            //en el caso que exista una caja abierta
+            if (caja.isBeforeFirst()) {
+                while (caja.next()) {
+                    cie_cheque.setText(String.valueOf(caja.getInt("cheque")));
+
+                }
+
+                sumarTotales();
+            }
+        } catch (ClassNotFoundException ex) {
+
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void sumarTotales() {
         int efectivo = Integer.parseInt(cie_efectivo.getText());
         int cheque = Integer.parseInt(cie_cheque.getText());
         int tarjeta = Integer.parseInt(cie_tarjeta.getText());
         int apertura = Integer.parseInt(aper_monto.getText());
-        
+
         total_general_lbl.setText(String.valueOf(efectivo + cheque + tarjeta + apertura));
     }
 

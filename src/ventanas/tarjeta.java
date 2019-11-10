@@ -443,12 +443,13 @@ public class tarjeta extends javax.swing.JFrame {
        String descripcion= grillaBanco.getValueAt(fila, 2).toString();
        String tipo= grillaBanco.getValueAt(fila, 3).toString();
        
-//       if(busqueda.equals("alumno") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-//           Alumnos.txtCiudad.setText(cod+"-"+descri);
-//           Alumnos.txtCiudad.requestFocus();
-//           busqueda = "";
-//           dispose();
-//       }
+       if(busqueda.equals("cobros") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           cobros.txt_cod_tarjeta.setText(cod);
+           cobros.txt_tarjeta.setText(nombre);
+           cobros.txt_tarjeta.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        
        
       

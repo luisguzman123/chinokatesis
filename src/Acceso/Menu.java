@@ -1,5 +1,8 @@
 package Acceso;
 
+import clases.Conexion;
+import clases.Metodos;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,6 +13,7 @@ import ventanas.bancos;
 import ventanas.cajas;
 import ventanas.ciudad;
 import ventanas.clientes;
+import ventanas.cobros;
 import ventanas.compras;
 import ventanas.costosDeProduccion;
 import ventanas.deposito;
@@ -815,6 +819,32 @@ public class Menu extends javax.swing.JFrame {
             }
         });
     }
+    
+        public String traerCajaDescripcion(String cod) {
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet caja = cn.consultar("select caja_desc from caja where cod_caja = " + cod);
+            if (caja.isBeforeFirst()) {
+                while (caja.next()) {
+                    String descri = caja.getString("caja_desc");
+                    return descri;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem caja_item;
     public static javax.swing.JDesktopPane contenedor;
@@ -872,3 +902,5 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu refe_ventas;
     // End of variables declaration//GEN-END:variables
 }
+
+

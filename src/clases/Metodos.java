@@ -427,4 +427,17 @@ public class Metodos {
         }
         return  0 ;
   }
+    
+    
+public static int sumarColumnaBooleana(JTable tabla, int columa, int columna_boleana) {
+        int fila = tabla.getRowCount();
+        int total = 0;
+        for (int i = 0; i < fila; i++) {
+            if (Boolean.valueOf(String.valueOf(tabla.getValueAt(i, columna_boleana)))) {
+
+                total += Integer.parseInt(String.valueOf(tabla.getValueAt(i, columa)));
+            }
+        }
+        return total;
+    }
 }

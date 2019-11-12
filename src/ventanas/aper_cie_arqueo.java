@@ -890,7 +890,7 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
                     + "WHERE ac.cierre_fecha is null OR ac.cierre_fecha::CHARACTER = '' \n"
                     + "AND ac.usu_id = " + codper.getText() + "\n"
                     + "and ac.sucur_id = " + su1.getText() + "\n"
-                    + "and ac.tipo = 'ABIERTO'\n"
+                    + "and ac.tipo = 'APERTURA'\n"
                     + "AND ac.estado = 'ACTIVO'\n"
                     + "LIMIT 1");
 

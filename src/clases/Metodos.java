@@ -5,19 +5,30 @@ import com.toedter.calendar.JCalendar;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
 import ventanas.compras;
 import ventanas.orden_produccion;
 
@@ -339,10 +350,10 @@ public class Metodos {
             cn.conectar();
             resultados = cn.consultar("SELECT cod_depo\n"
                     + "  FROM \"detalle_producción\" \n"
-                    + "  where \"cod_producción\" = "+cod_produccion+" and cod_or_prod =  "+cod_orden+"\n"
-                    + "   and pro_cod = "+cod_producto+";");
-            
-            if(resultados.first()){
+                    + "  where \"cod_producción\" = " + cod_produccion + " and cod_or_prod =  " + cod_orden + "\n"
+                    + "   and pro_cod = " + cod_producto + ";");
+
+            if (resultados.first()) {
                 return String.valueOf(resultados.getInt("cod_depo"));
             }
 
@@ -354,11 +365,7 @@ public class Metodos {
         return "0";
 
     }
-    
-    
-    
-    
-    
+
     public static int cajaAbierta() {
         Conexion cn = new Conexion();
 
@@ -367,7 +374,7 @@ public class Metodos {
             ResultSet caja = cn.consultar("SELECT\n"
                     + "*\n"
                     + "FROM aper_cierre ac\n"
-                    + "WHERE ac.cierre_fecha is null OR ac.cierre_fecha::CHARACTER = '' \n"
+                    + "WHERE ac.cierre_fecha is null  \n"
                     + "AND ac.usu_id = " + Menu.idUsuario + "\n"
                     + "and ac.sucur_id = " + Menu.idSucursal + "\n"
                     + "and ac.tipo = 'APERTURA'\n"
@@ -382,7 +389,7 @@ public class Metodos {
                 }
             } else {
                 //en el caso que no esta abierta
-                return  0;
+                return 0;
 
             }
         } catch (ClassNotFoundException ex) {
@@ -391,8 +398,9 @@ public class Metodos {
         } catch (SQLException ex) {
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return  0 ;
-  }
+        return 0;
+    }
+
     public static int dameCodcaja() {
         Conexion cn = new Conexion();
 
@@ -401,7 +409,7 @@ public class Metodos {
             ResultSet caja = cn.consultar("SELECT\n"
                     + "*\n"
                     + "FROM aper_cierre ac\n"
-                    + "WHERE ac.cierre_fecha is null OR ac.cierre_fecha::CHARACTER = '' \n"
+                    + "WHERE ac.cierre_fecha is null  \n"
                     + "AND ac.usu_id = " + Menu.idUsuario + "\n"
                     + "and ac.sucur_id = " + Menu.idSucursal + "\n"
                     + "and ac.tipo = 'APERTURA'\n"
@@ -416,7 +424,7 @@ public class Metodos {
                 }
             } else {
                 //en el caso que no esta abierta
-                return  0;
+                return 0;
 
             }
         } catch (ClassNotFoundException ex) {
@@ -425,11 +433,10 @@ public class Metodos {
         } catch (SQLException ex) {
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return  0 ;
-  }
-    
-    
-public static int sumarColumnaBooleana(JTable tabla, int columa, int columna_boleana) {
+        return 0;
+    }
+
+    public static int sumarColumnaBooleana(JTable tabla, int columa, int columna_boleana) {
         int fila = tabla.getRowCount();
         int total = 0;
         for (int i = 0; i < fila; i++) {
@@ -439,5 +446,5 @@ public static int sumarColumnaBooleana(JTable tabla, int columa, int columna_bol
             }
         }
         return total;
-    }
+    }  
 }

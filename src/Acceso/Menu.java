@@ -25,6 +25,7 @@ import ventanas.motivo_mermas;
 import ventanas.motivos;
 import ventanas.notaCreditoCompra;
 import ventanas.notaRemision;
+import ventanas.nota_compras;
 import ventanas.nota_ventas;
 import ventanas.orden_compra;
 import ventanas.pedidoDeVenta;
@@ -698,13 +699,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_produccion_itemActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
-        new notaCreditoCompra().setVisible(true);
-        notaCreditoCompra.txtUsuarioCod.setText(idUsuario);
-        notaCreditoCompra.txtUsuario.setText(usuario);
-        notaCreditoCompra.txtSucursal.setText(Sucursal);
-        notaCreditoCompra.idSucursal = idSucursal;
-        notaCreditoCompra.idUsuario = idUsuario;
-        notaCreditoCompra.idPersonal = idEmpleado;
+        new nota_compras().setVisible(true);
+       
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed

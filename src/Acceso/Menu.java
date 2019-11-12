@@ -2,6 +2,9 @@ package Acceso;
 
 import clases.Conexion;
 import clases.Metodos;
+import informes.buscador_compras;
+import informes.buscador_produccion;
+import informes.buscador_ventas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -136,7 +139,6 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem34 = new javax.swing.JMenuItem();
         jMenuItem35 = new javax.swing.JMenuItem();
         jMenuItem36 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         menuCompras = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -159,12 +161,14 @@ public class Menu extends javax.swing.JFrame {
         caja_item = new javax.swing.JMenuItem();
         jMenuItem28 = new javax.swing.JMenuItem();
         jMenuItem27 = new javax.swing.JMenuItem();
+        jMenuItem29 = new javax.swing.JMenuItem();
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
         infoCompras = new javax.swing.JMenuItem();
         infoProduccion = new javax.swing.JMenuItem();
         infoVentas = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
+        jMenuItem37 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -325,14 +329,6 @@ public class Menu extends javax.swing.JFrame {
 
         menuReferenciales.add(refe_ventas);
 
-        jMenuItem3.setText("Usuarios");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        menuReferenciales.add(jMenuItem3);
-
         jMenuBar1.add(menuReferenciales);
 
         menuCompras.setText("Gestión de compras");
@@ -492,6 +488,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuVentas.add(jMenuItem27);
 
+        jMenuItem29.setText("Cobros");
+        jMenuItem29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem29ActionPerformed(evt);
+            }
+        });
+        menuVentas.add(jMenuItem29);
+
         jMenuBar1.add(menuVentas);
 
         menuInformes.setText("Informes");
@@ -513,14 +517,33 @@ public class Menu extends javax.swing.JFrame {
         menuInformes.add(infoCompras);
 
         infoProduccion.setText("Informes de producción");
+        infoProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoProduccionActionPerformed(evt);
+            }
+        });
         menuInformes.add(infoProduccion);
 
         infoVentas.setText("Informes de ventas");
+        infoVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                infoVentasActionPerformed(evt);
+            }
+        });
         menuInformes.add(infoVentas);
 
         jMenuBar1.add(menuInformes);
 
         menuAyuda.setText("Ayuda");
+
+        jMenuItem37.setText("Ayuda Interactiva");
+        jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem37ActionPerformed(evt);
+            }
+        });
+        menuAyuda.add(jMenuItem37);
+
         jMenuBar1.add(menuAyuda);
 
         setJMenuBar(jMenuBar1);
@@ -602,7 +625,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_infoReferencialesActionPerformed
 
     private void infoComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoComprasActionPerformed
-        // TODO add your handling code here:
+        new buscador_compras().setVisible(true);
+        
     }//GEN-LAST:event_infoComprasActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
@@ -612,10 +636,6 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         new motivo_mermas().setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         new empleados().setVisible(true);
@@ -785,6 +805,38 @@ public class Menu extends javax.swing.JFrame {
         nota_ventas.pernom.setText(Menu.usuario);
     }//GEN-LAST:event_jMenuItem27ActionPerformed
 
+    private void jMenuItem29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem29ActionPerformed
+        System.out.println(Metodos.cajaAbierta());
+        if (Metodos.cajaAbierta()==0) {
+            JOptionPane.showMessageDialog(null, "Debe abrir una caja");
+        }else{
+            new cobros().setVisible(true);
+            cobros.txtCodUsuario.setText(idUsuario);
+            cobros.txtUsuario.setText(usuario);
+            cobros.txtSucursal.setText(Sucursal);
+            cobros.idSucursal= idSucursal;
+            cobros.idUsuario= idUsuario;
+            cobros.idPersonal=idEmpleado;
+            cobros.estadoParaFactura="usarRecibo";
+            cobros.txt_recibo.setText(Metodos.ultimoCodigoRecibo("nro_recibo", "cobranzas"));
+        }
+    }//GEN-LAST:event_jMenuItem29ActionPerformed
+
+    private void infoProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoProduccionActionPerformed
+        new buscador_produccion().setVisible(true);
+    }//GEN-LAST:event_infoProduccionActionPerformed
+
+    private void infoVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoVentasActionPerformed
+        new buscador_ventas().setVisible(true);
+    }//GEN-LAST:event_infoVentasActionPerformed
+
+    private void jMenuItem37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem37ActionPerformed
+        try {
+            Runtime.getRuntime().exec("cmd /c start "+System.getProperty("user.dir")+"/Ayuda.chm");
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jMenuItem37ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -875,7 +927,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem29;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem32;
@@ -883,6 +935,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem34;
     private javax.swing.JMenuItem jMenuItem35;
     private javax.swing.JMenuItem jMenuItem36;
+    private javax.swing.JMenuItem jMenuItem37;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;

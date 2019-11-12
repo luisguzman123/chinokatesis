@@ -20,6 +20,8 @@ public class Acceso extends javax.swing.JDialog {
 
     int contador=0;
 
+   
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -49,6 +51,7 @@ public class Acceso extends javax.swing.JDialog {
         btnIngresar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txt_personal = new javax.swing.JTextField();
+        cmb_cambio = new javax.swing.JButton();
 
         jLabel4.setFont(new java.awt.Font("DejaVu Sans", 3, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(249, 249, 249));
@@ -226,6 +229,16 @@ public class Acceso extends javax.swing.JDialog {
         jLabel9.setBounds(460, 150, 100, 19);
         jDesktopPane1.add(txt_personal);
         txt_personal.setBounds(570, 180, 210, 30);
+
+        cmb_cambio.setFont(new java.awt.Font("Calibri Light", 0, 11)); // NOI18N
+        cmb_cambio.setText("¿Desea cambiar su contraseña?");
+        cmb_cambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_cambioActionPerformed(evt);
+            }
+        });
+        jDesktopPane1.add(cmb_cambio);
+        cmb_cambio.setBounds(10, 383, 171, 10);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -426,6 +439,11 @@ private void inicio(){
         verificarUsuario();
     }//GEN-LAST:event_btnIngresarActionPerformed
 
+    private void cmb_cambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_cambioActionPerformed
+        new cambioPass().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_cmb_cambioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -475,6 +493,7 @@ private void inicio(){
     private javax.swing.JButton btnConectar;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton cmb_cambio;
     private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel10;

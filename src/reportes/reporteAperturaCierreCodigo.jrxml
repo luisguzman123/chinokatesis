@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dcf42be4-9869-4a7d-b5c9-9fc5adab283b">
+	<property name="ireport.zoom" value="0.9090909090909098"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desde" class="java.lang.Integer"/>
+	<parameter name="hasta" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+ac.cod_aper_cierre,
+c.cod_caja||' - '||c.caja_desc as caja,
+s.sucur_nom,
+ac.aper_fecha,
+ac.cierre_fecha,
+ac.cie_efec,
+ac.cie_tarj,
+ac.cie_cheque,
+ac.estado,
+e.emp_nom||' '||e.emp_ape AS empleado
+FROM aper_cierre ac
+JOIN caja c
+ON c.cod_caja =  ac.cod_caja
+JOIN sucursal s 
+ON s.sucur_id =  ac.sucur_id
+JOIN empleado e 
+ON e.emp_id = ac.emp_id
+WHERE ac.cod_aper_cierre BETWEEN $P{desde} AND $P{hasta}]]>
+	</queryString>
+	<field name="cod_aper_cierre" class="java.lang.Integer"/>
+	<field name="caja" class="java.lang.String"/>
+	<field name="sucur_nom" class="java.lang.String"/>
+	<field name="aper_fecha" class="java.sql.Date"/>
+	<field name="cierre_fecha" class="java.sql.Date"/>
+	<field name="cie_efec" class="java.lang.Integer"/>
+	<field name="cie_tarj" class="java.lang.Integer"/>
+	<field name="cie_cheque" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="empleado" class="java.lang.String"/>
+	<group name="cierre">
+		<groupExpression><![CDATA[$F{cod_aper_cierre}]]></groupExpression>
+		<groupHeader>
+			<band height="81">
+				<rectangle>
+					<reportElement x="1" y="61" width="554" height="20" forecolor="#333333" backcolor="#333333" uuid="551f3bef-8be0-4fc4-8069-c8ba7066ba89"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="0" y="10" width="38" height="20" uuid="ee7e60f1-45d5-4a94-8b6d-181fd3048ab6"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Caja]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="9" width="555" height="1" forecolor="#000000" uuid="47b52a66-6a68-4f19-a27f-ca7c423686e3"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="39" y="10" width="178" height="20" uuid="cc286f25-dade-4aeb-9ff0-6ffbd015e3e4"/>
+					<textFieldExpression><![CDATA[$F{caja}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="-244" y="-2" width="38" height="20" uuid="0a0a1fe9-7550-4ca1-87f7-4c5970795418"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Caja]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="217" y="9" width="60" height="20" uuid="9758fa8b-e15e-4732-8aa0-c1a1f485f047"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="277" y="10" width="100" height="20" uuid="7543bd58-12f0-4931-b711-c22e8985aef7"/>
+					<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="29" width="88" height="20" uuid="11d506dd-7674-48ac-afaa-e5d844acf845"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha apertura]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="89" y="30" width="128" height="20" uuid="f1253cb8-8000-4a26-beaf-afc73be4a0c7"/>
+					<textFieldExpression><![CDATA[$F{aper_fecha}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="217" y="29" width="79" height="20" uuid="d29e0731-3653-405f-90af-136e595ac76d"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Cierre]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="296" y="30" width="100" height="20" uuid="a3c3ca35-8e88-499a-a93a-880be3eff70b"/>
+					<textFieldExpression><![CDATA[$F{cierre_fecha}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="407" y="30" width="44" height="20" uuid="23f80dbd-026a-4c9c-996f-15f16cb5b7d3"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="451" y="29" width="100" height="20" uuid="0c052c91-1b2b-43bc-9915-e9b2b544bf76"/>
+					<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="17" y="61" width="100" height="20" forecolor="#FFFFFF" uuid="d3adbc80-4d1f-4c1d-900c-c7aa9d3446ea"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Efectivo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="217" y="61" width="100" height="20" forecolor="#FFFFFF" uuid="4b06a945-0b26-4fdc-b164-508b0fabf680"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tarjeta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="451" y="61" width="100" height="20" forecolor="#FFFFFF" uuid="3429599d-1616-4b2d-91c3-03e780e4d0df"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cheque]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="255" y="21" width="300" height="32" uuid="1d378fed-a024-4f06-99da-e542bcb9ee99"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="10" width="243" height="53" uuid="8d8142f6-0d61-49a2-b13e-08ba358fb2b2"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APERTURA CIERRE POR PERIODO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="28" width="43" height="20" uuid="f1f596f2-ae38-4e3e-a65e-d8497888fcf2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="451" y="28" width="100" height="20" uuid="bfd8dd55-15ee-4af8-ac76-f6415442853d"/>
+				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="265" y="28" width="43" height="20" uuid="5ab073dc-a0ce-4f40-92c9-c49bd3ab723d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="308" y="28" width="100" height="20" uuid="dcb7d970-dae4-45d0-9773-3ca3d32f783e"/>
+				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="#,##0">
+				<reportElement x="17" y="0" width="100" height="20" uuid="1cbf00b5-7047-40ee-a33b-3fad2c0f9cfb"/>
+				<textFieldExpression><![CDATA[$F{cie_efec}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="217" y="0" width="100" height="20" uuid="f77f83db-f68c-4c0e-af03-fb42f072ec9e"/>
+				<textFieldExpression><![CDATA[$F{cie_tarj}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="450" y="0" width="100" height="20" uuid="c7f77ada-48aa-4ebf-b018-f16315167a87"/>
+				<textFieldExpression><![CDATA[$F{cie_cheque}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

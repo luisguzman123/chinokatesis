@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="72"/>
+	<parameter name="estado" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+nc.cod_nota,
+nc.nota_fecha,
+nc.nota_tipo,
+s.sucur_nom,
+m.mat_desc,
+dc.det_nota_cant,
+nc.estado,
+d.depo_desc,
+dc.det_not_precio,
+(dc.det_nota_cant * dc.det_not_precio) as total
+FROM nota_de_compras nc
+JOIN sucursal s 
+ON s.sucur_id = nc.sucur_id
+JOIN detalle_nc dc 
+ON dc.cod_nota = nc.cod_nota
+JOIN materia_prima m
+ON m.cod_materia = dc.cod_materia
+JOIN deposito d 
+ON d.cod_depo = dc.cod_depo
+WHERE nc.estado = $P{estado}
+AND nc.nota_tipo = 'DEBITO']]>
+	</queryString>
+	<field name="cod_nota" class="java.lang.Integer"/>
+	<field name="nota_fecha" class="java.sql.Date"/>
+	<field name="nota_tipo" class="java.lang.String"/>
+	<field name="sucur_nom" class="java.lang.String"/>
+	<field name="mat_desc" class="java.lang.String"/>
+	<field name="det_nota_cant" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="depo_desc" class="java.lang.String"/>
+	<field name="det_not_precio" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="cantidad_1" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_3" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+	</variable>
+	<group name="pedidos_cabecera">
+		<groupExpression><![CDATA[$F{cod_nota}]]></groupExpression>
+		<groupHeader>
+			<band height="92">
+				<rectangle>
+					<reportElement x="0" y="70" width="554" height="20" forecolor="#333333" backcolor="#333333" uuid="f78ec037-ac94-4921-95ab-88f5404c4b33"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="-2" y="19" width="39" height="20" uuid="f7e0d8d4-b873-4251-b69a-4f13f64dce0e"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="151" y="18" width="49" height="20" uuid="a901b46b-0c00-4c1d-845f-8babb74a1725"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="324" y="19" width="49" height="20" uuid="f0eb715e-3d37-4da8-bac2-d87005e7097f"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Código]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="-2" y="39" width="39" height="20" uuid="2aed3f6c-309d-47e3-a09b-fe6b893b9bdb"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="373" y="19" width="100" height="20" uuid="777b4285-e4bb-4676-9a5a-7be8995f82b2"/>
+					<textFieldExpression><![CDATA[$F{cod_nota}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="37" y="19" width="100" height="20" uuid="a84f6ba2-689a-490a-abbd-706b2667f78b"/>
+					<textFieldExpression><![CDATA[$F{nota_fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="200" y="19" width="124" height="20" uuid="919424fa-3fc2-4883-a798-7c6a95adf6f5"/>
+					<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="16" y="72" width="145" height="20" forecolor="#FFFFFF" uuid="59abd51a-2fb4-4d01-a745-0b3b64e19ef6"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Materia Prima]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="175" y="72" width="62" height="20" forecolor="#FFFFFF" uuid="f280ebad-656f-4b83-baec-446cc2601d9f"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="254" y="72" width="98" height="20" forecolor="#FFFFFF" uuid="de97c9dc-bf93-48f2-8d15-0c6b09cc1d26"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Precio Unitario]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="450" y="72" width="98" height="20" forecolor="#FFFFFF" uuid="9dc9558a-a1a9-4d3a-bcad-d7adef0f8e6d"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="37" y="39" width="100" height="20" uuid="5fbd00cf-cdaf-4d6f-b3e5-67164cf2cd4a"/>
+					<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="d24ab337-ecdc-457d-89ca-04088a0cdf1b"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="16" y="0" width="166" height="20" forecolor="#FFFFFF" uuid="900a15c7-67da-44a3-aecf-62361219be4e"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField pattern="#,##0">
+					<reportElement x="448" y="0" width="100" height="20" forecolor="#FFFFFF" uuid="5a74758b-f91f-4191-95e9-70ec8184e8ec"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{total_3}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="254" y="22" width="300" height="32" uuid="996383a5-90f7-4a91-8de7-4e13918547f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-2" y="22" width="239" height="57" uuid="66cefef3-4184-439d-b312-c078afb82c61"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA DE DEBITO POR ESTADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="60" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="324" y="29" width="100" height="20" uuid="6ec9e5a1-fcbc-4685-9555-5b032b9d1784"/>
+				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
+			</line>
+			<textField>
+				<reportElement x="16" y="0" width="159" height="20" uuid="68e7609b-7ca0-4d54-a366-2eea59310d53"/>
+				<textFieldExpression><![CDATA[$F{mat_desc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="175" y="0" width="62" height="20" uuid="e941cdfc-0948-4921-928d-d02f222f0f7e"/>
+				<textFieldExpression><![CDATA[$F{det_nota_cant}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="254" y="0" width="100" height="20" uuid="d94d03db-5942-496d-9350-37d23f2b6225"/>
+				<textFieldExpression><![CDATA[$F{det_not_precio}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="450" y="0" width="100" height="20" uuid="6bcee966-26f4-4903-a38a-722389625381"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="45" splitType="Stretch"/>
+	</summary>
+</jasperReport>

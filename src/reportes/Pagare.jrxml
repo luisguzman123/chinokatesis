@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b6b1aa1b-49b7-4e25-b685-fc23a5cfddd6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="173"/>
+	<parameter name="cuota" class="java.lang.String"/>
+	<parameter name="fecha_emision" class="java.lang.String"/>
+	<parameter name="monto" class="java.lang.String"/>
+	<parameter name="monto_letras" class="java.lang.String"/>
+	<parameter name="concepto" class="java.lang.String"/>
+	<parameter name="cliente" class="java.lang.String"/>
+	<parameter name="direccion" class="java.lang.String"/>
+	<parameter name="ci" class="java.lang.String"/>
+	<parameter name="garante" class="java.lang.String"/>
+	<parameter name="direccion_garante" class="java.lang.String"/>
+	<parameter name="telefono_garante" class="java.lang.String"/>
+	<parameter name="vencimiento" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="802">
+			<textField>
+				<reportElement x="368" y="422" width="186" height="20" uuid="8905f3f7-c332-492f-ba34-9e4d6d6c958e"/>
+				<textFieldExpression><![CDATA[$P{telefono_garante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="22" y="292" width="531" height="90" uuid="15a4591a-4489-43ca-ae98-d8c75fffba4d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[En caso que deba instaurarse una acción para el cobro de este documento, o el mismo deba ser cobrado a requerimiento de un abogado, el firmante se obliga a pagar honorarios razonables al mismo, incurridos a niveles de pre litigio, pre judiciales, de apelación o quiebra, a fin de efectuar dicho cobro y todos los demás costos de cobranza. Toda persona interviniente en este documento se somete a la jurisdicción y competencia de los jueces y tribunales de la Ciudad de Asunción.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="382" width="186" height="20" uuid="79d2cd47-7a4a-4d28-9d5a-5a7ad0cc27d8"/>
+				<textFieldExpression><![CDATA[$P{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="101" y="189" width="139" height="20" uuid="c8032af5-ba9c-4f1f-8a24-a254c9d960cb"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vencimiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="163" width="141" height="20" uuid="92a0305f-fc4f-4113-a3c1-939cf3665501"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cuota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="418" width="186" height="20" uuid="db0b86d1-7536-4def-b419-404e043d41aa"/>
+				<textFieldExpression><![CDATA[$P{ci}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="137" width="203" height="20" uuid="9aaa5594-a401-4721-a33e-ff2fa13e2341"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_emision}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="288" y="386" width="51" height="16" uuid="c60d9ef2-a953-4822-b637-7de5bf45533a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="103" width="572" height="3" uuid="031f6b9d-9fab-4b9e-aa12-9f849c5fc69b"/>
+			</line>
+			<staticText>
+				<reportElement x="189" y="106" width="229" height="30" uuid="b3c6d7c1-dfaf-427f-b722-8ae1d9890aad"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PAGARÉ A LA ORDEN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="115" y="272" width="438" height="20" uuid="36b74fad-ff1b-40ad-bdaa-7b7da726f1db"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{concepto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="288" y="441" width="67" height="16" uuid="e265eb9f-7edd-4580-8a11-09444720eef5"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aclaracion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="478" width="51" height="16" uuid="2395225d-f01c-4c19-9617-7440c312cbe6"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FIRMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="38" y="10" width="516" height="48" uuid="a55659cf-82c9-4c93-9867-c96246e9f681"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="34" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GO PY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="419" width="51" height="16" uuid="21a09e03-e688-402a-8c18-c70e345f55d1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.I. Nro:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="23" y="249" width="530" height="20" uuid="bfbf0e9b-3aa2-4235-ac46-7429364e37c0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{monto_letras}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="215" width="82" height="20" uuid="69cc0beb-18cb-4bfc-9497-5ba42e9a7afe"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{vencimiento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="386" width="51" height="16" uuid="06bffef7-0e46-4e95-aeae-ba7e9f589aec"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="189" width="79" height="20" uuid="87eb96ca-f4bb-4629-acff-be3559292c9c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vencimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="402" width="51" height="16" uuid="e4623c79-40b7-4e23-8184-de177957f5ac"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Domicilio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="449" y="477" width="51" height="16" uuid="6f5ea3da-4813-40bb-a474-265ec57092df"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FIRMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="402" width="51" height="16" uuid="a57131aa-2ef3-4f31-976d-af8df6a85b86"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="368" y="402" width="186" height="20" uuid="0854bf67-da2b-4c3e-a19e-ae99dc8594ca"/>
+				<textFieldExpression><![CDATA[$P{direccion_garante}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="402" width="186" height="20" uuid="1bcc8f53-9025-4f22-958b-6e857251bdae"/>
+				<textFieldExpression><![CDATA[$P{direccion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="73" y="478" width="116" height="1" uuid="06fd7c5b-8aa6-429a-b443-3e00ad6839c5"/>
+			</line>
+			<staticText>
+				<reportElement x="407" y="163" width="51" height="20" uuid="4c49ed67-c6f4-4616-9632-79e7632d406e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Monto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="215" width="531" height="32" uuid="8474440d-5426-4112-9471-ca7e5a17cac8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[El día                             PAGARE/MOS solidariamente y sin protesto a la empresa GO PY , ó a su orden, la suma de Guaranies]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="368" y="382" width="186" height="20" uuid="9108e5fc-4fa3-471a-8a30-1dbd7a83d8b9"/>
+				<textFieldExpression><![CDATA[$P{garante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="306" y="137" width="49" height="20" uuid="3b81639d-078d-47e6-8845-524428ef42a1"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Itauguá,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="418" width="51" height="16" uuid="5184ee6b-590b-48e6-ad64-c3c74ccc9372"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.I. Nro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="272" width="531" height="19" uuid="afa8b563-24bd-45de-ab58-f84a6626786d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[En concepto de 
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="23" y="438" width="67" height="16" uuid="a8f268c0-aa34-4e2e-99dd-e76ae73dfa89"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aclaracion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="24" y="163" width="51" height="20" uuid="129966be-e5b5-47d6-8a93-b96563ea7993"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="458" y="163" width="100" height="20" uuid="2b8c4a6b-3358-446e-83ae-659806a9423e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{monto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="232" width="74" height="20" uuid="20c8eef3-9560-4d4f-b062-3a2a16e5237f"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{monto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="38" y="65" width="520" height="31" uuid="a0ccedc8-0066-4173-b62a-2c4dd039d291"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Itauguá km 30 - Tel.: (0294) 321 548 - Celular : +59597112012 - Web: gopy.com ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="407" y="477" width="116" height="1" uuid="742545a9-2bd1-4535-a27b-e3eaf0a1d581"/>
+			</line>
+		</band>
+	</title>
+</jasperReport>

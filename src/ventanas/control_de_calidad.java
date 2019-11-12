@@ -417,6 +417,11 @@ public class control_de_calidad extends javax.swing.JFrame {
         motivo_merma_lbl.setText("Motivo Merma");
 
         motivo_merma_lst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        motivo_merma_lst.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                motivo_merma_lstItemStateChanged(evt);
+            }
+        });
         motivo_merma_lst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 motivo_merma_lstActionPerformed(evt);
@@ -779,6 +784,9 @@ public class control_de_calidad extends javax.swing.JFrame {
         btnSalir.setEnabled(true);
         btnGrabar.setEnabled(false);
         btnCancelar.setEnabled(false);
+        
+        Metodos.limpiarTabla(grilla1);
+        Metodos.limpiarTabla(grilla2);
 
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -872,7 +880,13 @@ public class control_de_calidad extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_codigo_control_calidad_txtKeyReleased
 
+    private void motivo_merma_lstItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_motivo_merma_lstItemStateChanged
+        observacion_txt.setEnabled(true);
+        observacion_txt.requestFocus();
+    }//GEN-LAST:event_motivo_merma_lstItemStateChanged
+
     /**
+     * 
      * @param args the command line arguments
      */
     public static void main(String args[]) {

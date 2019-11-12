@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+op.cod_control_cali,
+op.fecha,
+op.estado,
+s.sucur_nom,
+p.pro_desc,
+eta.eta_desc,
+dp.cantidad_aceptada,
+dp.cantidad_rechazada
+FROM control_calidad op
+JOIN sucursal s 
+ON s.sucur_id =  op.sucur_id
+join detalle_control_calidad dp
+ON dp.cod_control_cali =  op.cod_control_cali
+JOIN producto p 
+ON p.pro_cod = dp.pro_cod
+JOIN etapas_produccion eta
+ON eta.cod_etapas =  dp.cod_etapas
+WHERE op.cod_control_cali = $P{codigo}]]>
+	</queryString>
+	<field name="cod_control_cali" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="sucur_nom" class="java.lang.String"/>
+	<field name="pro_desc" class="java.lang.String"/>
+	<field name="eta_desc" class="java.lang.String"/>
+	<field name="cantidad_aceptada" class="java.lang.Integer"/>
+	<field name="cantidad_rechazada" class="java.lang.Integer"/>
+	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="cantidad_1" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="pedidos_cabecera">
+		<groupExpression><![CDATA[$F{cod_control_cali}]]></groupExpression>
+		<groupHeader>
+			<band height="90">
+				<rectangle>
+					<reportElement x="0" y="70" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="0a27a1ab-89fa-4a57-afa0-d83ee32f7a00"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="-2" y="39" width="49" height="20" uuid="a901b46b-0c00-4c1d-845f-8babb74a1725"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="16" y="70" width="184" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="428" y="70" width="127" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Rechazado]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="-2" y="19" width="49" height="20" uuid="f7e0d8d4-b873-4251-b69a-4f13f64dce0e"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="317" y="70" width="111" height="20" forecolor="#FFFFFF" uuid="49b7168a-8d65-4864-8966-2284e7d3fa64"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Aceptado]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="47" y="19" width="153" height="20" uuid="cbda98a1-e590-4b1b-ac61-ce73277a4f32"/>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="454" y="19" width="100" height="20" uuid="e41ad12e-294a-49ee-bcd9-790b9f05f1e7"/>
+					<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="389" y="19" width="49" height="20" uuid="3b675049-23ce-4097-a9e5-a3cbbd55ec82"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="47" y="39" width="190" height="20" uuid="0010a028-d92d-49a3-8c15-179053515cfc"/>
+					<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="206" y="70" width="111" height="20" forecolor="#FFFFFF" uuid="cfac33e3-5558-4a0d-b82b-6235eaa0c4f1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Etapa]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="d24ab337-ecdc-457d-89ca-04088a0cdf1b"/>
+				</rectangle>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="254" y="22" width="300" height="32" uuid="996383a5-90f7-4a91-8de7-4e13918547f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-2" y="22" width="239" height="57" uuid="66cefef3-4184-439d-b312-c078afb82c61"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTROL DE CALIDAD POR CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="72" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="336" y="29" width="146" height="20" uuid="b2808449-35f7-4ff5-b37e-48f9d5ed8076"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_control_cali}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
+			</line>
+			<textField>
+				<reportElement x="16" y="2" width="184" height="20" uuid="479c746f-ef45-4ade-a7a4-394b45be04cd"/>
+				<textFieldExpression><![CDATA[$F{pro_desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="317" y="2" width="111" height="20" uuid="f2788df7-8610-4de9-b909-6c8808cacd25"/>
+				<textFieldExpression><![CDATA[$F{cantidad_aceptada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="428" y="2" width="126" height="20" uuid="4236a210-403c-41d5-bc71-7d4b107afb27"/>
+				<textFieldExpression><![CDATA[$F{cantidad_rechazada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="206" y="2" width="111" height="20" uuid="e6bf2ec4-abe2-4413-b176-e636cc2d8d5c"/>
+				<textFieldExpression><![CDATA[$F{eta_desc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="45" splitType="Stretch"/>
+	</summary>
+</jasperReport>

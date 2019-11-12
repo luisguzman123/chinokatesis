@@ -1241,7 +1241,7 @@ public class orden_produccion extends javax.swing.JFrame {
     }//GEN-LAST:event_grilla1MouseClicked
 
     private void salir_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salir_btnActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_salir_btnActionPerformed
 
     private void grilla2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grilla2MouseClicked

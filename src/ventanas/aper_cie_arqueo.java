@@ -589,6 +589,7 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
                     cn.actualizar(caja_utilizada);
                     JOptionPane.showMessageDialog(rootPane, "Caja abierta correctamente");
                     cajaAbierta();
+                    dispose();
 
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(aper_cie_arqueo.class.getName()).log(Level.SEVERE, null, ex);
@@ -862,7 +863,7 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
                     + "cod_caja,\n"
                     + "caja_desc\n"
                     + "FROM caja\n"
-                    + "where caja_estado = 'ACTIVO'");
+                    + "where caja_estado = 'ACTIVO' AND sucur_id = "+Menu.idSucursal);
 
             combocaja.addItem("Selecciona una caja");
             if (deposito.isBeforeFirst()) {
@@ -887,10 +888,10 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
             ResultSet caja = cn.consultar("SELECT\n"
                     + "*\n"
                     + "FROM aper_cierre ac\n"
-                    + "WHERE ac.cierre_fecha is null OR ac.cierre_fecha::CHARACTER = '' \n"
+                    + "WHERE ac.cierre_fecha is null  \n"
                     + "AND ac.usu_id = " + codper.getText() + "\n"
                     + "and ac.sucur_id = " + su1.getText() + "\n"
-                    + "and ac.tipo = 'ABIERTO'\n"
+                    + "and ac.tipo = 'APERTURA'\n"
                     + "AND ac.estado = 'ACTIVO'\n"
                     + "LIMIT 1");
 

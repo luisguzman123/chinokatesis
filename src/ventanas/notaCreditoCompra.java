@@ -90,7 +90,7 @@ public class notaCreditoCompra extends javax.swing.JFrame {
         jLabel5.setText("jLabel5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("PRESUPUESTO DE COMPRA");
+        setTitle("Nota de compras");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         grilla.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

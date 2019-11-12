@@ -2,6 +2,7 @@
 
 package ventanas;
 
+import Acceso.Menu;
 import clases.Conexion;
 import clases.Metodos;
 import com.toedter.calendar.JCalendar;
@@ -34,6 +35,7 @@ public class cobros extends javax.swing.JFrame {
     boolean duplicado;
 
     public static String busqueda = "";
+    public static String estadoParaFactura = "";
 
     public static String usuario;
     public static String empleado;
@@ -115,6 +117,8 @@ public class cobros extends javax.swing.JFrame {
         txtCliente = new javax.swing.JTextField();
         txtSucursal = new javax.swing.JTextField();
         txtCajaDesc = new javax.swing.JTextField();
+        txt_recibo = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("COBRANZAS");
@@ -791,11 +795,12 @@ public class cobros extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txt_total_tar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_ok_tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(borrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel10)
+                        .addComponent(txt_total_tar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_ok_tarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
@@ -865,8 +870,8 @@ public class cobros extends javax.swing.JFrame {
         getContentPane().add(txtCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 10, 30, -1));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel21.setText("Usuario");
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
+        jLabel21.setText("N° Recibo");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, -1, -1));
 
         txtCodUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -908,6 +913,11 @@ public class cobros extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCajaDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(816, 10, 78, -1));
+        getContentPane().add(txt_recibo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 80, -1));
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel24.setText("Usuario");
+        getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
 
         setSize(new java.awt.Dimension(936, 704));
         setLocationRelativeTo(null);
@@ -1027,7 +1037,8 @@ public class cobros extends javax.swing.JFrame {
         btn_anular.setEnabled(true);
         btn_salir.setEnabled(true);
         btn_grabar.setEnabled(false);
-        btn_cancelar.setEnabled(false); 
+        btn_cancelar.setEnabled(false);
+        txtCod.setText("");
         
         Metodos.limpiarTabla(grilla_cuentas);
         Metodos.limpiarTabla(grilla_tarjeta);
@@ -1036,7 +1047,7 @@ public class cobros extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
     private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
-
+        dispose();
     }//GEN-LAST:event_btn_salirActionPerformed
 
  private void cmb_combofcobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_combofcobroActionPerformed
@@ -1144,11 +1155,30 @@ public class cobros extends javax.swing.JFrame {
         }//GEN-LAST:event_che_tituKeyPressed
 
         private void btn_anularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_anularActionPerformed
+            txtCod.setEditable(true);
+        txtCod.requestFocus();
+        
+        btn_cobrar.setEnabled(false);
+        btn_anular.setEnabled(false);
+        btn_salir.setEnabled(false);
+        btn_grabar.setEnabled(true);
+        btn_cancelar.setEnabled(true);
 
+        operacion = "anular";
+        confirmar = "¿Desea anular este registro?";
+        mensaje = "Registro anulado con exito";
         }//GEN-LAST:event_btn_anularActionPerformed
 
     private void txtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodActionPerformed
-        
+        if (txtCod.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe cargar el código de cobranza");
+        }else if (estadoAnulado().equals("anulado")) {
+            JOptionPane.showMessageDialog(null, "Esta cobranza ya está anulada");
+        }else{
+                //traerfactura();
+                cmb_factura.addItem(traerfactura());
+                btn_grabar.doClick();
+            }
     }//GEN-LAST:event_txtCodActionPerformed
 
     private void txtCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyPressed
@@ -1342,12 +1372,13 @@ public class cobros extends javax.swing.JFrame {
         
         if(respuesta==0){
             String sql="";
+            
             String sqlCheque="";
             String sqlTarjeta="";
             String sqlDetalleCobros="";
             String sqlCuentasACobrar="";
             if(operacion.equals("agregar")){
-                sql="Insert into cobranzas (cobro_id, co_fecha, co_estado, monto, for_pago_id, cod_aper_cierre, cod_caja, sucur_id, usu_id, emp_id, cli_cod)"
+                sql="Insert into cobranzas (cobro_id, co_fecha, co_estado, monto, for_pago_id, cod_aper_cierre, cod_caja, sucur_id, usu_id, emp_id, cli_cod, nro_recibo)"
                         + " values ("+
                         Metodos.siguienteCodigo("cobro_id", "cobranzas")+", '"+
                         Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"','ACTIVO', "+
@@ -1355,10 +1386,11 @@ public class cobros extends javax.swing.JFrame {
                         verTipoDepago()+", "+
                         Metodos.cajaAbierta()+", "+
                         Metodos.dameCodcaja()+", "+
-                        idSucursal+", "+
-                        idUsuario+", "+
-                        idPersonal+", "+
-                        txtCodCliente.getText().trim()+")";
+                        Menu.idSucursal+", "+
+                        Menu.idUsuario+", "+
+                        Menu.idEmpleado+", "+
+                        txtCodCliente.getText().trim()+", "+
+                        txt_recibo.getText().trim()+")";
                 
 //             String factura = "update timbrado set numeracion_actual = numeracion_actual+1";
              
@@ -1402,8 +1434,10 @@ public class cobros extends javax.swing.JFrame {
                 
                 
                 int cantidadFilas=grilla_cuentas.getRowCount();
+                
                 for (int i = 0; i < cantidadFilas; i++) {
-                    if (grilla_cuentas.getValueAt(i, 3).equals(true)) {
+                    System.out.println(grilla_cuentas.getValueAt(i, 3).toString());
+                    if (Boolean.parseBoolean(grilla_cuentas.getValueAt(i, 3).toString())) {
                         sqlDetalleCobros = "insert into detalle_cobranzas (nro_cuota, ventas_id, cobro_id, saldo) values (" 
                         +grilla_cuentas.getValueAt(i, 0)+", "
                         +dameVentaId()+", "
@@ -1418,9 +1452,6 @@ public class cobros extends javax.swing.JFrame {
                         cn.actualizar(sqlCuentasACobrar);
                         
                         
-                    }else{
-                        JOptionPane.showMessageDialog(null, "ya no hay nada para guardar");
-                        break;
                     }
                     
                 }
@@ -1445,32 +1476,83 @@ public class cobros extends javax.swing.JFrame {
             }
             
             
-//            if(operacion.equals("anular")){
-//                sql="update ventas set"
-//                        + " estado = 'ANULADO' "
-//                        + " where ventas_id = "+txtCod.getText();
-//                Conexion cn=new Conexion();
-//                try {
-//                    cn.conectar();
-//                    cn.actualizar(sql);
-//                } catch (ClassNotFoundException ex) {
-//                    Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
+            if(operacion.equals("anular")){
+                sql="update cobranzas set"
+                        + " co_estado = 'ANULADO' "
+                        + " where cobro_id = "+txtCod.getText();
+                Conexion cn=new Conexion();
+                try {
+                    cn.conectar();
+                    cn.actualizar(sql);
+                    actualizarCuentasAcobrar();
+                    //actualizarCuentasAcobrar();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             
             
             
         }
         JOptionPane.showMessageDialog(null, mensaje);
-         btn_cancelar.doClick();
+        if (estadoParaFactura.equals("efectivoDesdeVentas")) {
+            new Metodos().imprimirFactura(Integer.parseInt(dameVentaId()));
+        }else if (estadoParaFactura.equals("usarRecibo")) {
+            new Metodos().imprimirComprobanteCobranza(txtCliente.getText().trim(), txt_cob_monto.getText().trim(), "Pago por cuotas por venta a crédito", txt_recibo.getText().trim(), Metodos.dameFechaFormateadaSQL(txtFecha.getDate()));
+        }
+        btn_cancelar.doClick();
+        dispose();
         
         
         
         
     }//GEN-LAST:event_btn_grabarActionPerformed
 
+    
+    public void actualizarCuentasAcobrar(){
+        String sqllll = "";
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from detalle_cobranzas where cobro_id = "+txtCod.getText().trim()+" and ventas_id = "+dameVentaId()+"");
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {   
+                   sqllll = "update cuenta_cobrar set estado = 'PENDIENTE' where ventas_id = "+dameVentaId()+" and nro_cuota = "+detalles.getString("nro_cuota");
+                    System.out.println(sqllll);
+                    cn.actualizar(sqllll);
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+    public String estadoAnulado(){
+        String sqllll = "";
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from cobranzas where cobro_id = "+txtCod.getText().trim()+" and co_estado = 'ANULADO'");
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {   
+                   return "anulado";
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return "";
+    }
+    
+    
+    
+    
+    
     private void txt_baucheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_baucheActionPerformed
                 for (int fila = 0; fila <grilla_tarjeta.getRowCount(); fila++) {
          String codigoEnRenglon = (String)grilla_tarjeta.getValueAt(fila, 0);
@@ -1552,7 +1634,8 @@ public class cobros extends javax.swing.JFrame {
                     Metodos.cargarTabla(grilla_cuentas, new Object[]{
                     detalles.getString("nro_cuota"),
                     detalles.getString("monto"),
-                    detalles.getString("fecha_vto")
+                    detalles.getString("fecha_vto"),
+                    false
                     });
                 }
              }
@@ -1586,6 +1669,37 @@ public class cobros extends javax.swing.JFrame {
        return "";
          
     }
+    private String traerfactura(){
+           String nn ="";
+           String cod="";
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            nn="select \n" +
+                "v.nro_factura\n" +
+                "from\n" +
+                "cobranzas co join\n" +
+                "detalle_cobranzas dc\n" +
+                " on co.cobro_id = dc.cobro_id\n" +
+                " JOIN ventas v\n" +
+                " on v.ventas_id = dc.ventas_id\n" +
+                " WHERE co.cobro_id = "+txtCod.getText().trim()+"\n" +
+                " LIMIT 1";
+            ResultSet detalles = cn.consultar(nn);
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) { 
+                    cod=detalles.getString("nro_factura");
+                    return cod;
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return "";
+         
+    }
 
       
  
@@ -1601,7 +1715,7 @@ public class cobros extends javax.swing.JFrame {
     private javax.swing.JButton borrar1;
     private javax.swing.JButton btn_anular;
     private javax.swing.JButton btn_cancelar;
-    private javax.swing.JButton btn_cobrar;
+    public static javax.swing.JButton btn_cobrar;
     private javax.swing.JButton btn_grabar;
     private javax.swing.JButton btn_ok;
     private javax.swing.JButton btn_ok_tarjeta;
@@ -1609,7 +1723,7 @@ public class cobros extends javax.swing.JFrame {
     private javax.swing.JTextField che_titu;
     private javax.swing.JLabel cliente;
     private javax.swing.JComboBox cmb_combofcobro;
-    private javax.swing.JComboBox cmb_factura;
+    public static javax.swing.JComboBox cmb_factura;
     private javax.swing.JTable grilla_cheque;
     private javax.swing.JTable grilla_cuentas;
     private javax.swing.JTable grilla_tarjeta;
@@ -1626,6 +1740,7 @@ public class cobros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1655,6 +1770,7 @@ public class cobros extends javax.swing.JFrame {
     private javax.swing.JTextField txt_cob_monto;
     public static javax.swing.JTextField txt_cod_tarjeta;
     private javax.swing.JTextField txt_efectivo;
+    public static javax.swing.JTextField txt_recibo;
     private javax.swing.JTextField txt_tar_monto;
     public static javax.swing.JTextField txt_tarjeta;
     private javax.swing.JTextField txt_total_che;

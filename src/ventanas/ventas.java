@@ -880,17 +880,10 @@ public class ventas extends javax.swing.JFrame {
                 if (operacion.equals("agregar")) {
                         for (int i = 0; i < cantidadFilas; i++) {
                             if (Metodos.estadoStock(dameDepositoId(), idSucursal, grilla.getValueAt(i, 0).toString())) {
-                                sqlStock = "update stock_productos set cantidad = cantidad + "+grilla.getValueAt(i, 2).toString()+" where cod_depo ="+dameDepositoId()+" and sucur_id = "+idSucursal+" and pro_cod = "+grilla.getValueAt(i, 0).toString();
+                                sqlStock = "update stock_productos set cantidad = cantidad - "+grilla.getValueAt(i, 2).toString()+" where cod_depo ="+dameDepositoId()+" and sucur_id = "+idSucursal+" and pro_cod = "+grilla.getValueAt(i, 0).toString();
                                 System.out.println(sqlStock);
                                 cn.actualizar(sqlStock);
                                 
-                            }else{
-                               sqlStock = "insert into stock_productos (cod_depo, sucur_id, pro_cod, cantidad) values (" 
-                               +dameDepositoDesc()+", "
-                               +idSucursal+", "
-                               +grilla.getValueAt(i, 0).toString()+", "
-                               +grilla.getValueAt(i, 2).toString()+")";
-                               cn.actualizar(sqlStock);
                             }
                             
                             
@@ -921,16 +914,39 @@ public class ventas extends javax.swing.JFrame {
                              ",'"+Metodos.dameFechaFormateadaSql(fecha)+"')";
                         System.out.println(sqlCuentaApagar);
                         cn.actualizar(sqlCuentaApagar);
+                    
                     }
-                    
-                    
+                Date fechaVence = txtFecha.getDate(); 
+                fechaVence.setMonth(fechaVence.getMonth()+Integer.parseInt(cmb_cuota.getSelectedItem().toString()));
+                JOptionPane.showMessageDialog(null, mensaje);
+                new Metodos().imprimirPagare(Metodos.dameFechaFormateada(txtFecha.getDate()), "1", txtTotal.getText().trim(), Metodos.dameFechaFormateada(fechaVence), "Adquisisión de productos de la empresa GO_py", txtCliente.getText().trim(), "-", dameCedulaCliente(), "-", "-", "-");
+                btnCancelar.doClick();     
                   
+                }else if (chx_contado.isSelected()) {
+                    Date fecha = txtFecha.getDate();
+                    sqlCuentaApagar = "insert into cuenta_cobrar(nro_cuota, ventas_id, monto, estado, fecha_vto) values("+
+                    1+","+
+                    Metodos.ultimoCodigo("ventas_id", "ventas")+","+
+                    (int)(Integer.parseInt(txtTotal.getText().trim()))+
+                    ",'PENDIENTE'"+
+                    ",'"+Metodos.dameFechaFormateadaSql(fecha)+"')";
+                    System.out.println(sqlCuentaApagar);
+                    cn.actualizar(sqlCuentaApagar);
+                    
+                    
+                    new cobros().setVisible(true);
+                    cobros.btn_cobrar.doClick();
+                    cobros.txtCodCliente.setText(txtCodCliente.getText());
+                    cobros.txtCliente.setText(txtCliente.getText());
+                    cobros.cmb_factura.removeAllItems();
+                    cobros.cmb_factura.addItem(txtFactura.getText().trim());
+                    cobros.estadoParaFactura="efectivoDesdeVentas";
+                    cobros.txt_recibo.setText("0");
                 }
                 
                 
-                JOptionPane.showMessageDialog(null, mensaje);
-                btnCancelar.doClick();
-
+              
+                
                 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(pedido_de_compra.class.getName()).log(Level.SEVERE, null, ex);
@@ -953,6 +969,7 @@ public class ventas extends javax.swing.JFrame {
                 try {
                     cn.conectar();
                     cn.actualizar(sql);
+                    JOptionPane.showMessageDialog(null, mensaje);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
@@ -963,7 +980,7 @@ public class ventas extends javax.swing.JFrame {
             
             
         }
-        JOptionPane.showMessageDialog(null, mensaje);
+//        JOptionPane.showMessageDialog(null, mensaje);
          btnCancelar.doClick();
 
     }//GEN-LAST:event_btnGrabarActionPerformed
@@ -1302,10 +1319,10 @@ public class ventas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(cajas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(cajas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
@@ -1320,6 +1337,27 @@ public class ventas extends javax.swing.JFrame {
                 
                 while (detalles.next()) {   
                     String depositoCod = detalles.getString("cod_depo");
+                    return depositoCod;
+                }
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return "";
+         
+    }
+    private String dameCedulaCliente(){
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from cliente where cli_cod =  "+txtCodCliente.getText()+"");
+
+            if (detalles.isBeforeFirst()) {
+                
+                while (detalles.next()) {   
+                    String depositoCod = detalles.getString("cli_ci");
                     return depositoCod;
                 }
              }

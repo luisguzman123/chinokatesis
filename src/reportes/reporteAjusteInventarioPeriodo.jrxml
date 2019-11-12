@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desde" class="java.util.Date"/>
+	<parameter name="hasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+a.ajustes_id,
+a.ajus_fecha,
+s.sucur_nom,
+m.mat_desc,
+da.cantidad,
+a.estado
+FROM ajustes a
+JOIN sucursal s 
+ON s.sucur_id = a.sucur_id
+JOIN detalle_ajuste da 
+ON da.ajustes_id = a.ajustes_id
+JOIN materia_prima m
+ON m.cod_materia = da.cod_materia
+WHERE a.ajus_fecha BETWEEN  $P{desde} AND $P{hasta}]]>
+	</queryString>
+	<field name="ajustes_id" class="java.lang.Integer"/>
+	<field name="ajus_fecha" class="java.sql.Date"/>
+	<field name="sucur_nom" class="java.lang.String"/>
+	<field name="mat_desc" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.String"/>
+	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="cantidad_1" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
+	</variable>
+	<group name="pedidos_cabecera">
+		<groupExpression><![CDATA[$F{ajustes_id}]]></groupExpression>
+		<groupHeader>
+			<band height="90">
+				<rectangle>
+					<reportElement x="0" y="70" width="554" height="20" forecolor="#333333" backcolor="#333333" uuid="f78ec037-ac94-4921-95ab-88f5404c4b33"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="-2" y="19" width="39" height="20" uuid="f7e0d8d4-b873-4251-b69a-4f13f64dce0e"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="151" y="18" width="49" height="20" uuid="a901b46b-0c00-4c1d-845f-8babb74a1725"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="16" y="70" width="184" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Materia Prima]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="426" y="70" width="129" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="324" y="19" width="49" height="20" uuid="f0eb715e-3d37-4da8-bac2-d87005e7097f"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Código]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="-2" y="39" width="39" height="20" uuid="2aed3f6c-309d-47e3-a09b-fe6b893b9bdb"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Estado]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="37" y="19" width="100" height="20" uuid="312146a7-d2a4-42dd-8567-3601ec19fa9f"/>
+					<textFieldExpression><![CDATA[$F{ajus_fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="200" y="19" width="100" height="20" uuid="e0099fb8-af34-4cbe-acf7-46ff11a1e984"/>
+					<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="373" y="19" width="100" height="20" uuid="fa42feb0-c434-4167-97d7-9a908695f6c0"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ajustes_id}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="37" y="39" width="100" height="20" uuid="22cad654-80b7-4a34-8717-2d5852357e46"/>
+					<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="d24ab337-ecdc-457d-89ca-04088a0cdf1b"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="16" y="0" width="166" height="20" forecolor="#FFFFFF" uuid="900a15c7-67da-44a3-aecf-62361219be4e"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="454" y="0" width="100" height="20" forecolor="#FFFFFF" uuid="d587b54e-ae7b-4be2-be02-9de78bf703e8"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{cantidad_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="254" y="22" width="300" height="32" uuid="996383a5-90f7-4a91-8de7-4e13918547f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-2" y="22" width="239" height="57" uuid="66cefef3-4184-439d-b312-c078afb82c61"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AJUSTES DE INVENTARIO POR PERIODO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="43" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="29" width="43" height="20" uuid="20de5ec0-2e55-4a60-9eda-fb42692fa870"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="307" y="29" width="100" height="20" uuid="5e2d5304-1700-40d5-9f72-a2fbc189a656"/>
+				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="450" y="29" width="100" height="20" uuid="72de1ce9-c4bb-46fe-a757-4fc68d00628c"/>
+				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
+			</line>
+			<textField>
+				<reportElement x="16" y="0" width="184" height="20" uuid="0ae696c9-230f-41e4-bb0a-a46b136a42bf"/>
+				<textFieldExpression><![CDATA[$F{mat_desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="0" width="128" height="20" uuid="243bb009-3351-4dcd-83bc-80ef6caa142a"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="45" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -5,19 +5,30 @@ import com.toedter.calendar.JCalendar;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JRViewer;
 import ventanas.compras;
 import ventanas.orden_produccion;
 
@@ -93,6 +104,28 @@ public class Metodos {
         try {
             cn.conectar();
             ResultSet codigo = cn.consultar("select coalesce (max(" + campo + "),0) as codigo from " + tabla);
+            if (codigo.next()) {
+
+                cod = codigo.getString("codigo");
+            } else {
+                cod = "0";
+
+            }
+            //hace pasar al registro 1.1 y no toma la cabecera de la tabla(nombre de la columna) como registro.
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cod;
+    }
+    public static String ultimoCodigoRecibo(String campo, String tabla) {
+        String cod = "";
+
+        Conexion cn = new Conexion();
+        try {
+            cn.conectar();
+            ResultSet codigo = cn.consultar("select coalesce (max(" + campo + "),0)+1 as codigo from " + tabla+" where nro_recibo <> 0");
             if (codigo.next()) {
 
                 cod = codigo.getString("codigo");
@@ -367,13 +400,13 @@ public class Metodos {
             ResultSet caja = cn.consultar("SELECT\n"
                     + "*\n"
                     + "FROM aper_cierre ac\n"
-                    + "WHERE ac.cierre_fecha is null OR ac.cierre_fecha::CHARACTER = '' \n"
+                    + "WHERE ac.cierre_fecha is null  \n"
                     + "AND ac.usu_id = " + Menu.idUsuario + "\n"
                     + "and ac.sucur_id = " + Menu.idSucursal + "\n"
                     + "and ac.tipo = 'APERTURA'\n"
                     + "AND ac.estado = 'ACTIVO'\n"
                     + "LIMIT 1");
-
+            
             //en el caso que exista una caja abierta
             if (caja.isBeforeFirst()) {
                 while (caja.next()) {
@@ -397,11 +430,12 @@ public class Metodos {
         Conexion cn = new Conexion();
 
         try {
+            
             cn.conectar();
             ResultSet caja = cn.consultar("SELECT\n"
                     + "*\n"
                     + "FROM aper_cierre ac\n"
-                    + "WHERE ac.cierre_fecha is null OR ac.cierre_fecha::CHARACTER = '' \n"
+                    + "WHERE ac.cierre_fecha is null  \n"
                     + "AND ac.usu_id = " + Menu.idUsuario + "\n"
                     + "and ac.sucur_id = " + Menu.idSucursal + "\n"
                     + "and ac.tipo = 'APERTURA'\n"
@@ -440,4 +474,433 @@ public static int sumarColumnaBooleana(JTable tabla, int columa, int columna_bol
         }
         return total;
     }
+
+    public static void imprimirPorFecha(String url, Date desde, Date hasta){
+        List Resultados = new ArrayList();
+        Resultados.clear();
+        String ruta = System.getProperty("user.dir")+url;
+
+        Map map = new HashMap();
+        
+        JasperPrint jprint;
+        JDialog reporte = new JDialog();
+        reporte.setModal(true);
+        reporte.setSize(1200,700);
+        reporte.setLocationRelativeTo(null);
+        reporte.setTitle("Ganancias -  Informe");
+        
+        //agregamos los parametros
+        
+        map.put("desde", desde);
+        map.put("hasta", hasta);
+        
+        
+        
+        try {
+            jprint = JasperFillManager.fillReport(
+                    ruta,
+                    map,
+                     new Conexion().conectar());
+
+            JRViewer jv = new JRViewer(jprint);
+       
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+            
+        } catch (JRException ex) {
+                    System.out.println("ERROR EN: "+ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void imprimirPorCodigo(String url, int desde, int hasta){
+        List Resultados = new ArrayList();
+        Resultados.clear();
+        String ruta = System.getProperty("user.dir")+url;
+
+        Map map = new HashMap();
+        
+        JasperPrint jprint;
+        JDialog reporte = new JDialog();
+        reporte.setModal(true);
+        reporte.setSize(1200,700);
+        reporte.setLocationRelativeTo(null);
+        reporte.setTitle("Informe");
+        
+        //agregamos los parametros
+        
+        map.put("desde", desde);
+        map.put("hasta", hasta);
+        
+        
+        
+        try {
+            jprint = JasperFillManager.fillReport(
+                    ruta,
+                    map,
+                     new Conexion().conectar());
+
+            JRViewer jv = new JRViewer(jprint);
+       
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+            
+        } catch (JRException ex) {
+                    System.out.println("ERROR EN: "+ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void imprimirPorCodigoUnico(String url, int codigo){
+        List Resultados = new ArrayList();
+        Resultados.clear();
+        String ruta = System.getProperty("user.dir")+url;
+
+        Map map = new HashMap();
+        
+        JasperPrint jprint;
+        JDialog reporte = new JDialog();
+        reporte.setModal(true);
+        reporte.setSize(1200,700);
+        reporte.setLocationRelativeTo(null);
+        reporte.setTitle("Informe");
+        
+        //agregamos los parametros
+        
+        map.put("codigo", codigo);
+        
+        
+        
+        try {
+            jprint = JasperFillManager.fillReport(
+                    ruta,
+                    map,
+                     new Conexion().conectar());
+
+            JRViewer jv = new JRViewer(jprint);
+       
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+            
+        } catch (JRException ex) {
+                    System.out.println("ERROR EN: "+ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void imprimirPorEstado(String url, String estado){
+        List Resultados = new ArrayList();
+        Resultados.clear();
+        String ruta = System.getProperty("user.dir")+url;
+
+        Map map = new HashMap();
+        
+        JasperPrint jprint;
+        JDialog reporte = new JDialog();
+        reporte.setModal(true);
+        reporte.setSize(1200,700);
+        reporte.setLocationRelativeTo(null);
+        reporte.setTitle("Informe");
+        
+        //agregamos los parametros
+        
+        map.put("estado", estado);
+        
+        
+        
+        try {
+            jprint = JasperFillManager.fillReport(
+                    ruta,
+                    map,
+                     new Conexion().conectar());
+
+            JRViewer jv = new JRViewer(jprint);
+       
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+            
+        } catch (JRException ex) {
+                    System.out.println("ERROR EN: "+ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }   
+    
+
+public  void imprimirFactura(int id_cabecera) {
+        int fila;
+        String datos = "";
+        List Resultados = new ArrayList();
+        Resultados.clear();
+        String ruta = System.getProperty("user.dir") + "/src/reportes/Factura.jasper";
+        String imagen_url = "/reportes/go_logo.jpg";
+         InputStream imagen = this.getClass().getResourceAsStream(imagen_url);
+        
+        //creamos un mapa
+        Map map = new HashMap();
+//        System.out.println(id_venta_cabecera);
+        JasperPrint jprint;
+        //configuramos el Cuadro de dialogo
+        JDialog reporte = new JDialog();
+        reporte.setModal(true);
+        reporte.setSize(1200, 700);
+        reporte.setLocationRelativeTo(null);
+        reporte.setTitle("IMPRESION DE FACTURA");
+        Conexion con =  new Conexion();
+        map.put("id_venta", id_cabecera);
+        map.put("logo", imagen);
+        
+  
+        try {
+            //coleccion de datos
+            jprint = JasperFillManager.fillReport(
+                    ruta,
+                    map,
+                    con.conectar());
+
+//            jprint = JasperFillManager.fillReport(
+//                    ruta,
+//                    map,
+//                    new JRBeanCollectionDataSource(Resultados));
+//
+            JRViewer jv = new JRViewer(jprint);
+//
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+
+           
+        } catch (JRException ex) {
+            System.out.println("ERROR EN: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+
+
+
+public void imprimirComprobanteCobranza(String nombre_cliente, 
+            String monto, String concepto,
+            String nro_recibo, String fecha_de_emision) {
+
+        
+        int fila;
+        String datos = "";
+        List Resultados = new ArrayList();
+        Resultados.clear();
+        
+        String ruta = System.getProperty("user.dir") + "/src/reportes/Recibo.jasper";
+        //cargamos nuestra tabla en un modelo list
+        Resultados.add(new Object(){});
+
+        //creamos un mapa
+        Map map = new HashMap();
+
+        JasperPrint jprint;
+        //configuramos el Cuadro de dialogo
+        JDialog reporte = new JDialog();
+        reporte.setModal(true);
+        reporte.setSize(1200, 700);
+        reporte.setLocationRelativeTo(null);
+        reporte.setTitle("IMPRESION DE RECIBO - COBRANZA");
+       
+
+        String[] fecha = fecha_de_emision.split("-");
+        map.put("dia", fecha[0]);
+        map.put("mes", dameNombreDelMes(Integer.parseInt(fecha[1])));
+        map.put("anho", String.valueOf(fecha[2]));
+        map.put("monto", monto);
+        map.put("nombre_cliente", nombre_cliente);
+        map.put("monto_letras", new Numtotext().dameNumeroLetras(String.valueOf(monto)).toUpperCase());
+        map.put("concepto1", concepto);
+        map.put("concepto2", " ");
+        map.put("ruc", " ");
+        map.put("nro_recibo", nro_recibo);
+        
+        
+//        if (concepto.length() >= 50) {
+//            String concepto1 = String.valueOf(concepto.substring(0, 50))+" - ";
+//            String concepto2 = String.valueOf(concepto.substring(50, concepto.length()));
+//            map.put("concepto1", concepto1);
+//            map.put("concepto2", concepto2);
+//
+//        }
+
+        //agregamos los parametros\
+//        System.out.println(this.getClass().getClassLoader().getResourceAsStream("src/reportes/facturaCuota.jasper"));
+        try {
+            //coleccion de datos
+//            jprint = JasperFillManager.fillReport(
+//                    ruta,
+//                    map,
+//                     new conexion.MySql().getConexion());
+
+            jprint = JasperFillManager.fillReport(
+                    ruta,
+                    map,
+                    new JRBeanCollectionDataSource(Resultados));
+//
+            
+            JRViewer jv = new JRViewer(jprint);
+//
+            reporte.getContentPane().add(jv);
+            reporte.setVisible(true);
+
+            //impresion directa de hoja 1
+//            JasperPrint jPrint = JasperFillManager.fillReport(
+//                    ruta,
+//                    map,
+//                    new JRBeanCollectionDataSource(Resultados));
+//            JasperPrintManager.printReport(jPrint, false);
+        } catch (JRException ex) {
+            System.out.println("ERROR EN: " + ex.getMessage());
+        }
+
+    }
+    
+    public String dameNombreDelMes(int mes){
+        switch(mes){
+            case 1:
+                return  "Enero";
+            case 2:
+                return  "Febrero";
+            case 3:
+                return  "Marzo";
+            case 4:
+                return  "Abril";
+            case 5:
+                return  "Mayo";
+            case 6:
+                return  "Junio";
+            case 7:
+                return  "Julio";
+            case 8:
+                return  "Agosto";
+            case 9:
+                return  "Septiembre";
+            case 10:
+                return  "Octubre";
+            case 11:
+                return  "Noviembre";
+            case 12:
+                return  "Diciembre";
+        }
+        return "";
+    }
+
+    
+    
+    
+    public void imprimirPagare(String fecha_emision,
+            String cuota, String monto, String vencimiento, String concepto,
+            String cliente, String direccion, String ci, String garante,
+            String ci_garante, String direccion_garante) {
+            int fila;
+            String datos = "";
+            List Resultados = new ArrayList();
+            Resultados.clear();
+            String ruta = System.getProperty("user.dir") + "/src/reportes/Pagare.jasper";
+        //cargamos nuestra tabla en un modelo list
+        //
+
+        //obtenemos el detalle de las cuotas
+       
+
+        Resultados.add(new Object());
+        int total_pagare1 = 0;
+        int total_pagare2 = 0;
+        Date fecha_vencimiento1 = new Date();
+        Date fecha_vencimiento2 = new Date();
+
+       
+        
+        
+
+       
+        Map map1 = new HashMap();
+
+        JasperPrint jprint;
+        JasperPrint jprint2;
+        //configuramos el Cuadro de dialogo
+        JDialog reporte = new JDialog();
+        
+        reporte.setModal(true);
+        reporte.setSize(900, 700);
+        reporte.setLocationRelativeTo(null);
+        reporte.setTitle("Pagare");
+        
+        JDialog reporte2 = new JDialog();
+        reporte2.setModal(true);
+        reporte2.setSize(900, 700);
+        reporte2.setLocationRelativeTo(null);
+        reporte2.setTitle("Pagare");
+
+        
+
+        //pagare 1
+        map1.put("cuota", cuota);
+        String[] fecha = fecha_emision.split("-");
+        map1.put("fecha_emision", fecha[0] + " de "
+                + dameNombreDelMes(Integer.parseInt(fecha[1])) + " de "
+                + fecha[2]);
+        map1.put("monto", monto);
+        map1.put("vencimiento", vencimiento);
+        map1.put("monto_letras", new  Numtotext().dameNumeroLetras(String.valueOf(monto)).toUpperCase());
+        map1.put("concepto", concepto);
+        map1.put("cliente", cliente);
+        map1.put("direccion", direccion);
+        map1.put("ci", ci);
+        map1.put("garante", garante);
+        map1.put("direccion_garante", direccion_garante);
+        map1.put("telefono_garante", ci_garante);
+
+       
+        
+        //agregamos los parametros
+//        System.out.println(this.getClass().getClassLoader().getResourceAsStream("src/reportes/facturaCuota.jasper"));
+        try {
+            //coleccion de datos
+            jprint = JasperFillManager.fillReport(
+                    ruta,
+                    map1,
+                    new JRBeanCollectionDataSource(Resultados));
+            
+//            jprint2 = JasperFillManager.fillReport(
+//                    ruta,
+//                    map,
+//                    new JRBeanCollectionDataSource(Resultados));
+//            jprint = JasperFillManager.fillReport(
+//                    this.getClass().getClassLoader().getResourceAsStream("reportes/facturaCuota.jasper"),
+//                    map,
+//                    new JRBeanCollectionDataSource(Resultados));
+
+            JRViewer jv = new JRViewer(jprint);
+//            JasperPrintManager.printReport(jprint, false);
+//            JasperPrintManager.printReport(jprint2, false);
+          
+            reporte.getContentPane().add(jv);
+
+            reporte.setVisible(true);
+            
+            
+        } catch (JRException ex) {
+            
+        }
+    }
+
+    
+
+
+
 }

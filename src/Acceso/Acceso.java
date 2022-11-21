@@ -125,7 +125,7 @@ public class Acceso extends javax.swing.JDialog {
             }
         });
         jDesktopPane1.add(jButton2);
-        jButton2.setBounds(40, 70, 109, 25);
+        jButton2.setBounds(40, 70, 99, 23);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("HOST --->");
@@ -147,7 +147,7 @@ public class Acceso extends javax.swing.JDialog {
         jDesktopPane1.add(jLabel8);
         jLabel8.setBounds(20, 170, 61, 15);
 
-        txtUser.setText("postgres");
+        txtUser.setText("git");
         txtUser.setEnabled(false);
         txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +162,7 @@ public class Acceso extends javax.swing.JDialog {
         jDesktopPane1.add(jLabel10);
         jLabel10.setBounds(20, 220, 58, 15);
 
-        txtBd.setText("bb_nestor");
+        txtBd.setText("servis");
         txtBd.setEnabled(false);
         txtBd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +177,7 @@ public class Acceso extends javax.swing.JDialog {
         jDesktopPane1.add(jLabel11);
         jLabel11.setBounds(20, 260, 62, 15);
 
-        txtPass.setText("123");
+        txtPass.setText("admin");
         txtPass.setEnabled(false);
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,7 +195,7 @@ public class Acceso extends javax.swing.JDialog {
             }
         });
         jDesktopPane1.add(btnConectar);
-        btnConectar.setBounds(50, 300, 93, 25);
+        btnConectar.setBounds(50, 300, 87, 23);
 
         jLabel6.setFont(new java.awt.Font("DejaVu Sans", 3, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(249, 249, 249));

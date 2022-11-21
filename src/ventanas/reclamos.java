@@ -587,7 +587,6 @@ public class reclamos extends javax.swing.JFrame {
         txtClienteDesc.setText("");
         txtDescriPresupuesto.setText("");
         txtObsDiagnostico.setText("");
-        txtTOTAL.setText("");
         
         limpiarTabla(grillaDiagnostico);
         limpiarTabla(grillaPresupuesto);
@@ -597,7 +596,6 @@ public class reclamos extends javax.swing.JFrame {
         btnSalir.setEnabled(true);
         btnGrabar.setEnabled(false);
         btnCancelar.setEnabled(false);
-        btnBuscarEquipo.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -662,29 +660,29 @@ public class reclamos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
    
-    public int delvolverCodigoPromo(){
-        if (cmbPromociones.getSelectedItem().equals("Selecciona una promoción")) {
-            return 0;
-        }else{
-           int enviar = Integer.parseInt(cmbPromociones.getSelectedItem().toString().split(" - ")[0]); 
-           return enviar;
-        }
-        
-        
-     
-    }
-    public int delvolverCodigoDescuentos(){
-        if (cmbDescuentos.getSelectedItem().equals("Selecciona un descuento")) {
-            return 0;
-        }else{
-           int enviar = Integer.parseInt(cmbDescuentos.getSelectedItem().toString().split(" - ")[0]); 
-           return enviar;
-        }
-        
-        
-     
-    }
-    
+//    public int delvolverCodigoPromo(){
+//        if (cmbPromociones.getSelectedItem().equals("Selecciona una promoción")) {
+//            return 0;
+//        }else{
+//           int enviar = Integer.parseInt(cmbPromociones.getSelectedItem().toString().split(" - ")[0]); 
+//           return enviar;
+//        }
+//        
+//        
+//     
+//    }
+//    public int delvolverCodigoDescuentos(){
+//        if (cmbDescuentos.getSelectedItem().equals("Selecciona un descuento")) {
+//            return 0;
+//        }else{
+//           int enviar = Integer.parseInt(cmbDescuentos.getSelectedItem().toString().split(" - ")[0]); 
+//           return enviar;
+//        }
+//        
+//        
+//     
+//    }
+//    
     
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         int respuesta=5;
@@ -705,14 +703,12 @@ public class reclamos extends javax.swing.JFrame {
                 sql="Insert into presupuesto_servicio_cabecera (fecha, fecha_vencimiento, estado, presu_descri, id_sucu, id_diagnostico_cabecera, id_empleado, id_cliente, id_promociones, id_descuentos)"
                         + " values ('"+
                         Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"','"+
-                        Metodos.dameFechaFormateadaSQL(txtFechaVencimiento.getDate())+"','ACTIVO','"+
+
                         txtDescriPresupuesto.getText().trim()+"',"+
                         txtSucursal.getText().trim()+","+
                         txtCodDiagnostico.getText().trim()+","+
                         txtEmpleadoCod.getText().trim()+","+
-                        txtClienteCod.getText().trim()+","+
-                        delvolverCodigoPromo()+","+
-                        delvolverCodigoDescuentos()+")";
+                        txtClienteCod.getText().trim()+")";
                       System.out.println(sql); 
                       
                    sql2=    "update diagnostico_cabecera set"
@@ -821,18 +817,15 @@ public class reclamos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClienteDescKeyPressed
 
     private void txtCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyPressed
-        if (txtCod.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busPresupuestoServicios.busqueda="presupuesto";
-            new busPresupuestoServicios().setVisible(true);
-
-        }
+//        if (txtCod.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
+//            busPresupuestoServicios.busqueda="presupuesto";
+//            new busPresupuestoServicios().setVisible(true);
+//
+//        }
     }//GEN-LAST:event_txtCodKeyPressed
 
     private void txtCodDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodDiagnosticoActionPerformed
-       txtFechaVencimiento.setEnabled(true);
-       txtDescriPresupuesto.setEnabled(true);
-       txtDescriPresupuesto.setEditable(true);
-       txtFechaVencimiento.requestFocus();
+ 
     }//GEN-LAST:event_txtCodDiagnosticoActionPerformed
 
     private void txtDescriPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescriPresupuestoActionPerformed
@@ -865,9 +858,7 @@ public class reclamos extends javax.swing.JFrame {
     }//GEN-LAST:event_grillaPresupuestoKeyPressed
 
     private void txtTipoProbleCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoProbleCodActionPerformed
-        txtCantidadArti.setEditable(true);
-        txtCantidadArti.setEnabled(true);
-        txtCantidadArti.requestFocus();
+
     }//GEN-LAST:event_txtTipoProbleCodActionPerformed
 
     private void txtTipoProbleCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoProbleCodKeyPressed
@@ -896,7 +887,6 @@ public class reclamos extends javax.swing.JFrame {
            txtEquipo.setText(nombreEquipo);
            txtTipoProbleCod.setText(codProblema);
            txtTipoProbleDesc.setText(tipoProblema);
-           txtCantidadArti.setText(cantidad);
            
 //           Metodos.eliminarFila(grillaDiagnostico, fila);
            
@@ -910,38 +900,7 @@ public class reclamos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtObsDiagnosticoActionPerformed
 
-    public void cargarComboPromociones() {
-        Conexion cn = new Conexion();
-        try {
-            cn.conectar();
-           
-            ResultSet datos = cn.consultar("SELECT p.id_promociones,\n" +
-"    p.estado,\n" +
-"    p.promo_descri,\n" +
-"   pd.monto,\n" +
-"    pd.id_tipo_trabajo,\n" +
-"   p.id_promociones || ' - '::text || pd.id_tipo_trabajo ||' - '::text || p.promo_descri::text || ' - '::text || pd.monto::text  AS promo \n" +
-"   FROM promociones_cabecera p\n" +
-"   JOIN promociones_detalle pd\n" +
-"   on p.id_promociones = pd.id_promociones\n" +
-"   where p.fecha_fin >= current_date and p.id_promociones=pd.id_promociones ");
 
-            cmbPromociones.removeAllItems();
-             cmbPromociones.addItem("Selecciona una promoción");
-            if (datos.isBeforeFirst()) {
-                while (datos.next()) {
-                    cmbPromociones.addItem(datos.getString("promo"));  //se le pasa por parametro el alias de la consulta sql "datos" pasado al resultSet
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No hay registros");
-            }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     public void cargarComboDescuentos() {
         Conexion cn = new Conexion();
         try {

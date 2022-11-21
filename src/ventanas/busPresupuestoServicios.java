@@ -6,6 +6,7 @@ import clases.Metodos;
 import com.toedter.calendar.JCalendar;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -13,18 +14,27 @@ import javax.swing.table.DefaultTableModel;
 import static ventanas.diagnostico.grillaDiagnostico;
 import static ventanas.diagnostico.txtRecepcionCod;
 
-public class busDiagnostico extends javax.swing.JFrame {
+public class busPresupuestoServicios extends javax.swing.JFrame {
 
-    public busDiagnostico() {
+    public busPresupuestoServicios() {
         initComponents();
         DESDE.setDate(new JCalendar().getDate());
         HASTA.setDate(new JCalendar().getDate());
         btn_buscar.doClick();
+        traerFechaActual();
         
     }
 
     public static String busqueda = "";
     
+    
+   public void traerFechaActual(){
+//        Calendar cal = Calendar.getInstance();
+//        String fecha = cal.get(cal.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
+//        DESDE.setDateFormatString(fecha);
+//        DESDE.setEnabled(false);
+        HASTA.setMinSelectableDate(Calendar.getInstance().getTime());
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -40,17 +50,17 @@ public class busDiagnostico extends javax.swing.JFrame {
 
         grillaBuscador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Código Diagnóstico", "Fecha", "Estado", "Observaciones", "Código Recepción", "Código Empleado", "Empleado", "Código Cliente", "Cliente", "Código Sucursal", "Sucursal"
+                "Cod Presupuesto", "Fecha", "Fecha Vencimiento", "Estado", "Descripción", "Cod Sucursal", "Sucursal", "Cod Diagnóstico", "Cod Empleado", "Empleado", "Cod Cliente", "Cliente", "Cod Promociones", "Cod Descuentos"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -189,10 +199,10 @@ public class busDiagnostico extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
@@ -262,10 +272,10 @@ public class busDiagnostico extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
@@ -329,10 +339,10 @@ public class busDiagnostico extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
@@ -349,7 +359,7 @@ public class busDiagnostico extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new busDiagnostico().setVisible(true);
+                new busPresupuestoServicios().setVisible(true);
             }
         });
     }
@@ -357,12 +367,10 @@ public class busDiagnostico extends javax.swing.JFrame {
    public void getDatos() {
 
         switch (busqueda) {
-            case "diagnostico":
-                buscarDiagnostico();
-                break;
             case "presupuesto":
                 buscarDiagnostico();
                 break;
+
 //            case "recepcion_desde_diagnostico":
 //                buscarRecepcionNoUsadas();
 //                break;
@@ -439,9 +447,9 @@ public class busDiagnostico extends javax.swing.JFrame {
                 }
              }
         } catch (SQLException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
         }
          return "";
          
@@ -458,9 +466,9 @@ public class busDiagnostico extends javax.swing.JFrame {
                 }
              }
         } catch (SQLException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busDiagnostico.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
         }
          return "";
          

@@ -5,6 +5,7 @@ import clases.Conexion;
 import clases.Metodos;
 import static clases.Metodos.limpiarTabla;
 import com.toedter.calendar.JCalendar;
+import java.awt.event.ItemEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 
@@ -37,8 +39,10 @@ public class presupuestoServicios extends javax.swing.JFrame {
         initComponents();
         btnCancelar.doClick();
         txtFecha.setDate(new JCalendar().getDate());
+        txtSucursal.setText(idSucursal);
 //        Metodos.cargarComboReferencia(cmbDepo, "depo_desc", "deposito", "sucur_id", Menu.idSucursal);
-        
+        cargarComboPromociones();
+        cargarComboDescuentos();
   
     }
 
@@ -57,7 +61,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
         txtTipoProbleDesc = new javax.swing.JTextField();
         btnBuscarTipoProble = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
-        txtCantidadTipoProblem = new javax.swing.JTextField();
+        txtCantidadArti = new javax.swing.JTextField();
         txtTipoProbleCod = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         txtCodTipoTrabajo = new javax.swing.JTextField();
@@ -95,9 +99,9 @@ public class presupuestoServicios extends javax.swing.JFrame {
         btnGrabar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbPromociones = new javax.swing.JComboBox<>();
         jLabel25 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmbDescuentos = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
         txtTOTAL = new javax.swing.JTextField();
         jLabel27 = new javax.swing.JLabel();
@@ -168,9 +172,9 @@ public class presupuestoServicios extends javax.swing.JFrame {
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Cantidad");
 
-        txtCantidadTipoProblem.addActionListener(new java.awt.event.ActionListener() {
+        txtCantidadArti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantidadTipoProblemActionPerformed(evt);
+                txtCantidadArtiActionPerformed(evt);
             }
         });
 
@@ -298,7 +302,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel19)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCantidadTipoProblem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtCantidadArti, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -315,7 +319,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(txtCantidadTipoProblem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCantidadArti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarTipoProble)
                     .addComponent(txtTipoProbleDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
@@ -429,11 +433,11 @@ public class presupuestoServicios extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cod. equipo", "Equipo", "Cod. Tipo Trabajo", "Tipo de trabajo", "Cod. Articulo", "Articulo", "Monto"
+                "Cod. equipo", "Equipo", "Cod Tipo Problema", "Tipo Problema", "Cod. Tipo Trabajo", "Tipo de trabajo", "Cod. Articulo", "Articulo", "Cantidad", "Monto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -453,6 +457,10 @@ public class presupuestoServicios extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(grillaPresupuesto);
+        if (grillaPresupuesto.getColumnModel().getColumnCount() > 0) {
+            grillaPresupuesto.getColumnModel().getColumn(8).setResizable(false);
+            grillaPresupuesto.getColumnModel().getColumn(9).setResizable(false);
+        }
 
         txtFechaVencimiento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -538,12 +546,20 @@ public class presupuestoServicios extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPromociones.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbPromocionesItemStateChanged(evt);
+            }
+        });
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel25.setText("Promociones");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbDescuentos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDescuentosItemStateChanged(evt);
+            }
+        });
 
         jLabel26.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel26.setText("Descuentos");
@@ -613,8 +629,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDescriPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -625,20 +640,23 @@ public class presupuestoServicios extends javax.swing.JFrame {
                                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnGrabar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel26)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27))
-                        .addGap(4, 4, 4)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbPromociones, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbDescuentos, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(89, 89, 89)
+                                .addComponent(jLabel27))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 879, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -684,11 +702,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGrabar)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnGrabar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAnular)
@@ -696,13 +710,18 @@ public class presupuestoServicios extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSalir))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel27)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel27)
+                            .addComponent(cmbDescuentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbPromociones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
                         .addComponent(txtTOTAL, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(953, 545));
+        setSize(new java.awt.Dimension(953, 600));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -734,7 +753,6 @@ public class presupuestoServicios extends javax.swing.JFrame {
         
         
         txtCod.setText("");
-        txtSucursal.setText("");
         txtCodEquipo.setText("");
         txtEquipo.setText("");
         txtCodDiagnostico.setText("");
@@ -743,6 +761,8 @@ public class presupuestoServicios extends javax.swing.JFrame {
         txtClienteCod.setText("");
         txtClienteDesc.setText("");
         txtDescriPresupuesto.setText("");
+        txtObsDiagnostico.setText("");
+        txtTOTAL.setText("");
         
         limpiarTabla(grillaDiagnostico);
         limpiarTabla(grillaPresupuesto);
@@ -817,7 +837,28 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
    
-    
+    public int delvolverCodigoPromo(){
+        if (cmbPromociones.getSelectedItem().equals("Selecciona una promoción")) {
+            return 0;
+        }else{
+           int enviar = Integer.parseInt(cmbPromociones.getSelectedItem().toString().split(" - ")[0]); 
+           return enviar;
+        }
+        
+        
+     
+    }
+    public int delvolverCodigoDescuentos(){
+        if (cmbDescuentos.getSelectedItem().equals("Selecciona un descuento")) {
+            return 0;
+        }else{
+           int enviar = Integer.parseInt(cmbDescuentos.getSelectedItem().toString().split(" - ")[0]); 
+           return enviar;
+        }
+        
+        
+     
+    }
     
     
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
@@ -826,35 +867,38 @@ public class presupuestoServicios extends javax.swing.JFrame {
         respuesta=JOptionPane.showConfirmDialog(null, confirmar);
         
         
-        int filasTablaUno = grillaDiagnostico.getRowCount();
+      
         int filasTablaDos = grillaPresupuesto.getRowCount();
         
         
         if(respuesta==0){
-            if (filasTablaUno==0&&filasTablaDos>=1) {
+            if (filasTablaDos>=1) {
             String sql="";
             String sql2="";
             String sqldetalle="";
             if(operacion.equals("agregar")){
-                sql="Insert into diagnostico_cabecera (fecha, estado, defecto_encontrado, emp_id, cli_cod, sucur_id, id_recepcion)"
+                sql="Insert into presupuesto_servicio_cabecera (fecha, fecha_vencimiento, estado, presu_descri, id_sucu, id_diagnostico_cabecera, id_empleado, id_cliente, id_promociones, id_descuentos)"
                         + " values ('"+
-                        Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"','ACTIVO','"+
+                        Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"','"+
+                        Metodos.dameFechaFormateadaSQL(txtFechaVencimiento.getDate())+"','ACTIVO','"+
                         txtDescriPresupuesto.getText().trim()+"',"+
+                        txtSucursal.getText().trim()+","+
+                        txtCodDiagnostico.getText().trim()+","+
                         txtEmpleadoCod.getText().trim()+","+
                         txtClienteCod.getText().trim()+","+
-                        idSucursal+","+
-                        txtCodDiagnostico.getText().trim()+")";
+                        delvolverCodigoPromo()+","+
+                        delvolverCodigoDescuentos()+")";
                       System.out.println(sql); 
                       
-                   sql2=    "update recepcion_cabecera set"
+                   sql2=    "update diagnostico_cabecera set"
                         + " estado = 'UTILIZADO' "
-                        + " where id_recepcion = "+txtCodDiagnostico.getText();
+                        + " where id_diagnostico_cabecera = "+txtCodDiagnostico.getText();
             }
             
             if(operacion.equals("anular")){
-                sql="update diagnostico_cabecera set"
+                sql="update presupuesto_servicio_cabecera set"
                         + " estado = 'ANULADO' "
-                        + " where id_diagnostico_cabecera = "+txtCod.getText();
+                        + " where id_presupuesto_reparacion_cab = "+txtCod.getText();
                 
             }
             
@@ -869,11 +913,13 @@ public class presupuestoServicios extends javax.swing.JFrame {
                 int cantidadFilas=grillaPresupuesto.getRowCount();
                 if (operacion.equals("agregar")) {
                         for (int i = 0; i < cantidadFilas; i++) {
-                            sqldetalle="insert into diagnostico_detalle(id_equipo, id_diagnostico_cabecera, cantidad, id_tipo_problema) values("
+                            sqldetalle="insert into presupuesto_servicio_detalle(id_presupuesto_reparacion_cab, id_tipo_trabajo, id_equipo, pro_cod, cantidad, monto) values("
+                            +Metodos.ultimoCodigo("id_presupuesto_reparacion_cab", "presupuesto_servicio_cabecera")+","
+                            +grillaPresupuesto.getValueAt(i, 4)+","
                             +grillaPresupuesto.getValueAt(i, 0)+","
-                            +Metodos.ultimoCodigo("id_diagnostico_cabecera", "diagnostico_cabecera")+","
-                            +grillaPresupuesto.getValueAt(i, 7)+","
-                            +grillaPresupuesto.getValueAt(i, 5)+")";
+                            +grillaPresupuesto.getValueAt(i, 6)+","
+                            +grillaPresupuesto.getValueAt(i, 8)+","
+                            +grillaPresupuesto.getValueAt(i, 9)+")";
                            
                             cn.actualizar(sqldetalle);
                             System.out.println(sqldetalle);
@@ -891,7 +937,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
             }else{
-                JOptionPane.showMessageDialog(rootPane, "Debe cargar todos los registros en la tabla de diagnóstico");
+                JOptionPane.showMessageDialog(rootPane, "Debe cargar registros en la tabla");
             }
 
         }
@@ -951,8 +997,8 @@ public class presupuestoServicios extends javax.swing.JFrame {
 
     private void txtCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyPressed
         if (txtCod.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busDiagnostico.busqueda="diagnostico";
-            new busDiagnostico().setVisible(true);
+            busPresupuestoServicios.busqueda="presupuesto";
+            new busPresupuestoServicios().setVisible(true);
 
         }
     }//GEN-LAST:event_txtCodKeyPressed
@@ -968,7 +1014,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
         if (txtDescriPresupuesto.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe cargar una descripción");
         }else{
-            JOptionPane.showMessageDialog(rootPane, "Ahora debe seleccionar de la tabla de arriba los resgistros para asignarles sus montos");
+            JOptionPane.showMessageDialog(rootPane, "Ahora debe seleccionar los registros de la tabla de arriba");
             grillaDiagnostico.requestFocus();
         }
     }//GEN-LAST:event_txtDescriPresupuestoActionPerformed
@@ -989,7 +1035,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBuscarTipoProbleActionPerformed
 
-    private void txtCantidadTipoProblemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadTipoProblemActionPerformed
+    private void txtCantidadArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadArtiActionPerformed
         
         
 ////        for (int fila = 0; fila <grillaDiagnostico.getRowCount(); fila++) {
@@ -1030,7 +1076,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
 //        txtTipoProbleDesc.setText("");
 //        txtCantidadTipoProblem.setText("");
 //        grillaDiagnostico.requestFocus();
-    }//GEN-LAST:event_txtCantidadTipoProblemActionPerformed
+    }//GEN-LAST:event_txtCantidadArtiActionPerformed
 
     private void grillaPresupuestoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaPresupuestoMouseClicked
         // TODO add your handling code here:
@@ -1041,9 +1087,9 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_grillaPresupuestoKeyPressed
 
     private void txtTipoProbleCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoProbleCodActionPerformed
-        txtCantidadTipoProblem.setEditable(true);
-        txtCantidadTipoProblem.setEnabled(true);
-        txtCantidadTipoProblem.requestFocus();
+        txtCantidadArti.setEditable(true);
+        txtCantidadArti.setEnabled(true);
+        txtCantidadArti.requestFocus();
     }//GEN-LAST:event_txtTipoProbleCodActionPerformed
 
     private void txtTipoProbleCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoProbleCodKeyPressed
@@ -1076,7 +1122,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
            txtEquipo.setText(nombreEquipo);
            txtTipoProbleCod.setText(codProblema);
            txtTipoProbleDesc.setText(tipoProblema);
-           txtCantidadTipoProblem.setText(cantidad);
+           txtCantidadArti.setText(cantidad);
            
 //           Metodos.eliminarFila(grillaDiagnostico, fila);
            
@@ -1090,12 +1136,84 @@ public class presupuestoServicios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtObsDiagnosticoActionPerformed
 
+    public void cargarComboPromociones() {
+        Conexion cn = new Conexion();
+        try {
+            cn.conectar();
+           
+            ResultSet datos = cn.consultar("SELECT p.id_promociones,\n" +
+"    p.estado,\n" +
+"    p.promo_descri,\n" +
+"   pd.monto,\n" +
+"    pd.id_tipo_trabajo,\n" +
+"   p.id_promociones || ' - '::text || pd.id_tipo_trabajo ||' - '::text || p.promo_descri::text || ' - '::text || pd.monto::text  AS promo \n" +
+"   FROM promociones_cabecera p\n" +
+"   JOIN promociones_detalle pd\n" +
+"   on p.id_promociones = pd.id_promociones\n" +
+"   where p.fecha_fin >= current_date and p.id_promociones=pd.id_promociones ");
+
+            cmbPromociones.removeAllItems();
+             cmbPromociones.addItem("Selecciona una promoción");
+            if (datos.isBeforeFirst()) {
+                while (datos.next()) {
+                    cmbPromociones.addItem(datos.getString("promo"));  //se le pasa por parametro el alias de la consulta sql "datos" pasado al resultSet
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros");
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void cargarComboDescuentos() {
+        Conexion cn = new Conexion();
+        try {
+            cn.conectar();
+           
+            ResultSet datos = cn.consultar(" SELECT d.id_descuentos,\n" +
+"   d.descuento_descri,\n" +
+"   dd.monto,\n" +
+"   d.id_descuentos || ' - '::text || d.descuento_descri ||' - '::text || dd.monto::text  AS descuentos \n" +
+"   FROM descuentos_cabecera d\n" +
+"   JOIN descuentos_detalle dd\n" +
+"   on dd.id_descuentos = d.id_descuentos\n" +
+"   where d.estado = 'ACTIVO' and d.id_descuentos=dd.id_descuentos ");
+
+            cmbDescuentos.removeAllItems();
+            cmbDescuentos.addItem("Selecciona un descuento");
+            if (datos.isBeforeFirst()) {
+                while (datos.next()) {
+                    cmbDescuentos.addItem(datos.getString("descuentos"));  //se le pasa por parametro el alias de la consulta sql "datos" pasado al resultSet
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros");
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     private void txtObsDiagnosticoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObsDiagnosticoKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtObsDiagnosticoKeyPressed
 
     private void txtCodTipoTrabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodTipoTrabajoActionPerformed
+
+        txtArticuloDesc.setEnabled(true);
         txtArticuloDesc.requestFocus();
+
     }//GEN-LAST:event_txtCodTipoTrabajoActionPerformed
 
     private void txtCodTipoTrabajoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodTipoTrabajoKeyPressed
@@ -1137,25 +1255,51 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtArticuloDescKeyPressed
 
     private void txtMontoPresuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoPresuActionPerformed
+       for (int fila = 0; fila <grillaPresupuesto.getRowCount(); fila++) {
+         String codigoTipoEquipo = (String)grillaPresupuesto.getValueAt(fila, 0);
+         String codigoTipoTrabajo = (String)grillaPresupuesto.getValueAt(fila, 2);
+         String codigoArti = (String)grillaPresupuesto.getValueAt(fila, 4);
+         if ((txtCodEquipo.getText().equals(codigoTipoEquipo))&&(txtCodTipoTrabajo.getText().equals(codigoTipoTrabajo))&&(txtCodArti.getText().equals(codigoArti))) {
+             JOptionPane.showMessageDialog(rootPane, "Ya se utilizó este tipo de trabajo con este equipo");
+             txtArticuloDesc.setText("");
+             txtCodArti.setText("");
+             txtArticuloDesc.requestFocus();
+             
+             return;
+
+         
+            }         
+         
+        }
+        
+        
+        
+        
+        
+        
+        
         Metodos.cargarTabla(grillaPresupuesto, new Object[]{
                 txtCodEquipo.getText().trim(),
                 txtEquipo.getText().trim(),
+                txtTipoProbleCod.getText().trim(),
+                txtTipoProbleDesc.getText().trim(),
                 txtCodTipoTrabajo.getText().trim(),
                 txtTipoTrabajoDesc.getText().trim(),
                 txtCodArti.getText().trim(),
                 txtArticuloDesc.getText().trim(),
+                txtCantidadArti.getText().trim(),
                 txtMontoPresu.getText().trim()
                 
                 });
-       txtTOTAL.setText(String.valueOf(Metodos.sumarColumna(grillaPresupuesto, 6))); 
-        
+       txtTOTAL.setText(String.valueOf(Metodos.sumarColumna(grillaPresupuesto, 9))); 
+        calcularTotaless();
         txtCodEquipo.setText("");
         txtTipoProbleDesc.setText("");
         txtEquipo.setText("");
         txtTipoProbleCod.setText("");
         txtTipoTrabajoDesc.setText("");
         txtTipoProbleDesc.setText("");
-        txtCantidadTipoProblem.setText("");
+        txtCantidadArti.setText("");
         txtCodTipoTrabajo.setText("");
         txtCodArti.setText("");
         txtArticuloDesc.setText("");
@@ -1174,6 +1318,42 @@ public class presupuestoServicios extends javax.swing.JFrame {
     private void txtTOTALKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTOTALKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTOTALKeyPressed
+
+    private void cmbPromocionesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPromocionesItemStateChanged
+ 
+         if(cmbPromociones.getSelectedItem() == null) return;
+//        if(cmbPromociones.getSelectedIndex() > 0){
+//            if(evt.getStateChange() ==  ItemEvent.SELECTED){
+                calcularTotaless();
+//            }
+            
+//        }
+        
+//        else if (cmbPromociones.getSelectedItem().equals("Selecciona una promoción")) {
+//            calcularTotaless();
+//        }
+    }//GEN-LAST:event_cmbPromocionesItemStateChanged
+
+    
+    public void calcularTotaless(){
+          int totalColumna = Metodos.sumarColumna(grillaPresupuesto, 9); 
+          String montoPromo = (cmbPromociones.getSelectedIndex() <= 0) ? "0" : (String) cmbPromociones.getSelectedItem().toString().split(" - ")[3];
+          String montoDesc = (cmbDescuentos.getSelectedIndex() <= 0) ? "0" : (String) cmbDescuentos.getSelectedItem().toString().split(" - ")[2];
+          
+          txtTOTAL.setText(String.valueOf(totalColumna-(Integer.parseInt(montoPromo))-(Integer.parseInt(montoDesc))));
+    }
+    
+    
+    private void cmbDescuentosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDescuentosItemStateChanged
+      if(cmbDescuentos.getSelectedIndex() == -1) return;
+        
+//        if(cmbDescuentos.getSelectedIndex() > 0){
+//            if(evt.getStateChange() ==  ItemEvent.SELECTED){
+                 calcularTotaless();
+//            }
+            
+////        }
+    }//GEN-LAST:event_cmbDescuentosItemStateChanged
 
     
     
@@ -1255,10 +1435,10 @@ public class presupuestoServicios extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cmbDescuentos;
+    private javax.swing.JComboBox<String> cmbPromociones;
     public static javax.swing.JTable grillaDiagnostico;
     public static javax.swing.JTable grillaPresupuesto;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
@@ -1282,7 +1462,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     public static javax.swing.JTextField txtArticuloDesc;
-    private javax.swing.JTextField txtCantidadTipoProblem;
+    private javax.swing.JTextField txtCantidadArti;
     public static javax.swing.JTextField txtClienteCod;
     public static javax.swing.JTextField txtClienteDesc;
     public static javax.swing.JTextField txtCod;

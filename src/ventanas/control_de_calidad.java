@@ -728,16 +728,16 @@ public class control_de_calidad extends javax.swing.JFrame {
                                     + "cod_mermas, cod_depo, sucur_id, pro_cod, cantidad, cod_motivo, \n"
                                     + "cod_etapas)\n"
                                     + "VALUES ("
-                                    + codigo_merma+", "
+                                    + codigo_merma + ", "
                                     + Metodos.dameDepositoDeProduccionDetalle(
-                                        cod_produccion_txt.getText(),
-                                        cod_orden_produccion_txt.getText(),
-                                        grilla1.getValueAt(i, 0).toString()) +", "
-                                    + Menu.idSucursal+", "
-                                    + grilla1.getValueAt(i, 0).toString()+", "
-                                    + rechazado+", "
-                                    + motivo_merma_lst.getSelectedItem().toString().split("-")[0]+", "
-                                    + grilla1.getValueAt(i, 2).toString().split("-")[0]+");";
+                                            cod_produccion_txt.getText(),
+                                            cod_orden_produccion_txt.getText(),
+                                            grilla1.getValueAt(i, 0).toString()) + ", "
+                                    + Menu.idSucursal + ", "
+                                    + grilla1.getValueAt(i, 0).toString() + ", "
+                                    + rechazado + ", "
+                                    + motivo_merma_lst.getSelectedItem().toString().split("-")[0] + ", "
+                                    + grilla1.getValueAt(i, 2).toString().split("-")[0] + ");";
                             cn.actualizar(merma_detalle);
                         }
 
@@ -751,26 +751,25 @@ public class control_de_calidad extends javax.swing.JFrame {
 
             if (operacion.equals("anular")) {
 
-            }
+                Conexion cn = new Conexion();
+                try {
+                    cn.conectar();
+                    sql = "UPDATE control_calidad SET estado = 'ANULADO' Where cod_control_cali = " + codigo_control_calidad_txt.getText();
+                    System.out.println(sql);
+                    cn.actualizar(sql);
 
-            Conexion cn = new Conexion();
-            try {
-                cn.conectar();
-                sql = "UPDATE control_calidad SET estado = 'ANULADO' Where cod_control_cali = "+codigo_control_calidad_txt.getText();
-                System.out.println(sql);
-                cn.actualizar(sql);
+                    JOptionPane.showMessageDialog(null, mensaje);
+                    codigo_control_calidad_txt.setText("");
+                    codigo_control_calidad_txt.setEnabled(false);
+                    btnCancelar.doClick();
 
-                JOptionPane.showMessageDialog(null, mensaje);
-                codigo_control_calidad_txt.setText("");
-                codigo_control_calidad_txt.setEnabled(false);
-                btnCancelar.doClick();
-
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            } catch (SQLException ex) {
-                Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                } catch (SQLException ex) {
+                    Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             }
         }
         btnCancelar.doClick();
@@ -784,7 +783,7 @@ public class control_de_calidad extends javax.swing.JFrame {
         btnSalir.setEnabled(true);
         btnGrabar.setEnabled(false);
         btnCancelar.setEnabled(false);
-        
+
         Metodos.limpiarTabla(grilla1);
         Metodos.limpiarTabla(grilla2);
 
@@ -823,8 +822,8 @@ public class control_de_calidad extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Cantidad no valida");
             return;
         }
-        
-        if(rechazado > 0){
+
+        if (rechazado > 0) {
             motivo_merma_lbl.setVisible(true);
             motivo_merma_lst.setVisible(true);
         }
@@ -874,7 +873,7 @@ public class control_de_calidad extends javax.swing.JFrame {
 
     private void codigo_control_calidad_txtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigo_control_calidad_txtKeyReleased
         // TODO add your handling code here:
-        if(evt.getKeyCode() == KeyEvent.VK_F2){
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
             busControlCalidad.busqueda = "control_calidad";
             new busControlCalidad().setVisible(true);
         }
@@ -886,7 +885,7 @@ public class control_de_calidad extends javax.swing.JFrame {
     }//GEN-LAST:event_motivo_merma_lstItemStateChanged
 
     /**
-     * 
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -962,8 +961,8 @@ public class control_de_calidad extends javax.swing.JFrame {
                     + "FROM etapas_produccion");
 
             if (etapas_en_tabla.isBeforeFirst()) {
-                while (etapas_en_tabla.next()) {                    
-                    
+                while (etapas_en_tabla.next()) {
+
                     cantidad_etapas_en_tablas = etapas_en_tabla.getInt("cantidad");
                 }
             } else {
@@ -981,10 +980,11 @@ public class control_de_calidad extends javax.swing.JFrame {
                     + "WHERE cc.estado ILIKE '%ACTIVO%' and d.pro_cod =  " + cod_producto.getText() + " and "
                     + " cc.cod_producción = " + cod_produccion_txt.getText() + " "
                     + "and d.cod_etapas = " + etapa_lst.getSelectedItem().toString().split("-")[0] + " "
-                    + " and  d.cod_or_prod = "+cod_orden_produccion_txt.getText()+" LIMIT 1";
+                    + " and  d.cod_or_prod = " + cod_orden_produccion_txt.getText() + " LIMIT 1";
+            System.out.println(sql);
             System.out.println(sql);
             ResultSet etapa_repetida = Metodos.getResulSet(sql);
-            
+
             if (etapa_repetida.isBeforeFirst()) {
                 while (etapa_repetida.next()) {
                     JOptionPane.showMessageDialog(rootPane, "El producto ya paso por la etapa de produccion, en la fecha "
@@ -1017,12 +1017,11 @@ public class control_de_calidad extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(control_de_calidad.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
 
     private void agregarEnTabla() {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) grilla2.getModel();
         Object[] fila = new Object[6];
         fila[0] = cod_producto.getText();
@@ -1030,17 +1029,17 @@ public class control_de_calidad extends javax.swing.JFrame {
         fila[2] = etapa_lst.getSelectedItem();
         fila[3] = aprobado_txt.getText();
         fila[4] = rechazado_txt.getText();
-        if(rechazado_txt.getText().equals("0")){
-            
+        if (rechazado_txt.getText().equals("0")) {
+
             fila[5] = "-";
-        }else{
-            if(motivo_merma_lst.getSelectedIndex() == 0){
-                JOptionPane.showMessageDialog(rootPane,"Selecciona un motivo de merma");
+        } else {
+            if (motivo_merma_lst.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Selecciona un motivo de merma");
                 motivo_merma_lst.requestFocus();
                 motivo_merma_lst.setPopupVisible(true);
                 return;
             }
-            
+
             fila[5] = motivo_merma_lst.getSelectedItem();
         }
         modelo.addRow(fila);
@@ -1073,6 +1072,7 @@ public class control_de_calidad extends javax.swing.JFrame {
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     private void cargarListaMotivoMerma() {
         motivo_merma_lst.removeAllItems();
         Conexion cn = new Conexion();

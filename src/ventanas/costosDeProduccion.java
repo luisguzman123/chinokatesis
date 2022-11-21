@@ -4,7 +4,7 @@ import Acceso.Menu;
 import clases.Conexion;
 import clases.Metodos;
 import static clases.Metodos.limpiarTabla;
-import com.sun.jndi.cosnaming.CNCtx;
+//import com.sun.jndi.cosnaming.CNCtx;
 import com.toedter.calendar.JCalendar;
 import java.sql.ResultSet;
 import java.sql.SQLException;

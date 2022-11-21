@@ -570,27 +570,30 @@ public class empleados extends javax.swing.JFrame {
        String cargo= grillaEmpleados.getValueAt(fila, 5).toString();
        String email= grillaEmpleados.getValueAt(fila, 6).toString();
        String sucursal= grillaEmpleados.getValueAt(fila, 7).toString();
-       
-//       if(busqueda.equals("alumno") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-//           Alumnos.txtCiudad.setText(cod+"-"+descri);
-//           Alumnos.txtCiudad.requestFocus();
-//           busqueda = "";
-//           dispose();
-//       }
-       
-       
-//      if(busqueda.equals("deposito") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-//           deposito.txtSucursal.setText(cod+"-"+nombre);
-//           deposito.txtSucursal.requestFocus();
-//           busqueda = "";
-//           dispose();
-//       }
-       
 
-         if(busqueda.equals("notaRemision") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+       
+       
+       
+       
+       
+       if(busqueda.equals("notaRemision") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
            notaRemision.cod_conductor.setText(cod);
            notaRemision.txtConductor.setText(nombre+" "+apellido);
            notaRemision.cod_conductor.requestFocus();
+           busqueda = "";
+           dispose();
+       }
+       if(busqueda.equals("descuentos") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           descuentos.txtEmpleadoCod.setText(cod);
+           descuentos.txtEmpleadoDes.setText(nombre+" "+apellido);
+           descuentos.txtEmpleadoCod.requestFocus();
+           busqueda = "";
+           dispose();
+       }
+       if(busqueda.equals("recepcion") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           recepcion.txtEmpleadoCod.setText(cod);
+           recepcion.txtEmpleadoDes.setText(nombre+" "+apellido);
+           recepcion.txtEmpleadoCod.requestFocus();
            busqueda = "";
            dispose();
        }

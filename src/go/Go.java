@@ -5,6 +5,8 @@
  */
 package go;
 
+import clases.Metodos;
+
 /**
  *
  * @author Carreño
@@ -16,6 +18,7 @@ public class Go {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+
     }
     
 }

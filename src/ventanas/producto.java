@@ -62,7 +62,7 @@ public class producto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tekton Pro Cond", 0, 36)); // NOI18N
-        jLabel1.setText("Productos");
+        jLabel1.setText("Articulos");
 
         jLabel2.setText("Descripción");
 
@@ -98,7 +98,7 @@ public class producto extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Descripción", "Precio", "IVA", "Tipo de producto"
+                "Código", "Descripción", "Precio", "IVA", "Tipo de articulo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -175,7 +175,7 @@ public class producto extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Tipo de producto");
+        jLabel6.setText("Tipo de articulo");
 
         txtTipoProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -480,6 +480,13 @@ public class producto extends javax.swing.JFrame {
            pedidoDeVenta.txtCodArti.setText(cod);
            pedidoDeVenta.txtArti.setText(nombre);
            pedidoDeVenta.txtArti.requestFocus();
+           busqueda = "";
+           dispose();
+       }
+       if(busqueda.equals("presupuestoServicios") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           presupuestoServicios.txtCodArti.setText(cod);
+           presupuestoServicios.txtArticuloDesc.setText(nombre);
+           presupuestoServicios.txtCodArti.requestFocus();
            busqueda = "";
            dispose();
        }

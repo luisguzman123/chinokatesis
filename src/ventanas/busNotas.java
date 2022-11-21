@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class busNotaVenta extends javax.swing.JFrame {
+public class busNotas extends javax.swing.JFrame {
 
-    public busNotaVenta() {
+    public busNotas() {
         initComponents();
         iniciarComponentes();
         btn_buscar.doClick();
@@ -21,7 +21,8 @@ public class busNotaVenta extends javax.swing.JFrame {
 
     private void iniciarComponentes() {
         desde_dt.setDate(new JCalendar().getDate());
-        
+        hasta_dt.setDate(new JCalendar().getDate());
+
     }
 
     public static String busqueda = "";
@@ -42,17 +43,17 @@ public class busNotaVenta extends javax.swing.JFrame {
 
         grillaBuscador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Código", "Fecha", "Sucursal", "Empleado"
+                "Código", "Fecha", "Monto Descuento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -69,8 +70,7 @@ public class busNotaVenta extends javax.swing.JFrame {
         if (grillaBuscador.getColumnModel().getColumnCount() > 0) {
             grillaBuscador.getColumnModel().getColumn(0).setPreferredWidth(50);
             grillaBuscador.getColumnModel().getColumn(1).setPreferredWidth(120);
-            grillaBuscador.getColumnModel().getColumn(2).setPreferredWidth(150);
-            grillaBuscador.getColumnModel().getColumn(3).setPreferredWidth(290);
+            grillaBuscador.getColumnModel().getColumn(2).setPreferredWidth(290);
         }
 
         btn_buscar.setText("Buscar");
@@ -135,33 +135,40 @@ public class busNotaVenta extends javax.swing.JFrame {
 
     private void grillaBuscadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaBuscadorMouseClicked
         switch (busqueda) {
-            case "orden_produccion":
-                seleccionarOrdenProduccion();
+            case "nota_venta":
+                seleccionarNotaVenta();
                 break;
-            case "produccion":
-                seleccionarProduccion();
+            case "nota_compra":
+                seleccionarNotaCompra();
                 break;
 
         }
 
     }//GEN-LAST:event_grillaBuscadorMouseClicked
 
-    private void seleccionarOrdenProduccion() {
+    private void seleccionarNotaVenta() {
         int fila = grillaBuscador.getSelectedRow();
 
         String cod = grillaBuscador.getValueAt(fila, 0).toString();
-        orden_produccion.nro_ord.setText(cod);
+        nota_ventas.num.setText(cod);
         dispose();
-        
 
     }
+    private void seleccionarNotaCompra() {
+        int fila = grillaBuscador.getSelectedRow();
+
+        String cod = grillaBuscador.getValueAt(fila, 0).toString();
+        nota_compras.num.setText(cod);
+        dispose();
+
+    }
+
     private void seleccionarProduccion() {
         int fila = grillaBuscador.getSelectedRow();
 
         String cod = grillaBuscador.getValueAt(fila, 0).toString();
         produccion.nroorden.setText(cod);
         dispose();
-        
 
     }
 
@@ -228,7 +235,7 @@ public class busNotaVenta extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new busNotaVenta().setVisible(true);
+                new busNotas().setVisible(true);
             }
         });
     }
@@ -236,11 +243,11 @@ public class busNotaVenta extends javax.swing.JFrame {
     public void getDatos() {
 
         switch (busqueda) {
-            case "orden_produccion":
-                buscarOrdenProduccion();
+            case "nota_venta":
+                buscarNotaVenta();
                 break;
-            case "produccion":
-                buscarOrdenProduccion();
+            case "nota_compra":
+                buscarNotaCompra();
                 break;
 
         }
@@ -252,23 +259,19 @@ public class busNotaVenta extends javax.swing.JFrame {
     /**
      * busca la tabla con pedidos
      */
-    private void buscarOrdenProduccion() {
+    private void buscarNotaVenta() {
         Conexion cn = new Conexion();
         try {
             cn.conectar();
             ResultSet pedi = cn.consultar("SELECT\n"
-                    + " op.cod_or_prod,\n"
-                    + " op.fecha,\n"
-                    + " s.sucur_nom,\n"
-                    + " e.emp_nom ||' '||e.emp_ape as empleado\n"
-                    + "FROM orden_produccion op\n"
-                    + "JOIN sucursal s \n"
-                    + "ON s.sucur_id = op.sucur_id\n"
-                    + "JOIN empleado e \n"
-                    + "ON e.emp_id = op.emp_id\n"
-                    + "WHERE op.sucur_id =  "+Menu.idSucursal+" and op.fecha = '"+
-                    Metodos.dameFechaFormateadaSQL(desde_dt.getDate())+"' AND "
-                            + "op.estado ILIKE '%ACTIVO%' "); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                    + "nv.not_cred_id,\n"
+                    + "nv.nota_cred_fecha,\n"
+                    + "nv.nota_cred_monto "
+                    + "FROM notas_de_ventas nv\n"
+                    + "WHERE nv.nota_cred_fecha \n"
+                    + "BETWEEN '"+Metodos.dameFechaFormateadaSQL(desde_dt.getDate())+"' "
+                            + "AND '"+Metodos.dameFechaFormateadaSQL(hasta_dt.getDate())+"' \n"
+                    + "AND estado = 'ACTIVO'"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
             Metodos.limpiarTabla(grillaBuscador);
 //
 //            System.out.println(grillaBuscador.getColumnCount());
@@ -278,10 +281,48 @@ public class busNotaVenta extends javax.swing.JFrame {
             if (pedi.isBeforeFirst()) {
                 while (pedi.next()) {
                     Metodos.cargarTabla(grillaBuscador, new Object[]{
-                        pedi.getString("cod_or_prod"),
-                        Metodos.dameFechaFormateada(pedi.getDate("fecha")),
-                        pedi.getString("sucur_nom"),
-                        pedi.getString("empleado")
+                        pedi.getString("not_cred_id"),
+                        Metodos.dameFechaFormateada(pedi.getDate("nota_cred_fecha")),
+                        pedi.getString("nota_cred_monto")
+                    });
+                }
+            } else {
+
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    private void buscarNotaCompra() {
+        Conexion cn = new Conexion();
+        try {
+            cn.conectar();
+            ResultSet pedi = cn.consultar("SELECT\n"
+                    + "nv.cod_nota,\n"
+                    + "nv.nota_fecha,\n"
+                    + "nv.monto "
+                    + "FROM nota_de_compras nv\n"
+                    + "WHERE nv.nota_fecha \n"
+                    + "BETWEEN '"+Metodos.dameFechaFormateadaSQL(desde_dt.getDate())+"' "
+                            + "AND '"+Metodos.dameFechaFormateadaSQL(hasta_dt.getDate())+"' \n"
+                    + "AND estado = 'ACTIVO'"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            Metodos.limpiarTabla(grillaBuscador);
+//
+//            System.out.println(grillaBuscador.getColumnCount());
+//            if (grillaBuscador.getColumnCount() > 8) {
+//                grillaBuscador.getColumnModel().removeColumn(grillaBuscador.getColumnModel().getColumn(grillaBuscador.getColumnCount() - 1));
+//            }
+            if (pedi.isBeforeFirst()) {
+                while (pedi.next()) {
+                    Metodos.cargarTabla(grillaBuscador, new Object[]{
+                        pedi.getString("cod_nota"),
+                        Metodos.dameFechaFormateada(pedi.getDate("nota_fecha")),
+                        pedi.getString("monto")
                     });
                 }
             } else {
@@ -309,9 +350,9 @@ public class busNotaVenta extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(busNotaVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busNotas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busNotaVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
 
@@ -329,9 +370,9 @@ public class busNotaVenta extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(busNotaVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busNotas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busNotaVenta.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busNotas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
 

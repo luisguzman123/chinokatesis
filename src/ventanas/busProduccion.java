@@ -323,7 +323,7 @@ public class busProduccion extends javax.swing.JFrame {
                     + "p.observacion,\n"
                     + "p.fecha_pro\n"
                     + "FROM produccion p\n"
-                    + "WHERE p.fecha_pro BETWEEN '"
+                    + "WHERE p.estado = 'ACTIVO' AND p.fecha_pro BETWEEN '"
                     + Metodos.dameFechaFormateadaSQL(desde_dt.getDate()) + "' AND"
                     + " '" + Metodos.dameFechaFormateadaSQL(hasta_dt.getDate()) + "'"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
             Metodos.limpiarTabla(grillaBuscador);

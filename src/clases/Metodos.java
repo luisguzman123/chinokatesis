@@ -344,6 +344,90 @@ public class Metodos {
         }
         return "";
     }
+    public static String traerCantidadDetalleRecepcion(String cod, String cod2) {
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet canti = cn.consultar("select cantidad from recepcion_detalle where id_equipo = " + cod+" and id_recepcion = "+cod2);
+            if (canti.isBeforeFirst()) {
+                while (canti.next()) {
+                    String cantidad = canti.getString("cantidad");
+                    return cantidad;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    public static String traerCantidadDetalleDiag(String cod, String cod2) {
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet canti = cn.consultar("select cantidad from diagnostico_detalle where id_equipo = " + cod+" and id_diagnostico_cabecera = "+cod2);
+            if (canti.isBeforeFirst()) {
+                while (canti.next()) {
+                    String cantidad = canti.getString("cantidad");
+                    return cantidad;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    public static String traerSerieDetallesRecepcion(String cod, String cod2) {
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet canti = cn.consultar("select nro_de_serie from recepcion_detalle where id_equipo = " + cod+" and id_recepcion = "+cod2);
+            if (canti.isBeforeFirst()) {
+                while (canti.next()) {
+                    String cantidad = canti.getString("nro_de_serie");
+                    return cantidad;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    public static String traerDescDetallesRecepcion(String cod, String cod2) {
+        try {
+            Conexion cn = new Conexion();
+            cn.conectar();
+            ResultSet canti = cn.consultar("select descripcion from recepcion_detalle where id_equipo = " + cod+" and id_recepcion = "+cod2);
+            if (canti.isBeforeFirst()) {
+                while (canti.next()) {
+                    String cantidad = canti.getString("descripcion");
+                    return cantidad;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
 
     public static ResultSet getResulSet(String sql) {
         ResultSet resultados = null;
@@ -372,10 +456,10 @@ public class Metodos {
             cn.conectar();
             resultados = cn.consultar("SELECT cod_depo\n"
                     + "  FROM \"detalle_producción\" \n"
-                    + "  where \"cod_producción\" = "+cod_produccion+" and cod_or_prod =  "+cod_orden+"\n"
-                    + "   and pro_cod = "+cod_producto+";");
-            
-            if(resultados.first()){
+                    + "  where \"cod_producción\" = " + cod_produccion + " and cod_or_prod =  " + cod_orden + "\n"
+                    + "   and pro_cod = " + cod_producto + ";");
+
+            if (resultados.first()) {
                 return String.valueOf(resultados.getInt("cod_depo"));
             }
 
@@ -387,11 +471,7 @@ public class Metodos {
         return "0";
 
     }
-    
-    
-    
-    
-    
+
     public static int cajaAbierta() {
         Conexion cn = new Conexion();
 
@@ -415,7 +495,7 @@ public class Metodos {
                 }
             } else {
                 //en el caso que no esta abierta
-                return  0;
+                return 0;
 
             }
         } catch (ClassNotFoundException ex) {
@@ -424,8 +504,9 @@ public class Metodos {
         } catch (SQLException ex) {
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return  0 ;
-  }
+        return 0;
+    }
+
     public static int dameCodcaja() {
         Conexion cn = new Conexion();
 
@@ -450,7 +531,7 @@ public class Metodos {
                 }
             } else {
                 //en el caso que no esta abierta
-                return  0;
+                return 0;
 
             }
         } catch (ClassNotFoundException ex) {
@@ -459,11 +540,10 @@ public class Metodos {
         } catch (SQLException ex) {
             Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return  0 ;
-  }
-    
-    
-public static int sumarColumnaBooleana(JTable tabla, int columa, int columna_boleana) {
+        return 0;
+    }
+
+    public static int sumarColumnaBooleana(JTable tabla, int columa, int columna_boleana) {
         int fila = tabla.getRowCount();
         int total = 0;
         for (int i = 0; i < fila; i++) {

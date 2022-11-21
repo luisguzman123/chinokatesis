@@ -16,12 +16,12 @@ import javax.swing.*;
  *
  * @author Nestor Salinas
  */
-public class nota_ventas extends javax.swing.JFrame {
+public class nota_compras extends javax.swing.JFrame {
 
     String mensaje = "";
     String operacion = "";
 
-    public nota_ventas() {
+    public nota_compras() {
         initComponents();
         this.setLocationRelativeTo(null);
         iniciarComponentes();
@@ -32,10 +32,10 @@ public class nota_ventas extends javax.swing.JFrame {
         fecha.setText(Metodos.dameFechaFormateada(new JCalendar().getDate()));
         motivo_cbx.setEnabled(false);
         descuento_txt.setEnabled(false);
+        descuento_txt.setEnabled(false);
         grabar.setEnabled(false);
         modificar.setEnabled(true);
         nuevo.setEnabled(true);
-        num.setEnabled(false);
 
     }
 
@@ -54,10 +54,10 @@ public class nota_ventas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         id_venta_lbl = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        cod_cli = new javax.swing.JLabel();
-        cli = new javax.swing.JLabel();
+        cod_proveedor = new javax.swing.JLabel();
+        proveedortxt = new javax.swing.JLabel();
         cod_cli1 = new javax.swing.JLabel();
-        cli1 = new javax.swing.JLabel();
+        asd = new javax.swing.JLabel();
         suc2 = new javax.swing.JLabel();
         motivo_cbx = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -144,7 +144,7 @@ public class nota_ventas extends javax.swing.JFrame {
 
         jLabel29.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel29.setText("NOTAS DE VENTAS");
+        jLabel29.setText("NOTAS DE COMPRAS");
         jLabel29.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 153));
@@ -249,21 +249,21 @@ public class nota_ventas extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(0, 153, 153));
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        cod_cli.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cod_cli.setForeground(new java.awt.Color(255, 255, 255));
-        cod_cli.setText("    ");
+        cod_proveedor.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cod_proveedor.setForeground(new java.awt.Color(255, 255, 255));
+        cod_proveedor.setText("    ");
 
-        cli.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cli.setForeground(new java.awt.Color(255, 255, 255));
-        cli.setText("  ");
+        proveedortxt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        proveedortxt.setForeground(new java.awt.Color(255, 255, 255));
+        proveedortxt.setText("  ");
 
         cod_cli1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cod_cli1.setForeground(new java.awt.Color(255, 255, 255));
         cod_cli1.setText("COD");
 
-        cli1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cli1.setForeground(new java.awt.Color(255, 255, 255));
-        cli1.setText("CLIENTE");
+        asd.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        asd.setForeground(new java.awt.Color(255, 255, 255));
+        asd.setText("Proveedor");
 
         suc2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         suc2.setForeground(new java.awt.Color(255, 255, 255));
@@ -292,35 +292,34 @@ public class nota_ventas extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(cod_cli1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cod_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(cli1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cli, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(suc2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(motivo_cbx, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(deposito_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(cod_cli1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cod_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(asd, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(proveedortxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cod_cli)
-                    .addComponent(cli)
+                    .addComponent(cod_proveedor)
+                    .addComponent(proveedortxt)
                     .addComponent(cod_cli1)
-                    .addComponent(cli1))
+                    .addComponent(asd))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(suc2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -495,7 +494,7 @@ public class nota_ventas extends javax.swing.JFrame {
                 .addComponent(grabar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -660,20 +659,20 @@ public class nota_ventas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void numActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numActionPerformed
-        
+
 }//GEN-LAST:event_numActionPerformed
 
     private void numKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numKeyPressed
 
-        if(evt.getKeyCode() == KeyEvent.VK_F2){
-            busNotas ventana = new busNotas();
-            ventana.busqueda =  "nota_venta";
-            ventana.setVisible(true);
-        }
 }//GEN-LAST:event_numKeyPressed
 
     private void numKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numKeyReleased
 
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
+            busNotas ventana = new busNotas();
+            ventana.busqueda = "nota_compra";
+            ventana.setVisible(true);
+        }
 }//GEN-LAST:event_numKeyReleased
 
     private void numKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numKeyTyped
@@ -707,32 +706,34 @@ public class nota_ventas extends javax.swing.JFrame {
     private void num_facActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_num_facActionPerformed
         // TODO add your handling code here:
         String buscarCliente = "SELECT\n"
-                + "c.cli_cod,\n"
-                + "c.cli_nomb ||' '||c.cli_apelli as cliente,\n"
-                + "v.ventas_id "
-                + "FROM ventas v\n"
-                + "JOIN cliente c\n"
-                + "ON c.cli_cod = v.cli_cod\n"
+                + "c.pro_id,\n"
+                + "c.pro_nom  proveedor,\n"
+                + "v.compra_id "
+                + "FROM compra v\n"
+                + "JOIN proveedor c\n"
+                + "ON c.pro_id = v.pro_id\n"
                 + "WHERE v.nro_factura = '" + num_fac.getText().trim() + "'";
+//        System.out.println(buscarCliente);
         Conexion cn = new Conexion();
 
         String cargarDetalles = "SELECT\n"
-                + "dv.pro_cod,\n"
-                + "p.pro_desc as producto,\n"
-                + "dv.det_cantidad,\n"
-                + "dv.de_monto,\n"
+                + "dv.cod_materia,\n"
+                + "p.cod_materia as materia,\n"
+                + "dv.cantidad,\n"
+                + "dv.monto,\n"
                 + "dv.exenta,\n"
-                + "dv.grav_5,\n"
-                + "dv.grav_10,\n"
+                + "dv.iva_5,\n"
+                + "dv.iva_10,\n"
                 + "CONCAT(dv.cod_depo, '-', d.depo_desc) as deposito "
-                + "FROM ventas v \n"
-                + "JOIN detalle_venta dv\n"
-                + "ON dv.ventas_id = v.ventas_id\n"
-                + "JOIN producto p \n"
-                + "ON dv.pro_cod = p.pro_cod "
+                + "FROM compra v \n"
+                + "JOIN compra_detalle dv\n"
+                + "ON dv.compra_id = v.compra_id\n"
+                + "JOIN materia_prima p \n"
+                + "ON dv.cod_materia = p.cod_materia "
                 + "JOIN deposito d "
                 + "on d.cod_depo =  dv.cod_depo\n"
                 + "WHERE v.nro_factura LIKE '" + num_fac.getText().trim() + "'";
+//        System.out.println(cargarDetalles);
 
         try {
             cn.conectar();
@@ -740,17 +741,17 @@ public class nota_ventas extends javax.swing.JFrame {
 
             if (cliente.isBeforeFirst()) {
                 while (cliente.next()) {
-                    cod_cli.setText(cliente.getString("cli_cod"));
-                    cli.setText(cliente.getString("cliente"));
-                    id_venta_lbl.setText(cliente.getString("ventas_id"));
+                    cod_proveedor.setText(cliente.getString("pro_id"));
+                    proveedortxt.setText(cliente.getString("proveedor"));
+                    id_venta_lbl.setText(cliente.getString("compra_id"));
 
                 }
             }
-            
-            if(existeFactura()){
+
+            if (existeFactura()) {
                 JOptionPane.showMessageDialog(rootPane, "La factura ya esta siendo utilizada.");
                 limpiar();
-                return; 
+                return;
             }
             int total = 0;
             ResultSet detalle = cn.consultar(cargarDetalles);
@@ -758,19 +759,19 @@ public class nota_ventas extends javax.swing.JFrame {
                 Metodos.limpiarTabla(grilla);
                 while (detalle.next()) {
                     Metodos.cargarTabla(grilla, new Object[]{
-                        detalle.getInt("pro_cod"),
-                        detalle.getString("producto"),
-                        detalle.getString("det_cantidad"),
-                        detalle.getInt("de_monto"),
+                        detalle.getInt("cod_materia"),
+                        detalle.getString("materia"),
+                        detalle.getString("cantidad"),
+                        detalle.getInt("monto"),
                         detalle.getInt("exenta"),
-                        detalle.getInt("grav_5"),
-                        detalle.getInt("grav_10"),
+                        detalle.getInt("iva_5"),
+                        detalle.getInt("iva_10"),
                         0,
                         false
 
                     });
-                    total += detalle.getInt("det_cantidad")
-                            * detalle.getInt("de_monto");
+                    total += detalle.getInt("cantidad")
+                            * detalle.getInt("monto");
                     deposito_lbl.setText(detalle.getString("deposito"));
 
                 }
@@ -783,7 +784,7 @@ public class nota_ventas extends javax.swing.JFrame {
             grava.setText(String.valueOf((int) (Metodos.sumarColumna(grilla, 6) * 0.11)));
             totaliva.setText(String.valueOf(((int) (Metodos.sumarColumna(grilla, 6) * 0.11))
                     + ((int) (Metodos.sumarColumna(grilla, 5) * 0.21))));
-            
+//            limpiar();
 
         } catch (ClassNotFoundException ex) {
 
@@ -820,7 +821,7 @@ public class nota_ventas extends javax.swing.JFrame {
         combotipo.requestFocus();
         combotipo.setPopupVisible(true);
         grabar.setEnabled(true);
-        mensaje = "Desea grabar la nota de venta?";
+        mensaje = "Desea grabar la nota de compra?";
         operacion = "agregar";
 
 
@@ -838,10 +839,8 @@ public class nota_ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_modificarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-
         iniciarComponentes();
         limpiar();
-        
 }//GEN-LAST:event_cancelarActionPerformed
 
     private void grabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grabarActionPerformed
@@ -861,31 +860,33 @@ public class nota_ventas extends javax.swing.JFrame {
                     String guardar_cabecera = "";
                     if (motivo_cbx.getSelectedIndex() == 0) {
 
-                        guardar_cabecera = "INSERT INTO notas_de_ventas(\n"
-                                + "tipo, nota_cred_fecha, nota_cred_monto, nota_cred_motiv, \n"
-                                + "ventas_id, usu_id, emp_id, cli_cod, estado)\n"
-                                + "VALUES ( '"
-                                + combotipo.getSelectedItem() + "', '"
+                        guardar_cabecera = "INSERT INTO nota_de_compras(\n"
+                                + " nota_tipo, nota_fecha, monto, nota_motivo,  compra_id, usu_id, \n"
+                                + " sucur_id, emp_id, pro_id, estado)\n"
+                                + "    VALUES ('"
+                                + combotipo.getSelectedItem().toString() + "', '"
                                 + Metodos.dameFechaFormateadaSQL(new JCalendar().getDate()) + "', "
                                 + descuento_txt.getText() + ", '"
-                                + motivo_cbx.getSelectedItem() + "', "
+                                + motivo_cbx.getSelectedItem().toString() + "', "
                                 + id_venta_lbl.getText() + ", "
                                 + Menu.idUsuario + ", "
+                                + Menu.idSucursal + ", "
                                 + Menu.idEmpleado + ", "
-                                + cod_cli.getText() + ", 'ACTIVO');";
+                                + cod_proveedor.getText() + ", 'ACTIVO');";
                     } else {
-                        guardar_cabecera = "INSERT INTO notas_de_ventas(\n"
-                                + "tipo, nota_cred_fecha, nota_cred_monto, nota_cred_motiv, \n"
-                                + "ventas_id, usu_id, emp_id, cli_cod, estado)\n"
-                                + "VALUES ( '"
-                                + combotipo.getSelectedItem() + "', '"
+                        guardar_cabecera = "INSERT INTO nota_de_compras(\n"
+                                + " nota_tipo, nota_fecha, monto, nota_motivo,  compra_id, usu_id, \n"
+                                + "  sucur_id, emp_id, pro_id, estado)\n"
+                                + "    VALUES ('"
+                                + combotipo.getSelectedItem().toString() + "', '"
                                 + Metodos.dameFechaFormateadaSQL(new JCalendar().getDate()) + "', "
                                 + dameTotalDevolucion() + ", '"
                                 + motivo_cbx.getSelectedItem() + "', "
                                 + id_venta_lbl.getText() + ", "
                                 + Menu.idUsuario + ", "
+                                + Menu.idSucursal + ", "
                                 + Menu.idEmpleado + ", "
-                                + cod_cli.getText() + ", 'ACTIVO');";
+                                + cod_proveedor.getText() + ", 'ACTIVO');";
 
                     }
 
@@ -898,17 +899,16 @@ public class nota_ventas extends javax.swing.JFrame {
                     for (int i = 0; i < grilla.getRowCount(); i++) {
                         if (Boolean.parseBoolean(grilla.getValueAt(i, 8).toString())) {
 
-                            detalle = "INSERT INTO detalle_nota_ventas(\n"
-                                    + "not_cred_id, cod_depo, sucur_id, pro_cod, det_nota_cant, det_nota_precio, \n"
-                                    + "det_nota_exenta, det_iva_5, det_iva_10)\n"
+                            detalle = "INSERT INTO detalle_nc(\n"
+                                    + "cod_nota, cod_depo, sucur_id, cod_materia, det_nota_cant, det_not_precio, \n"
+                                    + "det_not_exenta, det_iva_5, det_iva_10)\n"
                                     + "VALUES ("
-                                    + Metodos.ultimoCodigo("not_cred_id", "notas_de_ventas") + ", "
+                                    + Metodos.ultimoCodigo("cod_nota", "nota_de_compras") + ", "
                                     + deposito_lbl.getText().split("-")[0] + ", "
                                     + Menu.idSucursal + ", "
                                     + grilla.getValueAt(i, 0).toString() + ", "
                                     + grilla.getValueAt(i, 2).toString() + ", "
-                                    + grilla.getValueAt(i, 3
-                                    ).toString() + ", "
+                                    + grilla.getValueAt(i, 3).toString() + ", "
                                     + grilla.getValueAt(i, 4).toString() + ", "
                                     + grilla.getValueAt(i, 5).toString() + ", "
                                     + grilla.getValueAt(i, 6).toString() + ");";
@@ -920,11 +920,11 @@ public class nota_ventas extends javax.swing.JFrame {
                     if (motivo_cbx.getSelectedIndex() == 1) {
                         for (int i = 0; i < grilla.getRowCount(); i++) {
                             if (Boolean.parseBoolean(grilla.getValueAt(i, 8).toString())) {
-                                actualizar_stock = "UPDATE stock_productos  \n"
-                                        + "SET cantidad = cantidad + " + grilla.getValueAt(i, 7).toString() + "\n"
+                                actualizar_stock = "UPDATE stock_materia_prima  \n"
+                                        + "SET cantidad = cantidad - " + grilla.getValueAt(i, 7).toString() + "\n"
                                         + "WHERE cod_depo = " + deposito_lbl.getText().split("-")[0] + " \n"
                                         + "and sucur_id  = " + Menu.idSucursal + " \n"
-                                        + "and pro_cod = " + grilla.getValueAt(i, 0).toString();
+                                        + "and cod_materia = " + grilla.getValueAt(i, 0).toString();
                                 cn.actualizar(actualizar_stock);
                             }
                         }
@@ -934,19 +934,17 @@ public class nota_ventas extends javax.swing.JFrame {
                     limpiar();
 
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(nota_ventas.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(nota_compras.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(nota_ventas.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(nota_compras.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-            
-            
-            if(operacion.equals("anular")){
+
+            if (operacion.equals("anular")) {
                 try {
-                    String anulacion =  "UPDATE notas_de_ventas SET estado = 'ANULADO'  WHERE not_cred_id =  "+num.getText();
+                    String anulacion = "UPDATE nota_de_compras SET estado = 'ANULADO' WHERE  cod_nota = "+num.getText();
                     Conexion cn = new Conexion();
-                    
+
                     cn.conectar();
                     cn.actualizar(anulacion);
                     JOptionPane.showMessageDialog(rootPane, "Anulado correctamente");
@@ -1055,18 +1053,17 @@ public class nota_ventas extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new nota_ventas().setVisible(true);
+                new nota_compras().setVisible(true);
             }
         });
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel asd;
     private javax.swing.JButton cancelar;
-    private javax.swing.JLabel cli;
-    private javax.swing.JLabel cli1;
-    private javax.swing.JLabel cod_cli;
     private javax.swing.JLabel cod_cli1;
+    private javax.swing.JLabel cod_proveedor;
     public static javax.swing.JLabel codper;
     private javax.swing.JComboBox combotipo;
     private javax.swing.JLabel deposito_lbl;
@@ -1098,6 +1095,7 @@ public class nota_ventas extends javax.swing.JFrame {
     public static javax.swing.JTextField num;
     private javax.swing.JTextField num_fac;
     public static javax.swing.JLabel pernom;
+    private javax.swing.JLabel proveedortxt;
     private javax.swing.JButton salir;
     public static javax.swing.JLabel su1;
     public static javax.swing.JLabel su2;
@@ -1140,8 +1138,8 @@ public class nota_ventas extends javax.swing.JFrame {
         motivo_cbx.setSelectedIndex(0);
         num_fac.setText("");
         id_venta_lbl.setText("0");
-        cod_cli.setText("");
-        cli.setText("");
+        cod_proveedor.setText("");
+        proveedortxt.setText("");
         deposito_lbl.setText("");
         Metodos.limpiarTabla(grilla);
         to_iva5.setText("0");
@@ -1153,6 +1151,7 @@ public class nota_ventas extends javax.swing.JFrame {
         salir.setEnabled(true);
         nuevo.setEnabled(true);
         modificar.setEnabled(true);
+
     }
 
     public boolean existeFactura() {
@@ -1161,11 +1160,11 @@ public class nota_ventas extends javax.swing.JFrame {
         try {
             cn.conectar();
             ResultSet caja = cn.consultar("select *\n"
-                    + "from notas_de_ventas\n"
-                    + "where estado = 'ACTIVO' AND ventas_id = "+id_venta_lbl.getText());
-                    if(caja.isBeforeFirst()){
-                        return true;
-                    }
+                    + "from nota_de_compras\n"
+                    + "where estado = 'ACTIVO' AND  compra_id = " + id_venta_lbl.getText());
+            if (caja.isBeforeFirst()) {
+                return true;
+            }
 
         } catch (ClassNotFoundException ex) {
 

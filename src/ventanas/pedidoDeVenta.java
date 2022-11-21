@@ -86,6 +86,11 @@ public class pedidoDeVenta extends javax.swing.JFrame {
         txt_cod_cliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         txt_cod_cliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         txt_cod_cliente.setEnabled(false);
+        txt_cod_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_cod_clienteActionPerformed(evt);
+            }
+        });
         txt_cod_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txt_cod_clienteKeyTyped(evt);
@@ -703,6 +708,10 @@ public class pedidoDeVenta extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_txtCodKeyPressed
+
+    private void txt_cod_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cod_clienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cod_clienteActionPerformed
 
     /**
     * @param args the command line arguments

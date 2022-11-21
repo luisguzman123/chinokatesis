@@ -41,8 +41,7 @@ public class reclamos extends javax.swing.JFrame {
         txtFecha.setDate(new JCalendar().getDate());
         txtSucursal.setText(idSucursal);
 //        Metodos.cargarComboReferencia(cmbDepo, "depo_desc", "deposito", "sucur_id", Menu.idSucursal);
-        cargarComboPromociones();
-        cargarComboDescuentos();
+ 
   
     }
 
@@ -575,7 +574,7 @@ public class reclamos extends javax.swing.JFrame {
         txtCodEquipo.setEditable(false);
         txtEquipo.setEditable(false);
         
-        
+         
         
         txtCod.setText("");
         txtCodEquipo.setText("");
@@ -901,36 +900,36 @@ public class reclamos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtObsDiagnosticoActionPerformed
 
 
-    public void cargarComboDescuentos() {
-        Conexion cn = new Conexion();
-        try {
-            cn.conectar();
-           
-            ResultSet datos = cn.consultar(" SELECT d.id_descuentos,\n" +
-"   d.descuento_descri,\n" +
-"   dd.monto,\n" +
-"   d.id_descuentos || ' - '::text || d.descuento_descri ||' - '::text || dd.monto::text  AS descuentos \n" +
-"   FROM descuentos_cabecera d\n" +
-"   JOIN descuentos_detalle dd\n" +
-"   on dd.id_descuentos = d.id_descuentos\n" +
-"   where d.estado = 'ACTIVO' and d.id_descuentos=dd.id_descuentos ");
-
-            cmbDescuentos.removeAllItems();
-            cmbDescuentos.addItem("Selecciona un descuento");
-            if (datos.isBeforeFirst()) {
-                while (datos.next()) {
-                    cmbDescuentos.addItem(datos.getString("descuentos"));  //se le pasa por parametro el alias de la consulta sql "datos" pasado al resultSet
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No hay registros");
-            }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public void cargarComboDescuentos() {
+//        Conexion cn = new Conexion();
+//        try {
+//            cn.conectar();
+//           
+//            ResultSet datos = cn.consultar(" SELECT d.id_descuentos,\n" +
+//"   d.descuento_descri,\n" +
+//"   dd.monto,\n" +
+//"   d.id_descuentos || ' - '::text || d.descuento_descri ||' - '::text || dd.monto::text  AS descuentos \n" +
+//"   FROM descuentos_cabecera d\n" +
+//"   JOIN descuentos_detalle dd\n" +
+//"   on dd.id_descuentos = d.id_descuentos\n" +
+//"   where d.estado = 'ACTIVO' and d.id_descuentos=dd.id_descuentos ");
+//
+//            cmbDescuentos.removeAllItems();
+//            cmbDescuentos.addItem("Selecciona un descuento");
+//            if (datos.isBeforeFirst()) {
+//                while (datos.next()) {
+//                    cmbDescuentos.addItem(datos.getString("descuentos"));  //se le pasa por parametro el alias de la consulta sql "datos" pasado al resultSet
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No hay registros");
+//            }
+//
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     
     
     
@@ -944,8 +943,6 @@ public class reclamos extends javax.swing.JFrame {
 
     private void txtCodTipoTrabajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodTipoTrabajoActionPerformed
 
-        txtArticuloDesc.setEnabled(true);
-        txtArticuloDesc.requestFocus();
 
     }//GEN-LAST:event_txtCodTipoTrabajoActionPerformed
 
@@ -970,11 +967,9 @@ public class reclamos extends javax.swing.JFrame {
          String codigoTipoEquipo = (String)grillaPresupuesto.getValueAt(fila, 0);
          String codigoTipoTrabajo = (String)grillaPresupuesto.getValueAt(fila, 2);
          String codigoArti = (String)grillaPresupuesto.getValueAt(fila, 4);
-         if ((txtCodEquipo.getText().equals(codigoTipoEquipo))&&(txtCodTipoTrabajo.getText().equals(codigoTipoTrabajo))&&(txtCodArti.getText().equals(codigoArti))) {
+         if ((txtCodEquipo.getText().equals(codigoTipoEquipo))&&(txtCodTipoTrabajo.getText().equals(codigoTipoTrabajo))&&(txtClienteCod.getText().equals(codigoArti))) {
              JOptionPane.showMessageDialog(rootPane, "Ya se utilizó este tipo de trabajo con este equipo");
-             txtArticuloDesc.setText("");
-             txtCodArti.setText("");
-             txtArticuloDesc.requestFocus();
+
              
              return;
 
@@ -996,24 +991,20 @@ public class reclamos extends javax.swing.JFrame {
                 txtTipoProbleDesc.getText().trim(),
                 txtCodTipoTrabajo.getText().trim(),
                 txtTipoTrabajoDesc.getText().trim(),
-                txtCodArti.getText().trim(),
-                txtArticuloDesc.getText().trim(),
-                txtCantidadArti.getText().trim(),
+                txtTipoTrabajoDesc.getText().trim(),
+                txtTipoTrabajoDesc.getText().trim(),
+                txtTipoTrabajoDesc.getText().trim(),
                 txtMontoPresu.getText().trim()
                 
                 });
-       txtTOTAL.setText(String.valueOf(Metodos.sumarColumna(grillaPresupuesto, 9))); 
-        calcularTotaless();
+  
         txtCodEquipo.setText("");
         txtTipoProbleDesc.setText("");
         txtEquipo.setText("");
         txtTipoProbleCod.setText("");
         txtTipoTrabajoDesc.setText("");
         txtTipoProbleDesc.setText("");
-        txtCantidadArti.setText("");
         txtCodTipoTrabajo.setText("");
-        txtCodArti.setText("");
-        txtArticuloDesc.setText("");
         txtMontoPresu.setText("");
         grillaDiagnostico.requestFocus();
     }//GEN-LAST:event_txtMontoPresuActionPerformed
@@ -1022,14 +1013,6 @@ public class reclamos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMontoPresuKeyPressed
 
-    
-    public void calcularTotaless(){
-          int totalColumna = Metodos.sumarColumna(grillaPresupuesto, 9); 
-          String montoPromo = (cmbPromociones.getSelectedIndex() <= 0) ? "0" : (String) cmbPromociones.getSelectedItem().toString().split(" - ")[3];
-          String montoDesc = (cmbDescuentos.getSelectedIndex() <= 0) ? "0" : (String) cmbDescuentos.getSelectedItem().toString().split(" - ")[2];
-          
-          txtTOTAL.setText(String.valueOf(totalColumna-(Integer.parseInt(montoPromo))-(Integer.parseInt(montoDesc))));
-    }
     
     
     

@@ -147,7 +147,7 @@ public class Acceso extends javax.swing.JDialog {
         jDesktopPane1.add(jLabel8);
         jLabel8.setBounds(20, 170, 61, 15);
 
-        txtUser.setText("git");
+        txtUser.setText("postgres");
         txtUser.setEnabled(false);
         txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

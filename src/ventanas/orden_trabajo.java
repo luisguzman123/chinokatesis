@@ -509,7 +509,7 @@ public class orden_trabajo extends javax.swing.JFrame {
 
     private void txtPresupuestoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPresupuestoKeyPressed
         if (txtPresupuesto.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busPedidoVenta.busqueda="presupuesto_trabajo";
+            busPedidoVenta.busqueda="presupuesto_desde_orden";
             new busPedidoVenta().setVisible(true);
           
         }

@@ -113,7 +113,7 @@ public class busPedidoVenta extends javax.swing.JFrame {
             case "pedido_desdePresupuesto":
                 seleccionarPedidoDetalle();
                 break;
-            case "presupuesto_trabajo":
+            case "presupuesto_desde_orden":
                 seleccionarPresupuestoTrabajo();
                 break;
         }
@@ -219,7 +219,7 @@ public class busPedidoVenta extends javax.swing.JFrame {
         //------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------
-        if (busqueda.equals("presupuesto_trabajo")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+        if (busqueda.equals("presupuesto_desde_orden")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
             orden_trabajo.txtCod.setText(cod);
 
             busqueda = "";
@@ -325,7 +325,7 @@ public class busPedidoVenta extends javax.swing.JFrame {
             case "pediVenta":
                 buscarPedido();
                 break;
-            case "presupuesto_trabajo":
+            case "presupuesto_desde_orden":
                 buscarPresupuestoTrabajo();
                 break;
 

@@ -20,7 +20,7 @@ public class Conexion {
     
     public static String host="localhost";
     public static String user="postgres";
-    public static String bd="git";
+    public static String bd="servis";
     public static String pss="admin";
     public static String puerto="5433";
     

@@ -221,7 +221,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtUser">
           <Properties>
-            <Property name="text" type="java.lang.String" value="git"/>
+            <Property name="text" type="java.lang.String" value="postgres"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

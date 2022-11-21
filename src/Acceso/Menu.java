@@ -956,7 +956,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void caja_item1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caja_item1ActionPerformed
         new presupuestoServicios().setVisible(true);
-        presupuestoServicios.txtSucursal.setText(Sucursal);
+        presupuestoServicios.txtSucursal.setText(idSucursal);
         presupuestoServicios.idSucursal = idSucursal;
         presupuestoServicios.idUsuario = idUsuario;
         presupuestoServicios.idPersonal = idEmpleado;

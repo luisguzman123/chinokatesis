@@ -579,8 +579,8 @@ public class orden_trabajo extends javax.swing.JFrame {
 
     private void txtCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyPressed
         if (txtCod.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
-//            busPedidoVenta.busqueda="presupuesto_trabajo";
-//            new busPedidoVenta().setVisible(true);
+            busOrdenTrabajo2.busqueda="orden_trabajo";
+            new busOrdenTrabajo2().setVisible(true);
 
         }
     }//GEN-LAST:event_txtCodKeyPressed
@@ -597,20 +597,20 @@ public class orden_trabajo extends javax.swing.JFrame {
                 sql = "INSERT INTO public.orden_trabajo_cabecera(\n"
                         + "id_orden_trabajo_cab, id_presupuesto_reparacion_cab, id_sucursal, \n"
                         + "id_empleado, estado, fecha_inicio, fecha_fin, observacion, prioridad)\n"
-                        + "VALUES ("+txtCod.getText()+", "+txtPresupuesto.getText()+", "
-                        + ""+Menu.idSucursal+", \n"
-                        + ""+Menu.idEmpleado+", TRUE, "
-                        + "'"+Metodos.dameFechaFormateadaSQL(txtFechaInicio.getDate())+"', "
-                        + "'"+Metodos.dameFechaFormateadaSQL(txtFechaVencimiento.getDate())+"', "
-                        + "'"+observacion_txt.getText()+"', "
-                        + "'"+prioridad_lst.getSelectedItem().toString()+"');";
+                        + "VALUES (" + txtCod.getText() + ", " + txtPresupuesto.getText() + ", "
+                        + "" + Menu.idSucursal + ", \n"
+                        + "" + Menu.idEmpleado + ", 'ACTIVO', "
+                        + "'" + Metodos.dameFechaFormateadaSQL(txtFechaInicio.getDate()) + "', "
+                        + "'" + Metodos.dameFechaFormateadaSQL(txtFechaVencimiento.getDate()) + "', "
+                        + "'" + observacion_txt.getText() + "', "
+                        + "'" + prioridad_lst.getSelectedItem().toString() + "');";
 
             }
 
             if (operacion.equals("anular")) {
-                sql = "update orden_compra set"
+                sql = "update orden_trabajo_cabecera set"
                         + " estado = 'ANULADO' "
-                        + " where ord_id = " + txtCod.getText();
+                        + " where id_orden_trabajo_cab = " + txtCod.getText();
 
             }
 
@@ -622,17 +622,21 @@ public class orden_trabajo extends javax.swing.JFrame {
                 int cantidadFilas = grilla.getRowCount();
                 if (operacion.equals("agregar")) {
                     for (int i = 0; i < cantidadFilas; i++) {
-                        sqldetalle = "insert into orden_compra_detalle (ord_id, cod_materia, ord_cantidad, ord_precio) values("
-                                + Metodos.ultimoCodigo("ord_id", "orden_compra") + ","
-                                + grilla.getValueAt(i, 0) + ","
-                                + grilla.getValueAt(i, 2) + ","
-                                + grilla.getValueAt(i, 3) + ")";
+                       
+                        sqldetalle = "INSERT INTO public.orden_trabajo_detalle(\n"
+                                + "id_orden_trabajo_cab, id_equipo, cantidad, estado, id_tipo_trabajo)\n"
+                                + "VALUES (" 
+                                + Metodos.ultimoCodigo("id_orden_trabajo_cab", "orden_trabajo_cabecera") + ", "
+                                + ""+grilla.getValueAt(i, 0)+", "
+                                + ""+grilla.getValueAt(i, 4)+", "
+                                + "TRUE, "
+                                + ""+grilla.getValueAt(i, 2)+");";
 
                         cn.actualizar(sqldetalle);
 
                     }
+                    cn.actualizar("update presupuesto_servicio_cabecera set estado = 'UTILIZADO' where id_presupuesto_reparacion_cab = " + txtPresupuesto.getText());
                 }
-                cn.actualizar("update presu_prove set estado = 'UTILIZADO' where pre_pro_nro = " + txtPresupuesto.getText());
                 JOptionPane.showMessageDialog(null, mensaje);
                 btnCancelar.doClick();
 

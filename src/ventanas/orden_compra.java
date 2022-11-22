@@ -395,6 +395,7 @@ public class orden_compra extends javax.swing.JFrame {
         btnSalir.setEnabled(true);
         
         btnCancelar.setEnabled(false);
+        txtPresupuesto.requestFocus();
         
     }//GEN-LAST:event_btnCancelarActionPerformed
 

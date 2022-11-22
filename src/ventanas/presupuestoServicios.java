@@ -872,7 +872,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
         
         
         if(respuesta==0){
-            if (filasTablaDos>=1) {
+           
             String sql="";
             String sql2="";
             String sqldetalle="";
@@ -936,9 +936,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
                 Logger.getLogger(presupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
-            }else{
-                JOptionPane.showMessageDialog(rootPane, "Debe cargar registros en la tabla");
-            }
+            
 
         }
          btnCancelar.doClick();

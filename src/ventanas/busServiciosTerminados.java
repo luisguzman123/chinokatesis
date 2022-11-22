@@ -6,7 +6,6 @@ import clases.Metodos;
 import com.toedter.calendar.JCalendar;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -14,9 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import static ventanas.diagnostico.grillaDiagnostico;
 import static ventanas.diagnostico.txtRecepcionCod;
 
-public class busPresupuestoServicios extends javax.swing.JFrame {
+public class busServiciosTerminados extends javax.swing.JFrame {
 
-    public busPresupuestoServicios() {
+    public busServiciosTerminados() {
         initComponents();
         DESDE.setDate(new JCalendar().getDate());
         HASTA.setDate(new JCalendar().getDate());
@@ -26,14 +25,6 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
 
     public static String busqueda = "";
     
-    
-   public void traerFechaActual(){
-//        Calendar cal = Calendar.getInstance();
-//        String fecha = cal.get(cal.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
-//        DESDE.setDateFormatString(fecha);
-//        DESDE.setEnabled(false);
-        HASTA.setMinSelectableDate(Calendar.getInstance().getTime());
-    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -49,17 +40,17 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
 
         grillaBuscador.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cod Presupuesto", "Fecha", "Fecha Vencimiento", "Estado", "Descripción", "Cod Sucursal", "Cod Diagnóstico", "desc Diagnostico", "Cod Empleado", "Cod Cliente", "Cliente", "Cod Promociones", "Cod Descuentos"
+                "Cod Servicio Terminado", "Descripción", "Fecha entrega", "Estado", "Estado cobro", "Cod Orden trabajo", "Cod Cliente", "Cliente", "Cod Empleado", "Empleado", "Cod Sucursal", "Sucursal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, true, true, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -121,12 +112,10 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
 
     private void grillaBuscadorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaBuscadorMouseClicked
         switch (busqueda) {
-            case "diagnostico":
-                seleccionarDiagnostico();
+            case "reclamos":
+                seleccionarServiciosTermiDetalles();
                 break;
-            case "presupuesto":
-                seleccionarDiagnosticoDesdePresupuesto();
-                break;
+
 //            case "recepcion_desde_diagnostico":
 //                seleccionarRecepDesdeDiagnostico();
 //                break;
@@ -139,7 +128,72 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
     
     
     
-    private void seleccionarDiagnostico() {
+    private void seleccionarServiciosTermiDetalles() {
+
+        int fila = grillaBuscador.getSelectedRow();
+
+        String cod = grillaBuscador.getValueAt(fila, 0).toString();
+        String descri = grillaBuscador.getValueAt(fila, 1).toString();
+        String fechaEntrega = grillaBuscador.getValueAt(fila, 2).toString();
+        String estado = grillaBuscador.getValueAt(fila, 3).toString();
+        String estadoCobro = grillaBuscador.getValueAt(fila, 4).toString();
+        String codOrdenTrabajo = grillaBuscador.getValueAt(fila, 5).toString();
+        String codCliente = grillaBuscador.getValueAt(fila, 6).toString();
+        String cliente = grillaBuscador.getValueAt(fila, 7).toString();
+        String codEmpleado = grillaBuscador.getValueAt(fila, 8).toString();
+        String empleado = grillaBuscador.getValueAt(fila, 9).toString();
+        String codSucursal = grillaBuscador.getValueAt(fila, 10).toString();
+        String sucursal = grillaBuscador.getValueAt(fila, 11).toString();
+
+        if (busqueda.equals("reclamos")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+            reclamos.txtServicioTerminado.setText(cod);
+            reclamos.txtDescriServicioTermi.setText(descri);
+            reclamos.txtClienteCodigo.setText(codCliente);
+            reclamos.txtClienteDescri.setText(cliente);
+            reclamos.txtEmpleadoCod.setText(codEmpleado);
+            reclamos.txtEmpleadoDes.setText(empleado);
+
+
+            reclamos.txtObs.requestFocus();
+            busqueda = "";
+
+        }
+
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_servis_terminados_detalles where id_servi_termi_cab = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            Metodos.limpiarTabla(reclamos.grillaServiciosTerminados);
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {
+                    Metodos.cargarTabla(reclamos.grillaServiciosTerminados, new Object[]{
+                        detalles.getString("id_equipo"),
+                        detalles.getString("desc_equipo"),
+                        detalles.getString("id_tipo_trabajo"),
+                        detalles.getString("descri_tipotrabajo"),
+                        detalles.getString("cantidad")
+                        
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+
+
+
+       dispose();
+ 
+    }
+    private void seleccionarDiagnosticoDesdePresupuesto() {
 
         int fila = grillaBuscador.getSelectedRow();
 
@@ -155,89 +209,11 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
         String codSucursal = grillaBuscador.getValueAt(fila, 9).toString();
         String sucursal = grillaBuscador.getValueAt(fila, 10).toString();
 
-        if (busqueda.equals("diagnostico")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-            diagnostico.txtCod.setText(cod);
-            diagnostico.txtSucursal.setText(sucursal);
-            diagnostico.txtRecepcionCod.setText(codRecepcion);
-            diagnostico.txtEmpleadoCod.setText(codEmpleado);
-            diagnostico.txtEmpleadoDes.setText(empleado);
-            diagnostico.txtClienteCod.setText(codCliente);
-            diagnostico.txtClienteDesc.setText(cliente);
-            diagnostico.txtObservaciones.setText(obs);
-
-
-            diagnostico.txtCod.requestFocus();
-            busqueda = "";
-
-        }
-
-        Conexion cn = new Conexion();
-
-        try {
-            cn.conectar();
-            ResultSet detalles = cn.consultar("select * from v_diagnostico_detalle where id_diagnostico_cabecera = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
-            Metodos.limpiarTabla(diagnostico.grillaDiagnostico);
-            if (detalles.isBeforeFirst()) {
-                while (detalles.next()) {
-                    Metodos.cargarTabla(diagnostico.grillaDiagnostico, new Object[]{
-                        detalles.getString("id_equipo"),
-                        detalles.getString("desc_equipo"),
-                        "-",
-                        "-",
-                        "-",
-//                        Metodos.traerCantidadDetalleRecepcion(detalles.getString("id_equipo"), cod),
-//                        Metodos.traerSerieDetallesRecepcion(detalles.getString("id_equipo"), cod),
-//                        Metodos.traerDescDetallesRecepcion(detalles.getString("id_equipo"), cod),
-                        detalles.getString("id_tipo_problema"),
-                        detalles.getString("tipo_proble_descri"),
-                        detalles.getString("cantidad")
-                        
-                    });
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
-        } catch (SQLException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
-
-
-        for (int filaa = 0; filaa <diagnostico.grillaDiagnostico.getRowCount(); filaa++) {
-            String codigoEnRenglon = (String)diagnostico.grillaDiagnostico.getValueAt(filaa, 0);
-                diagnostico.grillaDiagnostico.setValueAt(Metodos.traerCantidadDetalleRecepcion(codigoEnRenglon,diagnostico.txtRecepcionCod.getText()), filaa, 2);
-                diagnostico.grillaDiagnostico.setValueAt(Metodos.traerSerieDetallesRecepcion(codigoEnRenglon,diagnostico.txtRecepcionCod.getText()), filaa, 3);
-                diagnostico.grillaDiagnostico.setValueAt(Metodos.traerDescDetallesRecepcion(codigoEnRenglon,diagnostico.txtRecepcionCod.getText()), filaa, 4);
-        }
-       
-
-       dispose();
- 
-    }
-    private void seleccionarDiagnosticoDesdePresupuesto() {
-
-        int fila = grillaBuscador.getSelectedRow();
-
-        String cod = grillaBuscador.getValueAt(fila, 0).toString();
-        String fecha = grillaBuscador.getValueAt(fila, 1).toString();
-        String estado = grillaBuscador.getValueAt(fila, 2).toString();
-        String obs = grillaBuscador.getValueAt(fila, 3).toString();
-        String codRecepcion = grillaBuscador.getValueAt(fila, 4).toString();
-        String codEmpleado = grillaBuscador.getValueAt(fila, 5).toString();
-        String codDiag = grillaBuscador.getValueAt(fila, 6).toString();
-        String codCliente = grillaBuscador.getValueAt(fila, 7).toString();
-        String cliente = grillaBuscador.getValueAt(fila, 8).toString();
-        String codSucursal = grillaBuscador.getValueAt(fila, 9).toString();
-        String sucursal = grillaBuscador.getValueAt(fila, 10).toString();
-
         if (busqueda.equals("presupuesto")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-            presupuestoServicios.txtCod.setText(cod);
-            presupuestoServicios.txtCodDiagnostico.setText(codDiag);
+            presupuestoServicios.txtCodDiagnostico.setText(cod);
             presupuestoServicios.txtObsDiagnostico.setText(obs);
             presupuestoServicios.txtEmpleadoCod.setText(codEmpleado);
+            presupuestoServicios.txtEmpleadoDes.setText(empleado);
             presupuestoServicios.txtClienteCod.setText(codCliente);
             presupuestoServicios.txtClienteDesc.setText(cliente);
 
@@ -271,10 +247,10 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
@@ -338,10 +314,10 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
         } catch (SQLException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
@@ -358,7 +334,7 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new busPresupuestoServicios().setVisible(true);
+                new busServiciosTerminados().setVisible(true);
             }
         });
     }
@@ -366,8 +342,8 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
    public void getDatos() {
 
         switch (busqueda) {
-            case "presupuesto":
-                buscarPresupuesto();
+            case "reclamos":
+                buscarServiciosTerminados();
                 break;
 
 //            case "recepcion_desde_diagnostico":
@@ -381,15 +357,16 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
     /**
      * busca la tabla con pedidos
      */
-    private void buscarPresupuesto() {
+    private void buscarServiciosTerminados() {
         Conexion cn = new Conexion();
         try {
             cn.conectar();
-            ResultSet diagnos = cn.consultar("select * from v_presupuestoservicios where fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(DESDE.getDate()) + "' and '"+Metodos.dameFechaFormateadaSQL(HASTA.getDate())+"' and estado !='ANULADO'  order by id_presupuesto_reparacion_cab"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            ResultSet servis = cn.consultar("select * from v_serviciosterminados where fecha_entrega BETWEEN '" + Metodos.dameFechaFormateadaSQL(DESDE.getDate()) + "' and '"+Metodos.dameFechaFormateadaSQL(HASTA.getDate())+"' and estado !='ANULADO'  order by id_servi_termi_cab"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
             Metodos.limpiarTabla(grillaBuscador);
-            if (diagnos.isBeforeFirst()) {
-                while (diagnos.next()) {
-                    Metodos.cargarTabla(grillaBuscador, new Object[]{diagnos.getString("id_presupuesto_reparacion_cab"), diagnos.getString("fecha"),diagnos.getString("fecha_vencimiento"), diagnos.getString("estado"),diagnos.getString("presu_descri"), diagnos.getString("id_sucu"),diagnos.getString("id_diagnostico_cabecera"), diagnos.getString("defecto_encontrado"),diagnos.getString("id_empleado"),diagnos.getString("id_cliente"),diagnos.getString("id_promociones"), diagnos.getString("id_descuentos")});
+            if (servis.isBeforeFirst()) {
+                while (servis.next()) {
+                    
+                    Metodos.cargarTabla(grillaBuscador, new Object[]{servis.getString("id_servi_termi_cab"), servis.getString("descri"),servis.getString("fecha_entrega"), servis.getString("estado"),servis.getString("estado_de_cobro"), servis.getString("id_orden_trabajo_cab"),servis.getString("id_cliente"), servis.getString("cliente"),servis.getString("id_empleado"), servis.getString("empleado"), servis.getString("id_sucursal"), servis.getString("sucur_nom")});
                 }
             } else {
 
@@ -445,9 +422,9 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
                 }
              }
         } catch (SQLException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
         }
          return "";
          
@@ -464,9 +441,9 @@ public class busPresupuestoServicios extends javax.swing.JFrame {
                 }
              }
         } catch (SQLException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(busPresupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
         }
          return "";
          

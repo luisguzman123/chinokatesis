@@ -21,8 +21,8 @@ public class Conexion {
     public static String host="localhost";
     public static String user="postgres";
     public static String bd="servis";
-    public static String pss="admin";
-    public static String puerto="5433";
+    public static String pss="123";
+    public static String puerto="5432";
     
     public Connection conectar() throws ClassNotFoundException, SQLException{
         Class.forName("org.postgresql.Driver");

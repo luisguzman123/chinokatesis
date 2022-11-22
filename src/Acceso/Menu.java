@@ -45,6 +45,7 @@ import ventanas.producto;
 import ventanas.promociones;
 import ventanas.proveedor;
 import ventanas.recepcion;
+import ventanas.reclamos;
 import ventanas.sucursal;
 import ventanas.tarjeta;
 import ventanas.tipoDeProducto;
@@ -993,7 +994,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem44ActionPerformed
 
     private void jMenuItem45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem45ActionPerformed
-        // TODO add your handling code here:
+        new reclamos().setVisible(true);
+        reclamos.txtSucursal.setText(idSucursal);
+        reclamos.idSucursal = idSucursal;
+        reclamos.idUsuario = idUsuario;
+        reclamos.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem45ActionPerformed
 
     private void jMenuItem46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem46ActionPerformed

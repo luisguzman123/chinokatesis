@@ -874,9 +874,9 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
             }
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+           
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+           
         }
     }
 
@@ -923,9 +923,9 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
             }
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -953,9 +953,9 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
             }
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 
@@ -983,9 +983,9 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
             }
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+           
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+          
         }
     }
 
@@ -1013,9 +1013,9 @@ public class aper_cie_arqueo extends javax.swing.JFrame {
             }
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+           
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
 

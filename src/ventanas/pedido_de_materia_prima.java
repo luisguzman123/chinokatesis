@@ -756,8 +756,7 @@ public class pedido_de_materia_prima extends javax.swing.JFrame {
 
     private void txtCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyPressed
         if (txtCod.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busPedidoMateriasProduccion.busqueda="pedido_de_materia";
-            new busPedidoMateriasProduccion().setVisible(true);
+           
           
         }
     }//GEN-LAST:event_txtCodKeyPressed

@@ -2,6 +2,7 @@ package Acceso;
 
 import clases.Conexion;
 import clases.Metodos;
+import com.formdev.flatlaf.FlatLightLaf;
 import informes.buscador_compras;
 import informes.buscador_produccion;
 import informes.buscador_servicios;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import ventanas.ajuste_stock;
 import ventanas.aper_cie_arqueo;
 import ventanas.bancos;
@@ -19,12 +21,10 @@ import ventanas.ciudad;
 import ventanas.clientes;
 import ventanas.cobros;
 import ventanas.compras;
-import ventanas.costosDeProduccion;
 import ventanas.deposito;
 import ventanas.descuentos;
 import ventanas.diagnostico;
 import ventanas.empleados;
-import ventanas.etapasDeProduccion;
 import ventanas.formaDePago;
 import ventanas.materiaPrima;
 import ventanas.motivo_mermas;
@@ -40,7 +40,6 @@ import ventanas.pedido_de_compra;
 import ventanas.pedido_de_materia_prima;
 import ventanas.presupuestoServicios;
 import ventanas.presupuesto_de_compra;
-import ventanas.presupuesto_produccion;
 import ventanas.producto;
 import ventanas.promociones;
 import ventanas.proveedor;
@@ -72,6 +71,16 @@ public class Menu extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Bienvenido al sistema " + empleado);
         menus();
         niveles();
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.put("Button.arc", 999);
+            UIManager.put("Component.arc", 999);
+            UIManager.put("ProgressBar.arc", 999);
+            UIManager.put("TextComponent.arc", 999);
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+
+        }
 
     }
 
@@ -81,10 +90,9 @@ public class Menu extends javax.swing.JFrame {
         refe_Produccion.setEnabled(false);
         refe_ventas.setEnabled(false);
         menuCompras.setEnabled(false);
-        menuProduccion.setEnabled(false);
         menuVentas.setEnabled(false);
         infoCompras.setEnabled(false);
-        infoProduccion.setEnabled(false);
+     
         infoVentas.setEnabled(false);
     }
 
@@ -96,8 +104,7 @@ public class Menu extends javax.swing.JFrame {
             refeCompras.setEnabled(true);
         } else if (nivel.equals("2")) {
             menuReferenciales.setEnabled(true);
-            menuProduccion.setEnabled(true);
-            infoProduccion.setEnabled(true);
+           
             refe_Produccion.setEnabled(true);
         } else if (nivel.equals("3")) {
             menuReferenciales.setEnabled(true);
@@ -111,9 +118,8 @@ public class Menu extends javax.swing.JFrame {
             refeCompras.setEnabled(true);
             menuVentas.setEnabled(true);
             menuCompras.setEnabled(true);
-            menuProduccion.setEnabled(true);
             infoVentas.setEnabled(true);
-            infoProduccion.setEnabled(true);
+            
             infoCompras.setEnabled(true);
         }
 
@@ -156,13 +162,6 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem21 = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
         jMenuItem23 = new javax.swing.JMenuItem();
-        menuProduccion = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        orden_de_produccion = new javax.swing.JMenuItem();
-        produccion_item = new javax.swing.JMenuItem();
-        control_calidad = new javax.swing.JMenuItem();
-        jMenuItem25 = new javax.swing.JMenuItem();
-        jMenuItem26 = new javax.swing.JMenuItem();
         menuVentas = new javax.swing.JMenu();
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
@@ -185,7 +184,6 @@ public class Menu extends javax.swing.JFrame {
         menuInformes = new javax.swing.JMenu();
         infoReferenciales = new javax.swing.JMenuItem();
         infoCompras = new javax.swing.JMenuItem();
-        infoProduccion = new javax.swing.JMenuItem();
         infoVentas = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
@@ -412,53 +410,6 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.add(menuCompras);
 
-        menuProduccion.setText("Gestión de producción");
-
-        jMenuItem7.setText("A implementar");
-        menuProduccion.add(jMenuItem7);
-
-        orden_de_produccion.setText("Orden de Producción");
-        orden_de_produccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orden_de_produccionActionPerformed(evt);
-            }
-        });
-        menuProduccion.add(orden_de_produccion);
-
-        produccion_item.setText("Producción");
-        produccion_item.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                produccion_itemActionPerformed(evt);
-            }
-        });
-        menuProduccion.add(produccion_item);
-
-        control_calidad.setText("Control de Calidad");
-        control_calidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                control_calidadActionPerformed(evt);
-            }
-        });
-        menuProduccion.add(control_calidad);
-
-        jMenuItem25.setText("Costos de producción");
-        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem25ActionPerformed(evt);
-            }
-        });
-        menuProduccion.add(jMenuItem25);
-
-        jMenuItem26.setText("Pedido de materia prima");
-        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem26ActionPerformed(evt);
-            }
-        });
-        menuProduccion.add(jMenuItem26);
-
-        jMenuBar1.add(menuProduccion);
-
         menuVentas.setText("Gestión de ventas");
 
         jMenuItem30.setText("A implementar");
@@ -620,14 +571,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         menuInformes.add(infoCompras);
-
-        infoProduccion.setText("Informes de producción");
-        infoProduccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                infoProduccionActionPerformed(evt);
-            }
-        });
-        menuInformes.add(infoProduccion);
 
         infoVentas.setText("Informes de ventas");
         infoVentas.addActionListener(new java.awt.event.ActionListener() {
@@ -810,25 +753,15 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
         // TODO add your handling code here:
-        new etapasDeProduccion().setVisible(true);
+       
 
 
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
         // TODO add your handling code here:
-        new presupuesto_produccion().setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem18ActionPerformed
-
-    private void orden_de_produccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orden_de_produccionActionPerformed
-        // TODO add your handling code here:
-        new ventanas.orden_produccion().setVisible(true);
-    }//GEN-LAST:event_orden_de_produccionActionPerformed
-
-    private void produccion_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produccion_itemActionPerformed
-        // TODO add your handling code here:
-        new ventanas.produccion().setVisible(true);
-    }//GEN-LAST:event_produccion_itemActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
         new nota_compras().setVisible(true);
@@ -855,11 +788,6 @@ public class Menu extends javax.swing.JFrame {
         notaRemision.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem23ActionPerformed
 
-    private void control_calidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_control_calidadActionPerformed
-        // TODO add your handling code here:
-        new ventanas.control_de_calidad().setVisible(true);
-    }//GEN-LAST:event_control_calidadActionPerformed
-
     private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
         new pedidoDeVenta().setVisible(true);
         pedidoDeVenta.txtUsuarioCod.setText(idUsuario);
@@ -869,26 +797,6 @@ public class Menu extends javax.swing.JFrame {
         pedidoDeVenta.idUsuario= idUsuario;
         pedidoDeVenta.idPersonal=idEmpleado;
     }//GEN-LAST:event_jMenuItem24ActionPerformed
-
-    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
-        new costosDeProduccion().setVisible(true);
-        costosDeProduccion.txtUsuarioCod.setText(idUsuario);
-        costosDeProduccion.txtUsuario.setText(usuario);
-        costosDeProduccion.txtSucursal.setText(Sucursal);
-        costosDeProduccion.idSucursal= idSucursal;
-        costosDeProduccion.idUsuario= idUsuario;
-        costosDeProduccion.idPersonal=idEmpleado;
-    }//GEN-LAST:event_jMenuItem25ActionPerformed
-
-    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
-        new pedido_de_materia_prima().setVisible(true);
-        pedido_de_materia_prima.txtUsuarioCod.setText(idUsuario);
-        pedido_de_materia_prima.txtUsuario.setText(usuario);
-        pedido_de_materia_prima.txtSucursal.setText(Sucursal);
-        pedido_de_materia_prima.idSucursal= idSucursal;
-        pedido_de_materia_prima.idUsuario= idUsuario;
-        pedido_de_materia_prima.idPersonal=idEmpleado;
-    }//GEN-LAST:event_jMenuItem26ActionPerformed
 
     private void caja_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caja_itemActionPerformed
         // TODO add your handling code here:
@@ -929,10 +837,6 @@ public class Menu extends javax.swing.JFrame {
             cobros.txt_recibo.setText(Metodos.ultimoCodigoRecibo("nro_recibo", "cobranzas"));
         }
     }//GEN-LAST:event_jMenuItem29ActionPerformed
-
-    private void infoProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoProduccionActionPerformed
-        new buscador_produccion().setVisible(true);
-    }//GEN-LAST:event_infoProduccionActionPerformed
 
     private void infoVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoVentasActionPerformed
         new buscador_ventas().setVisible(true);
@@ -1018,7 +922,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem47ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-     new buscador_servicios().setVisible(true);
+        new buscador_servicios().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
@@ -1085,9 +989,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem caja_item;
     private javax.swing.JMenuItem caja_item1;
     public static javax.swing.JDesktopPane contenedor;
-    private javax.swing.JMenuItem control_calidad;
     private javax.swing.JMenuItem infoCompras;
-    private javax.swing.JMenuItem infoProduccion;
     private javax.swing.JMenuItem infoReferenciales;
     private javax.swing.JMenuItem infoVentas;
     private javax.swing.JMenuBar jMenuBar1;
@@ -1108,8 +1010,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
-    private javax.swing.JMenuItem jMenuItem25;
-    private javax.swing.JMenuItem jMenuItem26;
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem29;
@@ -1134,18 +1034,14 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem47;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenu menuCompras;
     private javax.swing.JMenu menuInformes;
-    private javax.swing.JMenu menuProduccion;
     public static javax.swing.JMenu menuReferenciales;
     private javax.swing.JMenu menuServicios;
     private javax.swing.JMenu menuVentas;
-    private javax.swing.JMenuItem orden_de_produccion;
-    private javax.swing.JMenuItem produccion_item;
     private javax.swing.JMenu refeCompras;
     private javax.swing.JMenu refe_Produccion;
     private javax.swing.JMenu refe_ventas;

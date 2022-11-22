@@ -7,12 +7,24 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class Acceso extends javax.swing.JDialog {
 
     public Acceso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.put("Button.arc", 999);
+            UIManager.put("Component.arc", 999);
+            UIManager.put("ProgressBar.arc", 999);
+            UIManager.put("TextComponent.arc", 999);
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+
+        }
         des_text();
         txtUsuario.requestFocus();
         inicio();

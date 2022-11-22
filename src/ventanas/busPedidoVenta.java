@@ -168,13 +168,14 @@ public class busPedidoVenta extends javax.swing.JFrame {
             dispose();
         }
     }
+
     private void seleccionarPresupuestoTrabajo() {
         int fila = grillaBuscador.getSelectedRow();
 
         String cod = grillaBuscador.getValueAt(fila, 0).toString();
         String fecha = grillaBuscador.getValueAt(fila, 1).toString();
         String descri = grillaBuscador.getValueAt(fila, 2).toString();
-        String estado = grillaBuscador.getValueAt(fila, 3).toString();
+        String cliente = grillaBuscador.getValueAt(fila, 3).toString();
         String codSucu = grillaBuscador.getValueAt(fila, 4).toString();
         String codUsu = grillaBuscador.getValueAt(fila, 5).toString();
 
@@ -220,7 +221,7 @@ public class busPedidoVenta extends javax.swing.JFrame {
         //------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------
         if (busqueda.equals("presupuesto_desde_orden")) {   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-            orden_trabajo.txtCod.setText(cod);
+            
 
             busqueda = "";
 
@@ -228,17 +229,40 @@ public class busPedidoVenta extends javax.swing.JFrame {
 
             try {
                 cn.conectar();
-                ResultSet detalles = cn.consultar("select * from v_detalle_pedido_compra where ped_id = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                ResultSet detalles = cn.consultar("SELECT \n"
+                        + "pd.id_equipo,\n"
+                        + "e.desc_equipo,\n"
+                        + "pd.id_tipo_trabajo,\n"
+                        + "tt.descri_tipotrabajo,\n"
+                        + "pd.cantidad,\n"
+                        + "pd.monto,\n"
+                        + "pd.cantidad * pd.monto as total\n"
+                        + "FROM presupuesto_servicio_detalle pd\n"
+                        + "JOIN tipos_trabajos tt\n"
+                        + "ON tt.id_tipo_trabajo = pd.id_tipo_trabajo\n"
+                        + "JOIN equipos e\n"
+                        + "ON e.id_equipo =  pd.id_equipo\n"
+                        + "WHERE pd.id_presupuesto_reparacion_cab = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                
+                ResultSet cabecera = cn.consultar("SELECT\n"
+                        + "pc.id_presupuesto_reparacion_cab,\n"
+                        + "pc.id_cliente\n"
+                        + "FROM presupuesto_servicio_cabecera pc\n"
+                        + "WHERE pc.id_presupuesto_reparacion_cab = " + cod + ""); 
+                cabecera.next();
+                orden_trabajo.txtCodCliente.setText(cabecera.getString("id_cliente"));
                 Metodos.limpiarTabla(orden_trabajo.grilla);
                 if (detalles.isBeforeFirst()) {
                     while (detalles.next()) {
                         Metodos.cargarTabla(orden_trabajo.grilla, new Object[]{
-                            detalles.getString("cod_materia"),
-                            detalles.getString("mat_desc"),
+                            detalles.getString("id_equipo"),
+                            detalles.getString("desc_equipo"),
+                            detalles.getString("id_tipo_trabajo"),
+                            detalles.getString("descri_tipotrabajo"),
                             detalles.getString("cantidad"),
-                            detalles.getString("precio"),
-                            detalles.getString("precio"),
-                            (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
+                            detalles.getString("monto"),
+                            detalles.getString("total")
+
                         });
                     }
                 } else {
@@ -252,8 +276,10 @@ public class busPedidoVenta extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
 
-            presupuesto_de_compra.txtTotal.setText(String.valueOf(Metodos.sumarColumna(presupuesto_de_compra.grilla, 4)));
-            presupuesto_de_compra.txtPedido_compra.requestFocus();
+            orden_trabajo.txtPresupuesto.setText(cod);
+            orden_trabajo.txtTotal.setText(String.valueOf(Metodos.sumarColumna(orden_trabajo.grilla, 6)));
+            orden_trabajo.txtNombreCliente.setText(cliente);
+            orden_trabajo.txtPresupuesto.requestFocus();
             dispose();
         }
     }

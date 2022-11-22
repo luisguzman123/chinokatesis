@@ -167,7 +167,7 @@ public class busNotas extends javax.swing.JFrame {
         int fila = grillaBuscador.getSelectedRow();
 
         String cod = grillaBuscador.getValueAt(fila, 0).toString();
-        produccion.nroorden.setText(cod);
+       
         dispose();
 
     }

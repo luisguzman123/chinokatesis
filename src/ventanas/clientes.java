@@ -565,8 +565,6 @@ public class clientes extends javax.swing.JFrame {
        }
        
        if(operacion.equals("presupuesto")){
-           presupuesto_produccion.cli_cod.setText(cod);
-           presupuesto_produccion.cliente.setText(nombre+" "+apellido);
            dispose();
        }
     }//GEN-LAST:event_grillaBancoMouseClicked

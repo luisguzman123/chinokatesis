@@ -381,9 +381,9 @@ public class arqueo_caja extends javax.swing.JDialog {
             }
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+            
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
     

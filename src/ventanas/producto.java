@@ -518,13 +518,7 @@ public class producto extends javax.swing.JFrame {
        }
        //operacion de tipo presupuesto 
        if(operacion.equals("presupuesto")){
-           presupuesto_produccion.cod_art.setText(cod);
-           presupuesto_produccion.art_des.setText(nombre);
-           presupuesto_produccion.art_pre.setText(precio);
-           presupuesto_produccion.art_des.setEnabled(true);
-           presupuesto_produccion.art_pre.setEnabled(true);
-           presupuesto_produccion.art_pre.requestFocus();
-           presupuesto_produccion.art_cant.setEnabled(true);
+          
            
            
            
@@ -533,11 +527,7 @@ public class producto extends javax.swing.JFrame {
        //operacion de tipo orden de produccion
        if(operacion.equals("orden_produccion")){
            
-           orden_produccion.codprodu.setText(cod);
-           orden_produccion.desprod.setText(nombre);
-           orden_produccion.cant.setText("1");
-           orden_produccion.cant.setEnabled(true);
-           orden_produccion.cant.requestFocus();
+           
            
            
            dispose();

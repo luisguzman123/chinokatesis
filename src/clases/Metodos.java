@@ -30,7 +30,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JRViewer;
 import ventanas.compras;
-import ventanas.orden_produccion;
 
 /**
  *
@@ -440,9 +439,7 @@ public class Metodos {
 
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resultados;
 
@@ -464,9 +461,7 @@ public class Metodos {
             }
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "0";
 
@@ -500,9 +495,7 @@ public class Metodos {
             }
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }
@@ -536,9 +529,7 @@ public class Metodos {
             }
         } catch (ClassNotFoundException ex) {
 
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(orden_produccion.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 0;
     }

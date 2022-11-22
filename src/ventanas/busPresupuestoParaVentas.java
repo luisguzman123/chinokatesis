@@ -154,7 +154,7 @@ public class busPresupuestoParaVentas extends javax.swing.JFrame {
         String cliente = grillaBuscador.getValueAt(fila, 2).toString();
         String sucursal = grillaBuscador.getValueAt(fila, 3).toString();
 
-        presupuesto_produccion.num.setText(cod);
+        
         dispose();
     }
 
@@ -168,7 +168,7 @@ public class busPresupuestoParaVentas extends javax.swing.JFrame {
         String sucursal = grillaBuscador.getValueAt(fila, 4).toString();
 
         Conexion cn = new Conexion();
-        Metodos.limpiarTabla(orden_produccion.grilla);
+       
         try {
             cn.conectar();
             ResultSet pedi = cn.consultar("SELECT\n"
@@ -181,12 +181,7 @@ public class busPresupuestoParaVentas extends javax.swing.JFrame {
                     + "WHERE dp.pre_cod = "+cod); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
             
             if (pedi.isBeforeFirst()) {
-                while (pedi.next()) {
-                    Metodos.cargarTabla(orden_produccion.grilla, new Object[]{
-                        pedi.getInt("pro_cod"),
-                        pedi.getString("pro_desc"),
-                        pedi.getInt("cantidad")});
-                }
+                
             } else {
 
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
@@ -199,7 +194,7 @@ public class busPresupuestoParaVentas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
-        orden_produccion.nro_presupuesto_txt.setText(cod);
+       
         dispose();
     }
     

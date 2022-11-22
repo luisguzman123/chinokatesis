@@ -618,8 +618,7 @@ public class empleados extends javax.swing.JFrame {
        }
        //busquedas de ventanas
        if(busqueda.equals("orden_produccion")){
-           orden_produccion.cod_personal_txt.setText(cod);
-           orden_produccion.nombre_personal_txt.setText(nombre+" "+apellido);
+          
            
            dispose();
            

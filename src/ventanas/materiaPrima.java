@@ -521,13 +521,7 @@ public class materiaPrima extends javax.swing.JFrame {
        
        //consulta de orden de produccion
        if(busqueda.equals("orden_produccion")){
-           orden_produccion.codprodu1.setText(cod);
-           orden_produccion.codprodu1.setEnabled(false);
-           orden_produccion.desprod1.setText(descripcion);
-           orden_produccion.cant1.setText("1");
-           orden_produccion.cant1.setEnabled(true);
-           orden_produccion.cant1.requestFocus();
-           dispose();
+           
            
                    
        }

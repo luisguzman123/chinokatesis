@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="53bb96e8-7f28-46ec-a287-86dcf24f5947">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="estado" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+dc.id_diagnostico_cabecera,
+dc.estado,
+dc.fecha,
+s.sucur_nom,
+dc.defecto_encontrado,
+dd.cantidad,
+tp.tipo_proble_descri
+FROM diagnostico_cabecera dc
+JOIN diagnostico_detalle dd
+ON dc.id_diagnostico_cabecera = dd.id_diagnostico_cabecera
+JOIN sucursal s
+ON dc.sucur_id = s.sucur_id
+JOIN tipos_de_problemas tp
+ON dd.id_tipo_problema = tp.id_tipo_problema
+WHERE dc.estado = $P{estado}]]>
+	</queryString>
+	<field name="id_diagnostico_cabecera" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="sucur_nom" class="java.lang.String"/>
+	<field name="defecto_encontrado" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="tipo_proble_descri" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="7" width="239" height="57" uuid="d5a59dd9-4316-493e-99dd-bec79c691b8b"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIAGNOSTICO POR ESTADO]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="255" y="18" width="300" height="32" uuid="653b3b12-acf4-4e2a-b560-6523ae186fcb"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="275" y="25" width="53" height="20" uuid="efd54281-8f49-4e66-af68-bffe5540dff6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="328" y="25" width="100" height="20" uuid="1ff5d48d-f47b-4e93-96fc-dd7809d0884f"/>
+				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="74" splitType="Stretch">
+			<textField>
+				<reportElement x="208" y="14" width="152" height="20" uuid="dc2e5950-79e7-4336-944a-500b8202150b"/>
+				<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="14" width="39" height="20" uuid="6547d48d-f043-4804-b72d-f65eaea88b66"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="45" y="13" width="100" height="20" uuid="a1b488d3-55eb-4eec-964f-77a1ab47f3b1"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="34" width="39" height="20" uuid="b32bc187-581c-434a-9827-5dadf469be23"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="13" width="49" height="20" uuid="764e267b-3fdc-4162-a261-f97f7299f901"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sucursal]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="4" width="555" height="1" forecolor="#000000" uuid="25ff8914-915f-452f-90df-eed6feee59be"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement x="1" y="54" width="554" height="20" forecolor="#333333" backcolor="#333333" uuid="60bab5a2-c96c-4cd5-a8b5-582f344a3e30"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="6" y="54" width="184" height="20" forecolor="#FFFFFF" uuid="1d3fe75b-6d8f-4d32-adb7-3f768dd3a52d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Defecto encontrado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="54" width="103" height="20" forecolor="#FFFFFF" uuid="23034583-3bb6-4c0e-a0d3-f5f4aa233b71"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="54" width="148" height="20" forecolor="#FFFFFF" uuid="33f69cb9-853c-43ab-aeb5-9b6b67017803"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de problema]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="33" width="100" height="20" uuid="b4436777-c858-4a9b-b5b0-0cce50dbf39d"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="238" y="1" width="80" height="20" uuid="89a822d8-6113-4055-bd7b-81d0cd20c552"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="23" width="550" height="1" forecolor="#CCCCCC" uuid="990835fd-d079-48a6-9208-e8759e985d80"/>
+			</line>
+			<textField>
+				<reportElement x="5" y="1" width="185" height="20" uuid="938875c5-e8ba-4f14-946b-d079bb8264ee"/>
+				<textFieldExpression><![CDATA[$F{defecto_encontrado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="0" width="100" height="20" uuid="b51a5e29-ef0d-4e07-a730-4db4c6900d25"/>
+				<textFieldExpression><![CDATA[$F{tipo_proble_descri}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

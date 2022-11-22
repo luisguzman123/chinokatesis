@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="53bb96e8-7f28-46ec-a287-86dcf24f5947">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="estado" class="java.lang.Boolean">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+otc.id_orden_trabajo_cab,
+otc.estado,
+otc.fecha_inicio,
+s.sucur_nom,
+otd.cantidad,
+otc.observacion,
+otc.prioridad,
+CASE
+ WHEN otc.estado = true THEN 'ACTIVO'
+ELSE 'INACTIVO' END AS estado
+ FROM orden_trabajo_cabecera otc
+JOIN orden_trabajo_detalle otd
+ON otc.id_orden_trabajo_cab = otd.id_orden_trabajo_cab
+JOIN sucursal s
+ON otc.id_sucursal = s.sucur_id
+where otc.estado = $P{estado}]]>
+	</queryString>
+	<field name="id_orden_trabajo_cab" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="fecha_inicio" class="java.sql.Date"/>
+	<field name="sucur_nom" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="observacion" class="java.lang.String"/>
+	<field name="prioridad" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="0" width="239" height="76" uuid="d5a59dd9-4316-493e-99dd-bec79c691b8b"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDEN DE TRABAJO POR ESTADO]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement x="255" y="18" width="300" height="32" uuid="653b3b12-acf4-4e2a-b560-6523ae186fcb"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="278" y="26" width="63" height="20" uuid="efd54281-8f49-4e66-af68-bffe5540dff6"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="341" y="30" width="100" height="20" uuid="2cec8688-9797-4e12-a417-180099239092"/>
+				<textFieldExpression><![CDATA[$P{estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="74" splitType="Stretch">
+			<textField>
+				<reportElement x="208" y="14" width="152" height="20" uuid="dc2e5950-79e7-4336-944a-500b8202150b"/>
+				<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="14" width="39" height="20" uuid="6547d48d-f043-4804-b72d-f65eaea88b66"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="34" width="39" height="20" uuid="b32bc187-581c-434a-9827-5dadf469be23"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="13" width="49" height="20" uuid="764e267b-3fdc-4162-a261-f97f7299f901"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sucursal]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="4" width="555" height="1" forecolor="#000000" uuid="25ff8914-915f-452f-90df-eed6feee59be"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<rectangle>
+				<reportElement x="1" y="54" width="554" height="20" forecolor="#333333" backcolor="#333333" uuid="60bab5a2-c96c-4cd5-a8b5-582f344a3e30"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="6" y="54" width="184" height="20" forecolor="#FFFFFF" uuid="1d3fe75b-6d8f-4d32-adb7-3f768dd3a52d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="54" width="103" height="20" forecolor="#FFFFFF" uuid="23034583-3bb6-4c0e-a0d3-f5f4aa233b71"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="54" width="148" height="20" forecolor="#FFFFFF" uuid="33f69cb9-853c-43ab-aeb5-9b6b67017803"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prioridad]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="45" y="34" width="100" height="20" uuid="2e8adcfe-240f-4f9f-94c6-16933fb6dc3a"/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="45" y="14" width="100" height="20" uuid="3da8845b-0ef6-4cf2-9539-770a97c8d450"/>
+				<textFieldExpression><![CDATA[$F{fecha_inicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="238" y="1" width="80" height="20" uuid="89a822d8-6113-4055-bd7b-81d0cd20c552"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="20" width="550" height="1" forecolor="#CCCCCC" uuid="990835fd-d079-48a6-9208-e8759e985d80"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="1" width="100" height="20" uuid="d84c0703-8c8d-4269-b064-5551c43bf1b9"/>
+				<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="407" y="0" width="100" height="20" uuid="df0304d4-7309-4a08-b05f-0ff282bf636b"/>
+				<textFieldExpression><![CDATA[$F{prioridad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

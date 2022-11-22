@@ -4,6 +4,7 @@ import clases.Conexion;
 import clases.Metodos;
 import informes.buscador_compras;
 import informes.buscador_produccion;
+import informes.buscador_servicios;
 import informes.buscador_ventas;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -185,6 +186,7 @@ public class Menu extends javax.swing.JFrame {
         infoCompras = new javax.swing.JMenuItem();
         infoProduccion = new javax.swing.JMenuItem();
         infoVentas = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         menuAyuda = new javax.swing.JMenu();
         jMenuItem37 = new javax.swing.JMenuItem();
 
@@ -634,6 +636,14 @@ public class Menu extends javax.swing.JFrame {
         });
         menuInformes.add(infoVentas);
 
+        jMenuItem3.setText("Informes de servicios");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menuInformes.add(jMenuItem3);
+
         jMenuBar1.add(menuInformes);
 
         menuAyuda.setText("Ayuda");
@@ -1002,6 +1012,10 @@ public class Menu extends javax.swing.JFrame {
         descuentos.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem47ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+     new buscador_servicios().setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1094,6 +1108,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem27;
     private javax.swing.JMenuItem jMenuItem28;
     private javax.swing.JMenuItem jMenuItem29;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem30;
     private javax.swing.JMenuItem jMenuItem31;
     private javax.swing.JMenuItem jMenuItem32;

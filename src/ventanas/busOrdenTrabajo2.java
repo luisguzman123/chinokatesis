@@ -238,6 +238,9 @@ public class busOrdenTrabajo2 extends javax.swing.JFrame {
                         + "pd.id_equipo,\n"
                         + "e.desc_equipo,\n"
                         + "pd.id_tipo_trabajo,\n"
+                        + "pd.pro_cod,\n"
+                        + "p.pro_desc,\n"
+                        + "pd.cantidad,\n"
                         + "tt.descri_tipotrabajo,\n"
                         + "pd.cantidad,\n"
                         + "pd.monto,\n"
@@ -247,6 +250,8 @@ public class busOrdenTrabajo2 extends javax.swing.JFrame {
                         + "ON tt.id_tipo_trabajo = pd.id_tipo_trabajo\n"
                         + "JOIN equipos e\n"
                         + "ON e.id_equipo =  pd.id_equipo\n "
+                        + "JOIN producto p\n"
+                        + "ON p.pro_cod =  pd.pro_cod\n "
                         + "JOIN orden_trabajo_cabecera o "
                         + "ON pd.id_presupuesto_reparacion_cab = o.id_presupuesto_reparacion_cab "
                         + "WHERE o.id_orden_trabajo_cab = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
@@ -271,6 +276,12 @@ public class busOrdenTrabajo2 extends javax.swing.JFrame {
                             detalles.getString("desc_equipo"),
                             detalles.getString("id_tipo_trabajo"),
                             detalles.getString("descri_tipotrabajo"),
+                            detalles.getString("cantidad")
+
+                        });
+                        Metodos.cargarTabla(TrabajoTerminado.grillaInsumos, new Object[]{
+                            detalles.getString("pro_cod"),
+                            detalles.getString("pro_desc"),
                             detalles.getString("cantidad")
 
                         });

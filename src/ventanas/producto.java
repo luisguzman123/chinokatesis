@@ -497,6 +497,13 @@ public class producto extends javax.swing.JFrame {
            busqueda = "";
            dispose();
        }
+       if(busqueda.equals("trabajo_terminado") ){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           TrabajoTerminado.txtCodArti.setText(cod);
+           TrabajoTerminado.txtArticuloDesc.setText(nombre);
+           TrabajoTerminado.txtCantidadInsumo.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        
        
 

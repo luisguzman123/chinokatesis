@@ -17,6 +17,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class buscador_servicios extends javax.swing.JFrame {
 
     public buscador_servicios() {
+       
         initComponents();
 
     }

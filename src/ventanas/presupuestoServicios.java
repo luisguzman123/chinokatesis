@@ -17,25 +17,22 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import static ventanas.recepcion.txtCod;
 
-
-
 public class presupuestoServicios extends javax.swing.JFrame {
 
-    String operacion="";
-    String confirmar="";
-    String mensaje="";
+    String operacion = "";
+    String confirmar = "";
+    String mensaje = "";
     boolean duplicado;
-    
+
     public static String busqueda = "";
 
-    
-    public static String usuario; 
+    public static String usuario;
     public static String empleado;
     public static String nivel;
     public static String idUsuario;
     public static String idSucursal;
     public static String idPersonal;
-    
+
     public presupuestoServicios() {
         initComponents();
         btnCancelar.doClick();
@@ -44,7 +41,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
 //        Metodos.cargarComboReferencia(cmbDepo, "depo_desc", "deposito", "sucur_id", Menu.idSucursal);
         cargarComboPromociones();
         cargarComboDescuentos();
-  
+
     }
 
     @SuppressWarnings("unchecked")
@@ -727,32 +724,25 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-
-    
-    
-    
-    
     private void btnBuscarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEquipoActionPerformed
-       // equipos.busqueda="recepcion";
-       // new equipos().setVisible(true);
+        // equipos.busqueda="recepcion";
+        // new equipos().setVisible(true);
     }//GEN-LAST:event_btnBuscarEquipoActionPerformed
 
-    public void traerFechaActual(){
+    public void traerFechaActual() {
         Calendar cal = Calendar.getInstance();
-        String fecha = cal.get(cal.DATE)+"/"+cal.get(cal.MONTH)+"/"+cal.get(cal.YEAR);
+        String fecha = cal.get(cal.DATE) + "/" + cal.get(cal.MONTH) + "/" + cal.get(cal.YEAR);
         txtFecha.setDateFormatString(fecha);
     }
-    
-    
+
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         txtCod.setEditable(false);
         txtSucursal.setEditable(false);
         txtFecha.setEnabled(false);
         txtCodEquipo.setEditable(false);
         txtEquipo.setEditable(false);
-        
-        
-        
+
         txtCod.setText("");
         txtCodEquipo.setText("");
         txtEquipo.setText("");
@@ -764,10 +754,10 @@ public class presupuestoServicios extends javax.swing.JFrame {
         txtDescriPresupuesto.setText("");
         txtObsDiagnostico.setText("");
         txtTOTAL.setText("");
-        
+
         limpiarTabla(grillaDiagnostico);
         limpiarTabla(grillaPresupuesto);
-        
+
         btnAgregar.setEnabled(true);
         btnAnular.setEnabled(true);
         btnSalir.setEnabled(true);
@@ -780,23 +770,22 @@ public class presupuestoServicios extends javax.swing.JFrame {
         txtCodDiagnostico.setEditable(true);
         txtCodDiagnostico.requestFocus();
         txtFecha.setEnabled(true);
-        
+
         btnAgregar.setEnabled(false);
         btnAnular.setEnabled(false);
         btnSalir.setEnabled(false);
         btnGrabar.setEnabled(true);
         btnCancelar.setEnabled(true);
-        
-        
+
         txtCod.setText(Metodos.siguienteCodigo("id_presupuesto_reparacion_cab", "presupuesto_servicio_cabecera"));
-        
-        operacion="agregar";
-        confirmar="¿Desea grabar el nuevo registro?";
-        mensaje="Registro grabado con exito";
+
+        operacion = "agregar";
+        confirmar = "¿Desea grabar el nuevo registro?";
+        mensaje = "Registro grabado con exito";
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void txtSucursalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSucursalActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtSucursalActionPerformed
 
     private void txtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodActionPerformed
@@ -808,10 +797,9 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodEquipoActionPerformed
 
     private void txtEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEquipoActionPerformed
-       
+
     }//GEN-LAST:event_txtEquipoActionPerformed
 
-    
 //    public void sumarRepetido(){
 //        for (int fila = 0; fila <grillaPresupuesto.getRowCount(); fila++) {
 //           String codigoEnRenglon = (String)grillaPresupuesto.getValueAt(fila, 0); 
@@ -820,16 +808,12 @@ public class presupuestoServicios extends javax.swing.JFrame {
 //            }
 //        }
 //    }
-    
-    
-    
-    
-    
+
     private void txtEquipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEquipoKeyPressed
-        if (txtEquipo.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            equipos.busqueda="recepcion";
+        if (txtEquipo.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            equipos.busqueda = "recepcion";
             new equipos().setVisible(true);
-          
+
         }
     }//GEN-LAST:event_txtEquipoKeyPressed
 
@@ -837,94 +821,100 @@ public class presupuestoServicios extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-   
-    public int delvolverCodigoPromo(){
+    public int delvolverCodigoPromo() {
         if (cmbPromociones.getSelectedItem().equals("Selecciona una promoción")) {
             return 0;
-        }else{
-           int enviar = Integer.parseInt(cmbPromociones.getSelectedItem().toString().split(" - ")[0]); 
-           return enviar;
+        } else {
+            int enviar = Integer.parseInt(cmbPromociones.getSelectedItem().toString().split(" - ")[0]);
+            return enviar;
         }
-        
-        
-     
+
     }
-    public int delvolverCodigoDescuentos(){
+
+    public int delvolverCodigoDescuentos() {
         if (cmbDescuentos.getSelectedItem().equals("Selecciona un descuento")) {
             return 0;
-        }else{
-           int enviar = Integer.parseInt(cmbDescuentos.getSelectedItem().toString().split(" - ")[0]); 
-           return enviar;
+        } else {
+            int enviar = Integer.parseInt(cmbDescuentos.getSelectedItem().toString().split(" - ")[0]);
+            return enviar;
         }
-        
-        
-     
+
     }
-    
-    
+
+
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        int respuesta=5;
-        
-        respuesta=JOptionPane.showConfirmDialog(null, confirmar);
-        
-        
-      
+        int respuesta = 5;
+
+        respuesta = JOptionPane.showConfirmDialog(null, confirmar);
+
         int filasTablaDos = grillaPresupuesto.getRowCount();
-        
-        
-        if(respuesta==0){
-           
-            String sql="";
-            String sql2="";
-            String sqldetalle="";
-            if(operacion.equals("agregar")){
-                sql="Insert into presupuesto_servicio_cabecera (fecha, fecha_vencimiento, estado, presu_descri, id_sucu, id_diagnostico_cabecera, id_empleado, id_cliente, id_promociones, id_descuentos)"
-                        + " values ('"+
-                        Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"','"+
-                        Metodos.dameFechaFormateadaSQL(txtFechaVencimiento.getDate())+"','ACTIVO','"+
-                        txtDescriPresupuesto.getText().trim()+"',"+
-                        txtSucursal.getText().trim()+","+
-                        txtCodDiagnostico.getText().trim()+","+
-                        txtEmpleadoCod.getText().trim()+","+
-                        txtClienteCod.getText().trim()+","+
-                        delvolverCodigoPromo()+","+
-                        delvolverCodigoDescuentos()+")";
-                      System.out.println(sql); 
-                      
-                   sql2=    "update diagnostico_cabecera set"
+
+        if (respuesta == 0) {
+
+            String sql = "";
+            String sql2 = "";
+            String sqldetalle = "";
+            String id_contrato = Metodos.siguienteCodigo("id_contrato", "contrato_servicio_cab");
+            if (operacion.equals("agregar")) {
+                sql = "Insert into presupuesto_servicio_cabecera (fecha, fecha_vencimiento, estado, presu_descri, id_sucu, id_diagnostico_cabecera, id_empleado, id_cliente, id_promociones, id_descuentos)"
+                        + " values ('"
+                        + Metodos.dameFechaFormateadaSQL(txtFecha.getDate()) + "','"
+                        + Metodos.dameFechaFormateadaSQL(txtFechaVencimiento.getDate()) + "','ACTIVO','"
+                        + txtDescriPresupuesto.getText().trim() + "',"
+                        + txtSucursal.getText().trim() + ","
+                        + txtCodDiagnostico.getText().trim() + ","
+                        + txtEmpleadoCod.getText().trim() + ","
+                        + txtClienteCod.getText().trim() + ","
+                        + delvolverCodigoPromo() + ","
+                        + delvolverCodigoDescuentos() + ");";
+                System.out.println(sql);
+
+                sql2 = "update diagnostico_cabecera set"
                         + " estado = 'UTILIZADO' "
-                        + " where id_diagnostico_cabecera = "+txtCodDiagnostico.getText();
+                        + " where id_diagnostico_cabecera = " + txtCodDiagnostico.getText();
+
+                sql += "INSERT INTO public.contrato_servicio_cab(\n"
+                        + "            id_contrato, fecha, descripcion, id_sucursal, id_presupuesto_rewparacion_cab, \n"
+                        + "            estado, id_empleado, id_cliente)\n"
+                        + "    VALUES (" + id_contrato + ", '" + Metodos.dameFechaFormateadaSQL(txtFecha.getDate()) + "', "
+                        + "'" + txtDescriPresupuesto.getText().trim() + "', '" + txtSucursal.getText().trim() + "', '" + txtCod.getText().trim() + "', \n"
+                        + "            TRUE, '" + txtEmpleadoCod.getText().trim() + "', '" + txtClienteCod.getText().trim() + "');";
+
             }
-            
-            if(operacion.equals("anular")){
-                sql="update presupuesto_servicio_cabecera set"
+
+            if (operacion.equals("anular")) {
+                sql = "update presupuesto_servicio_cabecera set"
                         + " estado = 'ANULADO' "
-                        + " where id_presupuesto_reparacion_cab = "+txtCod.getText();
-                
+                        + " where id_presupuesto_reparacion_cab = " + txtCod.getText();
+
             }
-            
-            
-            Conexion cn=new Conexion();
+
+            Conexion cn = new Conexion();
             try {
                 cn.conectar();
                 System.out.println(sql);
                 System.out.println(sql2);
                 cn.actualizar(sql);
                 cn.actualizar(sql2);
-                int cantidadFilas=grillaPresupuesto.getRowCount();
+                int cantidadFilas = grillaPresupuesto.getRowCount();
                 if (operacion.equals("agregar")) {
-                        for (int i = 0; i < cantidadFilas; i++) {
-                            sqldetalle="insert into presupuesto_servicio_detalle(id_presupuesto_reparacion_cab, id_tipo_trabajo, id_equipo, pro_cod, cantidad, monto) values("
-                            +Metodos.ultimoCodigo("id_presupuesto_reparacion_cab", "presupuesto_servicio_cabecera")+","
-                            +grillaPresupuesto.getValueAt(i, 4)+","
-                            +grillaPresupuesto.getValueAt(i, 0)+","
-                            +grillaPresupuesto.getValueAt(i, 6)+","
-                            +grillaPresupuesto.getValueAt(i, 8)+","
-                            +grillaPresupuesto.getValueAt(i, 9)+")";
-                           
-                            cn.actualizar(sqldetalle);
-                            System.out.println(sqldetalle);
-                }   
+                    for (int i = 0; i < cantidadFilas; i++) {
+                        sqldetalle = "insert into presupuesto_servicio_detalle(id_presupuesto_reparacion_cab, id_tipo_trabajo, id_equipo, pro_cod, cantidad, monto) values("
+                                + Metodos.ultimoCodigo("id_presupuesto_reparacion_cab", "presupuesto_servicio_cabecera") + ","
+                                + grillaPresupuesto.getValueAt(i, 4) + ","
+                                + grillaPresupuesto.getValueAt(i, 0) + ","
+                                + grillaPresupuesto.getValueAt(i, 6) + ","
+                                + grillaPresupuesto.getValueAt(i, 8) + ","
+                                + grillaPresupuesto.getValueAt(i, 9) + ");";
+
+                        sqldetalle += "INSERT INTO public.contrato_servicio_det(\n"
+                                + "            id_contrato, id_equipo, cantidad)\n"
+                                + "    VALUES (" + id_contrato + ", " + grillaPresupuesto.getValueAt(i, 0) + ","
+                                + " " + grillaPresupuesto.getValueAt(i, 8) + ");";
+                        cn.actualizar(sqldetalle);
+                        System.out.println(sqldetalle);
+
+                    }
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
                 Metodos.imprimirPorCodigoUnico(
@@ -932,7 +922,6 @@ public class presupuestoServicios extends javax.swing.JFrame {
                         Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
-                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(presupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -940,15 +929,14 @@ public class presupuestoServicios extends javax.swing.JFrame {
                 Logger.getLogger(presupuestoServicios.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
-            
 
         }
-         btnCancelar.doClick();
-        
+        btnCancelar.doClick();
+
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-        
+
         txtCod.setEnabled(true);
         txtCod.requestFocus();
         btnAgregar.setEnabled(false);
@@ -956,11 +944,10 @@ public class presupuestoServicios extends javax.swing.JFrame {
         btnSalir.setEnabled(false);
         btnGrabar.setEnabled(true);
         btnCancelar.setEnabled(true);
-     
-        
-        operacion="anular";
-        confirmar="¿Desea anular este registro?";
-        mensaje="Registro anulado con exito";
+
+        operacion = "anular";
+        confirmar = "¿Desea anular este registro?";
+        mensaje = "Registro anulado con exito";
     }//GEN-LAST:event_btnAnularActionPerformed
 
     private void txtEmpleadoDesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmpleadoDesActionPerformed
@@ -982,40 +969,40 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmpleadoCodActionPerformed
 
     private void txtEmpleadoDesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpleadoDesKeyPressed
-        if (txtEmpleadoDes.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            empleados.busqueda="recepcion";
+        if (txtEmpleadoDes.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            empleados.busqueda = "recepcion";
             new empleados().setVisible(true);
-          
+
         }
     }//GEN-LAST:event_txtEmpleadoDesKeyPressed
 
     private void txtClienteDescKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteDescKeyPressed
-        if (txtClienteDesc.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            clientes.busqueda="recepcion";
+        if (txtClienteDesc.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            clientes.busqueda = "recepcion";
             new clientes().setVisible(true);
-          
-        } 
+
+        }
     }//GEN-LAST:event_txtClienteDescKeyPressed
 
     private void txtCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyPressed
-        if (txtCod.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busPresupuestoServicios.busqueda="presupuesto";
+        if (txtCod.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            busPresupuestoServicios.busqueda = "presupuesto";
             new busPresupuestoServicios().setVisible(true);
 
         }
     }//GEN-LAST:event_txtCodKeyPressed
 
     private void txtCodDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodDiagnosticoActionPerformed
-       txtFechaVencimiento.setEnabled(true);
-       txtDescriPresupuesto.setEnabled(true);
-       txtDescriPresupuesto.setEditable(true);
-       txtFechaVencimiento.requestFocus();
+        txtFechaVencimiento.setEnabled(true);
+        txtDescriPresupuesto.setEnabled(true);
+        txtDescriPresupuesto.setEditable(true);
+        txtFechaVencimiento.requestFocus();
     }//GEN-LAST:event_txtCodDiagnosticoActionPerformed
 
     private void txtDescriPresupuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescriPresupuestoActionPerformed
         if (txtDescriPresupuesto.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(rootPane, "Debe cargar una descripción");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Ahora debe seleccionar los registros de la tabla de arriba");
             grillaDiagnostico.requestFocus();
         }
@@ -1026,20 +1013,19 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTipoProbleDescActionPerformed
 
     private void txtTipoProbleDescKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoProbleDescKeyPressed
-        if (txtTipoProbleDesc.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            tipoDeProblemas.busqueda="diagnostico";
+        if (txtTipoProbleDesc.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            tipoDeProblemas.busqueda = "diagnostico";
             new tipoDeProblemas().setVisible(true);
-          
+
         }
     }//GEN-LAST:event_txtTipoProbleDescKeyPressed
 
     private void btnBuscarTipoProbleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTipoProbleActionPerformed
-        
+
     }//GEN-LAST:event_btnBuscarTipoProbleActionPerformed
 
     private void txtCantidadArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadArtiActionPerformed
-        
-        
+
 ////        for (int fila = 0; fila <grillaDiagnostico.getRowCount(); fila++) {
 ////         String codigoEnRenglon = (String)grillaDiagnostico.getValueAt(fila, 0);
 ////         if (txtCodEquipo.getText().equals(codigoEnRenglon)) {
@@ -1057,8 +1043,6 @@ public class presupuestoServicios extends javax.swing.JFrame {
 ////         
 ////         
 ////        }
- 
-
 //Metodos.cargarTabla(grillaPresupuesto, new Object[]{
 //                txtCodEquipo.getText().trim(),
 //                txtEquipo.getText().trim(),
@@ -1099,8 +1083,8 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTipoProbleCodKeyPressed
 
     private void txtCodDiagnosticoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodDiagnosticoKeyPressed
-        if (txtCodDiagnostico.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            busDiagnostico.busqueda="presupuesto";
+        if (txtCodDiagnostico.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            busDiagnostico.busqueda = "presupuesto";
             new busDiagnostico().setVisible(true);
 
         }
@@ -1111,27 +1095,26 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFechaVencimientoMouseClicked
 
     private void grillaDiagnosticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grillaDiagnosticoMouseClicked
-       int fila=grillaDiagnostico.getSelectedRow();
-        
-       String codEquipo= grillaDiagnostico.getValueAt(fila, 0).toString();
-       String nombreEquipo= grillaDiagnostico.getValueAt(fila, 1).toString();
-       String codProblema= grillaDiagnostico.getValueAt(fila, 2).toString();
-       String tipoProblema= grillaDiagnostico.getValueAt(fila, 3).toString();
-       String cantidad= grillaDiagnostico.getValueAt(fila, 4).toString();
-       
-       if(operacion.equals("agregar")){
-           txtCodEquipo.setText(codEquipo);
-           txtEquipo.setText(nombreEquipo);
-           txtTipoProbleCod.setText(codProblema);
-           txtTipoProbleDesc.setText(tipoProblema);
-           txtCantidadArti.setText(cantidad);
-           
+        int fila = grillaDiagnostico.getSelectedRow();
+
+        String codEquipo = grillaDiagnostico.getValueAt(fila, 0).toString();
+        String nombreEquipo = grillaDiagnostico.getValueAt(fila, 1).toString();
+        String codProblema = grillaDiagnostico.getValueAt(fila, 2).toString();
+        String tipoProblema = grillaDiagnostico.getValueAt(fila, 3).toString();
+        String cantidad = grillaDiagnostico.getValueAt(fila, 4).toString();
+
+        if (operacion.equals("agregar")) {
+            txtCodEquipo.setText(codEquipo);
+            txtEquipo.setText(nombreEquipo);
+            txtTipoProbleCod.setText(codProblema);
+            txtTipoProbleDesc.setText(tipoProblema);
+            txtCantidadArti.setText(cantidad);
+
 //           Metodos.eliminarFila(grillaDiagnostico, fila);
-           
-           txtTipoTrabajoDesc.setEnabled(true);
-           txtTipoTrabajoDesc.setEditable(true);
-           txtTipoTrabajoDesc.requestFocus();
-       }
+            txtTipoTrabajoDesc.setEnabled(true);
+            txtTipoTrabajoDesc.setEditable(true);
+            txtTipoTrabajoDesc.requestFocus();
+        }
     }//GEN-LAST:event_grillaDiagnosticoMouseClicked
 
     private void txtObsDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtObsDiagnosticoActionPerformed
@@ -1142,20 +1125,20 @@ public class presupuestoServicios extends javax.swing.JFrame {
         Conexion cn = new Conexion();
         try {
             cn.conectar();
-           
-            ResultSet datos = cn.consultar("SELECT p.id_promociones,\n" +
-"    p.estado,\n" +
-"    p.promo_descri,\n" +
-"   pd.monto,\n" +
-"    pd.id_tipo_trabajo,\n" +
-"   p.id_promociones || ' - '::text || pd.id_tipo_trabajo ||' - '::text || p.promo_descri::text || ' - '::text || pd.monto::text  AS promo \n" +
-"   FROM promociones_cabecera p\n" +
-"   JOIN promociones_detalle pd\n" +
-"   on p.id_promociones = pd.id_promociones\n" +
-"   where p.fecha_fin >= current_date and p.id_promociones=pd.id_promociones ");
+
+            ResultSet datos = cn.consultar("SELECT p.id_promociones,\n"
+                    + "    p.estado,\n"
+                    + "    p.promo_descri,\n"
+                    + "   pd.monto,\n"
+                    + "    pd.id_tipo_trabajo,\n"
+                    + "   p.id_promociones || ' - '::text || pd.id_tipo_trabajo ||' - '::text || p.promo_descri::text || ' - '::text || pd.monto::text  AS promo \n"
+                    + "   FROM promociones_cabecera p\n"
+                    + "   JOIN promociones_detalle pd\n"
+                    + "   on p.id_promociones = pd.id_promociones\n"
+                    + "   where p.fecha_fin >= current_date and p.id_promociones=pd.id_promociones ");
 
             cmbPromociones.removeAllItems();
-             cmbPromociones.addItem("Selecciona una promoción");
+            cmbPromociones.addItem("Selecciona una promoción");
             if (datos.isBeforeFirst()) {
                 while (datos.next()) {
                     cmbPromociones.addItem(datos.getString("promo"));  //se le pasa por parametro el alias de la consulta sql "datos" pasado al resultSet
@@ -1170,19 +1153,20 @@ public class presupuestoServicios extends javax.swing.JFrame {
             Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void cargarComboDescuentos() {
         Conexion cn = new Conexion();
         try {
             cn.conectar();
-           
-            ResultSet datos = cn.consultar(" SELECT d.id_descuentos,\n" +
-"   d.descuento_descri,\n" +
-"   dd.monto,\n" +
-"   d.id_descuentos || ' - '::text || d.descuento_descri ||' - '::text || dd.monto::text  AS descuentos \n" +
-"   FROM descuentos_cabecera d\n" +
-"   JOIN descuentos_detalle dd\n" +
-"   on dd.id_descuentos = d.id_descuentos\n" +
-"   where d.estado = 'ACTIVO' and d.id_descuentos=dd.id_descuentos ");
+
+            ResultSet datos = cn.consultar(" SELECT d.id_descuentos,\n"
+                    + "   d.descuento_descri,\n"
+                    + "   dd.monto,\n"
+                    + "   d.id_descuentos || ' - '::text || d.descuento_descri ||' - '::text || dd.monto::text  AS descuentos \n"
+                    + "   FROM descuentos_cabecera d\n"
+                    + "   JOIN descuentos_detalle dd\n"
+                    + "   on dd.id_descuentos = d.id_descuentos\n"
+                    + "   where d.estado = 'ACTIVO' and d.id_descuentos=dd.id_descuentos ");
 
             cmbDescuentos.removeAllItems();
             cmbDescuentos.addItem("Selecciona un descuento");
@@ -1200,13 +1184,8 @@ public class presupuestoServicios extends javax.swing.JFrame {
             Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
-    
-    
-    
-    
+
+
     private void txtObsDiagnosticoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObsDiagnosticoKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtObsDiagnosticoKeyPressed
@@ -1227,10 +1206,10 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTipoTrabajoDescActionPerformed
 
     private void txtTipoTrabajoDescKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoTrabajoDescKeyPressed
-        if (txtTipoTrabajoDesc.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            tipoDeTrabajos.busqueda="presupuesto";
+        if (txtTipoTrabajoDesc.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            tipoDeTrabajos.busqueda = "presupuesto";
             new tipoDeTrabajos().setVisible(true);
-          
+
         }
     }//GEN-LAST:event_txtTipoTrabajoDescKeyPressed
 
@@ -1245,55 +1224,48 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodArtiKeyPressed
 
     private void txtArticuloDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtArticuloDescActionPerformed
-        
+
     }//GEN-LAST:event_txtArticuloDescActionPerformed
 
     private void txtArticuloDescKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtArticuloDescKeyPressed
-         if (txtArticuloDesc.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            producto.busqueda="presupuestoServicios";
+        if (txtArticuloDesc.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            producto.busqueda = "presupuestoServicios";
             new producto().setVisible(true);
-          
+
         }
     }//GEN-LAST:event_txtArticuloDescKeyPressed
 
     private void txtMontoPresuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoPresuActionPerformed
-       for (int fila = 0; fila <grillaPresupuesto.getRowCount(); fila++) {
-         String codigoTipoEquipo = (String)grillaPresupuesto.getValueAt(fila, 0);
-         String codigoTipoTrabajo = (String)grillaPresupuesto.getValueAt(fila, 2);
-         String codigoArti = (String)grillaPresupuesto.getValueAt(fila, 4);
-         if ((txtCodEquipo.getText().equals(codigoTipoEquipo))&&(txtCodTipoTrabajo.getText().equals(codigoTipoTrabajo))&&(txtCodArti.getText().equals(codigoArti))) {
-             JOptionPane.showMessageDialog(rootPane, "Ya se utilizó este tipo de trabajo con este equipo");
-             txtArticuloDesc.setText("");
-             txtCodArti.setText("");
-             txtArticuloDesc.requestFocus();
-             
-             return;
+        for (int fila = 0; fila < grillaPresupuesto.getRowCount(); fila++) {
+            String codigoTipoEquipo = (String) grillaPresupuesto.getValueAt(fila, 0);
+            String codigoTipoTrabajo = (String) grillaPresupuesto.getValueAt(fila, 2);
+            String codigoArti = (String) grillaPresupuesto.getValueAt(fila, 4);
+            if ((txtCodEquipo.getText().equals(codigoTipoEquipo)) && (txtCodTipoTrabajo.getText().equals(codigoTipoTrabajo)) && (txtCodArti.getText().equals(codigoArti))) {
+                JOptionPane.showMessageDialog(rootPane, "Ya se utilizó este tipo de trabajo con este equipo");
+                txtArticuloDesc.setText("");
+                txtCodArti.setText("");
+                txtArticuloDesc.requestFocus();
 
-         
-            }         
-         
+                return;
+
+            }
+
         }
-        
-        
-        
-        
-        
-        
-        
+
         Metodos.cargarTabla(grillaPresupuesto, new Object[]{
-                txtCodEquipo.getText().trim(),
-                txtEquipo.getText().trim(),
-                txtTipoProbleCod.getText().trim(),
-                txtTipoProbleDesc.getText().trim(),
-                txtCodTipoTrabajo.getText().trim(),
-                txtTipoTrabajoDesc.getText().trim(),
-                txtCodArti.getText().trim(),
-                txtArticuloDesc.getText().trim(),
-                txtCantidadArti.getText().trim(),
-                txtMontoPresu.getText().trim()
-                
-                });
-       txtTOTAL.setText(String.valueOf(Metodos.sumarColumna(grillaPresupuesto, 9))); 
+            txtCodEquipo.getText().trim(),
+            txtEquipo.getText().trim(),
+            txtTipoProbleCod.getText().trim(),
+            txtTipoProbleDesc.getText().trim(),
+            txtCodTipoTrabajo.getText().trim(),
+            txtTipoTrabajoDesc.getText().trim(),
+            txtCodArti.getText().trim(),
+            txtArticuloDesc.getText().trim(),
+            txtCantidadArti.getText().trim(),
+            txtMontoPresu.getText().trim()
+
+        });
+        txtTOTAL.setText(String.valueOf(Metodos.sumarColumna(grillaPresupuesto, 9)));
         calcularTotaless();
         txtCodEquipo.setText("");
         txtTipoProbleDesc.setText("");
@@ -1322,50 +1294,50 @@ public class presupuestoServicios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTOTALKeyPressed
 
     private void cmbPromocionesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPromocionesItemStateChanged
- 
-         if(cmbPromociones.getSelectedItem() == null) return;
+
+        if (cmbPromociones.getSelectedItem() == null) {
+            return;
+        }
 //        if(cmbPromociones.getSelectedIndex() > 0){
 //            if(evt.getStateChange() ==  ItemEvent.SELECTED){
-                calcularTotaless();
+        calcularTotaless();
 //            }
-            
+
 //        }
-        
 //        else if (cmbPromociones.getSelectedItem().equals("Selecciona una promoción")) {
 //            calcularTotaless();
 //        }
     }//GEN-LAST:event_cmbPromocionesItemStateChanged
 
-    
-    public void calcularTotaless(){
-          int totalColumna = Metodos.sumarColumna(grillaPresupuesto, 9); 
-          String montoPromo = (cmbPromociones.getSelectedIndex() <= 0) ? "0" : (String) cmbPromociones.getSelectedItem().toString().split(" - ")[3];
-          String montoDesc = (cmbDescuentos.getSelectedIndex() <= 0) ? "0" : (String) cmbDescuentos.getSelectedItem().toString().split(" - ")[2];
-          
-          txtTOTAL.setText(String.valueOf(totalColumna-(Integer.parseInt(montoPromo))-(Integer.parseInt(montoDesc))));
+    public void calcularTotaless() {
+        int totalColumna = Metodos.sumarColumna(grillaPresupuesto, 9);
+        String montoPromo = (cmbPromociones.getSelectedIndex() <= 0) ? "0" : (String) cmbPromociones.getSelectedItem().toString().split(" - ")[3];
+        String montoDesc = (cmbDescuentos.getSelectedIndex() <= 0) ? "0" : (String) cmbDescuentos.getSelectedItem().toString().split(" - ")[2];
+
+        txtTOTAL.setText(String.valueOf(totalColumna - (Integer.parseInt(montoPromo)) - (Integer.parseInt(montoDesc))));
     }
-    
-    
+
+
     private void cmbDescuentosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDescuentosItemStateChanged
-      if(cmbDescuentos.getSelectedIndex() == -1) return;
-        
+        if (cmbDescuentos.getSelectedIndex() == -1) {
+            return;
+        }
+
 //        if(cmbDescuentos.getSelectedIndex() > 0){
 //            if(evt.getStateChange() ==  ItemEvent.SELECTED){
-                 calcularTotaless();
+        calcularTotaless();
 //            }
-            
+
 ////        }
     }//GEN-LAST:event_cmbDescuentosItemStateChanged
 
-    
-    
-    public String dameFechaActual(){
-       java.util.Date fecha = new Date();
-       SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
-       JOptionPane.showMessageDialog(null, formateador.format(fecha));
-       return formateador.format(fecha);
+    public String dameFechaActual() {
+        java.util.Date fecha = new Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+        JOptionPane.showMessageDialog(null, formateador.format(fecha));
+        return formateador.format(fecha);
     }
-    
+
 //        public void traerPrecio(){
 //        Conexion cn=new Conexion();
 //        
@@ -1389,8 +1361,6 @@ public class presupuestoServicios extends javax.swing.JFrame {
 //        }
 //    }
 //
-    
-    
 //    public String idCombo(){
 //        Conexion cn = new Conexion();
 //        String cod="";
@@ -1414,9 +1384,6 @@ public class presupuestoServicios extends javax.swing.JFrame {
 //        }
 //        return cod;
 //    }
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -1428,7 +1395,7 @@ public class presupuestoServicios extends javax.swing.JFrame {
             }
         });
     }
- 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAnular;
@@ -1486,5 +1453,5 @@ public class presupuestoServicios extends javax.swing.JFrame {
     public static javax.swing.JTextField txtTipoProbleDesc;
     public static javax.swing.JTextField txtTipoTrabajoDesc;
     // End of variables declaration//GEN-END:variables
- 
+
 }

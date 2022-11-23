@@ -171,9 +171,6 @@
           </Border>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Rango de C&#xf3;digos"/>
-      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">

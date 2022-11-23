@@ -37,6 +37,7 @@ public class TrabajoTerminado extends javax.swing.JFrame {
         initComponents();
         btnCancelar.doClick();
         txtFecha.setDate(new JCalendar().getDate());
+        fechaVencimientoG.setDate(new JCalendar().getDate());
         txtSucursal.setText(idSucursal);
 //        Metodos.cargarComboReferencia(cmbDepo, "depo_desc", "deposito", "sucur_id", Menu.idSucursal);
 
@@ -92,6 +93,8 @@ public class TrabajoTerminado extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         grillaInsumos = new javax.swing.JTable();
+        fechaVencimientoG = new com.toedter.calendar.JDateChooser();
+        jLabel14 = new javax.swing.JLabel();
 
         jLabel5.setText("jLabel5");
 
@@ -227,9 +230,9 @@ public class TrabajoTerminado extends javax.swing.JFrame {
         );
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel13.setText("Sucursal:");
+        jLabel13.setText("Fecha de vencimiento de garantia");
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 48)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("TRABAJO TERMINADO");
 
@@ -527,8 +530,11 @@ public class TrabajoTerminado extends javax.swing.JFrame {
                     .addComponent(txtCantidadInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setText("Sucursal:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -537,13 +543,17 @@ public class TrabajoTerminado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel13)
+                .addComponent(jLabel14)
                 .addGap(22, 22, 22)
-                .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(fechaVencimientoG, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel2))
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
@@ -600,16 +610,26 @@ public class TrabajoTerminado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(fechaVencimientoG, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
                     .addComponent(txtOrdenTrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -634,7 +654,7 @@ public class TrabajoTerminado extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -778,6 +798,7 @@ public class TrabajoTerminado extends javax.swing.JFrame {
             String sql = "";
             String sql2 = "";
             String sqldetalle = "";
+            String id_garantia = Metodos.siguienteCodigo("id_contrato", "contrato_servicio_cab");
             if (operacion.equals("agregar")) {
 
                 sql = "INSERT INTO public.servicio_termi_cab(\n"
@@ -796,6 +817,13 @@ public class TrabajoTerminado extends javax.swing.JFrame {
                         + "" + Menu.idSucursal + ", " + txtCod.getText() + ", \n"
                         + "'" + Metodos.dameFechaFormateadaSQL(txtFecha.getDate()) + "', "
                         + "'" + txtObs.getText() + "', 'ACTIVO');";
+
+                sql += "INSERT INTO public.garantia_cab(\n"
+                        + "            id_garantia_cab, id_servi_termi_cab, id_empleado, id_cliente, \n"
+                        + "            fecha_registro, fecha_expiracion, observacion, estado)\n"
+                        + "    VALUES ("+id_garantia+", '"+txtCod.getText().trim()+"', '"+txtEmpleadoCod.getText()+"', '"+txtClienteCodigo.getText()+"', \n"
+                        + "            '"+Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"', '"+Metodos.dameFechaFormateadaSQL(fechaVencimientoG.getDate())+"',"
+                        + " '"+txtObs.getText()+"', 'ACTIVO');";
 
                 System.out.println(sql);
 
@@ -830,6 +858,11 @@ public class TrabajoTerminado extends javax.swing.JFrame {
                                 + "'" + grillaTerminados.getValueAt(i, 4) + "', "
                                 + "" + grillaTerminados.getValueAt(i, 5) + ");";
 
+                        sqldetalle += "INSERT INTO public.garantia_det(\n"
+                                + "    id_garantia_cab, id_equipo, id_tipo_garantia)\n"
+                                + "    VALUES ("+id_garantia+", "+grillaTerminados.getValueAt(i, 0)+","
+                                + " "+grillaTerminados.getValueAt(i, 2)+");";
+
                         System.out.println(sqldetalle);
                         cn.actualizar(sqldetalle);
                     }
@@ -837,9 +870,9 @@ public class TrabajoTerminado extends javax.swing.JFrame {
 
                         sqldetalle = "INSERT INTO public.insumos_utilizados_det(\n"
                                 + "id_insumo_utiliz, id_articulo, cantidad)\n"
-                                + "VALUES ("+cod_insumo+", "
-                                + ""+grillaInsumos.getValueAt(i, 0)+","
-                                + " "+grillaInsumos.getValueAt(i, 2)+");";
+                                + "VALUES (" + cod_insumo + ", "
+                                + "" + grillaInsumos.getValueAt(i, 0) + ","
+                                + " " + grillaInsumos.getValueAt(i, 2) + ");";
 
                         System.out.println(sqldetalle);
                         cn.actualizar(sqldetalle);
@@ -1012,20 +1045,18 @@ public class TrabajoTerminado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTipoTrabajoDescKeyPressed
 
     private void txtProblemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProblemaActionPerformed
-       for (int fila = 0; fila <grillaTerminados.getRowCount(); fila++) {
-         String codigoTipoEquipo = (String)grillaTerminados.getValueAt(fila, 0);
-         String codigoTipoTrabajo = (String)grillaTerminados.getValueAt(fila, 2);
-         
-         if ((txtCodEquipo.getText().equals(codigoTipoEquipo)) && 
-                 (txtCodTipoTrabajo.getText().equals(codigoTipoTrabajo))) {
-             JOptionPane.showMessageDialog(rootPane, "Ya se utilizó este tipo de trabajo con este equipo");
+        for (int fila = 0; fila < grillaTerminados.getRowCount(); fila++) {
+            String codigoTipoEquipo = (String) grillaTerminados.getValueAt(fila, 0);
+            String codigoTipoTrabajo = (String) grillaTerminados.getValueAt(fila, 2);
 
-             
-             return;
+            if ((txtCodEquipo.getText().equals(codigoTipoEquipo))
+                    && (txtCodTipoTrabajo.getText().equals(codigoTipoTrabajo))) {
+                JOptionPane.showMessageDialog(rootPane, "Ya se utilizó este tipo de trabajo con este equipo");
 
-         
-            }         
-         
+                return;
+
+            }
+
         }
 
         Metodos.cargarTabla(grillaTerminados, new Object[]{
@@ -1095,13 +1126,12 @@ public class TrabajoTerminado extends javax.swing.JFrame {
 
         String cod_pro = txtCodArti.getText();
         for (int i = 0; i < grillaInsumos.getRowCount(); i++) {
-            if(grillaInsumos.getValueAt(i, 0).toString().equals(cod_pro)){
+            if (grillaInsumos.getValueAt(i, 0).toString().equals(cod_pro)) {
                 JOptionPane.showMessageDialog(rootPane, "El producto ya fue agregado anteriormente");
                 return;
             }
         }
-        
-        
+
         Metodos.cargarTabla(grillaInsumos, new Object[]{
             txtCodArti.getText().trim(),
             txtArticuloDesc.getText().trim(),
@@ -1194,11 +1224,13 @@ public class TrabajoTerminado extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnSalir;
+    public static com.toedter.calendar.JDateChooser fechaVencimientoG;
     public static javax.swing.JTable grillaInsumos;
     public static javax.swing.JTable grillaOrdenes;
     public static javax.swing.JTable grillaTerminados;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;

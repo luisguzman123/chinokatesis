@@ -179,8 +179,6 @@ public class buscador_produccion extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        jPanel5.getAccessibleContext().setAccessibleName("Rango de Códigos");
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents

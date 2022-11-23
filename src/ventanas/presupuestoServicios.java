@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import static ventanas.recepcion.txtCod;
 
 
 
@@ -926,6 +927,9 @@ public class presupuestoServicios extends javax.swing.JFrame {
                 }   
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico(
+                        "/src/reportes/reportePresupuestoServicioCodigo.jasper",
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
                 

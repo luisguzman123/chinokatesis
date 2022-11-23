@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static ventanas.presupuestoServicios.txtCod;
 
 public class diagnostico extends javax.swing.JFrame {
 
@@ -811,6 +812,9 @@ public class diagnostico extends javax.swing.JFrame {
                         }
                     }
                     JOptionPane.showMessageDialog(null, mensaje);
+                    Metodos.imprimirPorCodigoUnico(
+                        "/src/reportes/reporteDiagnosticoServicioCodigo.jasper",
+                        Integer.parseInt(txtCod.getText()));
                     btnCancelar.doClick();
 
                 } catch (ClassNotFoundException ex) {

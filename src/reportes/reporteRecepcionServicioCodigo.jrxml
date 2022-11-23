@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+rc.id_recepcion,
+rc.fecha,
+rc.estado,
+c.cli_nomb||' '||c.cli_apelli as cliente,
+c.cli_ruc,
+c.cli_telef,
+rd.cantidad,
+rd.nro_de_serie,
+rd.descripcion,
+e.desc_equipo,
+s.sucur_nom
+FROM recepcion_cabecera rc
+JOIN recepcion_detalle rd
+ON rd.id_recepcion =  rc.id_recepcion
+JOIN equipos e 
+ON e.id_equipo =  rd.id_equipo
+JOIN cliente c 
+ON c.cli_cod = rc.cli_cod
+JOIN sucursal s 
+ON s.sucur_id = rc.sucur_id
+WHERE rc.id_recepcion = $P{codigo}]]>
+	</queryString>
+	<field name="id_recepcion" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="cli_ruc" class="java.lang.String"/>
+	<field name="cli_telef" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<field name="nro_de_serie" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="desc_equipo" class="java.lang.String"/>
+	<field name="sucur_nom" class="java.lang.String"/>
+	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="cantidad_1" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="pedidos_cabecera">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="121">
+				<rectangle>
+					<reportElement x="-1" y="101" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="0a27a1ab-89fa-4a57-afa0-d83ee32f7a00"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="4" y="12" width="49" height="20" uuid="a901b46b-0c00-4c1d-845f-8babb74a1725"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="101" width="195" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Producto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="453" y="101" width="101" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cantidad]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="53" y="12" width="172" height="20" uuid="d8f94db7-ea68-4da4-8043-cb0233bec2c9"/>
+					<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="240" y="12" width="49" height="20" uuid="c0d9dd9c-79c6-4365-b0f6-7895963d9fca"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="32" width="49" height="20" uuid="b6006cce-3fde-418d-8e97-6ec7ebe667cd"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="240" y="32" width="49" height="20" uuid="5af2e2a5-873f-43bb-8ad4-259375dddb30"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[RUC]]></text>
+				</staticText>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="289" y="12" width="228" height="20" uuid="28214fc5-2a01-4914-b404-b3b1e1ff7e58"/>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="49" y="32" width="176" height="20" uuid="00c89e2d-6180-4711-9a40-568ed98d5f0d"/>
+					<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="289" y="32" width="100" height="20" uuid="defb72d5-1f10-40fc-b67c-46169ff2482b"/>
+					<textFieldExpression><![CDATA[$F{cli_ruc}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="409" y="32" width="29" height="20" uuid="3ce75939-593e-49bf-b68c-064eb48ea816"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tel.]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="438" y="32" width="100" height="20" uuid="2070e435-8b09-426e-971a-dcc8cec9f6ff"/>
+					<textFieldExpression><![CDATA[$F{cli_telef}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="323" y="101" width="130" height="20" forecolor="#FFFFFF" uuid="d8da4c91-ec26-4c2a-9bfe-ac7aef503dbd"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nro Serie]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="d24ab337-ecdc-457d-89ca-04088a0cdf1b"/>
+				</rectangle>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="254" y="22" width="300" height="32" uuid="996383a5-90f7-4a91-8de7-4e13918547f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-2" y="22" width="213" height="57" uuid="66cefef3-4184-439d-b312-c078afb82c61"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEPCION DE SERVICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="72" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="336" y="29" width="100" height="20" uuid="6a43613b-de5a-4fb4-a8ce-f9d9bd85e02c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_recepcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
+			</line>
+			<textField>
+				<reportElement x="455" y="2" width="100" height="20" uuid="73ad6e11-765a-46a9-91fd-522ff36dc9ed"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="2" width="130" height="20" uuid="6b90ca85-1d92-498a-9f86-03db0ac78f0d"/>
+				<textFieldExpression><![CDATA[$F{nro_de_serie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="2" width="100" height="20" uuid="e0cbce67-462c-46af-a749-9bf055d71d93"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="45" splitType="Stretch"/>
+	</summary>
+</jasperReport>

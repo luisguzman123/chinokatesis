@@ -489,7 +489,8 @@ public class recepcion extends javax.swing.JFrame {
         txtEquipo.setEditable(false);
         txtSerie.setEditable(false);
         txtCantidad.setEditable(false);
-        
+        txtClienteCod.setText("");
+        txtClienteDesc.setText("");
         
         
         txtCod.setText("");
@@ -665,6 +666,9 @@ public class recepcion extends javax.swing.JFrame {
                 }   
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico(
+                        "/src/reportes/reporteRecepcionServicioCodigo.jasper",
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
                 

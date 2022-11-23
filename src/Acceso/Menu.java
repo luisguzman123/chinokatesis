@@ -177,8 +177,6 @@ public class Menu extends javax.swing.JFrame {
         caja_item1 = new javax.swing.JMenuItem();
         jMenuItem41 = new javax.swing.JMenuItem();
         jMenuItem42 = new javax.swing.JMenuItem();
-        jMenuItem43 = new javax.swing.JMenuItem();
-        jMenuItem44 = new javax.swing.JMenuItem();
         jMenuItem45 = new javax.swing.JMenuItem();
         jMenuItem46 = new javax.swing.JMenuItem();
         jMenuItem47 = new javax.swing.JMenuItem();
@@ -512,22 +510,6 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         menuServicios.add(jMenuItem42);
-
-        jMenuItem43.setText("Insumos utilizados");
-        jMenuItem43.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem43ActionPerformed(evt);
-            }
-        });
-        menuServicios.add(jMenuItem43);
-
-        jMenuItem44.setText("Generar garantía");
-        jMenuItem44.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem44ActionPerformed(evt);
-            }
-        });
-        menuServicios.add(jMenuItem44);
 
         jMenuItem45.setText("Registrar reclamos");
         jMenuItem45.addActionListener(new java.awt.event.ActionListener() {
@@ -894,14 +876,6 @@ public class Menu extends javax.swing.JFrame {
         TrabajoTerminado.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem42ActionPerformed
 
-    private void jMenuItem43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem43ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem43ActionPerformed
-
-    private void jMenuItem44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem44ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem44ActionPerformed
-
     private void jMenuItem45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem45ActionPerformed
         new reclamos().setVisible(true);
         reclamos.txtSucursal.setText(idSucursal);
@@ -1032,8 +1006,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem40;
     private javax.swing.JMenuItem jMenuItem41;
     private javax.swing.JMenuItem jMenuItem42;
-    private javax.swing.JMenuItem jMenuItem43;
-    private javax.swing.JMenuItem jMenuItem44;
     private javax.swing.JMenuItem jMenuItem45;
     private javax.swing.JMenuItem jMenuItem46;
     private javax.swing.JMenuItem jMenuItem47;

@@ -115,6 +115,9 @@ public class busServiciosTerminados extends javax.swing.JFrame {
             case "reclamos":
                 seleccionarServiciosTermiDetalles();
                 break;
+            case "terminados":
+                seleccionarTerminados();
+                break;
 
 //            case "recepcion_desde_diagnostico":
 //                seleccionarRecepDesdeDiagnostico();
@@ -168,6 +171,70 @@ public class busServiciosTerminados extends javax.swing.JFrame {
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
                     Metodos.cargarTabla(reclamos.grillaServiciosTerminados, new Object[]{
+                        detalles.getString("id_equipo"),
+                        detalles.getString("desc_equipo"),
+                        detalles.getString("id_tipo_trabajo"),
+                        detalles.getString("descri_tipotrabajo"),
+                        detalles.getString("cantidad")
+                        
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(busServiciosTerminados.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+
+
+
+       dispose();
+ 
+    }
+    private void seleccionarTerminados() {
+
+        int fila = grillaBuscador.getSelectedRow();
+
+        String cod = grillaBuscador.getValueAt(fila, 0).toString();
+        String descri = grillaBuscador.getValueAt(fila, 1).toString();
+        String fechaEntrega = grillaBuscador.getValueAt(fila, 2).toString();
+        String estado = grillaBuscador.getValueAt(fila, 3).toString();
+        String estadoCobro = grillaBuscador.getValueAt(fila, 4).toString();
+        String codOrdenTrabajo = grillaBuscador.getValueAt(fila, 5).toString();
+        String codCliente = grillaBuscador.getValueAt(fila, 6).toString();
+        String cliente = grillaBuscador.getValueAt(fila, 7).toString();
+        String codEmpleado = grillaBuscador.getValueAt(fila, 8).toString();
+        String empleado = grillaBuscador.getValueAt(fila, 9).toString();
+        String codSucursal = grillaBuscador.getValueAt(fila, 10).toString();
+        String sucursal = grillaBuscador.getValueAt(fila, 11).toString();
+
+          //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+            TrabajoTerminado.txtCod.setText(cod);
+            TrabajoTerminado.txtClienteCodigo.setText(codCliente);
+            TrabajoTerminado.txtObs.setText(cliente);
+            TrabajoTerminado.txtEmpleadoCod.setText(codEmpleado);
+            TrabajoTerminado.txtEmpleadoDes.setText(empleado);
+
+
+            TrabajoTerminado.txtObs.requestFocus();
+            busqueda = "";
+
+        
+
+        Conexion cn = new Conexion();
+
+        try {
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_servis_terminados_detalles where id_servi_termi_cab = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            Metodos.limpiarTabla(TrabajoTerminado.grillaTerminados);
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {
+                    Metodos.cargarTabla(TrabajoTerminado.grillaTerminados, new Object[]{
                         detalles.getString("id_equipo"),
                         detalles.getString("desc_equipo"),
                         detalles.getString("id_tipo_trabajo"),
@@ -343,6 +410,9 @@ public class busServiciosTerminados extends javax.swing.JFrame {
 
         switch (busqueda) {
             case "reclamos":
+                buscarServiciosTerminados();
+                break;
+            case "terminados":
                 buscarServiciosTerminados();
                 break;
 

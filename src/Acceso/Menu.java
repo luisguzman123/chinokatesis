@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import ventanas.TrabajoTerminado;
 import ventanas.ajuste_stock;
 import ventanas.aper_cie_arqueo;
 import ventanas.bancos;
@@ -886,7 +887,11 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem41ActionPerformed
 
     private void jMenuItem42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem42ActionPerformed
-        // TODO add your handling code here:
+        new TrabajoTerminado().setVisible(true);
+        TrabajoTerminado.txtSucursal.setText(Sucursal);
+        TrabajoTerminado.idSucursal = idSucursal;
+        TrabajoTerminado.idUsuario = idUsuario;
+        TrabajoTerminado.idPersonal = idEmpleado;
     }//GEN-LAST:event_jMenuItem42ActionPerformed
 
     private void jMenuItem43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem43ActionPerformed

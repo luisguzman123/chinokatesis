@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static ventanas.TrabajoTerminado.txtCod;
 
 
 public class descuentos extends javax.swing.JFrame {
@@ -616,6 +617,9 @@ public class descuentos extends javax.swing.JFrame {
                 }   
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico(
+                        "/src/reportes/reporteDescuentoServicioCodigo.jasper",
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
                 

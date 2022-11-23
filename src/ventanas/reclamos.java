@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import static ventanas.TrabajoTerminado.txtCod;
 
 
 
@@ -705,6 +706,9 @@ public class reclamos extends javax.swing.JFrame {
                 }   
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico(
+                        "/src/reportes/reporteProblemaServicioCodigo.jasper",
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
                 

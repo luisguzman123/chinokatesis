@@ -71,10 +71,6 @@ public class orden_trabajo extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtCodCliente = new javax.swing.JTextField();
         txtNombreCliente = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        descuento_aplicado = new javax.swing.JLabel();
-        promocion_lbl = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         txtFechaVencimiento = new com.toedter.calendar.JDateChooser();
@@ -267,18 +263,6 @@ public class orden_trabajo extends javax.swing.JFrame {
             }
         });
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel16.setText("Descuento Aplicado");
-
-        descuento_aplicado.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        descuento_aplicado.setText("0");
-
-        promocion_lbl.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        promocion_lbl.setText("0");
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel19.setText("Promocion Aplicado");
-
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel17.setText("Fecha inicio");
 
@@ -351,15 +335,7 @@ public class orden_trabajo extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 899, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel16)
-                .addGap(10, 10, 10)
-                .addComponent(descuento_aplicado, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel19)
-                .addGap(10, 10, 10)
-                .addComponent(promocion_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107)
+                .addGap(718, 718, 718)
                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(136, 136, 136)
@@ -424,15 +400,7 @@ public class orden_trabajo extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19)
-                    .addComponent(promocion_lbl)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(descuento_aplicado))))
+                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -638,6 +606,9 @@ public class orden_trabajo extends javax.swing.JFrame {
                     cn.actualizar("update presupuesto_servicio_cabecera set estado = 'UTILIZADO' where id_presupuesto_reparacion_cab = " + txtPresupuesto.getText());
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico(
+                        "/src/reportes/reporteOrdenServicioCodigo.jasper",
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
             } catch (ClassNotFoundException ex) {
@@ -699,16 +670,13 @@ public class orden_trabajo extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JLabel descuento_aplicado;
     public static javax.swing.JTable grilla;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -718,7 +686,6 @@ public class orden_trabajo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea observacion_txt;
     private javax.swing.JComboBox<String> prioridad_lst;
-    private javax.swing.JLabel promocion_lbl;
     public static javax.swing.JTextField txtCod;
     public static javax.swing.JTextField txtCodCliente;
     public static com.toedter.calendar.JDateChooser txtFechaInicio;

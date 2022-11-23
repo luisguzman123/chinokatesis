@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import static ventanas.presupuestoServicios.txtCod;
 
 public class TrabajoTerminado extends javax.swing.JFrame {
 
@@ -845,6 +846,9 @@ public class TrabajoTerminado extends javax.swing.JFrame {
                     }
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico(
+                        "/src/reportes/reporteTerminadoServicioCodigo.jasper",
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
             } catch (ClassNotFoundException ex) {

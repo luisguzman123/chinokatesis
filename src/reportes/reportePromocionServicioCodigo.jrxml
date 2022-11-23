@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+rc.id_promociones,
+rc.fecha_ini,
+rc.fecha_fin,
+rc.beneficio ,
+rc.promo_descri ,
+rc.estado,
+rc.observacion,
+s.sucur_nom,
+tt.descri_tipotrabajo,
+rd.monto
+
+FROM promociones_cabecera rc
+
+JOIN promociones_detalle rd
+ON rd.id_promociones =  rc.id_promociones
+
+
+JOIN sucursal s 
+ON s.sucur_id = rc.id_sucu 
+
+JOIN tipos_trabajos tt
+ON tt.id_tipo_trabajo = rd.id_tipo_trabajo
+
+WHERE rc.id_promociones = $P{codigo}]]>
+	</queryString>
+	<field name="id_promociones" class="java.lang.Integer"/>
+	<field name="fecha_ini" class="java.sql.Date"/>
+	<field name="fecha_fin" class="java.sql.Date"/>
+	<field name="beneficio" class="java.lang.String"/>
+	<field name="promo_descri" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="observacion" class="java.lang.String"/>
+	<field name="sucur_nom" class="java.lang.String"/>
+	<field name="descri_tipotrabajo" class="java.lang.String"/>
+	<field name="monto" class="java.lang.Integer"/>
+	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="cantidad_1" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="pedidos_cabecera">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="123">
+				<rectangle>
+					<reportElement x="-1" y="103" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="0a27a1ab-89fa-4a57-afa0-d83ee32f7a00"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="4" y="12" width="49" height="20" uuid="a901b46b-0c00-4c1d-845f-8babb74a1725"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sucursal]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="436" y="103" width="104" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Monto]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="53" y="12" width="172" height="20" uuid="d8f94db7-ea68-4da4-8043-cb0233bec2c9"/>
+					<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="240" y="12" width="63" height="20" uuid="c0d9dd9c-79c6-4365-b0f6-7895963d9fca"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha inicio]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="9" y="103" width="343" height="20" forecolor="#FFFFFF" uuid="d8da4c91-ec26-4c2a-9bfe-ac7aef503dbd"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Trabajo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="32" width="64" height="20" uuid="66584eff-e668-4514-882e-f49f6e928c9a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Observacion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="12" width="63" height="20" uuid="ee52c927-53a1-4202-a210-e5aa098e3f86"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha fin]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="303" y="12" width="97" height="20" uuid="42a72256-b0f0-4d04-b2e4-862365eae9f6"/>
+					<textFieldExpression><![CDATA[$F{fecha_ini}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="463" y="11" width="92" height="20" uuid="1790b700-c147-47c0-8701-03dfd4e3bd44"/>
+					<textFieldExpression><![CDATA[$F{fecha_fin}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="68" y="32" width="487" height="20" uuid="a0f8f8ac-9424-421c-9b95-51717c617e3a"/>
+					<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="4" y="52" width="64" height="20" uuid="70a08e5b-e528-433b-969e-9eb3c489054a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Beneficio]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="68" y="52" width="486" height="20" uuid="167d5d41-4fd0-48f1-a9a4-735d0e38d016"/>
+					<textFieldExpression><![CDATA[$F{beneficio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="4" y="72" width="64" height="20" uuid="d6172db9-468a-41b5-a861-1f95068071ed"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descripcion]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="68" y="72" width="486" height="20" uuid="1125ce3a-1766-4477-8604-88e13233cc6b"/>
+					<textFieldExpression><![CDATA[$F{promo_descri}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="d24ab337-ecdc-457d-89ca-04088a0cdf1b"/>
+				</rectangle>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="254" y="22" width="300" height="32" uuid="996383a5-90f7-4a91-8de7-4e13918547f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-2" y="22" width="213" height="57" uuid="66cefef3-4184-439d-b312-c078afb82c61"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROMOCIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="72" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="336" y="29" width="100" height="20" uuid="9b072a8e-2333-4f5d-a8b5-ded203bf16f4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_promociones}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
+			</line>
+			<textField>
+				<reportElement x="9" y="2" width="343" height="20" uuid="a6f0d584-66be-4b12-979f-b991f1e5fb09"/>
+				<textFieldExpression><![CDATA[$F{descri_tipotrabajo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="436" y="2" width="104" height="20" uuid="697d22d0-9eff-4b03-9b84-da613277845c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="45" splitType="Stretch"/>
+	</summary>
+</jasperReport>

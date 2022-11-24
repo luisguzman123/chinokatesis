@@ -1152,10 +1152,14 @@ public class ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_artiKeyPressed
 
     private void txt_artiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_artiActionPerformed
-        traerStockDePoducto();
-        traerPrecio();
-        txt_precio.setEditable(true);
-        txt_precio.requestFocus();
+        if(label_info.getText().equals("Articulos")){
+            
+            traerStockDePoducto();
+            traerPrecio();
+            txt_precio.setEditable(true);
+            txt_precio.requestFocus();
+        }
+            
     }//GEN-LAST:event_txt_artiActionPerformed
 
     private void txt_precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_precioActionPerformed
@@ -1289,9 +1293,9 @@ public class ventas extends javax.swing.JFrame {
 
     private void tipo_venta_lstItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipo_venta_lstItemStateChanged
         if(tipo_venta_lst.getSelectedIndex() == 0){
-            label_info.setText("Articulo");
+            label_info.setText("Articulos");
         }else{
-            label_info.setText("Servicio");
+            label_info.setText("Servicios");
             
         }
     }//GEN-LAST:event_tipo_venta_lstItemStateChanged

@@ -224,14 +224,19 @@ public class ContratorGarantias extends javax.swing.JDialog {
                         + "FROM garantia_cab gc\n"
                         + "JOIN cliente c\n"
                         + "ON gc.id_cliente = c.cli_cod\n"
-                        + "ORDER BY id_garantia_cab\n"
-                        + "WHERE fecha_expiracion BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) + "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "'"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                        + "WHERE gc.fecha_registro BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) +
+                        "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "' " //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                        + "ORDER BY id_garantia_cab;");
 //            ResultSet pedi = cn.consultar("select * from pedido_venta where fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) + "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "' and estado !='ANULADO' order by cod_pedi_ven"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
                 Metodos.limpiarTabla(tablaDetalle);
                 if (pedi.isBeforeFirst()) {
                     while (pedi.next()) {
 
-                        Metodos.cargarTabla(tablaDetalle, new Object[]{pedi.getString("cod_pedi_ven"), pedi.getString("fecha"), pedi.getString("estado"), pedi.getString("cli_cod"), pedi.getString("sucur_id"), pedi.getString("usu_id"), pedi.getString("emp_id")});
+                        Metodos.cargarTabla(tablaDetalle, new Object[]{
+                            pedi.getString("id_garantia_cab"),
+                            pedi.getString("nombre_cliente"),
+                            pedi.getString("fecha_registro"),
+                            pedi.getString("fecha_expiracion")});
                     }
                 } else {
 
@@ -245,7 +250,42 @@ public class ContratorGarantias extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         } else {
+            Conexion cn = new Conexion();
+            try {
+                cn.conectar();
+                ResultSet pedi = cn.consultar("SELECT\n"
+                        + "cs.id_contrato,\n"
+                        + "cs.fecha,\n"
+                        + "c.cli_nomb||' '||c.cli_apelli as nombre_cliente\n"
+                        + "FROM contrato_servicio_cab cs\n"
+                        + "JOIN presupuesto_servicio_cabecera ps\n"
+                        + "ON ps.id_presupuesto_reparacion_cab = id_presupuesto_rewparacion_cab\n"
+                        + "JOIN cliente c\n"
+                        + "ON c.cli_cod = cs.id_cliente\n"
+                        + "WHERE cs.fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) + 
+                        "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "';"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+//            ResultSet pedi = cn.consultar("select * from pedido_venta where fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) + "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "' and estado !='ANULADO' order by cod_pedi_ven"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                Metodos.limpiarTabla(tablaDetalle);
+                if (pedi.isBeforeFirst()) {
+                    while (pedi.next()) {
 
+                        Metodos.cargarTabla(tablaDetalle, new Object[]{
+                            pedi.getString("id_contrato"),
+                            pedi.getString("nombre_cliente"),
+                            pedi.getString("fecha"),
+                            "-"});
+                    }
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
     }//GEN-LAST:event_buscar_btnActionPerformed
 

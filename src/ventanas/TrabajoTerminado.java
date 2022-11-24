@@ -798,7 +798,7 @@ public class TrabajoTerminado extends javax.swing.JFrame {
             String sql = "";
             String sql2 = "";
             String sqldetalle = "";
-            String id_garantia = Metodos.siguienteCodigo("id_contrato", "contrato_servicio_cab");
+            String id_garantia = Metodos.siguienteCodigo("id_garantia_cab", "garantia_cab");
             if (operacion.equals("agregar")) {
 
                 sql = "INSERT INTO public.servicio_termi_cab(\n"

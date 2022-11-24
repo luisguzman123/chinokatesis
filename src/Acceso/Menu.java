@@ -4,7 +4,6 @@ import clases.Conexion;
 import clases.Metodos;
 import com.formdev.flatlaf.FlatLightLaf;
 import informes.buscador_compras;
-import informes.buscador_produccion;
 import informes.buscador_servicios;
 import informes.buscador_ventas;
 import java.sql.ResultSet;

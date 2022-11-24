@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
-	<property name="ireport.zoom" value="1.5026296018031553"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="desde" class="java.util.Date"/>
-	<parameter name="hasta" class="java.util.Date"/>
+	<parameter name="desde" class="java.lang.Integer"/>
+	<parameter name="hasta" class="java.lang.Integer"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT
 pc.ped_id,
@@ -21,7 +22,7 @@ JOIN pedido_compra_detalle pd
 ON pd.ped_id = pc.ped_id
 JOIN materia_prima mp
 ON mp.cod_materia = pd.cod_materia
-WHERE pc.ped_fecha BETWEEN $P{desde} AND $P{hasta}]]>
+WHERE pc.ped_id = $P{codigo}]]>
 	</queryString>
 	<field name="ped_id" class="java.lang.Integer"/>
 	<field name="ped_fecha" class="java.sql.Date"/>
@@ -34,34 +35,19 @@ WHERE pc.ped_fecha BETWEEN $P{desde} AND $P{hasta}]]>
 		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
 	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
-		<variableExpression><![CDATA[$F{total}]]></variableExpression>
+		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
 	<group name="pedidos_cabecera">
 		<groupExpression><![CDATA[$F{ped_id}]]></groupExpression>
 		<groupHeader>
-			<band height="92">
+			<band height="90">
 				<rectangle>
-					<reportElement x="0" y="70" width="554" height="20" forecolor="#333333" backcolor="#333333" uuid="f78ec037-ac94-4921-95ab-88f5404c4b33"/>
+					<reportElement x="0" y="70" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="0a27a1ab-89fa-4a57-afa0-d83ee32f7a00"/>
 				</rectangle>
-				<textField pattern="dd/MM/yyyy">
-					<reportElement x="37" y="19" width="100" height="20" uuid="710b84cb-df9c-49dc-9bde-2aed5d89f1e9"/>
-					<textFieldExpression><![CDATA[$F{ped_fecha}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="71" y="38" width="458" height="20" uuid="cf0e1614-aaa3-46eb-8d1b-7c4454590c07"/>
-					<textFieldExpression><![CDATA[$F{ped_descrip}]]></textFieldExpression>
-				</textField>
 				<textField>
 					<reportElement x="200" y="19" width="225" height="20" uuid="6f62b2f1-1fca-4bf0-a281-91a3444b2577"/>
 					<textFieldExpression><![CDATA[$F{sucur_nom}]]></textFieldExpression>
 				</textField>
-				<staticText>
-					<reportElement x="-2" y="19" width="39" height="20" uuid="f7e0d8d4-b873-4251-b69a-4f13f64dce0e"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Fecha]]></text>
-				</staticText>
 				<staticText>
 					<reportElement x="151" y="18" width="49" height="20" uuid="a901b46b-0c00-4c1d-845f-8babb74a1725"/>
 					<textElement>
@@ -70,21 +56,14 @@ WHERE pc.ped_fecha BETWEEN $P{desde} AND $P{hasta}]]>
 					<text><![CDATA[Sucursal]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="0" y="39" width="71" height="20" uuid="f63e1127-e92c-423f-94fa-0ee1ca636faa"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<text><![CDATA[Descripción]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="16" y="70" width="275" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
+					<reportElement x="16" y="70" width="291" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Materia Prima]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="362" y="70" width="100" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
+					<reportElement x="358" y="70" width="170" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -96,6 +75,42 @@ WHERE pc.ped_fecha BETWEEN $P{desde} AND $P{hasta}]]>
 						<pen lineWidth="2.0"/>
 					</graphicElement>
 				</line>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="37" y="19" width="100" height="20" uuid="710b84cb-df9c-49dc-9bde-2aed5d89f1e9"/>
+					<textFieldExpression><![CDATA[$F{ped_fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="71" y="38" width="458" height="20" uuid="cf0e1614-aaa3-46eb-8d1b-7c4454590c07"/>
+					<textFieldExpression><![CDATA[$F{ped_descrip}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="-2" y="19" width="39" height="20" uuid="f7e0d8d4-b873-4251-b69a-4f13f64dce0e"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="39" width="71" height="20" uuid="f63e1127-e92c-423f-94fa-0ee1ca636faa"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descripción]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="425" y="18" width="49" height="20" uuid="e638403e-e3cc-47b3-b8b5-e3cd4d4c3380"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Código]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="474" y="18" width="81" height="20" uuid="618f20a2-6082-44db-9607-bfa7636d88e0"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ped_id}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -119,40 +134,32 @@ WHERE pc.ped_fecha BETWEEN $P{desde} AND $P{hasta}]]>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PEDIDOS POR PERIODO]]></text>
+				<text><![CDATA[PEDIDOS DE COMPRA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="264" y="29" width="43" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Desde]]></text>
+				<text><![CDATA[NRO]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="407" y="29" width="43" height="20" uuid="20de5ec0-2e55-4a60-9eda-fb42692fa870"/>
+			<textField>
+				<reportElement x="307" y="29" width="100" height="20" uuid="c0c5294c-b816-48b6-bda6-9b1265222c9a"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Hasta]]></text>
-			</staticText>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="307" y="29" width="100" height="20" uuid="5e2d5304-1700-40d5-9f72-a2fbc189a656"/>
-				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
-				<reportElement x="450" y="29" width="100" height="20" uuid="72de1ce9-c4bb-46fe-a757-4fc68d00628c"/>
-				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{codigo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="16" y="0" width="275" height="20" uuid="07457776-bbf7-4c62-aca2-8fccf9a5bbf9"/>
+				<reportElement x="16" y="0" width="291" height="20" uuid="07457776-bbf7-4c62-aca2-8fccf9a5bbf9"/>
 				<textFieldExpression><![CDATA[$F{mat_desc}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="363" y="0" width="100" height="20" uuid="f3cf5025-8cf7-4d27-ba2f-1342ccf209a0"/>
+				<reportElement x="359" y="0" width="170" height="20" uuid="f3cf5025-8cf7-4d27-ba2f-1342ccf209a0"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
 			<line>

@@ -57,12 +57,10 @@ public class pedido_de_compra extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         btnBuscarArti = new javax.swing.JButton();
         txtCodArti = new javax.swing.JTextField();
         txtArti = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
         txtCantidad = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -71,7 +69,6 @@ public class pedido_de_compra extends javax.swing.JFrame {
         txtDescri = new javax.swing.JTextField();
         txtUsuarioCod = new javax.swing.JTextField();
         txtSucursal = new javax.swing.JTextField();
-        txtTotal = new javax.swing.JTextField();
         txtFecha = new com.toedter.calendar.JDateChooser();
         txtCod = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
@@ -87,11 +84,11 @@ public class pedido_de_compra extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CODIGO", "DESCRIPCION", "CANTIDAD", "PRECIO UNT.", "SUBTOTAL"
+                "CODIGO", "DESCRIPCION", "CANTIDAD"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -191,10 +188,6 @@ public class pedido_de_compra extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("ARTICULO");
 
-        jLabel10.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("PRECIO");
-
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("CANT.");
@@ -223,12 +216,6 @@ public class pedido_de_compra extends javax.swing.JFrame {
             }
         });
 
-        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrecioActionPerformed(evt);
-            }
-        });
-
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadActionPerformed(evt);
@@ -250,15 +237,11 @@ public class pedido_de_compra extends javax.swing.JFrame {
                 .addComponent(txtArti, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscarArti)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(98, 98, 98)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(151, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -270,8 +253,6 @@ public class pedido_de_compra extends javax.swing.JFrame {
                     .addComponent(txtCodArti)
                     .addComponent(txtArti)
                     .addComponent(btnBuscarArti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10)
-                    .addComponent(txtPrecio)
                     .addComponent(jLabel11)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -313,13 +294,6 @@ public class pedido_de_compra extends javax.swing.JFrame {
         txtSucursal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSucursalActionPerformed(evt);
-            }
-        });
-
-        txtTotal.setText("0");
-        txtTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalActionPerformed(evt);
             }
         });
 
@@ -369,7 +343,6 @@ public class pedido_de_compra extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(89, 89, 89)
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane2)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -405,9 +378,7 @@ public class pedido_de_compra extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addGap(69, 69, 69)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -455,9 +426,9 @@ public class pedido_de_compra extends javax.swing.JFrame {
         txtDescri.setEditable(false);
         txtCodArti.setEditable(false);
         txtArti.setEditable(false);
-        txtPrecio.setEditable(false);
+        
         txtCantidad.setEditable(false);
-        txtTotal.setEditable(false);
+      
         txtUsuario.setEditable(false);
         
         
@@ -469,9 +440,9 @@ public class pedido_de_compra extends javax.swing.JFrame {
         txtDescri.setText("");
         txtCodArti.setText("");
         txtArti.setText("");
-        txtPrecio.setText("");
+        
         txtCantidad.setText("");
-        txtTotal.setText("0");
+        
         
         limpiarTabla(grilla);
         
@@ -510,10 +481,6 @@ public class pedido_de_compra extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSucursalActionPerformed
 
-    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTotalActionPerformed
-
     private void txtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodActionPerformed
@@ -523,15 +490,10 @@ public class pedido_de_compra extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodArtiActionPerformed
 
     private void txtArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtArtiActionPerformed
-        traerPrecio();
-        txtPrecio.setEditable(true);
-        txtPrecio.requestFocus();
-    }//GEN-LAST:event_txtArtiActionPerformed
-
-    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
+        
         txtCantidad.setEditable(true);
         txtCantidad.requestFocus();
-    }//GEN-LAST:event_txtPrecioActionPerformed
+    }//GEN-LAST:event_txtArtiActionPerformed
 
     
     public void sumarRepetido(){
@@ -554,19 +516,15 @@ public class pedido_de_compra extends javax.swing.JFrame {
          String codigoEnRenglon = (String)grilla.getValueAt(fila, 0);
          if (txtCodArti.getText().equals(codigoEnRenglon)) {
              grilla.setValueAt(Integer.parseInt(txtCantidad.getText())+(Integer.parseInt(grilla.getValueAt(fila, 2).toString())), fila, 2);
-             grilla.setValueAt(Integer.parseInt(grilla.getValueAt(fila, 2).toString())*Integer.parseInt(txtPrecio.getText()), fila, 4);
+             //grilla.setValueAt(Integer.parseInt(grilla.getValueAt(fila, 2).toString())*Integer.parseInt(txtPrecio.getText()), fila, 4);
              txtCodArti.setText("");
              txtArti.setText("");
              txtCantidad.setText("");
-             txtPrecio.setText("");
+             
              txtArti.requestFocus();
              
              
-                for (int fila2 = 0; fila2 <grilla.getRowCount(); fila2++) {
-                    total = total+Integer.parseInt((grilla.getValueAt(fila2, 4).toString()));
-                 
-                }
-                txtTotal.setText(Integer.toString(total));
+               
              return;
                //JOptionPane.showMessageDialog(null, "ya hay");
          
@@ -578,20 +536,15 @@ public class pedido_de_compra extends javax.swing.JFrame {
                 txtCodArti.getText().trim(),
                 txtArti.getText().trim(),
                 txtCantidad.getText().trim(),
-                txtPrecio.getText().trim(),
-                Integer.parseInt(txtCantidad.getText())*Integer.parseInt(txtPrecio.getText())
                 });
         txtCodArti.setText("");
         txtArti.setText("");
         txtCantidad.setText("");
-        txtPrecio.setText("");
+        
         txtArti.requestFocus();
         
-       for (int fila2 = 0; fila2 <grilla.getRowCount(); fila2++) {
-                    total = total+Integer.parseInt((grilla.getValueAt(fila2, 4).toString()));
-                 
-        }
-       txtTotal.setText(Integer.toString(total));
+      
+       
         
 //        for (int fila2 = 0; fila2 <grilla.getRowCount(); fila2++) {
 //             total = Integer.parseInt((grilla.getValueAt(fila2, 4).toString()));
@@ -671,10 +624,9 @@ public class pedido_de_compra extends javax.swing.JFrame {
                 int cantidadFilas=grilla.getRowCount();
                 if (operacion.equals("agregar")) {
                         for (int i = 0; i < cantidadFilas; i++) {
-                            sqldetalle="insert into pedido_compra_detalle(ped_id, cod_materia, precio, cantidad) values("
+                            sqldetalle="insert into pedido_compra_detalle(ped_id, cod_materia,  cantidad) values("
                             +Metodos.ultimoCodigo("ped_id", "pedido_compra")+","
                             +grilla.getValueAt(i, 0)+","
-                            +grilla.getValueAt(i, 3)+","
                             +grilla.getValueAt(i, 2)+")";
                            
                             cn.actualizar(sqldetalle);
@@ -682,6 +634,8 @@ public class pedido_de_compra extends javax.swing.JFrame {
                 }   
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico("/src/reportes/reportePedidoCompraCodigoUnico.jasper", 
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
                 
@@ -745,7 +699,7 @@ public class pedido_de_compra extends javax.swing.JFrame {
             
             if(sucursal.isBeforeFirst()){
                 while(sucursal.next()){
-                  txtPrecio.setText(sucursal.getString("mat_precio"));
+                 // txtPrecio.setText(sucursal.getString("mat_precio"));
                 }
             }else{
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
@@ -806,7 +760,6 @@ public class pedido_de_compra extends javax.swing.JFrame {
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnSalir;
     public static javax.swing.JTable grilla;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -824,9 +777,7 @@ public class pedido_de_compra extends javax.swing.JFrame {
     public static javax.swing.JTextField txtCodArti;
     public static javax.swing.JTextField txtDescri;
     public static com.toedter.calendar.JDateChooser txtFecha;
-    private javax.swing.JTextField txtPrecio;
     public static javax.swing.JTextField txtSucursal;
-    public static javax.swing.JTextField txtTotal;
     public static javax.swing.JTextField txtUsuario;
     public static javax.swing.JTextField txtUsuarioCod;
     // End of variables declaration//GEN-END:variables

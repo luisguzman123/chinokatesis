@@ -59,32 +59,18 @@ WHERE pc.ped_id BETWEEN $P{desde} AND $P{hasta}]]>
 					<text><![CDATA[Sucursal]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="16" y="70" width="184" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
+					<reportElement x="16" y="70" width="291" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Materia Prima]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="211" y="70" width="100" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
+					<reportElement x="358" y="70" width="170" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Cantidad]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="311" y="70" width="100" height="20" forecolor="#FFFFFF" uuid="9b7d51b5-6ee7-4538-90af-91135e966d44"/>
-					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Precio]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="454" y="70" width="100" height="20" forecolor="#FFFFFF" uuid="9139df23-aa45-4f95-8c66-8fc886888db9"/>
-					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Total]]></text>
 				</staticText>
 				<line>
 					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
@@ -135,20 +121,6 @@ WHERE pc.ped_id BETWEEN $P{desde} AND $P{hasta}]]>
 				<rectangle>
 					<reportElement x="0" y="0" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="d24ab337-ecdc-457d-89ca-04088a0cdf1b"/>
 				</rectangle>
-				<staticText>
-					<reportElement x="16" y="0" width="166" height="20" forecolor="#FFFFFF" uuid="900a15c7-67da-44a3-aecf-62361219be4e"/>
-					<textElement verticalAlignment="Middle">
-						<font size="12" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Total]]></text>
-				</staticText>
-				<textField pattern="#,##0">
-					<reportElement x="455" y="0" width="100" height="20" forecolor="#FFFFFF" uuid="fa4fa62e-2087-4088-b762-eb2ff9936bad"/>
-					<textElement>
-						<font size="12" isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{total_1}]]></textFieldExpression>
-				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -194,20 +166,12 @@ WHERE pc.ped_id BETWEEN $P{desde} AND $P{hasta}]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="16" y="0" width="184" height="20" uuid="07457776-bbf7-4c62-aca2-8fccf9a5bbf9"/>
+				<reportElement x="16" y="0" width="291" height="20" uuid="07457776-bbf7-4c62-aca2-8fccf9a5bbf9"/>
 				<textFieldExpression><![CDATA[$F{mat_desc}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement x="212" y="0" width="100" height="20" uuid="f3cf5025-8cf7-4d27-ba2f-1342ccf209a0"/>
+				<reportElement x="359" y="0" width="170" height="20" uuid="f3cf5025-8cf7-4d27-ba2f-1342ccf209a0"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="312" y="0" width="100" height="20" uuid="7f53df7c-b596-492f-9d76-1dde421ba2ed"/>
-				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0">
-				<reportElement x="455" y="0" width="100" height="20" uuid="3ee91f8d-32a3-4079-8aca-65636eb5b98e"/>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>

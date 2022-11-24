@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
+	<property name="ireport.zoom" value="0.3855432894295325"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+rc.fecha,
+rc.descripcion,
+rc.estado,
+c.cli_nomb||' '||c.cli_apelli as cliente,
+e.desc_equipo
+
+FROM contrato_servicio_cab rc
+
+JOIN contrato_servicio_det rd
+ON rd.id_contrato =  rc.id_contrato
+
+JOIN equipos e 
+ON e.id_equipo =  rd.id_equipo
+
+
+JOIN cliente c 
+ON c.cli_cod = rc.id_cliente
+
+
+WHERE rc.id_contrato = $P{codigo}]]>
+	</queryString>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="desc_equipo" class="java.lang.String"/>
+	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="cantidad_1" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="pedidos_cabecera">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="679">
+				<line>
+					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="1" y="32" width="543" height="81" uuid="b6006cce-3fde-418d-8e97-6ec7ebe667cd"/>
+					<textElement>
+						<font size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[En la ciudad de iTAUGUA, a los ____ días del mes de _____________ de _____, entre
+ ______________________________ , en adelante EL LOCADOR y
+ ______________________________ , en adelante EL LOCATARIO, se conviene celebrar este "contrato de locación de servicios" sujeto a las siguientes condiciones:]]></text>
+				</staticText>
+				<textField pattern="dd">
+					<reportElement x="177" y="34" width="32" height="20" uuid="4b98a084-f64e-4afb-81a5-f5968fe16220"/>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField pattern="MMMM">
+					<reportElement x="295" y="33" width="85" height="20" uuid="e1c16cbd-5b8c-42fe-b2fb-3819b7996f45"/>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField pattern="yyyy">
+					<reportElement x="401" y="34" width="31" height="20" uuid="ad06cf83-180c-428f-901b-9f2e2e3361b4"/>
+					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="3" y="49" width="206" height="20" uuid="bd156fe0-6859-4f67-93e2-c13fbb445241"/>
+					<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="113" width="543" height="474" uuid="71c56f53-5527-4b46-a130-f0e50d929aa5"/>
+					<textElement>
+						<font size="12" isBold="false"/>
+					</textElement>
+					<text><![CDATA[PRIMERA: OBJETO. El locador prestará al locatario los servicios de __________ (detallar).
+El locatario exhibe en este acto copia del título/certificado (o certificado) habilitante expedido por _____ y copia de su inscripción en la D.G.I. como trabajador autónomo bajo el C.U.I.T. Nº _______.
+
+SEGUNDA: COMPROMISO. Durante toda la vigencia de este contrato, el locador se compromete a no contratar sus servicios con personas físicas o jurídicas con las que se relacione en razón de esta locación de servicios
+
+TERCERA: PRECIO. El locatario abonará al locador la suma de $ ____ (pesos _____), por adelantado y en forma mensual del 1 al ___ de cada mes. La falta de pago en tiempo y forma convenida, devengará en favor del locador un interés ___% del monto adeudado, sin perjuicio de la facultad de éste de rescindir el contrato y exigir judicialmente la reparación por daños y perjuicios que corresponda.
+
+CUARTA: VIGENCIA. Este contrato tendrá una vigencia de ________.
+
+QUINTA: RESCISION. Cualquiera de las partes podrá en cualquier tiempo y por cualquier motivo declarar rescindido este contrato de locación de servicios. En tal caso, deberá comunicarlo a la otra con una anticipación no menor de _____ y en forma fehaciente. Caso contario se hará pasible de una multa de $_____ (pesos ______), en favor de la contraria, la que será exigible sin necesidad de interpelación alguna y por vía ejecutiva.
+
+SEXTA: ENFERMEDAD. El locador deberá comunicar en forma fehaciente y con certificado médico que lo acredite, cualquier enfermedad que impida la realización de los servicios para los que fue contratado. En ese caso, el locatario abonará al locador su retribución mensual hasta un máximo de _______.  Pasado ese plazo de gracia, sin que el locatario se haya reintegrado a prestar su servicios en forma debida, el contrato quedará rescindido de pleno derecho.]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="254" y="22" width="300" height="32" uuid="996383a5-90f7-4a91-8de7-4e13918547f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-2" y="22" width="213" height="57" uuid="66cefef3-4184-439d-b312-c078afb82c61"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE SERVICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="39" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="303" y="29" width="100" height="20" uuid="cafb2748-b865-4bcf-8017-c37279465465"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<summary>
+		<band height="248" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
+	<property name="ireport.zoom" value="1.100000000000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="107"/>
+	<parameter name="codigo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+rc.fecha_registro,
+rc.fecha_expiracion,
+rc.observacion,
+rc.estado,
+c.cli_nomb||' '||c.cli_apelli as cliente,
+e.desc_equipo,
+tt.descripcion
+
+FROM garantia_cab rc
+
+JOIN garantia_det rd
+ON rd.id_garantia_cab =  rc.id_garantia_cab
+
+JOIN equipos e 
+ON e.id_equipo =  rd.id_equipo
+
+
+JOIN cliente c 
+ON c.cli_cod = rc.id_cliente
+
+
+JOIN tipos_garantia tt
+ON tt.id_tipo_garantia = rd.id_tipo_garantia
+
+WHERE rc.id_garantia_cab = $P{codigo}]]>
+	</queryString>
+	<field name="fecha_registro" class="java.sql.Date"/>
+	<field name="fecha_expiracion" class="java.sql.Date"/>
+	<field name="observacion" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="desc_equipo" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="cantidad_1" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="pedidos_cabecera">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="229">
+				<staticText>
+					<reportElement x="20" y="122" width="440" height="30" uuid="9367fbe7-23c1-4640-a090-db5929d030b5"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[En nuestro carácter de oferentes constituimos la presente carta de garantía de parte de nuestra empresa en Tiempo Real para con usted.
+]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="-1" y="209" width="555" height="20" forecolor="#333333" backcolor="#333333" uuid="0a27a1ab-89fa-4a57-afa0-d83ee32f7a00"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="1" y="97" width="213" height="20" uuid="a901b46b-0c00-4c1d-845f-8babb74a1725"/>
+					<textElement>
+						<font isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[De nuestra consideración:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="209" width="207" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[	Equipo]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="4" y="12" width="49" height="20" uuid="b6006cce-3fde-418d-8e97-6ec7ebe667cd"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sr./a]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="1" y="35" width="203" height="17" uuid="00c89e2d-6180-4711-9a40-568ed98d5f0d"/>
+					<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="289" y="209" width="202" height="20" forecolor="#FFFFFF" uuid="d8da4c91-ec26-4c2a-9bfe-ac7aef503dbd"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo de garantia]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="52" width="49" height="20" uuid="1df5306b-2019-4a80-842c-15f425ed573a"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Presente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="165" width="513" height="17" uuid="209ac7be-0e8f-4feb-943c-eeb44556eb6a"/>
+					<textElement>
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Con el fin de cumplir un plazo desde                                               hasta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="182" width="513" height="17" uuid="87f1be13-63c7-4a1e-a6c7-881baf82bb94"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[En los siguientes equipos con servicios terminados]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="189" y="165" width="100" height="20" uuid="4404c287-c4a3-4f6f-8929-380253769477"/>
+					<textFieldExpression><![CDATA[$F{fecha_registro}]]></textFieldExpression>
+				</textField>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="341" y="165" width="100" height="20" uuid="dba245ba-ff93-4119-b9e0-edee3521f95d"/>
+					<textFieldExpression><![CDATA[$F{fecha_expiracion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="275">
+				<staticText>
+					<reportElement x="303" y="109" width="213" height="20" uuid="5663b504-0b0a-4064-8815-65f0077a16e1"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Sin otro particular saludamos a Uds. Atte.
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="303" y="129" width="213" height="20" uuid="3e0ad470-8608-43ee-828a-ecb06f9a875f"/>
+					<textElement textAlignment="Center">
+						<font isBold="false" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Luis Guzmán]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="303" y="144" width="213" height="20" uuid="71fa1019-e20c-483f-b3dd-9a58aed48ab0"/>
+					<textElement textAlignment="Center">
+						<font isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Representante Legal]]></text>
+				</staticText>
+				<line>
+					<reportElement x="297" y="104" width="219" height="1" uuid="30eb178c-5ce9-48cf-b70b-e35dcb0a45c4"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="254" y="22" width="300" height="32" uuid="996383a5-90f7-4a91-8de7-4e13918547f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-2" y="22" width="213" height="57" uuid="66cefef3-4184-439d-b312-c078afb82c61"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARTA DE GARANTIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="39" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="303" y="29" width="100" height="20" uuid="cafb2748-b865-4bcf-8017-c37279465465"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<line>
+				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
+			</line>
+			<textField>
+				<reportElement x="4" y="2" width="210" height="20" uuid="5ff90676-9b35-420c-ae18-3fd98633aabd"/>
+				<textFieldExpression><![CDATA[$F{desc_equipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="2" width="202" height="20" uuid="d0fa8f45-7679-47f5-95f6-162fdb5342f6"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="45" splitType="Stretch"/>
+	</summary>
+</jasperReport>

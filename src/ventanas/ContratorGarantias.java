@@ -135,6 +135,11 @@ public class ContratorGarantias extends javax.swing.JDialog {
         jbExportar.setFont(new java.awt.Font("Times New Roman", 1, 13)); // NOI18N
         jbExportar.setForeground(new java.awt.Color(255, 255, 255));
         jbExportar.setText("IMPRIMIR");
+        jbExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExportarActionPerformed(evt);
+            }
+        });
 
         listaContratoGarant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contrato", "Garantia", " ", " " }));
         listaContratoGarant.addItemListener(new java.awt.event.ItemListener() {
@@ -216,6 +221,43 @@ public class ContratorGarantias extends javax.swing.JDialog {
             Conexion cn = new Conexion();
             try {
                 cn.conectar();
+                ResultSet pedi = cn.consultar("SELECT\n"
+                        + "cs.id_contrato,\n"
+                        + "cs.fecha,\n"
+                        + "c.cli_nomb||' '||c.cli_apelli as nombre_cliente\n"
+                        + "FROM contrato_servicio_cab cs\n"
+                        + "JOIN presupuesto_servicio_cabecera ps\n"
+                        + "ON ps.id_presupuesto_reparacion_cab = id_presupuesto_rewparacion_cab\n"
+                        + "JOIN cliente c\n"
+                        + "ON c.cli_cod = cs.id_cliente\n"
+                        + "WHERE cs.fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate())
+                        + "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "';"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+//            ResultSet pedi = cn.consultar("select * from pedido_venta where fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) + "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "' and estado !='ANULADO' order by cod_pedi_ven"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                Metodos.limpiarTabla(tablaDetalle);
+                if (pedi.isBeforeFirst()) {
+                    while (pedi.next()) {
+
+                        Metodos.cargarTabla(tablaDetalle, new Object[]{
+                            pedi.getString("id_contrato"),
+                            pedi.getString("nombre_cliente"),
+                            pedi.getString("fecha"),
+                            "-"});
+                    }
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+            } catch (SQLException ex) {
+                Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        } else {
+            Conexion cn = new Conexion();
+            try {
+                cn.conectar();
                 ResultSet pedi = cn.consultar("SELECT \n"
                         + "gc.id_garantia_cab,\n"
                         + "c.cli_nomb||' '||c.cli_apelli as nombre_cliente, \n"
@@ -224,8 +266,8 @@ public class ContratorGarantias extends javax.swing.JDialog {
                         + "FROM garantia_cab gc\n"
                         + "JOIN cliente c\n"
                         + "ON gc.id_cliente = c.cli_cod\n"
-                        + "WHERE gc.fecha_registro BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) +
-                        "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "' " //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+                        + "WHERE gc.fecha_registro BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate())
+                        + "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "' " //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
                         + "ORDER BY id_garantia_cab;");
 //            ResultSet pedi = cn.consultar("select * from pedido_venta where fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) + "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "' and estado !='ANULADO' order by cod_pedi_ven"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
                 Metodos.limpiarTabla(tablaDetalle);
@@ -249,45 +291,27 @@ public class ContratorGarantias extends javax.swing.JDialog {
                 Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
-        } else {
-            Conexion cn = new Conexion();
-            try {
-                cn.conectar();
-                ResultSet pedi = cn.consultar("SELECT\n"
-                        + "cs.id_contrato,\n"
-                        + "cs.fecha,\n"
-                        + "c.cli_nomb||' '||c.cli_apelli as nombre_cliente\n"
-                        + "FROM contrato_servicio_cab cs\n"
-                        + "JOIN presupuesto_servicio_cabecera ps\n"
-                        + "ON ps.id_presupuesto_reparacion_cab = id_presupuesto_rewparacion_cab\n"
-                        + "JOIN cliente c\n"
-                        + "ON c.cli_cod = cs.id_cliente\n"
-                        + "WHERE cs.fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) + 
-                        "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "';"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
-//            ResultSet pedi = cn.consultar("select * from pedido_venta where fecha BETWEEN '" + Metodos.dameFechaFormateadaSQL(jtDesde.getDate()) + "' and '" + Metodos.dameFechaFormateadaSQL(jtHasta.getDate()) + "' and estado !='ANULADO' order by cod_pedi_ven"); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
-                Metodos.limpiarTabla(tablaDetalle);
-                if (pedi.isBeforeFirst()) {
-                    while (pedi.next()) {
 
-                        Metodos.cargarTabla(tablaDetalle, new Object[]{
-                            pedi.getString("id_contrato"),
-                            pedi.getString("nombre_cliente"),
-                            pedi.getString("fecha"),
-                            "-"});
-                    }
-                } else {
-
-                    JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
-            } catch (SQLException ex) {
-                Logger.getLogger(clientes.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
         }
     }//GEN-LAST:event_buscar_btnActionPerformed
+
+    private void jbExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExportarActionPerformed
+        if (tablaDetalle.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(rootPane, "Debes seleccionar un registro");
+
+        } else {
+            if (listaContratoGarant.getSelectedIndex() == 0) {
+
+                Metodos.imprimirPorCodigoUnico("/src/reportes/reporteContratoPorCodigo.jasper",
+                        Integer.parseInt(tablaDetalle.getValueAt(tablaDetalle.getSelectedRow(), 0).toString()));
+            } else {
+
+                Metodos.imprimirPorCodigoUnico("/src/reportes/reporteGarantiaPorCodigo.jasper",
+                        Integer.parseInt(tablaDetalle.getValueAt(tablaDetalle.getSelectedRow(), 0).toString()));
+            }
+        }
+
+    }//GEN-LAST:event_jbExportarActionPerformed
 
     /**
      * @param args the command line arguments

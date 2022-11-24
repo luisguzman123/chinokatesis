@@ -833,6 +833,9 @@ public class TrabajoTerminado extends javax.swing.JFrame {
                 sql = "update servicio_termi_cab set"
                         + " estado = 'ANULADO' "
                         + " where id_servi_termi_cab = " + txtCod.getText();
+                sql += "update garantia_cab set"
+                        + " estado = 'ANULADO' "
+                        + " where id_servi_termi_cab = " + txtCod.getText();
 
             }
 
@@ -861,7 +864,7 @@ public class TrabajoTerminado extends javax.swing.JFrame {
                         sqldetalle += "INSERT INTO public.garantia_det(\n"
                                 + "    id_garantia_cab, id_equipo, id_tipo_garantia)\n"
                                 + "    VALUES ("+id_garantia+", "+grillaTerminados.getValueAt(i, 0)+","
-                                + " "+grillaTerminados.getValueAt(i, 2)+");";
+                                + " 1);";
 
                         System.out.println(sqldetalle);
                         cn.actualizar(sqldetalle);

@@ -74,6 +74,8 @@ public class ventas extends javax.swing.JFrame {
         txt_cantidad = new javax.swing.JTextField();
         txt_stock = new javax.swing.JTextField();
         jLabel45 = new javax.swing.JLabel();
+        label_info = new javax.swing.JLabel();
+        tipo_venta_lst = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         grilla = new javax.swing.JTable();
         jLabel38 = new javax.swing.JLabel();
@@ -317,7 +319,7 @@ public class ventas extends javax.swing.JFrame {
 
         jLabel35.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel35.setText("Articulos");
+        jLabel35.setText("Tipo");
 
         txt_arti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -360,6 +362,22 @@ public class ventas extends javax.swing.JFrame {
         jLabel45.setForeground(new java.awt.Color(255, 255, 255));
         jLabel45.setText("Stock");
 
+        label_info.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        label_info.setForeground(new java.awt.Color(255, 255, 255));
+        label_info.setText("Articulos");
+
+        tipo_venta_lst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Producto", "Servicio" }));
+        tipo_venta_lst.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tipo_venta_lstItemStateChanged(evt);
+            }
+        });
+        tipo_venta_lst.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tipo_venta_lstKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -368,29 +386,41 @@ public class ventas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(txt_cod_arti, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_arti, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel36)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txt_cod_arti, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel35))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel37)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel45)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel35))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(txt_arti, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel37)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel45)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(tipo_venta_lst, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(label_info)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jLabel35)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(tipo_venta_lst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(label_info)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -403,7 +433,7 @@ public class ventas extends javax.swing.JFrame {
                         .addComponent(txt_arti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel36)
                         .addComponent(txt_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         grilla.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -412,11 +442,11 @@ public class ventas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CODIGO", "DESCRIPCION", "CANTIDAD", "PRECIO UNT.", "EXENTA", "5%", "10%", "SUBTOTAL"
+                "CODIGO", "DESCRIPCION", "CANTIDAD", "PRECIO UNT.", "EXENTA", "5%", "10%", "SUBTOTAL", "TIPO"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true, false
+                false, false, false, false, true, true, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -436,9 +466,6 @@ public class ventas extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(grilla);
-        if (grilla.getColumnModel().getColumnCount() > 0) {
-            grilla.getColumnModel().getColumn(7).setHeaderValue("SUBTOTAL");
-        }
 
         jLabel38.setBackground(new java.awt.Color(0, 0, 0));
         jLabel38.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -1260,6 +1287,19 @@ public class ventas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_stockActionPerformed
 
+    private void tipo_venta_lstItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipo_venta_lstItemStateChanged
+        if(tipo_venta_lst.getSelectedIndex() == 0){
+            label_info.setText("Articulo");
+        }else{
+            label_info.setText("Servicio");
+            
+        }
+    }//GEN-LAST:event_tipo_venta_lstItemStateChanged
+
+    private void tipo_venta_lstKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tipo_venta_lstKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipo_venta_lstKeyPressed
+
     public String traerIva(String cod) {
         try {
             Conexion cn = new Conexion();
@@ -1497,6 +1537,8 @@ public class ventas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel label_info;
+    private javax.swing.JComboBox<String> tipo_venta_lst;
     public static javax.swing.JTextField txtCliente;
     public static javax.swing.JTextField txtCod;
     public static javax.swing.JTextField txtCodCliente;

@@ -121,6 +121,8 @@ public class notaRemision extends javax.swing.JFrame
         txtCodUsuario = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        TIMBTRADO = new javax.swing.JTextField();
 
         jLabel5.setText("jLabel5");
 
@@ -766,6 +768,23 @@ public class notaRemision extends javax.swing.JFrame
             }
         });
 
+        jLabel31.setFont(new java.awt.Font("Arial", 1, 11)); // NOI18N
+        jLabel31.setText("TIMBRADO Nº:");
+
+        TIMBTRADO.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        TIMBTRADO.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        TIMBTRADO.setEnabled(false);
+        TIMBTRADO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TIMBTRADOActionPerformed(evt);
+            }
+        });
+        TIMBTRADO.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TIMBTRADOKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -802,7 +821,11 @@ public class notaRemision extends javax.swing.JFrame
                                         .addGap(10, 10, 10)
                                         .addComponent(jLabel19)
                                         .addGap(12, 12, 12)
-                                        .addComponent(factura_n, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(factura_n, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel31)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(TIMBTRADO, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -854,7 +877,11 @@ public class notaRemision extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(jLabel19))
-                    .addComponent(factura_n, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(factura_n, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel31))
+                    .addComponent(TIMBTRADO, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -1019,7 +1046,9 @@ public class notaRemision extends javax.swing.JFrame
             String sqlstocklocal="";
             String sqlstockfinal="";
             if(operacion.equals("Traslados")||operacion.equals("Ventas")||operacion.equals("Compras")){
-                sql="Insert into nota_remision (remi_estado, remi_fecha_partida, remi_motivo, emp_id, sucur_id, veh_id, usu_id, sucu_id_llegada, remi_fecha_llegada, id_chofer)"
+                sql="Insert into nota_remision (remi_estado, remi_fecha_partida, "
+                        + "remi_motivo, emp_id, sucur_id, veh_id, usu_id, sucu_id_llegada,"
+                        + " remi_fecha_llegada, id_chofer, timbrado)"
                         + " values ('ACTIVO', '"+
                         Metodos.dameFechaFormateadaSQL(fecha_inicio.getDate())+"', '"+
                         combo_motivo_nota.getSelectedItem().toString()+"', "+
@@ -1029,7 +1058,7 @@ public class notaRemision extends javax.swing.JFrame
                         idUsuario+","+
                         dameIdSucursal(sucursal_receptora.getSelectedItem().toString())+",'"+
                         Metodos.dameFechaFormateadaSQL(fecha_fin.getDate())+"', "+
-                        cod_conductor.getText().trim()+")";
+                        cod_conductor.getText().trim()+", '"+TIMBTRADO.getText()+"')";
                         
             }
             
@@ -1383,6 +1412,14 @@ public class notaRemision extends javax.swing.JFrame
             dameDepositoFin();
         }
     }//GEN-LAST:event_combo_deposito_emisorKeyPressed
+
+    private void TIMBTRADOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TIMBTRADOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TIMBTRADOActionPerformed
+
+    private void TIMBTRADOKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TIMBTRADOKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TIMBTRADOKeyTyped
 
 
     public static void main(String args[]) {
@@ -1792,6 +1829,7 @@ public class notaRemision extends javax.swing.JFrame
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField TIMBTRADO;
     private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEnviar;
@@ -1835,6 +1873,7 @@ public class notaRemision extends javax.swing.JFrame
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;

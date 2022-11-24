@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static ventanas.orden_compra.txtCod;
 import static ventanas.pedido_de_compra.txtCodArti;
 
 
@@ -643,6 +644,8 @@ public class pedidoDeVenta extends javax.swing.JFrame {
                     }
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico("/src/reportes/reportePedidoVentaCodigoUnico.jasper", 
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
             } catch (ClassNotFoundException ex) {

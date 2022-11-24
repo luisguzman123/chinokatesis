@@ -5,6 +5,7 @@
  */
 package ventanas;
 
+import Acceso.Menu;
 import clases.Conexion;
 import clases.Metodos;
 import com.toedter.calendar.JCalendar;
@@ -16,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import static ventanas.presupuesto_de_compra.txtCod;
 
 
 public class ajuste_stock extends javax.swing.JFrame {
@@ -635,7 +637,9 @@ public class ajuste_stock extends javax.swing.JFrame {
                 }
                 
                 JOptionPane.showMessageDialog(null, mensaje);
-//                btnCancelar.doClick();
+                Metodos.imprimirPorCodigoUnico("/src/reportes/reporteAjusteInventarioCodigoUnico.jasper", 
+                        Integer.parseInt(txtCod.getText()));
+                bcancelar.doClick();
 
                 
             } catch (ClassNotFoundException ex) {
@@ -839,7 +843,8 @@ public class ajuste_stock extends javax.swing.JFrame {
 
         try {
             cn.conectar();
-            ResultSet sucursal = cn.consultar("select * from v_stock_materias where cod_depo = " + txtNroDeposito.getText()); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            ResultSet sucursal = cn.consultar("select * from v_stock_materias where cod_depo = " 
+                    + txtNroDeposito.getText()+" and sucur_id ="+Menu.idSucursal); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
 
             if (sucursal.isBeforeFirst()) {
                 while (sucursal.next()) {

@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static ventanas.pedido_de_compra.txtCod;
 
 
 public class presupuesto_de_compra extends javax.swing.JFrame {
@@ -95,7 +96,7 @@ public class presupuesto_de_compra extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -109,9 +110,17 @@ public class presupuesto_de_compra extends javax.swing.JFrame {
                 grillaMouseClicked(evt);
             }
         });
+        grilla.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                grillaPropertyChange(evt);
+            }
+        });
         grilla.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 grillaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                grillaKeyReleased(evt);
             }
         });
         jScrollPane2.setViewportView(grilla);
@@ -375,7 +384,18 @@ public class presupuesto_de_compra extends javax.swing.JFrame {
             }
         });
 
+        con_pedido_cbx.setSelected(true);
         con_pedido_cbx.setText("Con Pedido");
+        con_pedido_cbx.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                con_pedido_cbxMouseClicked(evt);
+            }
+        });
+        con_pedido_cbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                con_pedido_cbxKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -745,6 +765,8 @@ public class presupuesto_de_compra extends javax.swing.JFrame {
                 }
                 cn.actualizar("update pedido_compra set estado = 'UTILIZADO' where ped_id = "+txtPedido_compra.getText());
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico("/src/reportes/reportePresupuestoCompraCodigoUnico.jasper", 
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
                 
@@ -826,6 +848,41 @@ public class presupuesto_de_compra extends javax.swing.JFrame {
           
         }
     }//GEN-LAST:event_txtCodKeyPressed
+
+    private void grillaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_grillaPropertyChange
+        
+    }//GEN-LAST:event_grillaPropertyChange
+
+    private void grillaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grillaKeyReleased
+        if(grilla.getSelectedColumn() == 3){
+            int cantidad = Integer.parseInt(grilla.getValueAt(grilla.getSelectedRow(), 2).toString()) ;
+            int precio = Integer.parseInt(grilla.getValueAt(grilla.getSelectedRow(),3).toString()) ;
+            grilla.setValueAt( cantidad * precio ,grilla.getSelectedRow(), 4);
+            int total= 0;
+            for (int fila2 = 0; fila2 <grilla.getRowCount(); fila2++) {
+                    total = total+Integer.parseInt((grilla.getValueAt(fila2, 4).toString()));
+                 
+                }
+                txtTotal.setText(Integer.toString(total));
+             return;
+        }
+    }//GEN-LAST:event_grillaKeyReleased
+
+    private void con_pedido_cbxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_con_pedido_cbxKeyReleased
+       
+    }//GEN-LAST:event_con_pedido_cbxKeyReleased
+
+    private void con_pedido_cbxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_con_pedido_cbxMouseClicked
+         if(con_pedido_cbx.isSelected()){
+            txtPedido_compra.setText("");
+            txtPedido_compra.requestFocus();
+            txtPedido_compra.setEnabled(true);
+        }else{
+            txtPedido_compra.setText("0");
+            txtPedido_compra.setEnabled(false);
+            
+        }
+    }//GEN-LAST:event_con_pedido_cbxMouseClicked
 
     
     

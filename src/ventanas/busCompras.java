@@ -224,35 +224,37 @@ public class busCompras extends javax.swing.JFrame {
 
         }
 
-//        Conexion cn = new Conexion();
-//
-//        try {
-//            cn.conectar();
-//            ResultSet detalles = cn.consultar("select * from v_detalle_pedido_compra where ped_id = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
-//            Metodos.limpiarTabla(pedido_de_compra.grilla);
-//            if (detalles.isBeforeFirst()) {
-//                while (detalles.next()) {
-//                    Metodos.cargarTabla(pedido_de_compra.grilla, new Object[]{
-//                        detalles.getString("cod_materia"),
-//                        detalles.getString("mat_desc"),
-//                        detalles.getString("cantidad"),
-//                        detalles.getString("precio"),
-//                        detalles.getString("precio"),
-//                        (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
-//                    });
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(busCompras.class.getName()).log(Level.SEVERE, null, ex);
-//            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
-//        } catch (SQLException ex) {
-//            Logger.getLogger(busCompras.class.getName()).log(Level.SEVERE, null, ex);
-//            JOptionPane.showMessageDialog(null, ex.getMessage());
-//        }
+        Conexion cn = new Conexion();
 
-//        pedido_de_compra.txtTotal.setText(String.valueOf(Metodos.sumarColumna(pedido_de_compra.grilla, 4)));
+        try {
+            cn.conectar();
+            ResultSet detalles = cn.consultar("select * from v_detalle_compra where compra_id = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            Metodos.limpiarTabla(compras.grilla);
+            if (detalles.isBeforeFirst()) {
+                while (detalles.next()) {
+                    Metodos.cargarTabla(compras.grilla, new Object[]{
+                        detalles.getString("cod_materia"),
+                        detalles.getString("mat_desc"),
+                        detalles.getString("cantidad"),
+                        detalles.getString("monto"),
+                        detalles.getString("exenta"),
+                        detalles.getString("iva_5"),
+                        detalles.getString("iva_10"),
+                        (Integer.parseInt(detalles.getString("monto")) * Integer.parseInt(detalles.getString("cantidad")))
+                    });
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(busCompras.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se encuentra " + ex.getMessage());
+        } catch (SQLException ex) {
+            Logger.getLogger(busCompras.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+
+        
         dispose();
     }
     

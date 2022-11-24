@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static ventanas.pedido_de_compra.txtCod;
 
 
 public class orden_compra extends javax.swing.JFrame {
@@ -68,6 +69,8 @@ public class orden_compra extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         txtIdProveedor = new javax.swing.JTextField();
         txtNombreProveedor = new javax.swing.JTextField();
+        con_pedido_cbx = new javax.swing.JCheckBox();
+        con_pedido_cbx1 = new javax.swing.JCheckBox();
 
         jLabel5.setText("jLabel5");
 
@@ -251,6 +254,32 @@ public class orden_compra extends javax.swing.JFrame {
             }
         });
 
+        con_pedido_cbx.setSelected(true);
+        con_pedido_cbx.setText("Con Pedido");
+        con_pedido_cbx.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                con_pedido_cbxMouseClicked(evt);
+            }
+        });
+        con_pedido_cbx.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                con_pedido_cbxKeyReleased(evt);
+            }
+        });
+
+        con_pedido_cbx1.setSelected(true);
+        con_pedido_cbx1.setText("Con Presupuesto");
+        con_pedido_cbx1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                con_pedido_cbx1MouseClicked(evt);
+            }
+        });
+        con_pedido_cbx1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                con_pedido_cbx1KeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -284,9 +313,15 @@ public class orden_compra extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtPresupuesto, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                                 .addComponent(txtSucursal)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(56, 56, 56))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(56, 56, 56))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(con_pedido_cbx1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -299,6 +334,11 @@ public class orden_compra extends javax.swing.JFrame {
                         .addGap(136, 136, 136)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(427, 427, 427)
+                    .addComponent(con_pedido_cbx)
+                    .addContainerGap(427, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +364,8 @@ public class orden_compra extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(con_pedido_cbx1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
@@ -337,6 +378,11 @@ public class orden_compra extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(240, 240, 240)
+                    .addComponent(con_pedido_cbx)
+                    .addContainerGap(241, Short.MAX_VALUE)))
         );
 
         setSize(new java.awt.Dimension(949, 543));
@@ -555,6 +601,8 @@ public class orden_compra extends javax.swing.JFrame {
                 }
                 cn.actualizar("update presu_prove set estado = 'UTILIZADO' where pre_pro_nro = "+txtPresupuesto.getText());
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico("/src/reportes/reporteOrdenCompraCodigoUnico.jasper", 
+                        Integer.parseInt(txtCod.getText()));
                 btnCancelar.doClick();
 
                 
@@ -568,6 +616,30 @@ public class orden_compra extends javax.swing.JFrame {
         }
          btnCancelar.doClick();
     }//GEN-LAST:event_btnGrabarActionPerformed
+
+    private void con_pedido_cbxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_con_pedido_cbxMouseClicked
+        
+    }//GEN-LAST:event_con_pedido_cbxMouseClicked
+
+    private void con_pedido_cbxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_con_pedido_cbxKeyReleased
+
+    }//GEN-LAST:event_con_pedido_cbxKeyReleased
+
+    private void con_pedido_cbx1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_con_pedido_cbx1MouseClicked
+        if(con_pedido_cbx.isSelected()){
+            txtPresupuesto.setText("");
+            txtPresupuesto.requestFocus();
+            txtPresupuesto.setEnabled(true);
+        }else{
+            txtPresupuesto.setText("0");
+            txtPresupuesto.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_con_pedido_cbx1MouseClicked
+
+    private void con_pedido_cbx1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_con_pedido_cbx1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_con_pedido_cbx1KeyReleased
 
     
     
@@ -626,6 +698,8 @@ public class orden_compra extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JCheckBox con_pedido_cbx;
+    private javax.swing.JCheckBox con_pedido_cbx1;
     public static javax.swing.JTable grilla;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

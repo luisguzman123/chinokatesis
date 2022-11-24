@@ -62,6 +62,8 @@ public class nota_compras extends javax.swing.JFrame {
         motivo_cbx = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         deposito_lbl = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        txtTimbrado = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         to_iva5 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
@@ -287,6 +289,31 @@ public class nota_compras extends javax.swing.JFrame {
         deposito_lbl.setForeground(new java.awt.Color(255, 255, 255));
         deposito_lbl.setText("  ");
 
+        jLabel31.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("TIMBRADO Nº");
+
+        txtTimbrado.setBackground(new java.awt.Color(240, 240, 240));
+        txtTimbrado.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        txtTimbrado.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtTimbrado.setEnabled(false);
+        txtTimbrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimbradoActionPerformed(evt);
+            }
+        });
+        txtTimbrado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimbradoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimbradoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTimbradoKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -309,17 +336,26 @@ public class nota_compras extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(asd, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(proveedortxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(proveedortxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTimbrado, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cod_proveedor)
-                    .addComponent(proveedortxt)
-                    .addComponent(cod_cli1)
-                    .addComponent(asd))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cod_proveedor)
+                        .addComponent(proveedortxt)
+                        .addComponent(cod_cli1)
+                        .addComponent(asd))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel31)
+                        .addComponent(txtTimbrado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(suc2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -651,7 +687,7 @@ public class nota_compras extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(880, 731));
@@ -716,7 +752,7 @@ public class nota_compras extends javax.swing.JFrame {
 //        System.out.println(buscarCliente);
         Conexion cn = new Conexion();
 
-        String cargarDetalles = "SELECT\n"
+        String cargarDetalles = "SELECT DISTINCT \n"
                 + "dv.cod_materia,\n"
                 + "p.cod_materia as materia,\n"
                 + "dv.cantidad,\n"
@@ -731,8 +767,10 @@ public class nota_compras extends javax.swing.JFrame {
                 + "JOIN materia_prima p \n"
                 + "ON dv.cod_materia = p.cod_materia "
                 + "JOIN deposito d "
-                + "on d.cod_depo =  dv.cod_depo\n"
-                + "WHERE v.nro_factura LIKE '" + num_fac.getText().trim() + "'";
+                + "on d.cod_depo =  dv.cod_depo\n "
+                + ""
+                + "WHERE v.nro_factura LIKE '" + num_fac.getText().trim() + "' "
+                + " ";
 //        System.out.println(cargarDetalles);
 
         try {
@@ -791,6 +829,7 @@ public class nota_compras extends javax.swing.JFrame {
         } catch (SQLException ex) {
         }
 
+        txtTimbrado.requestFocus();
 }//GEN-LAST:event_num_facActionPerformed
 
     private void num_facKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_num_facKeyPressed
@@ -860,7 +899,7 @@ public class nota_compras extends javax.swing.JFrame {
 
                         guardar_cabecera = "INSERT INTO nota_de_compras(\n"
                                 + " nota_tipo, nota_fecha, monto, nota_motivo,  compra_id, usu_id, \n"
-                                + " sucur_id, emp_id, pro_id, estado)\n"
+                                + " sucur_id, emp_id, pro_id, estado, timbado)\n"
                                 + "    VALUES ('"
                                 + combotipo.getSelectedItem().toString() + "', '"
                                 + Metodos.dameFechaFormateadaSQL(new JCalendar().getDate()) + "', "
@@ -870,7 +909,8 @@ public class nota_compras extends javax.swing.JFrame {
                                 + Menu.idUsuario + ", "
                                 + Menu.idSucursal + ", "
                                 + Menu.idEmpleado + ", "
-                                + cod_proveedor.getText() + ", 'ACTIVO');";
+                                + cod_proveedor.getText() + ", 'ACTIVO', "
+                                + "'"+txtTimbrado.getText()+"');";
                     } else {
                         guardar_cabecera = "INSERT INTO nota_de_compras(\n"
                                 + " nota_tipo, nota_fecha, monto, nota_motivo,  compra_id, usu_id, \n"
@@ -1045,6 +1085,22 @@ public class nota_compras extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_descuento_txtActionPerformed
 
+    private void txtTimbradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimbradoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimbradoActionPerformed
+
+    private void txtTimbradoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimbradoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimbradoKeyPressed
+
+    private void txtTimbradoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimbradoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimbradoKeyReleased
+
+    private void txtTimbradoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimbradoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimbradoKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -1082,6 +1138,7 @@ public class nota_compras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
@@ -1100,6 +1157,7 @@ public class nota_compras extends javax.swing.JFrame {
     private javax.swing.JLabel suc2;
     private javax.swing.JTextField to_iva5;
     private javax.swing.JTextField totaliva;
+    private javax.swing.JTextField txtTimbrado;
     private javax.swing.JTextField txttotal;
     // End of variables declaration//GEN-END:variables
 

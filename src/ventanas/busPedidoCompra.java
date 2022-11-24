@@ -194,9 +194,8 @@ public class busPedidoCompra extends javax.swing.JFrame {
                             detalles.getString("cod_materia"),
                             detalles.getString("mat_desc"),
                             detalles.getString("cantidad"),
-                            detalles.getString("precio"),
-                            detalles.getString("precio"),
-                            (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
+                            "0","0"
+                            
                         });
                     }
                 } else {
@@ -249,14 +248,12 @@ public class busPedidoCompra extends javax.swing.JFrame {
             Metodos.limpiarTabla(pedido_de_compra.grilla);
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
-                    Metodos.cargarTabla(pedido_de_compra.grilla, new Object[]{
-                        detalles.getString("cod_materia"),
-                        detalles.getString("mat_desc"),
-                        detalles.getString("cantidad"),
-                        detalles.getString("precio"),
-                        detalles.getString("precio"),
-                        (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
-                    });
+//                    Metodos.cargarTabla(pedido_de_compra.grilla, new Object[]{
+//                        detalles.getString("cod_materia"),
+//                        detalles.getString("mat_desc"),
+//                        detalles.getString("cantidad"),
+//                        
+//                    });
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");

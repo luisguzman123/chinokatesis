@@ -401,8 +401,8 @@ public class pedido_de_compra extends javax.swing.JFrame {
     }//GEN-LAST:event_grillaMouseClicked
 
     private void btnBuscarArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArtiActionPerformed
-        materiaPrima.busqueda="pediCompra";
-        new materiaPrima().setVisible(true);
+        producto.busqueda="pediCompra";
+        new producto().setVisible(true);
     }//GEN-LAST:event_btnBuscarArtiActionPerformed
 
     private void txtDescriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescriActionPerformed
@@ -569,8 +569,8 @@ public class pedido_de_compra extends javax.swing.JFrame {
 
     private void txtArtiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtArtiKeyPressed
         if (txtArti.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            materiaPrima.busqueda="pediCompra";
-            new materiaPrima().setVisible(true);
+            producto.busqueda="pediCompra";
+            new producto().setVisible(true);
           
         }
     }//GEN-LAST:event_txtArtiKeyPressed
@@ -624,7 +624,7 @@ public class pedido_de_compra extends javax.swing.JFrame {
                 int cantidadFilas=grilla.getRowCount();
                 if (operacion.equals("agregar")) {
                         for (int i = 0; i < cantidadFilas; i++) {
-                            sqldetalle="insert into pedido_compra_detalle(ped_id, cod_materia,  cantidad) values("
+                            sqldetalle="insert into pedido_compra_detalle(ped_id, pro_cod,  cantidad) values("
                             +Metodos.ultimoCodigo("ped_id", "pedido_compra")+","
                             +grilla.getValueAt(i, 0)+","
                             +grilla.getValueAt(i, 2)+")";

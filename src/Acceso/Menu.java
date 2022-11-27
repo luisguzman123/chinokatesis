@@ -27,7 +27,6 @@ import ventanas.descuentos;
 import ventanas.diagnostico;
 import ventanas.empleados;
 import ventanas.formaDePago;
-import ventanas.materiaPrima;
 import ventanas.motivo_mermas;
 import ventanas.motivos;
 import ventanas.notaCreditoCompra;
@@ -38,7 +37,6 @@ import ventanas.orden_compra;
 import ventanas.orden_trabajo;
 import ventanas.pedidoDeVenta;
 import ventanas.pedido_de_compra;
-import ventanas.pedido_de_materia_prima;
 import ventanas.presupuestoServicios;
 import ventanas.presupuesto_de_compra;
 import ventanas.producto;
@@ -678,7 +676,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_infoComprasActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        new materiaPrima().setVisible(true);
+        
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed

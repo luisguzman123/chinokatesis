@@ -13,15 +13,15 @@ pc.ped_fecha,
 pc.ped_descrip,
 s.sucur_nom,
 pc.estado,
-mp.mat_desc,
+m.pro_desc,
 pd.cantidad
 FROM pedido_compra pc
 JOIN sucursal s 
 ON s.sucur_id = pc.sucur_id
 JOIN pedido_compra_detalle pd
 ON pd.ped_id = pc.ped_id
-JOIN materia_prima mp
-ON mp.cod_materia = pd.cod_materia
+JOIN producto m
+ON m.pro_cod = pd.pro_cod
 WHERE pc.ped_id = $P{codigo}]]>
 	</queryString>
 	<field name="ped_id" class="java.lang.Integer"/>
@@ -29,7 +29,7 @@ WHERE pc.ped_id = $P{codigo}]]>
 	<field name="ped_descrip" class="java.lang.String"/>
 	<field name="sucur_nom" class="java.lang.String"/>
 	<field name="estado" class="java.lang.String"/>
-	<field name="mat_desc" class="java.lang.String"/>
+	<field name="pro_desc" class="java.lang.String"/>
 	<field name="cantidad" class="java.math.BigDecimal"/>
 	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
 		<variableExpression><![CDATA[]]></variableExpression>
@@ -154,10 +154,6 @@ WHERE pc.ped_id = $P{codigo}]]>
 	</title>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="16" y="0" width="291" height="20" uuid="07457776-bbf7-4c62-aca2-8fccf9a5bbf9"/>
-				<textFieldExpression><![CDATA[$F{mat_desc}]]></textFieldExpression>
-			</textField>
 			<textField pattern="#,##0">
 				<reportElement x="359" y="0" width="170" height="20" uuid="f3cf5025-8cf7-4d27-ba2f-1342ccf209a0"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
@@ -165,6 +161,10 @@ WHERE pc.ped_id = $P{codigo}]]>
 			<line>
 				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
 			</line>
+			<textField>
+				<reportElement x="16" y="0" width="291" height="20" uuid="6a5d2d14-9ce1-48f5-a39f-9f0709138dcd"/>
+				<textFieldExpression><![CDATA[$F{pro_desc}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<summary>

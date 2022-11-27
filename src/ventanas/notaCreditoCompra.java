@@ -515,8 +515,8 @@ public class notaCreditoCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_grillaMouseClicked
 
     private void btnBuscarArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArtiActionPerformed
-        materiaPrima.busqueda="pediCompra";
-        new materiaPrima().setVisible(true);
+        producto.busqueda="pediCompra";
+        new producto().setVisible(true);
     }//GEN-LAST:event_btnBuscarArtiActionPerformed
 
     private void txtProveeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProveeActionPerformed
@@ -702,8 +702,8 @@ public class notaCreditoCompra extends javax.swing.JFrame {
 
     private void txtArtiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtArtiKeyPressed
         if (txtArti.getText().equals("") && evt.getKeyCode() == evt.VK_F2){
-            materiaPrima.busqueda="presuProvee";
-            new materiaPrima().setVisible(true);
+            producto.busqueda="presuProvee";
+            new producto().setVisible(true);
           
         }
     }//GEN-LAST:event_txtArtiKeyPressed

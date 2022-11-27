@@ -191,11 +191,11 @@ public class busPedidoCompra extends javax.swing.JFrame {
                 if (detalles.isBeforeFirst()) {
                     while (detalles.next()) {
                         Metodos.cargarTabla(presupuesto_de_compra.grilla, new Object[]{
-                            detalles.getString("cod_materia"),
-                            detalles.getString("mat_desc"),
+                            detalles.getString("pro_cod"),
+                            detalles.getString("pro_desc"),
                             detalles.getString("cantidad"),
-                            "0","0"
-                            
+                            "0", "0"
+
                         });
                     }
                 } else {
@@ -248,12 +248,12 @@ public class busPedidoCompra extends javax.swing.JFrame {
             Metodos.limpiarTabla(pedido_de_compra.grilla);
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
-//                    Metodos.cargarTabla(pedido_de_compra.grilla, new Object[]{
-//                        detalles.getString("cod_materia"),
-//                        detalles.getString("mat_desc"),
-//                        detalles.getString("cantidad"),
-//                        
-//                    });
+                    Metodos.cargarTabla(pedido_de_compra.grilla, new Object[]{
+                        detalles.getString("pro_cod"),
+                        detalles.getString("pro_desc"),
+                        detalles.getString("cantidad"),
+                        
+                    });
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
@@ -266,7 +266,6 @@ public class busPedidoCompra extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
 
-        
         dispose();
     }
 
@@ -500,8 +499,8 @@ public class busPedidoCompra extends javax.swing.JFrame {
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
                     Metodos.cargarTabla(orden_compra.grilla, new Object[]{
-                        detalles.getString("cod_materia"),
-                        detalles.getString("mat_desc"),
+                        detalles.getString("pro_cod"),
+                        detalles.getString("pro_desc"),
                         detalles.getString("ord_cantidad"),
                         detalles.getString("ord_precio"),
                         (Integer.parseInt(detalles.getString("ord_precio")) * Integer.parseInt(detalles.getString("ord_cantidad")))
@@ -565,13 +564,13 @@ public class busPedidoCompra extends javax.swing.JFrame {
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
                     Metodos.cargarTabla(compras.grilla, new Object[]{
-                        detalles.getString("cod_materia"),
-                        detalles.getString("mat_desc"),
+                        detalles.getString("pro_cod"),
+                        detalles.getString("pro_desc"),
                         detalles.getString("ord_cantidad"),
                         detalles.getString("ord_precio"),
-                        (int) ((dameIva(detalles.getString("cod_materia")).equals("0")) ? (Integer.parseInt(detalles.getString("ord_precio")) * Integer.parseInt(detalles.getString("ord_cantidad"))) * (0) : 0),
-                        (int) ((dameIva(detalles.getString("cod_materia")).equals("5")) ? (Integer.parseInt(detalles.getString("ord_precio")) * Integer.parseInt(detalles.getString("ord_cantidad"))) * (0.21) : 0),
-                        (int) ((dameIva(detalles.getString("cod_materia")).equals("10")) ? (Integer.parseInt(detalles.getString("ord_precio")) * Integer.parseInt(detalles.getString("ord_cantidad"))) * (0.11) : 0),
+                        (int) ((dameIva(detalles.getString("pro_cod")).equals("0")) ? (Integer.parseInt(detalles.getString("ord_precio")) * Integer.parseInt(detalles.getString("ord_cantidad"))) * (0) : 0),
+                        (int) ((dameIva(detalles.getString("pro_cod")).equals("5")) ? (Integer.parseInt(detalles.getString("ord_precio")) * Integer.parseInt(detalles.getString("ord_cantidad"))) * (0.21) : 0),
+                        (int) ((dameIva(detalles.getString("pro_cod")).equals("10")) ? (Integer.parseInt(detalles.getString("ord_precio")) * Integer.parseInt(detalles.getString("ord_cantidad"))) * (0.11) : 0),
                         (Integer.parseInt(detalles.getString("ord_precio")) * Integer.parseInt(detalles.getString("ord_cantidad")))
 
                     });
@@ -591,7 +590,8 @@ public class busPedidoCompra extends javax.swing.JFrame {
         compras.txt_iva10.setText(String.valueOf(Metodos.sumarColumna(compras.grilla, 6)));
         compras.txt_to_iva.setText(String.valueOf(Metodos.sumarColumna(compras.grilla, 5) + Metodos.sumarColumna(compras.grilla, 6)));
         compras.txtTotal.setText(String.valueOf(Metodos.sumarColumna(compras.grilla, 5) + Metodos.sumarColumna(compras.grilla, 6) + Metodos.sumarColumna(compras.grilla, 7)));
-
+        compras.txtFactura.setEnabled(true);
+        compras.txtFactura.requestFocus();
     }
 
     private void seleccionarPresupuesto() {
@@ -623,13 +623,21 @@ public class busPedidoCompra extends javax.swing.JFrame {
 
         try {
             cn.conectar();
-            ResultSet detalles = cn.consultar("select * from v_detalle_presupuesto_compra where pre_pro_nro = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            ResultSet detalles = cn.consultar("SELECT\n"
+                    + "p.pro_cod,\n"
+                    + "p.cantidad,\n"
+                    + "p.precio,\n"
+                    + "pro.pro_desc\n"
+                    + "FROM detalle_presupuesto_pro p \n"
+                    + "JOIN producto pro \n"
+                    + "ON pro.pro_cod =  p.pro_cod "
+                    + "where p.pre_pro_nro = " + cod + ""); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
             Metodos.limpiarTabla(orden_compra.grilla);
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
                     Metodos.cargarTabla(orden_compra.grilla, new Object[]{
-                        detalles.getString("cod_materia"),
-                        detalles.getString("mat_desc"),
+                        detalles.getString("pro_cod"),
+                        detalles.getString("pro_desc"),
                         detalles.getString("cantidad"),
                         detalles.getString("precio"),
                         (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
@@ -686,8 +694,8 @@ public class busPedidoCompra extends javax.swing.JFrame {
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
                     Metodos.cargarTabla(presupuesto_de_compra.grilla, new Object[]{
-                        detalles.getString("cod_materia"),
-                        detalles.getString("mat_desc"),
+                        detalles.getString("cod_pro"),
+                        detalles.getString("pro_desc"),
                         detalles.getString("cantidad"),
                         detalles.getString("precio"),
                         (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
@@ -744,10 +752,10 @@ public class busPedidoCompra extends javax.swing.JFrame {
         try {
             Conexion cn = new Conexion();
             cn.conectar();
-            ResultSet detalles = cn.consultar("select iva from materia_prima where cod_materia =  " + codigo);
+            ResultSet detalles = cn.consultar("select pro_iva from producto where pro_cod =  " + codigo);
             if (detalles.isBeforeFirst()) {
                 while (detalles.next()) {
-                    return detalles.getString("iva");
+                    return detalles.getString("pro_iva");
 
                 }
             }

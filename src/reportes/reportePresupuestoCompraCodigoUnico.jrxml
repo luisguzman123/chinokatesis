@@ -15,7 +15,7 @@ s.sucur_nom,
 dp.cantidad,
 dp.precio,
 (dp.cantidad::INTEGER * dp.precio)as total,
-m.mat_desc
+m.pro_desc
 
 FROM presu_prove pp
 JOIN proveedor p 
@@ -24,8 +24,8 @@ JOIN sucursal s
 ON s.sucur_id = pp.sucur_id
 JOIN detalle_presupuesto_pro dp
 ON dp.pre_pro_nro = pp.pre_pro_nro
-JOIN materia_prima m 
-ON m.cod_materia =  dp.cod_materia
+JOIN producto m
+ON m.pro_cod = dp.pro_cod
 WHERE pp.pre_pro_nro = $P{codigo}]]>
 	</queryString>
 	<field name="pre_pro_nro" class="java.lang.Integer"/>
@@ -35,7 +35,7 @@ WHERE pp.pre_pro_nro = $P{codigo}]]>
 	<field name="cantidad" class="java.lang.String"/>
 	<field name="precio" class="java.lang.Integer"/>
 	<field name="total" class="java.lang.Integer"/>
-	<field name="mat_desc" class="java.lang.String"/>
+	<field name="pro_desc" class="java.lang.String"/>
 	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
 		<variableExpression><![CDATA[]]></variableExpression>
 	</variable>
@@ -71,7 +71,7 @@ WHERE pp.pre_pro_nro = $P{codigo}]]>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Materia Prima]]></text>
+					<text><![CDATA[Producto]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="211" y="70" width="100" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
@@ -194,10 +194,6 @@ WHERE pp.pre_pro_nro = $P{codigo}]]>
 				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
 			</line>
 			<textField>
-				<reportElement x="16" y="0" width="184" height="20" uuid="2bc1cf84-2fa5-4b89-92c1-ca646040cdb7"/>
-				<textFieldExpression><![CDATA[$F{mat_desc}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="211" y="0" width="100" height="20" uuid="312bdccd-9e57-4262-87a8-4ec11cfa685d"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
 			</textField>
@@ -208,6 +204,10 @@ WHERE pp.pre_pro_nro = $P{codigo}]]>
 			<textField>
 				<reportElement x="454" y="0" width="100" height="20" uuid="8bc932c0-1465-4cd2-bf0c-9cd689029344"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="16" y="0" width="184" height="20" uuid="f6f8693d-53ce-4c15-819e-4c6336426a3a"/>
+				<textFieldExpression><![CDATA[$F{pro_desc}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

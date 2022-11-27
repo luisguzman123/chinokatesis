@@ -483,6 +483,29 @@ public class producto extends javax.swing.JFrame {
            busqueda = "";
            dispose();
        }
+       if(busqueda.equals("pediCompra") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           pedido_de_compra.txtCodArti.setText(cod);
+           pedido_de_compra.txtArti.setText(nombre);
+           pedido_de_compra.txtArti.requestFocus();
+           busqueda = "";
+           dispose();
+       }
+       if(busqueda.equals("presuCompra") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           presupuesto_de_compra.txtCodArti.setText(cod);
+           presupuesto_de_compra.txtArti.setText(nombre);
+           presupuesto_de_compra.txtPrecio.setText(precio);
+           presupuesto_de_compra.txtPrecio.requestFocus();
+           busqueda = "";
+           dispose();
+       }
+       if(busqueda.equals("compra") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           compras.txt_cod_arti.setText(cod);
+           compras.txt_arti.setText(nombre);
+           compras.txt_precio.setText(precio);
+           compras.txt_precio.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        if(busqueda.equals("presupuestoServicios") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
            presupuestoServicios.txtCodArti.setText(cod);
            presupuestoServicios.txtArticuloDesc.setText(nombre);
@@ -498,6 +521,14 @@ public class producto extends javax.swing.JFrame {
            dispose();
        }
        if(busqueda.equals("trabajo_terminado") ){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           TrabajoTerminado.txtCodArti.setText(cod);
+           TrabajoTerminado.txtArticuloDesc.setText(nombre);
+           TrabajoTerminado.txtCantidadInsumo.requestFocus();
+           busqueda = "";
+           dispose();
+       }
+       
+       if(busqueda.equals("ajuste") ){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
            TrabajoTerminado.txtCodArti.setText(cod);
            TrabajoTerminado.txtArticuloDesc.setText(nombre);
            TrabajoTerminado.txtCantidadInsumo.requestFocus();

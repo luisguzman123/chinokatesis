@@ -753,8 +753,9 @@ public class nota_compras extends javax.swing.JFrame {
         Conexion cn = new Conexion();
 
         String cargarDetalles = "SELECT DISTINCT \n"
-                + "dv.cod_materia,\n"
-                + "p.cod_materia as materia,\n"
+                + "dv.pro_cod,"
+                + "dv.pro_cod,\n"
+                + "p.pro_desc ,\n"
                 + "dv.cantidad,\n"
                 + "dv.monto,\n"
                 + "dv.exenta,\n"
@@ -764,8 +765,8 @@ public class nota_compras extends javax.swing.JFrame {
                 + "FROM compra v \n"
                 + "JOIN compra_detalle dv\n"
                 + "ON dv.compra_id = v.compra_id\n"
-                + "JOIN materia_prima p \n"
-                + "ON dv.cod_materia = p.cod_materia "
+                + "JOIN producto p \n"
+                + "ON dv.pro_cod = p.pro_cod "
                 + "JOIN deposito d "
                 + "on d.cod_depo =  dv.cod_depo\n "
                 + ""
@@ -797,8 +798,8 @@ public class nota_compras extends javax.swing.JFrame {
                 Metodos.limpiarTabla(grilla);
                 while (detalle.next()) {
                     Metodos.cargarTabla(grilla, new Object[]{
-                        detalle.getInt("cod_materia"),
-                        detalle.getString("materia"),
+                        detalle.getInt("pro_cod"),
+                        detalle.getString("pro_desc"),
                         detalle.getString("cantidad"),
                         detalle.getInt("monto"),
                         detalle.getInt("exenta"),

@@ -444,13 +444,7 @@ public class deposito extends javax.swing.JFrame {
        String nombre= grillaBanco.getValueAt(fila, 1).toString();
        String sucursal= grillaBanco.getValueAt(fila, 2).toString();
        
-       if(busqueda.equals("pedido_materia_prima") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
-           pedido_de_materia_prima.txt_cod_depo.setText(cod);
-           pedido_de_materia_prima.txtDeposito.setText(nombre);
-           pedido_de_materia_prima.txtDeposito.requestFocus();
-           busqueda = "";
-           dispose();
-       }
+       
        
        
       

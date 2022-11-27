@@ -11,7 +11,7 @@
 a.ajustes_id,
 a.ajus_fecha,
 s.sucur_nom,
-m.mat_desc,
+m.pro_desc,
 da.cantidad,
 a.estado
 FROM ajustes a
@@ -19,14 +19,14 @@ JOIN sucursal s
 ON s.sucur_id = a.sucur_id
 JOIN detalle_ajuste da 
 ON da.ajustes_id = a.ajustes_id
-JOIN materia_prima m
-ON m.cod_materia = da.cod_materia
-WHERE a.ajustes_id = $P{codigo}]]>
+JOIN producto m
+ON m.pro_cod = da.pro_cod
+WHERE a.ajustes_id  = $P{codigo}]]>
 	</queryString>
 	<field name="ajustes_id" class="java.lang.Integer"/>
 	<field name="ajus_fecha" class="java.sql.Date"/>
 	<field name="sucur_nom" class="java.lang.String"/>
-	<field name="mat_desc" class="java.lang.String"/>
+	<field name="pro_desc" class="java.lang.String"/>
 	<field name="cantidad" class="java.lang.Integer"/>
 	<field name="estado" class="java.lang.String"/>
 	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
@@ -67,7 +67,7 @@ WHERE a.ajustes_id = $P{codigo}]]>
 					<textElement verticalAlignment="Middle">
 						<font size="12" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Materia Prima]]></text>
+					<text><![CDATA[Producto descripcion]]></text>
 				</staticText>
 				<staticText>
 					<reportElement x="426" y="70" width="129" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
@@ -176,12 +176,12 @@ WHERE a.ajustes_id = $P{codigo}]]>
 				<reportElement x="4" y="18" width="550" height="1" forecolor="#CCCCCC" uuid="1aa2ce0f-7c0c-420d-b02e-a7fb05acc0c7"/>
 			</line>
 			<textField>
-				<reportElement x="16" y="0" width="184" height="20" uuid="0ae696c9-230f-41e4-bb0a-a46b136a42bf"/>
-				<textFieldExpression><![CDATA[$F{mat_desc}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="426" y="0" width="128" height="20" uuid="243bb009-3351-4dcd-83bc-80ef6caa142a"/>
 				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="16" y="0" width="184" height="20" uuid="3490999e-80f5-470b-98d5-0f35c1806922"/>
+				<textFieldExpression><![CDATA[$F{pro_desc}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

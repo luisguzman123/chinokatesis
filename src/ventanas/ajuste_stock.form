@@ -176,8 +176,8 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                      <JTabbedPaneConstraints tabName="Stock Materia Prima">
-                        <Property name="tabTitle" type="java.lang.String" value="Stock Materia Prima"/>
+                      <JTabbedPaneConstraints tabName="Producto">
+                        <Property name="tabTitle" type="java.lang.String" value="Producto"/>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -219,20 +219,20 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_cod_materia" min="-2" pref="63" max="-2" attributes="0"/>
+                                  <Component id="cod_producto_txt" min="-2" pref="63" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jdescri" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_materia_prima" min="-2" pref="267" max="-2" attributes="0"/>
+                                  <Component id="txt_producto" min="-2" pref="267" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jdescri3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txt_canti_materia" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="txt_cantidad" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txt_ajuste_canti_materia" min="-2" pref="71" max="-2" attributes="0"/>
-                                  <EmptySpace pref="318" max="32767" attributes="0"/>
+                                  <EmptySpace pref="344" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jSeparator7" alignment="1" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" alignment="0" max="32767" attributes="1"/>
@@ -245,14 +245,14 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                           <Component id="jdescri3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txt_canti_materia" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                                          <Component id="txt_cantidad" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
                                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="txt_ajuste_canti_materia" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jdescri" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txt_materia_prima" max="32767" attributes="0"/>
-                                          <Component id="txt_cod_materia" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txt_producto" max="32767" attributes="0"/>
+                                          <Component id="cod_producto_txt" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -271,10 +271,10 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Dialog" size="11" style="1"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="N&#xb0;. Materia Prima:"/>
+                            <Property name="text" type="java.lang.String" value="N&#xb0;. Producto:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txt_cod_materia">
+                        <Component class="javax.swing.JTextField" name="cod_producto_txt">
                           <Properties>
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
@@ -307,7 +307,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTable" name="grilla_materia">
+                            <Component class="javax.swing.JTable" name="grilla_producto">
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                   <Table columnCount="8" rowCount="0">
@@ -370,8 +370,8 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="grilla_materiaMouseClicked"/>
-                                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grilla_materiaKeyPressed"/>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="grilla_productoMouseClicked"/>
+                                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="grilla_productoKeyPressed"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -384,23 +384,23 @@
                             <Property name="text" type="java.lang.String" value="Descripcion:"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txt_materia_prima">
+                        <Component class="javax.swing.JTextField" name="txt_producto">
                           <Properties>
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_materia_primaKeyReleased"/>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_productoKeyReleased"/>
                           </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                           </AuxValues>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txt_canti_materia">
+                        <Component class="javax.swing.JTextField" name="txt_cantidad">
                           <Properties>
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_canti_materiaActionPerformed"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_cantidadActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jdescri3">

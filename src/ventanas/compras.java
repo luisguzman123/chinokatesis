@@ -716,6 +716,15 @@ public class compras extends javax.swing.JFrame {
 
         respuesta = JOptionPane.showConfirmDialog(null, confirmar);
 
+        if(txtFactura.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Debes ingresar un numero de factura valido");
+            return;
+        }
+
+        if(txtTimbrado.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(rootPane, "Debes ingresar un timbrado valido");
+            return;
+        }
         if (respuesta == 0) {
             String sql = "";
             String sqldetalle = "";
@@ -762,13 +771,13 @@ public class compras extends javax.swing.JFrame {
                     if (operacion.equals("agregar")) {
                         for (int i = 0; i < cantidadFilas; i++) {
                             if (Metodos.estadoStock(cmbDeposito.getSelectedItem().toString(), idSucursal, grilla.getValueAt(i, 0).toString())) {
-                                sqlStock = "update stock_materia_prima set cantidad = cantidad + " + grilla.getValueAt(i, 2).toString() + " "
+                                sqlStock = "update stock_productos set cantidad = cantidad + " + grilla.getValueAt(i, 2).toString() + " "
                                         + "WHERE cod_depo= "+cmbDeposito.getSelectedItem().toString()+ " "
-                                        + "AND cod_materia = "+grilla.getValueAt(i, 0).toString()+" and sucur_id = "+idSucursal+" ;";
+                                        + "AND pro_cod = "+grilla.getValueAt(i, 0).toString()+" and sucur_id = "+idSucursal+" ;";
                                 cn.actualizar(sqlStock);
 
                             } else {
-                                sqlStock = "insert into stock_materia_prima (cod_depo, sucur_id, cod_materia, cantidad) values ("
+                                sqlStock = "insert into stock_productos (cod_depo, sucur_id, pro_cod, cantidad) values ("
                                         + cmbDeposito.getSelectedItem().toString() + ", "
                                         + idSucursal + ", "
                                         + grilla.getValueAt(i, 0).toString() + ", "
@@ -776,7 +785,7 @@ public class compras extends javax.swing.JFrame {
                                 cn.actualizar(sqlStock);
                             }
 
-                            sqldetalle = "insert into compra_detalle(compra_id, cod_depo, sucur_id, cod_materia, cantidad, monto, iva_10, iva_5, exenta) values("
+                            sqldetalle = "insert into compra_detalle(compra_id, cod_depo, sucur_id, pro_cod, cantidad, monto, iva_10, iva_5, exenta) values("
                                     + Metodos.ultimoCodigo("compra_id", "compra") + ", "
                                     + cmbDeposito.getSelectedItem().toString() + ", "
                                     + idSucursal + ", "
@@ -831,9 +840,9 @@ public class compras extends javax.swing.JFrame {
                     if (Metodos.estadoStock(cmbDeposito.getSelectedItem().toString(), idSucursal, grilla.getValueAt(i, 0).toString())) {
                         try {
                             cn.conectar();
-                            sqlStock = "update stock_materia_prima set cantidad = cantidad - " + grilla.getValueAt(i, 2).toString() + " "
+                            sqlStock = "update stock_productos set cantidad = cantidad - " + grilla.getValueAt(i, 2).toString() + " "
                                     + "WHERE cod_depo= "+cmbDeposito.getSelectedItem().toString()+ " "
-                                    + "AND cod_materia = "+grilla.getValueAt(i, 0).toString()+" and sucur_id = "+idSucursal+" ;";
+                                    + "AND pro_cod = "+grilla.getValueAt(i, 0).toString()+" and sucur_id = "+idSucursal+" ;";
                             cn.actualizar(sqlStock);
                         } catch (SQLException ex) {
                             Logger.getLogger(compras.class.getName()).log(Level.SEVERE, null, ex);
@@ -980,8 +989,8 @@ public class compras extends javax.swing.JFrame {
 
     private void txt_artiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_artiKeyPressed
         if (txt_arti.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
-            materiaPrima.busqueda = "compra";
-            new materiaPrima().setVisible(true);
+            producto.busqueda = "compra";
+            new producto().setVisible(true);
 
         }
 
@@ -1189,10 +1198,10 @@ public class compras extends javax.swing.JFrame {
         try {
             Conexion cn = new Conexion();
             cn.conectar();
-            ResultSet ivaa = cn.consultar("select iva from materia_prima where cod_materia = " + cod);
+            ResultSet ivaa = cn.consultar("select pro_iva from producto where pro_cod = " + cod);
             if (ivaa.isBeforeFirst()) {
                 while (ivaa.next()) {
-                    String iva = ivaa.getString("iva");
+                    String iva = ivaa.getString("pro_iva");
                     return iva;
                 }
             } else {
@@ -1212,11 +1221,11 @@ public class compras extends javax.swing.JFrame {
 
         try {
             cn.conectar();
-            ResultSet sucursal = cn.consultar("select mat_precio from materia_prima where cod_materia = " + txt_cod_arti.getText()); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            ResultSet sucursal = cn.consultar("select precio from producto where pro_cod = " + txt_cod_arti.getText()); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
 
             if (sucursal.isBeforeFirst()) {
                 while (sucursal.next()) {
-                    txt_precio.setText(sucursal.getString("mat_precio"));
+                    txt_precio.setText(sucursal.getString("precio"));
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
@@ -1291,7 +1300,7 @@ public class compras extends javax.swing.JFrame {
     public static javax.swing.JTextField txt_cod_arti;
     public static javax.swing.JTextField txt_iva10;
     public static javax.swing.JTextField txt_iva5;
-    private javax.swing.JTextField txt_precio;
+    public static javax.swing.JTextField txt_precio;
     public static javax.swing.JTextField txt_to_iva;
     // End of variables declaration//GEN-END:variables
 }

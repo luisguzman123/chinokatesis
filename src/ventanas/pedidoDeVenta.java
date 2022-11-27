@@ -473,8 +473,8 @@ public class pedidoDeVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTotalActionPerformed
 
     private void btnBuscarArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarArtiActionPerformed
-        materiaPrima.busqueda="pediCompra";
-        new materiaPrima().setVisible(true);
+        producto.busqueda="pediCompra";
+        new producto().setVisible(true);
     }//GEN-LAST:event_btnBuscarArtiActionPerformed
 
     private void txtCodArtiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodArtiActionPerformed

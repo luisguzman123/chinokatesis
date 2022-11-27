@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import static ventanas.presupuesto_de_compra.txtCod;
 
-
 public class ajuste_stock extends javax.swing.JFrame {
 
     /**
@@ -37,16 +36,15 @@ public class ajuste_stock extends javax.swing.JFrame {
     boolean duplicado;
 
     public static String busqueda = "";
-    
-    public static String usuario; 
+
+    public static String usuario;
     public static String empleado;
     public static String nivel;
     public static String idUsuario;
     public static String idSucursal;
     public static String idPersonal;
     public static String pestaña;
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -60,14 +58,14 @@ public class ajuste_stock extends javax.swing.JFrame {
         pestaña_materia = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        txt_cod_materia = new javax.swing.JTextField();
+        cod_producto_txt = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txt_ajuste_canti_materia = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        grilla_materia = new javax.swing.JTable();
+        grilla_producto = new javax.swing.JTable();
         jdescri = new javax.swing.JLabel();
-        txt_materia_prima = new javax.swing.JTextField();
-        txt_canti_materia = new javax.swing.JTextField();
+        txt_producto = new javax.swing.JTextField();
+        txt_cantidad = new javax.swing.JTextField();
         jdescri3 = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
         txtNroDeposito = new javax.swing.JTextField();
@@ -114,9 +112,9 @@ public class ajuste_stock extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jLabel12.setText("N°. Materia Prima:");
+        jLabel12.setText("N°. Producto:");
 
-        txt_cod_materia.setEnabled(false);
+        cod_producto_txt.setEnabled(false);
 
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jLabel15.setText("Ajuste Cantidad:");
@@ -136,7 +134,7 @@ public class ajuste_stock extends javax.swing.JFrame {
             }
         });
 
-        grilla_materia.setModel(new javax.swing.table.DefaultTableModel(
+        grilla_producto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -159,43 +157,43 @@ public class ajuste_stock extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        grilla_materia.addMouseListener(new java.awt.event.MouseAdapter() {
+        grilla_producto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                grilla_materiaMouseClicked(evt);
+                grilla_productoMouseClicked(evt);
             }
         });
-        grilla_materia.addKeyListener(new java.awt.event.KeyAdapter() {
+        grilla_producto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                grilla_materiaKeyPressed(evt);
+                grilla_productoKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(grilla_materia);
-        if (grilla_materia.getColumnModel().getColumnCount() > 0) {
-            grilla_materia.getColumnModel().getColumn(0).setResizable(false);
-            grilla_materia.getColumnModel().getColumn(0).setPreferredWidth(10);
-            grilla_materia.getColumnModel().getColumn(1).setResizable(false);
-            grilla_materia.getColumnModel().getColumn(2).setResizable(false);
-            grilla_materia.getColumnModel().getColumn(3).setResizable(false);
-            grilla_materia.getColumnModel().getColumn(4).setResizable(false);
-            grilla_materia.getColumnModel().getColumn(5).setResizable(false);
-            grilla_materia.getColumnModel().getColumn(6).setResizable(false);
-            grilla_materia.getColumnModel().getColumn(7).setPreferredWidth(10);
+        jScrollPane1.setViewportView(grilla_producto);
+        if (grilla_producto.getColumnModel().getColumnCount() > 0) {
+            grilla_producto.getColumnModel().getColumn(0).setResizable(false);
+            grilla_producto.getColumnModel().getColumn(0).setPreferredWidth(10);
+            grilla_producto.getColumnModel().getColumn(1).setResizable(false);
+            grilla_producto.getColumnModel().getColumn(2).setResizable(false);
+            grilla_producto.getColumnModel().getColumn(3).setResizable(false);
+            grilla_producto.getColumnModel().getColumn(4).setResizable(false);
+            grilla_producto.getColumnModel().getColumn(5).setResizable(false);
+            grilla_producto.getColumnModel().getColumn(6).setResizable(false);
+            grilla_producto.getColumnModel().getColumn(7).setPreferredWidth(10);
         }
 
         jdescri.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jdescri.setText("Descripcion:");
 
-        txt_materia_prima.setEnabled(false);
-        txt_materia_prima.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_producto.setEnabled(false);
+        txt_producto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_materia_primaKeyReleased(evt);
+                txt_productoKeyReleased(evt);
             }
         });
 
-        txt_canti_materia.setEnabled(false);
-        txt_canti_materia.addActionListener(new java.awt.event.ActionListener() {
+        txt_cantidad.setEnabled(false);
+        txt_cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_canti_materiaActionPerformed(evt);
+                txt_cantidadActionPerformed(evt);
             }
         });
 
@@ -214,20 +212,20 @@ public class ajuste_stock extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_cod_materia, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cod_producto_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jdescri)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_materia_prima, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jdescri3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_canti_materia, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_ajuste_canti_materia, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addContainerGap(344, Short.MAX_VALUE))
             .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
         );
@@ -238,13 +236,13 @@ public class ajuste_stock extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jdescri3)
-                        .addComponent(txt_canti_materia, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel15)
                         .addComponent(txt_ajuste_canti_materia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jdescri)
-                        .addComponent(txt_materia_prima)
-                        .addComponent(txt_cod_materia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_producto)
+                        .addComponent(cod_producto_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,7 +268,7 @@ public class ajuste_stock extends javax.swing.JFrame {
                 .addContainerGap(115, Short.MAX_VALUE))
         );
 
-        tab_modos.addTab("Stock Materia Prima", pestaña_materia);
+        tab_modos.addTab("Producto", pestaña_materia);
 
         txtNroDeposito.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         txtNroDeposito.setEnabled(false);
@@ -549,99 +547,91 @@ public class ajuste_stock extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BnuevoActionPerformed
-        if (tab_modos.getSelectedIndex()==0) {
-            pestaña = "materia";
-        }else if(tab_modos.getSelectedIndex()==1){
-            pestaña= "producto";   
-        }
-        operacion="agregar";
+
+        operacion = "agregar";
         confirmar = "¿Desea agregar este registro?";
         mensaje = "Operación exitosa";
-           txtNroDeposito.setEnabled(true);
-           txtNroDeposito.requestFocus();
-           
-           txtCod.setText(Metodos.siguienteCodigo("ajustes_id", "ajustes"));
-           
-           
-           Bnuevo.setEnabled(false);
-           Bsalir.setEnabled(false);
-           
-           Bgrabar.setEnabled(true);
-           bcancelar.setEnabled(true);
+        txtNroDeposito.setEnabled(true);
+        txtNroDeposito.requestFocus();
+
+        txtCod.setText(Metodos.siguienteCodigo("ajustes_id", "ajustes"));
+
+        Bnuevo.setEnabled(false);
+        Bsalir.setEnabled(false);
+
+        Bgrabar.setEnabled(true);
+        bcancelar.setEnabled(true);
     }//GEN-LAST:event_BnuevoActionPerformed
 
     private void BgrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BgrabarActionPerformed
-       
-        int respuesta=5;
-        
-        respuesta=JOptionPane.showConfirmDialog(null, confirmar);
-        
-        
-        
-        if(respuesta==0){
-            String sql="";
-            String sqldetalle="";
-            String sqlStockagg="";
-            String sqlStockresta="";
-            if(operacion.equals("agregar")){
-                sql="Insert into ajustes (ajus_fecha, estado, sucur_id, usu_id, emp_id)"
-                        + " values ('"+
-                        Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"', '"
-                        + "ACTIVO', "+
-                        idSucursal+", "+
-                        idUsuario+","+
-                        idPersonal+")";
-                        
+
+        int respuesta = 5;
+
+        respuesta = JOptionPane.showConfirmDialog(null, confirmar);
+
+        if (respuesta == 0) {
+            String sql = "";
+            String sqldetalle = "";
+            String sqlStockagg = "";
+            String sqlStockresta = "";
+            if (operacion.equals("agregar")) {
+                sql = "Insert into ajustes (ajus_fecha, estado, sucur_id, usu_id, emp_id)"
+                        + " values ('"
+                        + Metodos.dameFechaFormateadaSQL(txtFecha.getDate()) + "', '"
+                        + "ACTIVO', "
+                        + idSucursal + ", "
+                        + idUsuario + ","
+                        + idPersonal + ")";
+
             }
-            
+
 //            if(operacion.equals("anular")){
 //                sql="update presu_prove set"
 //                        + " estado = 'ANULADO' "
 //                        + " where pre_pro_nro = "+txtCod.getText();
 //                
 //            }
-            
-            int fila = grilla_materia.getSelectedRow();
-            Conexion cn=new Conexion();
+            int fila = grilla_producto.getSelectedRow();
+            Conexion cn = new Conexion();
             try {
                 cn.conectar();
                 System.out.println(sql);
                 cn.actualizar(sql);
-                int cantidadFilas=grilla_materia.getRowCount();
+                int cantidadFilas = grilla_producto.getRowCount();
                 if (operacion.equals("agregar")) {
-                        for (int i = 0; i < cantidadFilas; i++) {
-                            if (grilla_materia.getValueAt(i, 5) != null) {
-                                sqldetalle="insert into detalle_ajuste(ajustes_id, cod_depo, sucur_id, cod_materia, cantidad, moti_id) values("
-                                +Metodos.ultimoCodigo("ajustes_id", "ajustes")+","
-                                +txtNroDeposito.getText().trim()+","
-                                +idSucursal+","
-                                +grilla_materia.getValueAt(i, 0)+","
-                                +grilla_materia.getValueAt(i, 5)+","
-                                +grilla_materia.getValueAt(i, 3)+")";
-                           
-                                cn.actualizar(sqldetalle);
-                                System.out.println(sqldetalle);
-                                if (grilla_materia.getValueAt(i, 4).equals("Entrada"))   {
-                                    sqlStockagg=("UPDATE stock_materia_prima set cantidad= cantidad + " + grilla_materia.getValueAt(i, 5) + " WHERE  cod_materia=" + grilla_materia.getValueAt(i, 0)+ " and sucur_id ="+idSucursal+" and cod_depo ="+txtNroDeposito.getText().trim()+"");
-                                    System.out.println(sqlStockagg);
-                                    cn.actualizar(sqlStockagg);
-                                }if (grilla_materia.getValueAt(i, 4).equals("Salida"))   {
-                                    sqlStockresta=("UPDATE stock_materia_prima set cantidad= cantidad - " + grilla_materia.getValueAt(i, 5) + " WHERE  cod_materia=" + grilla_materia.getValueAt(i, 0)+ " and sucur_id ="+idSucursal+" and cod_depo ="+txtNroDeposito.getText().trim()+"");
-                                    System.out.println(sqlStockresta);
-                                    cn.actualizar(sqlStockresta);
-                      
-                                }
+                    for (int i = 0; i < cantidadFilas; i++) {
+                        if (grilla_producto.getValueAt(i, 5) != null) {
+                            sqldetalle = "insert into detalle_ajuste(ajustes_id, cod_depo, sucur_id, pro_cod, cantidad, moti_id) values("
+                                    + Metodos.ultimoCodigo("ajustes_id", "ajustes") + ","
+                                    + txtNroDeposito.getText().trim() + ","
+                                    + idSucursal + ","
+                                    + grilla_producto.getValueAt(i, 0) + ","
+                                    + grilla_producto.getValueAt(i, 5) + ","
+                                    + grilla_producto.getValueAt(i, 3) + ")";
+
+                            cn.actualizar(sqldetalle);
+                            System.out.println(sqldetalle);
+                            if (grilla_producto.getValueAt(i, 4).equals("Entrada")) {
+                                sqlStockagg = ("UPDATE stock_productos set cantidad= cantidad + " + grilla_producto.getValueAt(i, 5) + " WHERE  pro_cod=" + grilla_producto.getValueAt(i, 0) + " and sucur_id =" + idSucursal + " and cod_depo =" + txtNroDeposito.getText().trim() + "");
+                                System.out.println(sqlStockagg);
+                                cn.actualizar(sqlStockagg);
                             }
-                          
-                        }   
+                            if (grilla_producto.getValueAt(i, 4).equals("Salida")) {
+                                sqlStockresta = ("UPDATE stock_productos set cantidad= cantidad - " + grilla_producto.getValueAt(i, 5) + " WHERE  pro_cod=" + grilla_producto.getValueAt(i, 0) + " and sucur_id =" + idSucursal + " and cod_depo =" + txtNroDeposito.getText().trim() + "");
+                                System.out.println(sqlStockresta);
+                                cn.actualizar(sqlStockresta);
+
+                            }
+                        }
+
+                    }
                 }
-                
+
                 JOptionPane.showMessageDialog(null, mensaje);
-                Metodos.imprimirPorCodigoUnico("/src/reportes/reporteAjusteInventarioCodigoUnico.jasper", 
+                Metodos.imprimirPorCodigoUnico("/src/reportes/reporteAjusteInventarioCodigoUnico.jasper",
                         Integer.parseInt(txtCod.getText()));
                 bcancelar.doClick();
 
-                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -649,60 +639,58 @@ public class ajuste_stock extends javax.swing.JFrame {
                 Logger.getLogger(presupuesto_de_compra.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
-        }        
+        }
     }//GEN-LAST:event_BgrabarActionPerformed
 
     private void bcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bcancelarActionPerformed
-         Bnuevo.setEnabled(true);
-         Bsalir.setEnabled(true);
-         
-         Bgrabar.setEnabled(false);
-         bcancelar.setEnabled(false);
-         Metodos.limpiarTabla(grilla_materia);
-         
-         txtNroDeposito.setText("");
-         txtCod.setText("");
-         txtCod.setEditable(false);
+        Bnuevo.setEnabled(true);
+        Bsalir.setEnabled(true);
+
+        Bgrabar.setEnabled(false);
+        bcancelar.setEnabled(false);
+        Metodos.limpiarTabla(grilla_producto);
+
+        txtNroDeposito.setText("");
+        txtCod.setText("");
+        txtCod.setEditable(false);
     }//GEN-LAST:event_bcancelarActionPerformed
 
     private void BsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BsalirActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_BsalirActionPerformed
 
-    private void grilla_materiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grilla_materiaMouseClicked
-        int fila = grilla_materia.getSelectedRow();
-        Integer opcion = JOptionPane.showConfirmDialog(null, "¿Desea cargar cantidad fisica de esta materia?");
+    private void grilla_productoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grilla_productoMouseClicked
+        int fila = grilla_producto.getSelectedRow();
+        Integer opcion = JOptionPane.showConfirmDialog(null, "¿Desea cargar cantidad fisica de este producto?");
         System.out.println(opcion);
-        if (opcion==0) {
-            txt_cod_materia.setText(grilla_materia.getValueAt(fila, 0).toString());
-            txt_materia_prima.setText(grilla_materia.getValueAt(fila, 1).toString());
-            txt_canti_materia.setText(grilla_materia.getValueAt(fila, 2).toString());
+        if (opcion == 0) {
+            cod_producto_txt.setText(grilla_producto.getValueAt(fila, 0).toString());
+            txt_producto.setText(grilla_producto.getValueAt(fila, 1).toString());
+            txt_cantidad.setText(grilla_producto.getValueAt(fila, 2).toString());
             combo_motivo.setEnabled(true);
             combo_motivo.requestFocus();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Puede elegir otra opción");
         }
-    }//GEN-LAST:event_grilla_materiaMouseClicked
+    }//GEN-LAST:event_grilla_productoMouseClicked
 
-    private void grilla_materiaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grilla_materiaKeyPressed
-        
-    }//GEN-LAST:event_grilla_materiaKeyPressed
+    private void grilla_productoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grilla_productoKeyPressed
+
+    }//GEN-LAST:event_grilla_productoKeyPressed
 
     private void txt_ajuste_canti_materiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ajuste_canti_materiaKeyTyped
 
- 
-        
+
     }//GEN-LAST:event_txt_ajuste_canti_materiaKeyTyped
 
     private void txt_ajuste_canti_materiaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ajuste_canti_materiaKeyPressed
-     
-          
-          
+
+
     }//GEN-LAST:event_txt_ajuste_canti_materiaKeyPressed
 
-    private void txt_canti_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_canti_materiaActionPerformed
+    private void txt_cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_canti_materiaActionPerformed
+    }//GEN-LAST:event_txt_cantidadActionPerformed
 
     private void combo_motivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_motivoItemStateChanged
         txt_ajuste_canti_materia.setEnabled(true);
@@ -710,7 +698,7 @@ public class ajuste_stock extends javax.swing.JFrame {
     }//GEN-LAST:event_combo_motivoItemStateChanged
 
     private void txtNroDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNroDepositoActionPerformed
-        cargarDetalles();   
+        cargarDetalles();
     }//GEN-LAST:event_txtNroDepositoActionPerformed
 
     private void txtNroDepositoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroDepositoKeyPressed
@@ -730,11 +718,11 @@ public class ajuste_stock extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void txtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodActionPerformed
-        
+
     }//GEN-LAST:event_txtCodActionPerformed
 
     private void txtCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodKeyPressed
-    
+
     }//GEN-LAST:event_txtCodKeyPressed
 
     private void txt_depositoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_depositoKeyReleased
@@ -746,58 +734,58 @@ public class ajuste_stock extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_depositoKeyReleased
 
     private void txt_depositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_depositoActionPerformed
-        
+
     }//GEN-LAST:event_txt_depositoActionPerformed
 
-    private void txt_materia_primaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_materia_primaKeyReleased
-        if (txt_materia_prima.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
-            materiaPrima.busqueda = "ajuste";
-            new materiaPrima().setVisible(true);
+    private void txt_productoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_productoKeyReleased
+        if (txt_producto.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+            producto.busqueda = "ajuste";
+            new producto().setVisible(true);
 
         }
-    }//GEN-LAST:event_txt_materia_primaKeyReleased
+    }//GEN-LAST:event_txt_productoKeyReleased
 
     private void txt_ajuste_canti_materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ajuste_canti_materiaActionPerformed
         if (txt_ajuste_canti_materia.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar cantidad");
-        }else{
+        } else {
             if (combo_motivo.getSelectedItem().equals("Entrada")) {
-            int fila = grilla_materia.getSelectedRow();
-            Metodos.cargarTabla(grilla_materia, new Object[]{
-                            grilla_materia.getValueAt(fila, 0).toString(),
-                            grilla_materia.getValueAt(fila, 1).toString(),
-                            grilla_materia.getValueAt(fila, 2).toString(),
-                            1,
-                            "Entrada",
-                            txt_ajuste_canti_materia.getText().trim(),
-                            (Integer.parseInt(grilla_materia.getValueAt(fila, 2).toString()))+(Integer.parseInt(txt_ajuste_canti_materia.getText().trim()))
-                        });
-                Metodos.eliminarFila(grilla_materia, fila);
-                txt_cod_materia.setText("");
-                txt_materia_prima.setText("");
-                txt_canti_materia.setText("");
+                int fila = grilla_producto.getSelectedRow();
+                Metodos.cargarTabla(grilla_producto, new Object[]{
+                    grilla_producto.getValueAt(fila, 0).toString(),
+                    grilla_producto.getValueAt(fila, 1).toString(),
+                    grilla_producto.getValueAt(fila, 2).toString(),
+                    1,
+                    "Entrada",
+                    txt_ajuste_canti_materia.getText().trim(),
+                    (Integer.parseInt(grilla_producto.getValueAt(fila, 2).toString())) + (Integer.parseInt(txt_ajuste_canti_materia.getText().trim()))
+                });
+                Metodos.eliminarFila(grilla_producto, fila);
+                cod_producto_txt.setText("");
+                txt_producto.setText("");
+                txt_cantidad.setText("");
                 txt_ajuste_canti_materia.setText("");
                 combo_motivo.setSelectedItem("...");
-        }else if (combo_motivo.getSelectedItem().equals("Salida")) {
-            int fila = grilla_materia.getSelectedRow();
-            Metodos.cargarTabla(grilla_materia, new Object[]{
-                            grilla_materia.getValueAt(fila, 0).toString(),
-                            grilla_materia.getValueAt(fila, 1).toString(),
-                            grilla_materia.getValueAt(fila, 2).toString(),
-                            2,
-                            "Salida",
-                            txt_ajuste_canti_materia.getText().trim(),
-                            (Integer.parseInt(grilla_materia.getValueAt(fila, 2).toString()))-(Integer.parseInt(txt_ajuste_canti_materia.getText().trim()))
-                        });
-                Metodos.eliminarFila(grilla_materia, fila);
-                txt_cod_materia.setText("");
-                txt_materia_prima.setText("");
-                txt_canti_materia.setText("");
+            } else if (combo_motivo.getSelectedItem().equals("Salida")) {
+                int fila = grilla_producto.getSelectedRow();
+                Metodos.cargarTabla(grilla_producto, new Object[]{
+                    grilla_producto.getValueAt(fila, 0).toString(),
+                    grilla_producto.getValueAt(fila, 1).toString(),
+                    grilla_producto.getValueAt(fila, 2).toString(),
+                    2,
+                    "Salida",
+                    txt_ajuste_canti_materia.getText().trim(),
+                    (Integer.parseInt(grilla_producto.getValueAt(fila, 2).toString())) - (Integer.parseInt(txt_ajuste_canti_materia.getText().trim()))
+                });
+                Metodos.eliminarFila(grilla_producto, fila);
+                cod_producto_txt.setText("");
+                txt_producto.setText("");
+                txt_cantidad.setText("");
                 txt_ajuste_canti_materia.setText("");
                 combo_motivo.setSelectedItem("...");
+            }
+
         }
-            
-       }
     }//GEN-LAST:event_txt_ajuste_canti_materiaActionPerformed
 
     /**
@@ -837,18 +825,29 @@ public class ajuste_stock extends javax.swing.JFrame {
             }
         });
     }
-  
-      public void cargarDetalles() {
+
+    public void cargarDetalles() {
         Conexion cn = new Conexion();
 
         try {
             cn.conectar();
-            ResultSet sucursal = cn.consultar("select * from v_stock_materias where cod_depo = " 
-                    + txtNroDeposito.getText()+" and sucur_id ="+Menu.idSucursal); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            ResultSet sucursal = cn.consultar("SELECT \n"
+                    + "s.pro_cod,\n"
+                    + "p.pro_desc,\n"
+                    + "s.cantidad\n"
+                    + "FROM stock_productos s\n"
+                    + "JOIN producto p\n"
+                    + "ON p.pro_cod =  s.pro_cod\n"
+                    + "where s.sucur_id =  " + Menu.idSucursal + " "
+                    + "and s.cod_depo =" + txtNroDeposito.getText() + "\n"
+                    + "ORDER by p.pro_desc");
 
             if (sucursal.isBeforeFirst()) {
                 while (sucursal.next()) {
-                    Metodos.cargarTabla(grilla_materia, new Object[]{sucursal.getString("cod_materia"), sucursal.getString("mat_desc"), sucursal.getString("cantidad")});
+                    Metodos.cargarTabla(grilla_producto, new Object[]{
+                        sucursal.getString("pro_cod"), 
+                        sucursal.getString("pro_desc"), 
+                        sucursal.getString("cantidad")});
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No hay registros en la base de datos");
@@ -861,10 +860,6 @@ public class ajuste_stock extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
-     
-
-
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -872,8 +867,9 @@ public class ajuste_stock extends javax.swing.JFrame {
     private javax.swing.JButton Bnuevo;
     private javax.swing.JButton Bsalir;
     private javax.swing.JButton bcancelar;
+    public static javax.swing.JTextField cod_producto_txt;
     private javax.swing.JComboBox<String> combo_motivo;
-    private javax.swing.JTable grilla_materia;
+    private javax.swing.JTable grilla_producto;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
@@ -902,13 +898,9 @@ public class ajuste_stock extends javax.swing.JFrame {
     public static javax.swing.JTextField txtSucu;
     public static javax.swing.JTextField txtUsuario;
     private javax.swing.JTextField txt_ajuste_canti_materia;
-    private javax.swing.JTextField txt_canti_materia;
-    public static javax.swing.JTextField txt_cod_materia;
+    private javax.swing.JTextField txt_cantidad;
     public static javax.swing.JTextField txt_deposito;
-    public static javax.swing.JTextField txt_materia_prima;
+    public static javax.swing.JTextField txt_producto;
     // End of variables declaration//GEN-END:variables
-
-  
-
 
 }

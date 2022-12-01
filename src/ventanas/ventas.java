@@ -943,6 +943,7 @@ public class ventas extends javax.swing.JFrame {
                                 Metodos.dameFechaFormateada(fechaVence),
                                 "Adquisisión de productos", 
                                 txtCliente.getText().trim(), "-", dameCedulaCliente(), "-", "-", "-");
+                        new Metodos().imprimirFactura(Integer.parseInt(Metodos.ultimoCodigo("ventas_id", "ventas")));
                         btnCancelar.doClick();
 
                     } else if (chx_contado.isSelected()) {

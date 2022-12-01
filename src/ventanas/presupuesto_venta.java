@@ -34,6 +34,7 @@ import static ventanas.pedido_de_compra.txtCod;
 import static ventanas.pedido_de_compra.txtCodArti;
 import static ventanas.pedido_de_compra.txtDescri;
 import static ventanas.pedido_de_compra.txtFecha;
+import static ventanas.presupuestoServicios.txtCod;
 
 public class presupuesto_venta extends javax.swing.JFrame {
 
@@ -729,6 +730,9 @@ public class presupuesto_venta extends javax.swing.JFrame {
                     }
                 }
                 JOptionPane.showMessageDialog(null, mensaje);
+                Metodos.imprimirPorCodigoUnico(
+                        "/src/reportes/reportePresupuestoVentaCodigoUnico.jasper",
+                        Integer.parseInt(num.getText()));
                 limpiar();
                
             } catch (ClassNotFoundException ex) {

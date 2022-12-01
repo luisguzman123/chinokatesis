@@ -305,13 +305,15 @@
     <Component class="javax.swing.JComboBox" name="jComboBox1">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="6">
+          <StringArray count="8">
             <StringItem index="0" value="Recepcion de servicios"/>
             <StringItem index="1" value="Diagnostico"/>
             <StringItem index="2" value="Presupuesto"/>
             <StringItem index="3" value="Orden de trabajo"/>
-            <StringItem index="4" value=" "/>
-            <StringItem index="5" value=" "/>
+            <StringItem index="4" value="Trabajos Terminados"/>
+            <StringItem index="5" value="Reclamos"/>
+            <StringItem index="6" value=" "/>
+            <StringItem index="7" value=" "/>
           </StringArray>
         </Property>
       </Properties>

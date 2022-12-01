@@ -874,7 +874,8 @@ public class ventas extends javax.swing.JFrame {
                         + Metodos.cajaAbierta() + ", "
                         + Metodos.dameCodcaja() + ")";
 
-                String factura = "update timbrado set numeracion_actual = numeracion_actual+1";
+                String factura = "update timbrado set numeracion_actual = numeracion_actual+1 ;";
+                factura += "update presupuesto set pre_estado = 'UTILIZADO' WHERE pre_cod = "+txtPresu.getText()+";";
 
                 Conexion cn = new Conexion();
                 try {

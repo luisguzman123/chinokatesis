@@ -62,6 +62,8 @@ public class nota_ventas extends javax.swing.JFrame {
         motivo_cbx = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         deposito_lbl = new javax.swing.JLabel();
+        cli2 = new javax.swing.JLabel();
+        timbrado_lbl = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         to_iva5 = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
@@ -228,7 +230,7 @@ public class nota_ventas extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(id_venta_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,30 +289,44 @@ public class nota_ventas extends javax.swing.JFrame {
         deposito_lbl.setForeground(new java.awt.Color(255, 255, 255));
         deposito_lbl.setText("  ");
 
+        cli2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cli2.setForeground(new java.awt.Color(255, 255, 255));
+        cli2.setText("TIMBRADO");
+
+        timbrado_lbl.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        timbrado_lbl.setForeground(new java.awt.Color(255, 255, 255));
+        timbrado_lbl.setText("-");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(cod_cli1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cod_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(cli1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cli, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(cod_cli1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cod_cli, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cli1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cli, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cli2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(timbrado_lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(suc2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(motivo_cbx, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(deposito_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 67, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(suc2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(motivo_cbx, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deposito_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,7 +336,9 @@ public class nota_ventas extends javax.swing.JFrame {
                     .addComponent(cod_cli)
                     .addComponent(cli)
                     .addComponent(cod_cli1)
-                    .addComponent(cli1))
+                    .addComponent(cli1)
+                    .addComponent(cli2)
+                    .addComponent(timbrado_lbl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(suc2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -573,43 +591,47 @@ public class nota_ventas extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel29)
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(num, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel29)
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel14)
+                                    .addGap(8, 8, 8))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(3, 3, 3)
+                                    .addComponent(jLabel17)))
+                            .addGap(10, 10, 10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(su1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pernom, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(49, 49, 49)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(codper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(su2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(8, 8, 8))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel17)))
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(su1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pernom, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(codper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(su2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(descuento_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(descuento_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(42, 42, 42)
-                            .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -655,19 +677,19 @@ public class nota_ventas extends javax.swing.JFrame {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(880, 731));
+        setSize(new java.awt.Dimension(909, 731));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void numActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numActionPerformed
-        
+
 }//GEN-LAST:event_numActionPerformed
 
     private void numKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numKeyPressed
 
-        if(evt.getKeyCode() == KeyEvent.VK_F2){
+        if (evt.getKeyCode() == KeyEvent.VK_F2) {
             busNotas ventana = new busNotas();
-            ventana.busqueda =  "nota_venta";
+            ventana.busqueda = "nota_venta";
             ventana.setVisible(true);
         }
 }//GEN-LAST:event_numKeyPressed
@@ -709,7 +731,8 @@ public class nota_ventas extends javax.swing.JFrame {
         String buscarCliente = "SELECT\n"
                 + "c.cli_cod,\n"
                 + "c.cli_nomb ||' '||c.cli_apelli as cliente,\n"
-                + "v.ventas_id "
+                + "v.ventas_id, "
+                + "v.timbrado "
                 + "FROM ventas v\n"
                 + "JOIN cliente c\n"
                 + "ON c.cli_cod = v.cli_cod\n"
@@ -717,22 +740,22 @@ public class nota_ventas extends javax.swing.JFrame {
         Conexion cn = new Conexion();
 
         String cargarDetalles = "SELECT\n"
-                + "dv.pro_cod,\n"
-                + "p.pro_desc as producto,\n"
+                + "CASE WHEN dv.pro_cod <> 0 THEN dv.pro_cod ELSE tp.id_tipo_trabajo  END  as  cod,\n"
+                + "CASE WHEN dv.pro_cod <> 0 THEN p.pro_desc ELSE tp.descri_tipotrabajo  END  as producto,\n"
                 + "dv.det_cantidad,\n"
                 + "dv.de_monto,\n"
                 + "dv.exenta,\n"
                 + "dv.grav_5,\n"
-                + "dv.grav_10,\n"
-                + "CONCAT(dv.cod_depo, '-', d.depo_desc) as deposito "
+                + "dv.grav_10\n"
                 + "FROM ventas v \n"
                 + "JOIN detalle_venta dv\n"
                 + "ON dv.ventas_id = v.ventas_id\n"
-                + "JOIN producto p \n"
-                + "ON dv.pro_cod = p.pro_cod "
-                + "JOIN deposito d "
-                + "on d.cod_depo =  dv.cod_depo\n"
+                + "LEFT JOIN producto p \n"
+                + "on p.pro_cod =  dv.pro_cod\n "
+                + "LEFT JOIN tipos_trabajos tp\n"
+                + "ON tp.id_tipo_trabajo =  dv.id_tipo_trabajo "
                 + "WHERE v.nro_factura LIKE '" + num_fac.getText().trim() + "'";
+        System.out.println(cargarDetalles);
 
         try {
             cn.conectar();
@@ -743,14 +766,15 @@ public class nota_ventas extends javax.swing.JFrame {
                     cod_cli.setText(cliente.getString("cli_cod"));
                     cli.setText(cliente.getString("cliente"));
                     id_venta_lbl.setText(cliente.getString("ventas_id"));
+                    timbrado_lbl.setText(cliente.getString("timbrado"));
 
                 }
             }
-            
-            if(existeFactura()){
+
+            if (existeFactura()) {
                 JOptionPane.showMessageDialog(rootPane, "La factura ya esta siendo utilizada.");
                 limpiar();
-                return; 
+                return;
             }
             int total = 0;
             ResultSet detalle = cn.consultar(cargarDetalles);
@@ -758,7 +782,7 @@ public class nota_ventas extends javax.swing.JFrame {
                 Metodos.limpiarTabla(grilla);
                 while (detalle.next()) {
                     Metodos.cargarTabla(grilla, new Object[]{
-                        detalle.getInt("pro_cod"),
+                        detalle.getInt("cod"),
                         detalle.getString("producto"),
                         detalle.getString("det_cantidad"),
                         detalle.getInt("de_monto"),
@@ -771,9 +795,21 @@ public class nota_ventas extends javax.swing.JFrame {
                     });
                     total += detalle.getInt("det_cantidad")
                             * detalle.getInt("de_monto");
-                    deposito_lbl.setText(detalle.getString("deposito"));
+                   
 
                 }
+            }
+            
+             String sql_depo = "SELECT\n"
+                    + "cd.cod_depo||'-'||d.depo_desc as deposito\n"
+                    + "FROM detalle_venta cd\n"
+                    + "JOIN deposito d \n"
+                    + "ON d.cod_depo =  cd.cod_depo\n"
+                    + "WHERE cd.ventas_id = "+id_venta_lbl.getText()+"\n"
+                    + "LIMIT 1";
+            ResultSet rs_depo = cn.consultar(sql_depo);
+            while (rs_depo.next()) {
+                deposito_lbl.setText(rs_depo.getString("deposito"));
             }
             txttotal.setText(String.valueOf(total));
             motivo_cbx.setEnabled(true);
@@ -783,7 +819,6 @@ public class nota_ventas extends javax.swing.JFrame {
             grava.setText(String.valueOf((int) (Metodos.sumarColumna(grilla, 6) * 0.11)));
             totaliva.setText(String.valueOf(((int) (Metodos.sumarColumna(grilla, 6) * 0.11))
                     + ((int) (Metodos.sumarColumna(grilla, 5) * 0.21))));
-            
 
         } catch (ClassNotFoundException ex) {
 
@@ -839,7 +874,7 @@ public class nota_ventas extends javax.swing.JFrame {
 
         iniciarComponentes();
         limpiar();
-        
+
 }//GEN-LAST:event_cancelarActionPerformed
 
     private void grabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grabarActionPerformed
@@ -860,30 +895,32 @@ public class nota_ventas extends javax.swing.JFrame {
                     if (motivo_cbx.getSelectedIndex() == 0) {
 
                         guardar_cabecera = "INSERT INTO notas_de_ventas(\n"
-                                + "tipo, nota_cred_fecha, nota_cred_monto, nota_cred_motiv, \n"
-                                + "ventas_id, usu_id, emp_id, cli_cod, estado)\n"
-                                + "VALUES ( '"
-                                + combotipo.getSelectedItem() + "', '"
+                                + "not_cred_id,tipo, nota_cred_fecha, nota_cred_monto, nota_cred_motiv, \n"
+                                + "ventas_id, usu_id, emp_id, cli_cod, estado, timbrado)\n"
+                                + "VALUES ( "
+                                + "" + num.getText() + ","
+                                + "'" + combotipo.getSelectedItem() + "', '"
                                 + Metodos.dameFechaFormateadaSQL(new JCalendar().getDate()) + "', "
                                 + descuento_txt.getText() + ", '"
                                 + motivo_cbx.getSelectedItem() + "', "
                                 + id_venta_lbl.getText() + ", "
                                 + Menu.idUsuario + ", "
                                 + Menu.idEmpleado + ", "
-                                + cod_cli.getText() + ", 'ACTIVO');";
+                                + cod_cli.getText() + ", 'ACTIVO', '" + timbrado_lbl.getText() + "');";
                     } else {
                         guardar_cabecera = "INSERT INTO notas_de_ventas(\n"
-                                + "tipo, nota_cred_fecha, nota_cred_monto, nota_cred_motiv, \n"
-                                + "ventas_id, usu_id, emp_id, cli_cod, estado)\n"
-                                + "VALUES ( '"
-                                + combotipo.getSelectedItem() + "', '"
+                                + "not_cred_id, tipo, nota_cred_fecha, nota_cred_monto, nota_cred_motiv, \n"
+                                + "ventas_id, usu_id, emp_id, cli_cod, estado, timbrado)\n"
+                                + "VALUES ("
+                                + " " + num.getText() + ","
+                                + "'" + combotipo.getSelectedItem() + "', '"
                                 + Metodos.dameFechaFormateadaSQL(new JCalendar().getDate()) + "', "
                                 + dameTotalDevolucion() + ", '"
                                 + motivo_cbx.getSelectedItem() + "', "
                                 + id_venta_lbl.getText() + ", "
                                 + Menu.idUsuario + ", "
                                 + Menu.idEmpleado + ", "
-                                + cod_cli.getText() + ", 'ACTIVO');";
+                                + cod_cli.getText() + ", 'ACTIVO', '" + timbrado_lbl.getText() + "');";
 
                     }
 
@@ -937,14 +974,12 @@ public class nota_ventas extends javax.swing.JFrame {
                     Logger.getLogger(nota_ventas.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-            
-            
-            if(operacion.equals("anular")){
+
+            if (operacion.equals("anular")) {
                 try {
-                    String anulacion =  "UPDATE notas_de_ventas SET estado = 'ANULADO'  WHERE not_cred_id =  "+num.getText();
+                    String anulacion = "UPDATE notas_de_ventas SET estado = 'ANULADO'  WHERE not_cred_id =  " + num.getText();
                     Conexion cn = new Conexion();
-                    
+
                     cn.conectar();
                     cn.actualizar(anulacion);
                     JOptionPane.showMessageDialog(rootPane, "Anulado correctamente");
@@ -1063,6 +1098,7 @@ public class nota_ventas extends javax.swing.JFrame {
     private javax.swing.JButton cancelar;
     private javax.swing.JLabel cli;
     private javax.swing.JLabel cli1;
+    private javax.swing.JLabel cli2;
     private javax.swing.JLabel cod_cli;
     private javax.swing.JLabel cod_cli1;
     public static javax.swing.JLabel codper;
@@ -1100,6 +1136,7 @@ public class nota_ventas extends javax.swing.JFrame {
     public static javax.swing.JLabel su1;
     public static javax.swing.JLabel su2;
     private javax.swing.JLabel suc2;
+    private javax.swing.JLabel timbrado_lbl;
     private javax.swing.JTextField to_iva5;
     private javax.swing.JTextField totaliva;
     private javax.swing.JTextField txttotal;
@@ -1160,10 +1197,10 @@ public class nota_ventas extends javax.swing.JFrame {
             cn.conectar();
             ResultSet caja = cn.consultar("select *\n"
                     + "from notas_de_ventas\n"
-                    + "where estado = 'ACTIVO' AND ventas_id = "+id_venta_lbl.getText());
-                    if(caja.isBeforeFirst()){
-                        return true;
-                    }
+                    + "where estado = 'ACTIVO' AND ventas_id = " + id_venta_lbl.getText());
+            if (caja.isBeforeFirst()) {
+                return true;
+            }
 
         } catch (ClassNotFoundException ex) {
 

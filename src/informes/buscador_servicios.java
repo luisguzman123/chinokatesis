@@ -155,7 +155,7 @@ public class buscador_servicios extends javax.swing.JFrame {
         jcEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ACTIVO", "ANULADO" }));
         jcEstado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 102, 0)));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recepcion de servicios", "Diagnostico", "Presupuesto", "Orden de trabajo", " ", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Recepcion de servicios", "Diagnostico", "Presupuesto", "Orden de trabajo", "Trabajos Terminados", "Reclamos", " ", " " }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
@@ -252,7 +252,15 @@ public class buscador_servicios extends javax.swing.JFrame {
             Metodos.imprimirPorFecha("/src/reportes/reporteOrdTrabServicioPeriodo.jasper", jtDesde.getDate(), jtHasta.getDate());       
         }else if (jrEstado.isSelected() && jComboBox1.getSelectedIndex()==3) {
              Metodos.imprimirPorEstado("/src/reportes/reporteOrdTrabServicioEstado.jasper", jcEstado.getSelectedItem().toString());
+        }else if (jrPorFecha.isSelected() && jComboBox1.getSelectedIndex()==4) {
+            Metodos.imprimirPorFecha("/src/reportes/reporteTrabajoTerminadoPeriodo.jasper", jtDesde.getDate(), jtHasta.getDate());       
+        }else if (jrEstado.isSelected() && jComboBox1.getSelectedIndex()==4) {
+             Metodos.imprimirPorEstado("/src/reportes/reporteTrabajoTerminadoEstado.jasper", jcEstado.getSelectedItem().toString());
         
+        }else if (jrPorFecha.isSelected() && jComboBox1.getSelectedIndex()==5) {
+            Metodos.imprimirPorFecha("/src/reportes/reporteReclamoPeriodo.jasper", jtDesde.getDate(), jtHasta.getDate());       
+        }else if (jrEstado.isSelected() && jComboBox1.getSelectedIndex()==5) {
+             Metodos.imprimirPorEstado("/src/reportes/reporteReclamoEstado.jasper", jcEstado.getSelectedItem().toString());
         }
     }//GEN-LAST:event_jbExportarActionPerformed
 

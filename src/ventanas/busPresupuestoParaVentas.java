@@ -387,7 +387,8 @@ public class busPresupuestoParaVentas extends javax.swing.JFrame {
                                 (int)((dameIva(detalles.getString("pro_cod")).equals("0")) ? (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))*(0) : 0), 
                                 (int)((dameIva(detalles.getString("pro_cod")).equals("5")) ? (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))*(0.21) : 0), 
                                 (int)((dameIva(detalles.getString("pro_cod")).equals("10")) ? (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))*(0.11) : 0), 
-                                (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad")))
+                                (Integer.parseInt(detalles.getString("precio")) * Integer.parseInt(detalles.getString("cantidad"))),
+                                "Articulos"
 
                             });
                         }

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d8d76bf2-0fdc-4d16-8713-4cb07a13ee51">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desde" class="java.util.Date"/>
+	<parameter name="hasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+psc.id_servi_termi_cab,
+psc.estado,
+psc.fecha_entrega,
+e.desc_equipo,
+t.descri_tipotrabajo,
+d.servi_termi_descri
+FROM  servicio_termi_cab psc
+JOIN servicio_termi_det d
+ON d.id_servi_termi_cab = psc.id_servi_termi_cab
+JOIN equipos e
+ON e.id_equipo = d.id_equipo
+JOIN sucursal s
+ON psc.id_sucursal = s.sucur_id
+JOIN tipos_trabajos t
+ON t.id_tipo_trabajo = d.id_tipo_trabajo
+WHERE psc.fecha_entrega BETWEEN $P{desde} AND $P{hasta}]]>
+	</queryString>
+	<field name="id_servi_termi_cab" class="java.lang.Integer"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="fecha_entrega" class="java.sql.Date"/>
+	<field name="desc_equipo" class="java.lang.String"/>
+	<field name="descri_tipotrabajo" class="java.lang.String"/>
+	<field name="servi_termi_descri" class="java.lang.String"/>
+	<variable name="sum_1" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_1" class="java.math.BigDecimal" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_2" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="total_3" class="java.lang.Integer" resetType="Group" resetGroup="pedidos_cabecera" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="pedidos_cabecera">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<rectangle>
+					<reportElement x="1" y="12" width="554" height="20" forecolor="#333333" backcolor="#333333" uuid="f78ec037-ac94-4921-95ab-88f5404c4b33"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="17" y="12" width="100" height="20" forecolor="#FFFFFF" uuid="a4ba328f-c40f-4bff-8e7c-d6d8dd31795b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha de entrega]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="125" y="12" width="137" height="20" forecolor="#FFFFFF" uuid="b2f28004-0c6c-42fa-a685-afa013ab9df4"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Equipo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="264" y="12" width="100" height="20" forecolor="#FFFFFF" uuid="9b7d51b5-6ee7-4538-90af-91135e966d44"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Trabajo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="375" y="12" width="180" height="20" forecolor="#FFFFFF" uuid="9139df23-aa45-4f95-8c66-8fc886888db9"/>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Descripcion]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="11" width="555" height="1" forecolor="#000000" uuid="067ffc73-1eb6-46ca-8d67-4a555fe6998a"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="254" y="22" width="300" height="32" uuid="996383a5-90f7-4a91-8de7-4e13918547f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="4" y="22" width="239" height="57" uuid="66cefef3-4184-439d-b312-c078afb82c61"/>
+				<textElement>
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRABAJO TERMINADO POR PERIODO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="29" width="43" height="20" uuid="08e4a074-f051-449e-8f02-c55e329e6d16"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="29" width="43" height="20" uuid="20de5ec0-2e55-4a60-9eda-fb42692fa870"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="307" y="29" width="100" height="20" uuid="5e2d5304-1700-40d5-9f72-a2fbc189a656"/>
+				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="450" y="29" width="100" height="20" uuid="72de1ce9-c4bb-46fe-a757-4fc68d00628c"/>
+				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="17" y="3" width="100" height="20" uuid="f167f457-ecd4-44c7-8922-08c3f80e5b14"/>
+				<textFieldExpression><![CDATA[$F{fecha_entrega}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="3" width="137" height="20" uuid="1189a6ea-da14-49a2-a8dc-8a68b2005741"/>
+				<textFieldExpression><![CDATA[$F{desc_equipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="264" y="3" width="100" height="20" uuid="effe9311-e6ca-4ac8-b213-349216219d36"/>
+				<textFieldExpression><![CDATA[$F{descri_tipotrabajo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="375" y="3" width="175" height="20" uuid="7e7fc867-eb9d-439a-b7a6-1b6be15df80a"/>
+				<textFieldExpression><![CDATA[$F{servi_termi_descri}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="45" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -39,6 +39,7 @@ import ventanas.pedidoDeVenta;
 import ventanas.pedido_de_compra;
 import ventanas.presupuestoServicios;
 import ventanas.presupuesto_de_compra;
+import ventanas.presupuesto_venta;
 import ventanas.producto;
 import ventanas.promociones;
 import ventanas.proveedor;
@@ -749,12 +750,19 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem17ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        // TODO add your handling code here:
+        new presupuesto_venta().setVisible(true);
+        presupuesto_venta.txtCodUsuario.setText(idUsuario);
+        presupuesto_venta.txtUsuario.setText(usuario);
+        presupuesto_venta.txtSucu.setText(Sucursal);
+        presupuesto_venta.idSucursal.setText(idSucursal); 
+//        presupuesto_venta.idUsuario = idUsuario;
+//        presupuesto_venta.idPersonal = idEmpleado;
         
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
         new nota_compras().setVisible(true);
+        
        
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 

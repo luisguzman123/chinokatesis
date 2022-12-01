@@ -415,6 +415,13 @@ public class tipoDeTrabajos extends javax.swing.JFrame {
            busqueda = "";
            dispose();
        }
+       if(busqueda.equals("venta") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
+           ventas.txt_cod_arti.setText(cod);
+           ventas.txt_arti.setText(nombre);
+           ventas.txt_precio.requestFocus();
+           busqueda = "";
+           dispose();
+       }
        if(busqueda.equals("descuentos") && operacion.equals("")){   //primero se realiza esta accion porque de otro modo vacia la variable "operacion"
            descuentos.txtCodTipoTrabajo.setText(cod);
            descuentos.txtDescriTrabajo.setText(nombre);

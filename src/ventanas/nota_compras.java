@@ -760,15 +760,12 @@ public class nota_compras extends javax.swing.JFrame {
                 + "dv.monto,\n"
                 + "dv.exenta,\n"
                 + "dv.iva_5,\n"
-                + "dv.iva_10,\n"
-                + "CONCAT(dv.cod_depo, '-', d.depo_desc) as deposito "
+                + "dv.iva_10\n"
                 + "FROM compra v \n"
                 + "JOIN compra_detalle dv\n"
                 + "ON dv.compra_id = v.compra_id\n"
                 + "JOIN producto p \n"
                 + "ON dv.pro_cod = p.pro_cod "
-                + "JOIN deposito d "
-                + "on d.cod_depo =  dv.cod_depo\n "
                 + ""
                 + "WHERE v.nro_factura LIKE '" + num_fac.getText().trim() + "' "
                 + " ";
@@ -811,9 +808,21 @@ public class nota_compras extends javax.swing.JFrame {
                     });
                     total += detalle.getInt("cantidad")
                             * detalle.getInt("monto");
-                    deposito_lbl.setText(detalle.getString("deposito"));
+//                    deposito_lbl.setText(detalle.getString("deposito"));
 
                 }
+            }
+
+            String sql_depo = "SELECT\n"
+                    + "cd.cod_depo||'-'||d.depo_desc as deposito\n"
+                    + "FROM compra_detalle cd\n"
+                    + "JOIN deposito d \n"
+                    + "ON d.cod_depo =  cd.cod_depo\n"
+                    + "WHERE cd.compra_id = "+id_venta_lbl.getText()+"\n"
+                    + "LIMIT 1";
+            ResultSet rs_depo = cn.consultar(sql_depo);
+            while (rs_depo.next()) {
+                deposito_lbl.setText(rs_depo.getString("deposito"));
             }
             txttotal.setText(String.valueOf(total));
             motivo_cbx.setEnabled(true);
@@ -911,7 +920,7 @@ public class nota_compras extends javax.swing.JFrame {
                                 + Menu.idSucursal + ", "
                                 + Menu.idEmpleado + ", "
                                 + cod_proveedor.getText() + ", 'ACTIVO', "
-                                + "'"+txtTimbrado.getText()+"');";
+                                + "'" + txtTimbrado.getText() + "');";
                     } else {
                         guardar_cabecera = "INSERT INTO nota_de_compras(\n"
                                 + " nota_tipo, nota_fecha, monto, nota_motivo,  compra_id, usu_id, \n"
@@ -959,11 +968,11 @@ public class nota_compras extends javax.swing.JFrame {
                     if (motivo_cbx.getSelectedIndex() == 1) {
                         for (int i = 0; i < grilla.getRowCount(); i++) {
                             if (Boolean.parseBoolean(grilla.getValueAt(i, 8).toString())) {
-                                actualizar_stock = "UPDATE stock_materia_prima  \n"
+                                actualizar_stock = "UPDATE stock_productos  \n"
                                         + "SET cantidad = cantidad - " + grilla.getValueAt(i, 7).toString() + "\n"
                                         + "WHERE cod_depo = " + deposito_lbl.getText().split("-")[0] + " \n"
                                         + "and sucur_id  = " + Menu.idSucursal + " \n"
-                                        + "and cod_materia = " + grilla.getValueAt(i, 0).toString();
+                                        + "and pro_cod = " + grilla.getValueAt(i, 0).toString();
                                 cn.actualizar(actualizar_stock);
                             }
                         }
@@ -981,7 +990,7 @@ public class nota_compras extends javax.swing.JFrame {
 
             if (operacion.equals("anular")) {
                 try {
-                    String anulacion = "UPDATE nota_de_compras SET estado = 'ANULADO' WHERE  cod_nota = "+num.getText();
+                    String anulacion = "UPDATE nota_de_compras SET estado = 'ANULADO' WHERE  cod_nota = " + num.getText();
                     Conexion cn = new Conexion();
 
                     cn.conectar();

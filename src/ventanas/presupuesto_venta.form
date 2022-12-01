@@ -75,18 +75,18 @@
                               <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="su1" max="32767" attributes="0"/>
+                              <Component id="txtSucu" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="pernom1" max="32767" attributes="0"/>
+                              <Component id="txtUsuario" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="codper" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                          <Component id="su2" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
+                          <Component id="txtCodUsuario" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                          <Component id="idSucursal" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jScrollPane2" alignment="0" min="-2" pref="881" max="-2" attributes="1"/>
@@ -111,19 +111,19 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="codper" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCodUsuario" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="su2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="idSucursal" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="pernom1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="su1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtSucu" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -703,15 +703,21 @@
         <Property name="text" type="java.lang.String" value="Usuario:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="pernom1">
+    <Component class="javax.swing.JLabel" name="txtUsuario">
       <Properties>
         <Property name="text" type="java.lang.String" value="nom"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="codper">
+    <Component class="javax.swing.JLabel" name="txtCodUsuario">
       <Properties>
         <Property name="text" type="java.lang.String" value="codper"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
@@ -721,15 +727,21 @@
         <Property name="text" type="java.lang.String" value="Sucursal:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="su1">
+    <Component class="javax.swing.JLabel" name="txtSucu">
       <Properties>
         <Property name="text" type="java.lang.String" value="nom"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
     </Component>
-    <Component class="javax.swing.JLabel" name="su2">
+    <Component class="javax.swing.JLabel" name="idSucursal">
       <Properties>
         <Property name="text" type="java.lang.String" value="codper"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel14">
       <Properties>

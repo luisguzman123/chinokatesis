@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b6b1aa1b-49b7-4e25-b685-fc23a5cfddd6">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="173"/>
+	<property name="ireport.y" value="80"/>
 	<parameter name="cuota" class="java.lang.String"/>
 	<parameter name="fecha_emision" class="java.lang.String"/>
 	<parameter name="monto" class="java.lang.String"/>
@@ -103,7 +103,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="34" isBold="true"/>
 				</textElement>
-				<text><![CDATA[GO PY]]></text>
+				<text><![CDATA[PAGARE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="288" y="419" width="51" height="16" uuid="21a09e03-e688-402a-8c18-c70e345f55d1"/>
@@ -184,7 +184,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[El día                             PAGARE/MOS solidariamente y sin protesto a la empresa GO PY , ó a su orden, la suma de Guaranies]]></text>
+				<text><![CDATA[El día                             PAGARE/MOS solidariamente y sin protesto a la empresa  , ó a su orden, la suma de Guaranies]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="368" y="382" width="186" height="20" uuid="9108e5fc-4fa3-471a-8a30-1dbd7a83d8b9"/>
@@ -245,7 +245,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="12" isItalic="true"/>
 				</textElement>
-				<text><![CDATA[Itauguá km 30 - Tel.: (0294) 321 548 - Celular : +59597112012 - Web: gopy.com ]]></text>
+				<text><![CDATA[Itauguá km 30 - Tel.: (0294) 321 548 - Celular : +59597112012 - Web: CRHIS.COM.PY ]]></text>
 			</staticText>
 			<line>
 				<reportElement x="407" y="477" width="116" height="1" uuid="742545a9-2bd1-4535-a27b-e3eaf0a1d581"/>

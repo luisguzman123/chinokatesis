@@ -11,8 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
-
 public class ventas extends javax.swing.JFrame {
 
     String operacion = "";
@@ -31,9 +29,9 @@ public class ventas extends javax.swing.JFrame {
 
     public ventas() {
         initComponents();
-         txtFecha.setDate(new JCalendar().getDate());
-         btnCancelar.doClick();
-         Metodos.cargarComboReferencia(cmbDeposito, "depo_desc", "deposito", "sucur_id", Menu.idSucursal);
+        txtFecha.setDate(new JCalendar().getDate());
+        btnCancelar.doClick();
+        Metodos.cargarComboReferencia(cmbDeposito, "depo_desc", "deposito", "sucur_id", Menu.idSucursal);
     }
 
     @SuppressWarnings("unchecked")
@@ -815,8 +813,7 @@ public class ventas extends javax.swing.JFrame {
         cmbPresu.setPopupVisible(true);
 
         llamarTimbrado();
-        
-        
+
         txtFecha.setEnabled(false);
 
         btnAgregar.setEnabled(false);
@@ -825,7 +822,7 @@ public class ventas extends javax.swing.JFrame {
         btnGrabar.setEnabled(true);
         btnCancelar.setEnabled(true);
         cmbDeposito.setEnabled(true);
-        
+
         txtCod.setText(Metodos.siguienteCodigo("ventas_id", "ventas"));
 
         operacion = "agregar";
@@ -836,7 +833,7 @@ public class ventas extends javax.swing.JFrame {
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
         txtCod.setEditable(true);
         txtCod.requestFocus();
-        
+
         btnAgregar.setEnabled(false);
         btnAnular.setEnabled(false);
         btnSalir.setEnabled(false);
@@ -849,150 +846,144 @@ public class ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnularActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        int respuesta=5;
-        
-        respuesta=JOptionPane.showConfirmDialog(null, confirmar);
-        
-        
-        
-        if(respuesta==0){
-            String sql="";
-            String sqldetalle="";
-            String sqlStock="";
-            String sqlCuentaApagar="";
-            String sqlLibroCompras="";
-            String sqlOrdenCompras="";
-            if(operacion.equals("agregar")){
-                sql="Insert into ventas (ven_fecha, nro_factura, timbrado, ven_tipo, cuota, plazo_pagar, estado, cli_cod, usu_id, emp_id, sucur_id, pre_cod, cod_aper_cierre, cod_caja)"
-                        + " values ('"+
-                        Metodos.dameFechaFormateadaSQL(txtFecha.getDate())+"', '"+
-                        txtFactura.getText().trim()+"', '"+
-                        txt_nro_timbrado.getText().trim()+"', '"+
-                        ((chx_contado.isSelected())? "CONTADO" : "CREDITO" )+ "', "+
-                        Integer.parseInt(cmb_cuota.getSelectedItem().toString())+", "
-                        + "30,'ACTIVO',"+
-                        txtCodCliente.getText().trim()+", "+
-                        idUsuario+", "+
-                        idPersonal+", "+
-                        idSucursal+","+
-                        txtPresu.getText().trim()+", "+
-                        Metodos.cajaAbierta()+", "+
-                       Metodos.dameCodcaja()+")";
-                
-             String factura = "update timbrado set numeracion_actual = numeracion_actual+1";
-             
-                
-            
-            Conexion cn=new Conexion();
-            try {
-                cn.conectar();
-                System.out.println(sql);
-                cn.actualizar(sql);
-                cn.actualizar(factura);
+        int respuesta = 5;
 
-                if (Integer.parseInt(txt_iva5.getText())>0) {
-                    sqlLibroCompras = "insert into detalle_lb (ventas_id, libro_ven_id, cantidad) values ("+
-                        Metodos.ultimoCodigo("ventas_id", "ventas")+", 1, "+txt_iva5.getText()+")";
-                    cn.actualizar(sqlLibroCompras);
-                    
-                }
-                if (Integer.parseInt(txt_iva10.getText())>0) {
-                    sqlLibroCompras = "insert into detalle_lb (ventas_id, libro_ven_id, cantidad) values ("+
-                        Metodos.ultimoCodigo("ventas_id", "ventas")+", 2, "+txt_iva10.getText()+")";
+        respuesta = JOptionPane.showConfirmDialog(null, confirmar);
+
+        if (respuesta == 0) {
+            String sql = "";
+            String sqldetalle = "";
+            String sqlStock = "";
+            String sqlCuentaApagar = "";
+            String sqlLibroCompras = "";
+            String sqlOrdenCompras = "";
+            if (operacion.equals("agregar")) {
+                sql = "Insert into ventas (ven_fecha, nro_factura, timbrado, ven_tipo, cuota, plazo_pagar, estado, cli_cod, usu_id, emp_id, sucur_id, pre_cod, cod_aper_cierre, cod_caja)"
+                        + " values ('"
+                        + Metodos.dameFechaFormateadaSQL(txtFecha.getDate()) + "', '"
+                        + txtFactura.getText().trim() + "', '"
+                        + txt_nro_timbrado.getText().trim() + "', '"
+                        + ((chx_contado.isSelected()) ? "CONTADO" : "CREDITO") + "', "
+                        + Integer.parseInt(cmb_cuota.getSelectedItem().toString()) + ", "
+                        + "30,'ACTIVO',"
+                        + txtCodCliente.getText().trim() + ", "
+                        + idUsuario + ", "
+                        + idPersonal + ", "
+                        + idSucursal + ","
+                        + txtPresu.getText().trim() + ", "
+                        + Metodos.cajaAbierta() + ", "
+                        + Metodos.dameCodcaja() + ")";
+
+                String factura = "update timbrado set numeracion_actual = numeracion_actual+1";
+
+                Conexion cn = new Conexion();
+                try {
+                    cn.conectar();
+                    System.out.println(sql);
+                    cn.actualizar(sql);
+                    cn.actualizar(factura);
+
+                    if (Integer.parseInt(txt_iva5.getText()) > 0) {
+                        sqlLibroCompras = "insert into detalle_lb (ventas_id, libro_ven_id, cantidad) values ("
+                                + Metodos.ultimoCodigo("ventas_id", "ventas") + ", 1, " + txt_iva5.getText() + ")";
                         cn.actualizar(sqlLibroCompras);
-                }
-                
-                
-                int cantidadFilas=grilla.getRowCount();
-                if (operacion.equals("agregar")) {
+
+                    }
+                    if (Integer.parseInt(txt_iva10.getText()) > 0) {
+                        sqlLibroCompras = "insert into detalle_lb (ventas_id, libro_ven_id, cantidad) values ("
+                                + Metodos.ultimoCodigo("ventas_id", "ventas") + ", 2, " + txt_iva10.getText() + ")";
+                        cn.actualizar(sqlLibroCompras);
+                    }
+
+                    int cantidadFilas = grilla.getRowCount();
+                    if (operacion.equals("agregar")) {
                         for (int i = 0; i < cantidadFilas; i++) {
                             if (Metodos.estadoStock(dameDepositoId(), idSucursal, grilla.getValueAt(i, 0).toString())) {
-                                sqlStock = "update stock_productos set cantidad = cantidad - "+grilla.getValueAt(i, 2).toString()+" where cod_depo ="+dameDepositoId()+" and sucur_id = "+idSucursal+" and pro_cod = "+grilla.getValueAt(i, 0).toString();
+                                sqlStock = "update stock_productos set cantidad = cantidad - " + grilla.getValueAt(i, 2).toString() + " where cod_depo =" + dameDepositoId() + " and sucur_id = " + idSucursal + " and pro_cod = " + grilla.getValueAt(i, 0).toString();
                                 System.out.println(sqlStock);
                                 cn.actualizar(sqlStock);
-                                
+
                             }
-                            
-                            
-                            sqldetalle="insert into detalle_venta(ventas_id, cod_depo, sucur_id, pro_cod, det_cantidad, de_monto, grav_5, grav_10, exenta) values("
-                            +Metodos.ultimoCodigo("ventas_id", "ventas")+", "
-                            +dameDepositoDesc()+", "
-                            +idSucursal+", "
-                            +grilla.getValueAt(i, 0).toString()+", "
-                            +grilla.getValueAt(i, 2).toString()+", "
-                            +grilla.getValueAt(i, 3).toString()+", "
-                            +grilla.getValueAt(i, 5).toString()+", "
-                            +grilla.getValueAt(i, 6).toString()+", "
-                            +grilla.getValueAt(i, 4).toString()+")";
-                           
+
+                            sqldetalle = "insert into detalle_venta(ventas_id, cod_depo, sucur_id, pro_cod, det_cantidad, de_monto, grav_5, grav_10, exenta, id_tipo_trabajo) values("
+                                    + Metodos.ultimoCodigo("ventas_id", "ventas") + ", "
+                                    + dameDepositoDesc() + ", "
+                                    + idSucursal + ", "
+                                    + ((grilla.getValueAt(i, 8).toString().equals("Articulos")) ? grilla.getValueAt(i, 0).toString() : "0" )+ ", "
+                                    + grilla.getValueAt(i, 2).toString() + ", "
+                                    + grilla.getValueAt(i, 3).toString() + ", "
+                                    + grilla.getValueAt(i, 5).toString() + ", "
+                                    + grilla.getValueAt(i, 6).toString() + ", "
+                                    + grilla.getValueAt(i, 4).toString() + ", "
+                                    + ""+((grilla.getValueAt(i, 8).toString().equals("Servicios")) ? grilla.getValueAt(i, 0).toString() : "0" )+")";
+
                             cn.actualizar(sqldetalle);
-                            
-                }   
-                }
-                if (chx_credito.isSelected()) {
-                    Date fecha = txtFecha.getDate();
-                    for (int i = 1; i <=Integer.parseInt(cmb_cuota.getSelectedItem().toString()); i++) {
-                        fecha.setMonth(fecha.getMonth()+1);
-                        sqlCuentaApagar = "insert into cuenta_cobrar(nro_cuota, ventas_id, monto, estado, fecha_vto) values("+
-                            i+","+
-                            Metodos.ultimoCodigo("ventas_id", "ventas")+","+
-                            (int)((Integer.parseInt(txtTotal.getText().trim()))/(Integer.parseInt(cmb_cuota.getSelectedItem().toString())))+
-                             ",'PENDIENTE'"+
-                             ",'"+Metodos.dameFechaFormateadaSql(fecha)+"')";
-                        System.out.println(sqlCuentaApagar);
-                        cn.actualizar(sqlCuentaApagar);
-                    
+
+                        }
                     }
-                Date fechaVence = txtFecha.getDate(); 
-                fechaVence.setMonth(fechaVence.getMonth()+Integer.parseInt(cmb_cuota.getSelectedItem().toString()));
-                JOptionPane.showMessageDialog(null, mensaje);
-                new Metodos().imprimirPagare(Metodos.dameFechaFormateada(txtFecha.getDate()), "1", txtTotal.getText().trim(), Metodos.dameFechaFormateada(fechaVence), "Adquisisión de productos de la empresa GO_py", txtCliente.getText().trim(), "-", dameCedulaCliente(), "-", "-", "-");
-                btnCancelar.doClick();     
-                  
-                }else if (chx_contado.isSelected()) {
-                    Date fecha = txtFecha.getDate();
-                    sqlCuentaApagar = "insert into cuenta_cobrar(nro_cuota, ventas_id, monto, estado, fecha_vto) values("+
-                    1+","+
-                    Metodos.ultimoCodigo("ventas_id", "ventas")+","+
-                    (int)(Integer.parseInt(txtTotal.getText().trim()))+
-                    ",'PENDIENTE'"+
-                    ",'"+Metodos.dameFechaFormateadaSql(fecha)+"')";
-                    System.out.println(sqlCuentaApagar);
-                    cn.actualizar(sqlCuentaApagar);
-                    
-                    
-                    new cobros().setVisible(true);
-                    cobros.btn_cobrar.doClick();
-                    cobros.txtCodCliente.setText(txtCodCliente.getText());
-                    cobros.txtCliente.setText(txtCliente.getText());
-                    cobros.cmb_factura.removeAllItems();
-                    cobros.cmb_factura.addItem(txtFactura.getText().trim());
-                    cobros.estadoParaFactura="efectivoDesdeVentas";
-                    cobros.txt_recibo.setText("0");
+                    if (chx_credito.isSelected()) {
+                        Date fecha = txtFecha.getDate();
+                        for (int i = 1; i <= Integer.parseInt(cmb_cuota.getSelectedItem().toString()); i++) {
+                            fecha.setMonth(fecha.getMonth() + 1);
+                            sqlCuentaApagar = "insert into cuenta_cobrar(nro_cuota, ventas_id, monto, estado, fecha_vto) values("
+                                    + i + ","
+                                    + Metodos.ultimoCodigo("ventas_id", "ventas") + ","
+                                    + (int) ((Integer.parseInt(txtTotal.getText().trim())) / (Integer.parseInt(cmb_cuota.getSelectedItem().toString())))
+                                    + ",'PENDIENTE'"
+                                    + ",'" + Metodos.dameFechaFormateadaSql(fecha) + "')";
+                            System.out.println(sqlCuentaApagar);
+                            cn.actualizar(sqlCuentaApagar);
+
+                        }
+                        Date fechaVence = txtFecha.getDate();
+                        fechaVence.setMonth(fechaVence.getMonth() + Integer.parseInt(cmb_cuota.getSelectedItem().toString()));
+                        JOptionPane.showMessageDialog(null, mensaje);
+                        new Metodos().imprimirPagare(Metodos.dameFechaFormateada(txtFecha.getDate()), 
+                                "1", txtTotal.getText().trim(),
+                                Metodos.dameFechaFormateada(fechaVence),
+                                "Adquisisión de productos", 
+                                txtCliente.getText().trim(), "-", dameCedulaCliente(), "-", "-", "-");
+                        btnCancelar.doClick();
+
+                    } else if (chx_contado.isSelected()) {
+//                        Date fecha = txtFecha.getDate();
+//                        sqlCuentaApagar = "insert into cuenta_cobrar(nro_cuota, ventas_id, monto, estado, fecha_vto) values("
+//                                + 1 + ","
+//                                + Metodos.ultimoCodigo("ventas_id", "ventas") + ","
+//                                + (int) (Integer.parseInt(txtTotal.getText().trim()))
+//                                + ",'PENDIENTE'"
+//                                + ",'" + Metodos.dameFechaFormateadaSql(fecha) + "')";
+//                        System.out.println(sqlCuentaApagar);
+//                        cn.actualizar(sqlCuentaApagar);
+//
+////                        new cobros().setVisible(true);
+//                        cobros.btn_cobrar.doClick();
+//                        cobros.txtCodCliente.setText(txtCodCliente.getText());
+//                        cobros.txtCliente.setText(txtCliente.getText());
+//                        cobros.cmb_factura.removeAllItems();
+//                        cobros.cmb_factura.addItem(txtFactura.getText().trim());
+//                        cobros.estadoParaFactura = "efectivoDesdeVentas";
+//                        cobros.txt_recibo.setText("0");
+                    }
+                    JOptionPane.showMessageDialog(rootPane, "Registrado correctamente");
+                    new Metodos().imprimirFactura(Integer.parseInt(Metodos.ultimoCodigo("ventas_id", "ventas")));
+                    btnCancelar.doClick();
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(pedido_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                } catch (SQLException ex) {
+                    Logger.getLogger(pedido_de_compra.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
-                
-                
-              
-                
-                
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(pedido_de_compra.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            } catch (SQLException ex) {
-                Logger.getLogger(pedido_de_compra.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }    
-                
-                
-                        
+
             }
-            
-            
-            if(operacion.equals("anular")){
-                sql="update ventas set"
+
+            if (operacion.equals("anular")) {
+                sql = "update ventas set"
                         + " estado = 'ANULADO' "
-                        + " where ventas_id = "+txtCod.getText();
-                Conexion cn=new Conexion();
+                        + " where ventas_id = " + txtCod.getText();
+                Conexion cn = new Conexion();
                 try {
                     cn.conectar();
                     cn.actualizar(sql);
@@ -1003,12 +994,10 @@ public class ventas extends javax.swing.JFrame {
                     Logger.getLogger(ventas.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-            
-            
+
         }
 //        JOptionPane.showMessageDialog(null, mensaje);
-         btnCancelar.doClick();
+        btnCancelar.doClick();
 
     }//GEN-LAST:event_btnGrabarActionPerformed
 
@@ -1021,7 +1010,7 @@ public class ventas extends javax.swing.JFrame {
         txtSucursal.setEditable(false);
         txtUsuario.setEditable(false);
         txt_stock.setEditable(false);
-        
+
         txtCodUsuario.setEditable(false);
         txtPresu.setEditable(false);
         txtFactura.setEditable(false);
@@ -1035,9 +1024,9 @@ public class ventas extends javax.swing.JFrame {
         txtTotal.setEditable(false);
         txtFecha.setEnabled(false);
         chx_contado.isSelected();
-        
+
         Metodos.limpiarTabla(grilla);
-        
+
         txtPresu.setText("");
         txt_stock.setText("");
         txtCodCliente.setText("");
@@ -1052,8 +1041,6 @@ public class ventas extends javax.swing.JFrame {
         txt_to_iva.setText("");
         txtTotal.setText("");
 
-        
-        
         txtCod.setText("");
 
         txtTotal.setText("0");
@@ -1121,7 +1108,7 @@ public class ventas extends javax.swing.JFrame {
     private void txtFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFacturaActionPerformed
         txtCliente.setEditable(true);
         txtCliente.requestFocus();
-        
+
     }//GEN-LAST:event_txtFacturaActionPerformed
 
     private void chx_contadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chx_contadoActionPerformed
@@ -1136,30 +1123,41 @@ public class ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_chx_creditoActionPerformed
 
     private void cmb_cuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_cuotaActionPerformed
-      txt_arti.setEditable(true);
-      txt_arti.requestFocus();
+        txt_arti.setEditable(true);
+        txt_arti.requestFocus();
     }//GEN-LAST:event_cmb_cuotaActionPerformed
 
     private void txt_artiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_artiKeyPressed
-        if (txt_arti.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
-            producto.busqueda = "venta";
-            new producto().setVisible(true);
+        if (label_info.getText().equals("Articulos")) {
+
+            if (txt_arti.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+                producto.busqueda = "venta";
+                new producto().setVisible(true);
+
+            }
+        } else {
+            if (txt_arti.getText().equals("") && evt.getKeyCode() == evt.VK_F2) {
+                tipoDeTrabajos.busqueda = "venta";
+                new tipoDeTrabajos().setVisible(true);
+
+            }
 
         }
-        
 
 
     }//GEN-LAST:event_txt_artiKeyPressed
 
     private void txt_artiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_artiActionPerformed
-        if(label_info.getText().equals("Articulos")){
-            
+        if (label_info.getText().equals("Articulos")) {
+
             traerStockDePoducto();
             traerPrecio();
             txt_precio.setEditable(true);
             txt_precio.requestFocus();
+        } else {
+
         }
-            
+
     }//GEN-LAST:event_txt_artiActionPerformed
 
     private void txt_precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_precioActionPerformed
@@ -1168,97 +1166,119 @@ public class ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_precioActionPerformed
 
     private void txt_cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cantidadActionPerformed
-    if(txt_cantidad.getText().trim().equals("")) {
-        JOptionPane.showMessageDialog(null, "Debe cargar una cantidad");
-        return;
-    }else if (Integer.parseInt(txt_cantidad.getText())>Integer.parseInt(txt_stock.getText())) {
-        JOptionPane.showMessageDialog(null, "No puede cargar una cantidad mayor al stock disponible");
-        return;
-    }else if (Integer.parseInt(txt_cantidad.getText())<Integer.parseInt(txt_stock.getText())) {
-        int total = 0;
-        int pos = -1;
-        //buscamos si hay codigos repeditos guardar la posicion
-        for (int fila = 0; fila < grilla.getRowCount(); fila++) {
-            if (grilla.getValueAt(fila, 0).toString().equals(txt_cod_arti.getText().trim())) {
-                pos = fila;
-                break;
-            }
-        }
 
-        if (pos >= 0) {
-            grilla.setValueAt(Integer.parseInt(txt_cantidad.getText()) + (Integer.parseInt(grilla.getValueAt(pos, 2).toString())), pos, 2);
-            if ((int) (Integer.parseInt(grilla.getValueAt(pos, 5).toString())) > 0) {
-                grilla.setValueAt((int) ((Integer.parseInt(grilla.getValueAt(pos, 2).toString()) * Integer.parseInt(grilla.getValueAt(pos, 3).toString())) * 0.21), pos, 5);
-            } else if ((int) (Integer.parseInt(grilla.getValueAt(pos, 6).toString())) > 0) {
-                grilla.setValueAt((int) ((Integer.parseInt(grilla.getValueAt(pos, 2).toString()) * Integer.parseInt(grilla.getValueAt(pos, 3).toString())) * 0.11), pos, 6);
-            }
+        if (label_info.getText().equals("Articulos")) {
 
-            grilla.setValueAt(Integer.parseInt(grilla.getValueAt(pos, 2).toString()) * Integer.parseInt(grilla.getValueAt(pos, 3).toString()), pos, 7);
-//             txtCodArti.setText("");
-//             txtArti.setText("");
-//             txtCantidad.setText("");
-//             txtPrecio.setText("");
-//             txtArti.requestFocus();
+            if (txt_cantidad.getText().trim().equals("")) {
+                JOptionPane.showMessageDialog(null, "Debe cargar una cantidad");
+                return;
+            } else if (Integer.parseInt(txt_cantidad.getText()) > Integer.parseInt(txt_stock.getText())) {
+                JOptionPane.showMessageDialog(null, "No puede cargar una cantidad mayor al stock disponible");
+                return;
+            } else if (Integer.parseInt(txt_cantidad.getText()) < Integer.parseInt(txt_stock.getText())) {
+                int total = 0;
+                int pos = -1;
+                //buscamos si hay codigos repeditos guardar la posicion
+                for (int fila = 0; fila < grilla.getRowCount(); fila++) {
+                    if (grilla.getValueAt(fila, 0).toString().equals(txt_cod_arti.getText().trim())) {
+                        pos = fila;
+                        break;
+                    }
+                }
+
+                if (pos >= 0) {
+                    grilla.setValueAt(Integer.parseInt(txt_cantidad.getText()) + (Integer.parseInt(grilla.getValueAt(pos, 2).toString())), pos, 2);
+                    if ((int) (Integer.parseInt(grilla.getValueAt(pos, 5).toString())) > 0) {
+                        grilla.setValueAt((int) ((Integer.parseInt(grilla.getValueAt(pos, 2).toString()) * Integer.parseInt(grilla.getValueAt(pos, 3).toString())) * 0.21), pos, 5);
+                    } else if ((int) (Integer.parseInt(grilla.getValueAt(pos, 6).toString())) > 0) {
+                        grilla.setValueAt((int) ((Integer.parseInt(grilla.getValueAt(pos, 2).toString()) * Integer.parseInt(grilla.getValueAt(pos, 3).toString())) * 0.11), pos, 6);
+                    }
+
+                    grilla.setValueAt(Integer.parseInt(grilla.getValueAt(pos, 2).toString()) * Integer.parseInt(grilla.getValueAt(pos, 3).toString()), pos, 7);
+                    //             txtCodArti.setText("");
+                    //             txtArti.setText("");
+                    //             txtCantidad.setText("");
+                    //             txtPrecio.setText("");
+                    //             txtArti.requestFocus();
+
+                    ventas.txt_iva5.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5)));
+                    ventas.txt_iva10.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 6)));
+                    ventas.txt_to_iva.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5) + Metodos.sumarColumna(ventas.grilla, 6)));
+                    ventas.txtTotal.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5) + Metodos.sumarColumna(ventas.grilla, 6) + Metodos.sumarColumna(ventas.grilla, 7)));
+
+                    //JOptionPane.showMessageDialog(null, "ya hay");
+                } else {
+                    String codigoEnRenglon = txt_cod_arti.getText();
+                    if (traerIva(txt_cod_arti.getText()).equals("5")) {
+                        Metodos.cargarTabla(grilla, new Object[]{
+                            txt_cod_arti.getText().trim(),
+                            txt_arti.getText().trim(),
+                            txt_cantidad.getText().trim(),
+                            txt_precio.getText().trim(),
+                            (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                            (int) (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim()) * 0.21),
+                            (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                            Integer.parseInt(txt_cantidad.getText()) * Integer.parseInt(txt_precio.getText()),
+                            label_info.getText()
+                        });
+
+                    } else if (traerIva(txt_cod_arti.getText()).equals("10")) {
+                        Metodos.cargarTabla(grilla, new Object[]{
+                            txt_cod_arti.getText().trim(),
+                            txt_arti.getText().trim(),
+                            txt_cantidad.getText().trim(),
+                            txt_precio.getText().trim(),
+                            (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                            (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                            (int) (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim()) * 0.11),
+                            Integer.parseInt(txt_cantidad.getText()) * Integer.parseInt(txt_precio.getText()),
+                            label_info.getText()
+                        });
+
+                    } else if (traerIva(txt_cod_arti.getText()).equals("0")) {
+                        Metodos.cargarTabla(grilla, new Object[]{
+                            txt_cod_arti.getText().trim(),
+                            txt_arti.getText().trim(),
+                            txt_cantidad.getText().trim(),
+                            txt_precio.getText().trim(),
+                            (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                            (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                            (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                            Integer.parseInt(txt_cantidad.getText()) * Integer.parseInt(txt_precio.getText()),
+                            label_info.getText()
+                        });
+
+                    }
+
+                }
+            }
+            ventas.txt_iva5.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5)));
+            ventas.txt_iva10.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 6)));
+            ventas.txt_to_iva.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5) + Metodos.sumarColumna(ventas.grilla, 6)));
+            ventas.txtTotal.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 7)));
+        } else {
+            Metodos.cargarTabla(grilla, new Object[]{
+                txt_cod_arti.getText().trim(),
+                txt_arti.getText().trim(),
+                txt_cantidad.getText().trim(),
+                txt_precio.getText().trim(),
+                (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
+                (int) (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim()) * 0.11),
+                Integer.parseInt(txt_cantidad.getText()) * Integer.parseInt(txt_precio.getText()),
+                label_info.getText()
+            });
 
             ventas.txt_iva5.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5)));
             ventas.txt_iva10.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 6)));
             ventas.txt_to_iva.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5) + Metodos.sumarColumna(ventas.grilla, 6)));
-            ventas.txtTotal.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5) + Metodos.sumarColumna(ventas.grilla, 6) + Metodos.sumarColumna(ventas.grilla, 7)));
+            ventas.txtTotal.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 7)));
 
-            //JOptionPane.showMessageDialog(null, "ya hay");
-        } else {
-            String codigoEnRenglon = txt_cod_arti.getText();
-            if (traerIva(txt_cod_arti.getText()).equals("5") ) {
-                Metodos.cargarTabla(grilla, new Object[]{
-                    txt_cod_arti.getText().trim(),
-                    txt_arti.getText().trim(),
-                    txt_cantidad.getText().trim(),
-                    txt_precio.getText().trim(),
-                    (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
-                    (int) (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim()) * 0.21),
-                    (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
-                    Integer.parseInt(txt_cantidad.getText()) * Integer.parseInt(txt_precio.getText())
-                });
-                
-
-            } else if (traerIva(txt_cod_arti.getText()).equals("10") ) {
-                Metodos.cargarTabla(grilla, new Object[]{
-                    txt_cod_arti.getText().trim(),
-                    txt_arti.getText().trim(),
-                    txt_cantidad.getText().trim(),
-                    txt_precio.getText().trim(),
-                    (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
-                    (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
-                    (int) (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim()) * 0.11),
-                    Integer.parseInt(txt_cantidad.getText()) * Integer.parseInt(txt_precio.getText())
-                });
-
-            } else if (traerIva(txt_cod_arti.getText()).equals("0") ) {
-                Metodos.cargarTabla(grilla, new Object[]{
-                    txt_cod_arti.getText().trim(),
-                    txt_arti.getText().trim(),
-                    txt_cantidad.getText().trim(),
-                    txt_precio.getText().trim(),
-                    (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
-                    (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
-                    (Integer.parseInt(txt_cantidad.getText().trim()) * Integer.parseInt(txt_precio.getText().trim())) * 0,
-                    Integer.parseInt(txt_cantidad.getText()) * Integer.parseInt(txt_precio.getText())
-                });
-
-            }
-
-        }
-
-        ventas.txt_iva5.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5)));
-        ventas.txt_iva10.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 6)));
-        ventas.txt_to_iva.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5) + Metodos.sumarColumna(ventas.grilla, 6)));
-        ventas.txtTotal.setText(String.valueOf(Metodos.sumarColumna(ventas.grilla, 5) + Metodos.sumarColumna(ventas.grilla, 6) + Metodos.sumarColumna(ventas.grilla, 7)));
-
-        txt_cod_arti.setText("");
-        txt_arti.setText("");
-        txt_cantidad.setText("");
-        txt_precio.setText("");
-        txt_arti.requestFocus();
+            txt_cod_arti.setText("");
+            txt_arti.setText("");
+            txt_cantidad.setText("");
+            txt_precio.setText("");
+            txt_arti.requestFocus();
         }
     }//GEN-LAST:event_txt_cantidadActionPerformed
 
@@ -1276,7 +1296,7 @@ public class ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodKeyPressed
 
     private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
-      chx_contado.requestFocus();
+        chx_contado.requestFocus();
     }//GEN-LAST:event_txtClienteActionPerformed
 
     private void txtClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteKeyPressed
@@ -1292,11 +1312,11 @@ public class ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_stockActionPerformed
 
     private void tipo_venta_lstItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipo_venta_lstItemStateChanged
-        if(tipo_venta_lst.getSelectedIndex() == 0){
+        if (tipo_venta_lst.getSelectedIndex() == 0) {
             label_info.setText("Articulos");
-        }else{
+        } else {
             label_info.setText("Servicios");
-            
+
         }
     }//GEN-LAST:event_tipo_venta_lstItemStateChanged
 
@@ -1308,10 +1328,10 @@ public class ventas extends javax.swing.JFrame {
         try {
             Conexion cn = new Conexion();
             cn.conectar();
-            ResultSet ivaa = cn.consultar("select iva from materia_prima where cod_materia = " + cod);
+            ResultSet ivaa = cn.consultar("select pro_iva from producto where pro_cod = " + cod);
             if (ivaa.isBeforeFirst()) {
                 while (ivaa.next()) {
-                    String iva = ivaa.getString("iva");
+                    String iva = ivaa.getString("pro_iva");
                     return iva;
                 }
             } else {
@@ -1348,12 +1368,13 @@ public class ventas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
+
     public void traerStockDePoducto() {
         Conexion cn = new Conexion();
 
         try {
             cn.conectar();
-            ResultSet stock = cn.consultar("select * from v_stock_producto where cod_depo = " + dameDepositoDesc()+" and sucur_id = "+idSucursal+" and pro_cod = "+txt_cod_arti.getText()); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
+            ResultSet stock = cn.consultar("select * from v_stock_producto where cod_depo = " + dameDepositoDesc() + " and sucur_id = " + idSucursal + " and pro_cod = " + txt_cod_arti.getText()); //order by ordena de menor a mayor, si se quiere de mayor a menor se le agrega desc al final
 
             if (stock.isBeforeFirst()) {
                 while (stock.next()) {
@@ -1370,52 +1391,53 @@ public class ventas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
- 
-    private String dameDepositoDesc(){
+
+    private String dameDepositoDesc() {
         try {
             Conexion cn = new Conexion();
             cn.conectar();
-            ResultSet detalles = cn.consultar("select * from v_deposito where depo_desc =  '"+cmbDeposito.getSelectedItem().toString()+"'");
+            ResultSet detalles = cn.consultar("select * from v_deposito where depo_desc =  '" + cmbDeposito.getSelectedItem().toString() + "'");
 
             if (detalles.isBeforeFirst()) {
-                
-                while (detalles.next()) {   
+
+                while (detalles.next()) {
                     String depositoCod = detalles.getString("cod_depo");
                     return depositoCod;
                 }
-             }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return "";
-         
+        return "";
+
     }
-    private String dameCedulaCliente(){
+
+    private String dameCedulaCliente() {
         try {
             Conexion cn = new Conexion();
             cn.conectar();
-            ResultSet detalles = cn.consultar("select * from cliente where cli_cod =  "+txtCodCliente.getText()+"");
+            ResultSet detalles = cn.consultar("select * from cliente where cli_cod =  " + txtCodCliente.getText() + "");
 
             if (detalles.isBeforeFirst()) {
-                
-                while (detalles.next()) {   
+
+                while (detalles.next()) {
                     String depositoCod = detalles.getString("cli_ci");
                     return depositoCod;
                 }
-             }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return "";
-         
+        return "";
+
     }
 
-   public void llamarTimbrado(){
-       Conexion cn = new Conexion();
+    public void llamarTimbrado() {
+        Conexion cn = new Conexion();
 
         try {
             cn.conectar();
@@ -1439,8 +1461,8 @@ public class ventas extends javax.swing.JFrame {
             Logger.getLogger(cajas.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-   }
- 
+    }
+
 //   public void cargarDepositos(){
 //       Conexion cn = new Conexion();
 //
@@ -1463,34 +1485,29 @@ public class ventas extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(null, ex.getMessage());
 //        }
 //   }
-    
-   
-   
-   
-    private String dameDepositoId(){
-           String nn ="";
-           String cod="";
+    private String dameDepositoId() {
+        String nn = "";
+        String cod = "";
         try {
             Conexion cn = new Conexion();
             cn.conectar();
-            nn="select * from deposito where depo_desc =  '"+cmbDeposito.getSelectedItem().toString()+"'";
+            nn = "select * from deposito where depo_desc =  '" + cmbDeposito.getSelectedItem().toString() + "'";
             ResultSet detalles = cn.consultar(nn);
             if (detalles.isBeforeFirst()) {
-                while (detalles.next()) { 
-                    cod=detalles.getString("cod_depo");
+                while (detalles.next()) {
+                    cod = detalles.getString("cod_depo");
                     return cod;
                 }
-             }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(busPedidoCompra.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return "";
-         
+        return "";
+
     }
-   
-    
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -1559,7 +1576,7 @@ public class ventas extends javax.swing.JFrame {
     public static javax.swing.JTextField txt_iva10;
     public static javax.swing.JTextField txt_iva5;
     private javax.swing.JTextField txt_nro_timbrado;
-    private javax.swing.JTextField txt_precio;
+    public static javax.swing.JTextField txt_precio;
     private javax.swing.JTextField txt_ruc;
     private javax.swing.JTextField txt_stock;
     public static javax.swing.JTextField txt_to_iva;

@@ -16,7 +16,7 @@ c.cli_nomb||' '||c.cli_apelli as cliente,
 c.cli_ruc,
 v.ven_tipo,
 vd.det_cantidad,
-p.pro_desc,
+CASE WHEN vd.pro_cod <> 0 THEN p.pro_desc ELSE tp.descri_tipotrabajo  END as pro_desc,
 vd.de_monto,
 CASE WHEN vd.exenta::CHARACTER = '0' THEN '' ELSE (vd.exenta )::CHARACTER(20) END as exenta_p,
 CASE WHEN vd.grav_5::CHARACTER = '0' THEN '' ELSE (round((vd.grav_5 / 0.21)+vd.grav_5) )::CHARACTER(20) END as grav_5_p,
@@ -32,8 +32,10 @@ JOIN cliente c
 ON c.cli_cod = v.cli_cod
 JOIN detalle_venta vd 
 ON vd.ventas_id = v.ventas_id
-JOIN producto p
+LEFT JOIN producto p
 ON p.pro_cod = vd.pro_cod
+LEFT JOIN tipos_trabajos tp
+ON tp.id_tipo_trabajo =  vd.id_tipo_trabajo
 WHERE v.ventas_id =  $P{id_venta}
 group by 
 v.ventas_id,
@@ -45,9 +47,10 @@ v.ven_tipo,
 vd.det_cantidad,
 p.pro_desc,
 vd.de_monto,
+CASE WHEN vd.pro_cod <> 0 THEN p.pro_desc ELSE tp.descri_tipotrabajo  END ,
 CASE WHEN vd.exenta::CHARACTER = '0' THEN '' ELSE (vd.exenta )::CHARACTER(20) END ,
 CASE WHEN vd.grav_5::CHARACTER = '0' THEN '' ELSE (round((vd.grav_5 / 0.21)+vd.grav_5) )::CHARACTER(20) END ,
-CASE WHEN vd.grav_10::CHARACTER = '0' THEN '' ELSE (round((vd.grav_10  / 0.11)+vd.grav_10))::CHARACTER(20) END ]]>
+CASE WHEN vd.grav_10::CHARACTER = '0' THEN '' ELSE (round((vd.grav_10  / 0.11)+vd.grav_10))::CHARACTER(20) END]]>
 	</queryString>
 	<field name="ventas_id" class="java.lang.Integer"/>
 	<field name="ven_fecha" class="java.sql.Date"/>
@@ -105,15 +108,15 @@ CASE WHEN vd.grav_10::CHARACTER = '0' THEN '' ELSE (round((vd.grav_10  / 0.11)+v
 				<reportElement x="0" y="0" width="389" height="90" uuid="d175eef4-eea7-4d24-829f-7a14bb3e52c4"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="148" y="5" width="227" height="20" uuid="59b4416a-1a05-4db4-9098-540471e08f78"/>
+				<reportElement x="38" y="5" width="227" height="20" uuid="59b4416a-1a05-4db4-9098-540471e08f78"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Itauguá km 30 - CASA CENTRAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="148" y="25" width="227" height="49" uuid="e9335e28-9afe-44d9-bd96-b5abc4d15c35"/>
-				<text><![CDATA[Tel.: (0294) 321 548 - Celular : +59597112012 - Web: gopy.com ]]></text>
+				<reportElement x="38" y="25" width="227" height="49" uuid="e9335e28-9afe-44d9-bd96-b5abc4d15c35"/>
+				<text><![CDATA[Tel.: (0294) 321 548 - Celular : +59597112012 - Web: CRHIS.COM.PY]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="389" y="0" width="166" height="90" uuid="b7377f41-9312-486a-996d-1b7fdb9a616e"/>
@@ -247,10 +250,6 @@ CASE WHEN vd.grav_10::CHARACTER = '0' THEN '' ELSE (round((vd.grav_10  / 0.11)+v
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[10%]]></text>
 			</staticText>
-			<image>
-				<reportElement x="4" y="5" width="134" height="74" uuid="57bbdb73-edcb-4613-8b68-7a7f02cd071e"/>
-				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<detail>

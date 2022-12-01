@@ -35,7 +35,7 @@ import static ventanas.pedido_de_compra.txtCodArti;
 import static ventanas.pedido_de_compra.txtDescri;
 import static ventanas.pedido_de_compra.txtFecha;
 
-public class presupuesto_produccion extends javax.swing.JFrame {
+public class presupuesto_venta extends javax.swing.JFrame {
 
     javax.swing.table.DefaultTableModel cursor;
 
@@ -43,13 +43,13 @@ public class presupuesto_produccion extends javax.swing.JFrame {
     String mensaje = "";
     String confirmar = "";
 
-    public presupuesto_produccion() {
+    public presupuesto_venta() {
         initComponents();
         iniciarComponentes();
-        pernom1.setText(Menu.empleado);
-        codper.setText(Menu.idEmpleado);
-        su1.setText(Menu.Sucursal);
-        su2.setText(Menu.idSucursal);
+        txtUsuario.setText(Menu.empleado);
+        txtCodUsuario.setText(Menu.idEmpleado);
+        txtSucu.setText(Menu.Sucursal);
+        idSucursal.setText(Menu.idSucursal);
 
     }
 
@@ -90,11 +90,11 @@ public class presupuesto_produccion extends javax.swing.JFrame {
         borrar = new javax.swing.JButton();
         txtfecha = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
-        pernom1 = new javax.swing.JLabel();
-        codper = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JLabel();
+        txtCodUsuario = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        su1 = new javax.swing.JLabel();
-        su2 = new javax.swing.JLabel();
+        txtSucu = new javax.swing.JLabel();
+        idSucursal = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         cod_pedido = new javax.swing.JTextField();
 
@@ -438,16 +438,16 @@ public class presupuesto_produccion extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setText("Usuario:");
 
-        pernom1.setText("nom");
+        txtUsuario.setText("nom");
 
-        codper.setText("codper");
+        txtCodUsuario.setText("codper");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setText("Sucursal:");
 
-        su1.setText("nom");
+        txtSucu.setText("nom");
 
-        su2.setText("codper");
+        idSucursal.setText("codper");
 
         jLabel14.setFont(new java.awt.Font("Tempus Sans ITC", 1, 14)); // NOI18N
         jLabel14.setText("Pedido");
@@ -507,15 +507,15 @@ public class presupuesto_produccion extends javax.swing.JFrame {
                                 .addGap(3, 3, 3)
                                 .addComponent(jLabel13)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(su1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtSucu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addGap(18, 18, 18)
-                                .addComponent(pernom1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(codper, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(su2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCodUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -534,17 +534,17 @@ public class presupuesto_produccion extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(codper)
+                                    .addComponent(txtCodUsuario)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(su2))
+                                    .addComponent(idSucursal))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel12)
-                                        .addComponent(pernom1))
+                                        .addComponent(txtUsuario))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jLabel13)
-                                        .addComponent(su1)))))
+                                        .addComponent(txtSucu)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
@@ -979,7 +979,7 @@ public class presupuesto_produccion extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new presupuesto_produccion().setVisible(true);
+                new presupuesto_venta().setVisible(true);
             }
         });
     }
@@ -997,9 +997,9 @@ public class presupuesto_produccion extends javax.swing.JFrame {
     public static javax.swing.JTextField cliente;
     public static javax.swing.JTextField cod_art;
     public static javax.swing.JTextField cod_pedido;
-    private javax.swing.JLabel codper;
     private javax.swing.JButton grabar;
     private javax.swing.JTable grilla;
+    public static javax.swing.JLabel idSucursal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1015,11 +1015,11 @@ public class presupuesto_produccion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton nuevo;
     public static javax.swing.JTextField num;
-    private javax.swing.JLabel pernom1;
     private javax.swing.JButton salir;
-    private javax.swing.JLabel su1;
-    private javax.swing.JLabel su2;
     private javax.swing.JTextField textotal;
+    public static javax.swing.JLabel txtCodUsuario;
+    public static javax.swing.JLabel txtSucu;
+    public static javax.swing.JLabel txtUsuario;
     private com.toedter.calendar.JDateChooser txtfecha;
     // End of variables declaration//GEN-END:variables
 
